@@ -79,6 +79,7 @@ body,.navbar,.rack-frame,.travel-clone,.hero,.hero-grid-lines,.lightbox,.mobile-
 }
 
 *,*::before,*::after{box-sizing:border-box;}
+[hidden]{display:none !important;}
 html{scroll-behavior:smooth;}
 @media (prefers-reduced-motion: reduce){
   html{scroll-behavior:auto;}
@@ -598,8 +599,9 @@ h1,h2,h3{font-family:var(--font-display);text-transform:uppercase;letter-spacing
 
 .contact-form{
   background:var(--charcoal);border:1px solid var(--graphite);padding:40px;
-  display:flex;flex-direction:column;gap:20px;position:relative;
+  display:flex;flex-direction:column;gap:20px;position:relative;z-index:2;
 }
+.contact-form input,.contact-form select,.contact-form textarea,.contact-form button{pointer-events:auto;}
 .form-row{display:flex;flex-direction:column;gap:8px;}
 .form-row label{font-family:var(--font-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--steel-light);}
 .form-row input,.form-row select,.form-row textarea{

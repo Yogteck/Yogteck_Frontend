@@ -1,0 +1,482 @@
+<!-- Scroll progress indicator -->
+<div class="scroll-progress" aria-hidden="true"><span id="scrollProgressBar"></span></div>
+
+<!-- ============ NAVIGATION ============ -->
+<nav class="navbar" id="navbar">
+  <div class="nav-inner">
+    <a href="#hero" class="nav-brand">
+      <span class="brand-mark">YT</span>
+      <span class="brand-text">YogTeck</span>
+    </a>
+
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#hero" class="nav-link active" data-section="hero">Home</a></li>
+      <li><a href="#about" class="nav-link" data-section="about">About Us</a></li>
+      <li><a href="#racks" class="nav-link" data-section="racks">Rack Solutions</a></li>
+      <li><a href="#projects" class="nav-link" data-section="projects">Our Projects</a></li>
+      <li><a href="#team" class="nav-link" data-section="team">Our Team</a></li>
+      <li><a href="#projects" class="nav-link" data-section="projects">Gallery</a></li>
+      <li><a href="#contact" class="nav-link" data-section="contact">Contact Details</a></li>
+    </ul>
+
+    <a href="#contact" class="nav-cta">Enquire Now</a>
+
+    <button class="theme-toggle" id="themeToggle" aria-label="Switch to light mode" aria-pressed="false">
+      <svg class="icon-sun" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <circle cx="12" cy="12" r="4.2" stroke="currentColor" stroke-width="1.4"/>
+        <g stroke="currentColor" stroke-width="1.4" stroke-linecap="round">
+          <line x1="12" y1="1.6" x2="12" y2="4.4"/>
+          <line x1="12" y1="19.6" x2="12" y2="22.4"/>
+          <line x1="1.6" y1="12" x2="4.4" y2="12"/>
+          <line x1="19.6" y1="12" x2="22.4" y2="12"/>
+          <line x1="4.4" y1="4.4" x2="6.3" y2="6.3"/>
+          <line x1="17.7" y1="17.7" x2="19.6" y2="19.6"/>
+          <line x1="4.4" y1="19.6" x2="6.3" y2="17.7"/>
+          <line x1="17.7" y1="6.3" x2="19.6" y2="4.4"/>
+        </g>
+      </svg>
+      <svg class="icon-moon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M20.5 14.5A8.5 8.5 0 1 1 9.5 3.5a7 7 0 0 0 11 11z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>
+      </svg>
+    </button>
+
+    <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <ul class="mobile-links">
+      <li><a href="#hero" data-section="hero">Home</a></li>
+      <li><a href="#about" data-section="about">About Us</a></li>
+      <li><a href="#racks" data-section="racks">Rack Solutions</a></li>
+      <li><a href="#projects" data-section="projects">Our Projects</a></li>
+      <li><a href="#team" data-section="team">Our Team</a></li>
+      <li><a href="#projects" data-section="projects">Gallery</a></li>
+      <li><a href="#contact" data-section="contact">Contact Details</a></li>
+    </ul>
+    <a href="#contact" class="mobile-cta">Enquire Now</a>
+
+    <button class="theme-toggle theme-toggle-mobile" id="themeToggleMobile" aria-label="Switch to light mode" aria-pressed="false">
+      <svg class="icon-sun" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <circle cx="12" cy="12" r="4.2" stroke="currentColor" stroke-width="1.4"/>
+        <g stroke="currentColor" stroke-width="1.4" stroke-linecap="round">
+          <line x1="12" y1="1.6" x2="12" y2="4.4"/>
+          <line x1="12" y1="19.6" x2="12" y2="22.4"/>
+          <line x1="1.6" y1="12" x2="4.4" y2="12"/>
+          <line x1="19.6" y1="12" x2="22.4" y2="12"/>
+          <line x1="4.4" y1="4.4" x2="6.3" y2="6.3"/>
+          <line x1="17.7" y1="17.7" x2="19.6" y2="19.6"/>
+          <line x1="4.4" y1="19.6" x2="6.3" y2="17.7"/>
+          <line x1="17.7" y1="6.3" x2="19.6" y2="4.4"/>
+        </g>
+      </svg>
+      <svg class="icon-moon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M20.5 14.5A8.5 8.5 0 1 1 9.5 3.5a7 7 0 0 0 11 11z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>
+      </svg>
+      <span class="theme-toggle-label">Light mode</span>
+    </button>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<header class="hero" id="hero">
+  <div class="hero-grid-lines" aria-hidden="true"></div>
+  <div class="hero-glow" id="heroGlow" aria-hidden="true"></div>
+
+  <div class="hero-inner">
+    <div class="hero-content">
+      <p class="eyebrow"><span class="eyebrow-line"></span>Retail Rack Engineering</p>
+      <h1 class="hero-title">Smart Rack Solutions<br>for Modern <span class="text-amber">Retail Spaces</span></h1>
+      <p class="hero-desc">Professional wall rack and retail display solutions for malls, supermarkets, showrooms, garment stores and shopping spaces.</p>
+      <p class="hero-parent">YogTeck — A Company of <strong>Yogkart Healthcare Private Limited</strong></p>
+
+      <div class="hero-ctas">
+        <a href="#racks" class="btn btn-primary">Explore Rack Solutions</a>
+        <a href="#projects" class="btn btn-ghost">View Our Projects</a>
+        <a href="#contact" class="btn btn-text">Contact YogTeck <span aria-hidden="true">&rarr;</span></a>
+      </div>
+    </div>
+
+    <!-- Rack collection: hero source nodes. Each becomes the travelling element. -->
+    <div class="hero-visual" id="heroVisual">
+      <div class="hero-showroom">
+        <img src="assets/img/hero-rack-showroom.png" alt="YogTeck smart rack showroom display with lit wall racks and garments">
+      </div>
+
+      <div class="hero-hub" aria-hidden="true">
+        <span class="hub-ring ring-1"></span>
+        <span class="hub-ring ring-2"></span>
+        <span class="hub-mark">YT</span>
+      </div>
+
+      <div class="rack-node node-wall"    data-rack="wall"    style="--depth:1;">
+        <div class="rack-frame" data-source="wall"></div>
+        <span class="rack-tag">Wall Display</span>
+      </div>
+      <div class="rack-node node-garment" data-rack="garment" style="--depth:2;">
+        <div class="rack-frame" data-source="garment"></div>
+        <span class="rack-tag">Garment Rack</span>
+      </div>
+      <div class="rack-node node-gondola" data-rack="gondola" style="--depth:3;">
+        <div class="rack-frame" data-source="gondola"></div>
+        <span class="rack-tag">Gondola</span>
+      </div>
+      <div class="rack-node node-corner"  data-rack="corner"  style="--depth:1;">
+        <div class="rack-frame" data-source="corner"></div>
+        <span class="rack-tag">Corner Rack</span>
+      </div>
+      <div class="rack-node node-heavy"   data-rack="heavy"   style="--depth:2;">
+        <div class="rack-frame" data-source="heavy"></div>
+        <span class="rack-tag">Heavy-Duty</span>
+      </div>
+      <div class="rack-node node-custom"  data-rack="custom"  style="--depth:3;">
+        <div class="rack-frame" data-source="custom"></div>
+        <span class="rack-tag">Custom Build</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="scroll-cue" aria-hidden="true"><span></span>Scroll</div>
+</header>
+
+<!-- Absolute overlay the travelling clones animate through -->
+<div class="transition-layer" id="transitionLayer" aria-hidden="true"></div>
+
+<main id="racks">
+
+  <!-- ============ RACK 1 — WALL DISPLAY ============ -->
+  <section class="rack-section" id="rack-wall" data-rack-section="wall">
+    <div class="rack-section-inner layout-text-left">
+      <div class="rack-copy">
+        <p class="section-eyebrow">01 — Rack Solutions</p>
+        <h2 class="section-title">Wall Display Racks</h2>
+        <p class="section-lead">Designed for maximum wall-space utilization across retail stores and supermarkets, with clean, organized merchandise presentation.</p>
+        <ul class="feature-list">
+          <li>Maximizes usable wall-space in compact stores</li>
+          <li>Customizable shelf configurations per category</li>
+          <li>Professional site measurement and installation</li>
+          <li>Clean, organized merchandise display</li>
+        </ul>
+        <p class="suitable-for"><span>Suitable for:</span> Retail stores, supermarkets, pharmacies, convenience outlets</p>
+        <a href="#contact" class="btn btn-outline">Enquire About Wall Racks</a>
+      </div>
+      <div class="rack-visual">
+        <div class="rack-stage" data-target="wall">
+          <div class="stage-glow" aria-hidden="true"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ RACK 2 — GARMENT ============ -->
+  <section class="rack-section" id="rack-garment" data-rack-section="garment">
+    <div class="rack-section-inner layout-text-right">
+      <div class="rack-visual">
+        <div class="rack-stage" data-target="garment">
+          <div class="stage-glow" aria-hidden="true"></div>
+        </div>
+      </div>
+      <div class="rack-copy">
+        <p class="section-eyebrow">02 — Rack Solutions</p>
+        <h2 class="section-title">Garment Display Racks</h2>
+        <p class="section-lead">Built for garment stores and fashion showrooms that need organized, space-efficient clothing display without compromising presentation.</p>
+        <ul class="feature-list">
+          <li>Suitable for garment stores and fashion showrooms</li>
+          <li>Organized, category-wise clothing display</li>
+          <li>Modern retail presentation</li>
+          <li>Custom configuration options</li>
+        </ul>
+        <p class="suitable-for"><span>Suitable for:</span> Garment stores, boutiques, fashion showrooms</p>
+        <a href="#contact" class="btn btn-outline">Enquire About Garment Racks</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ RACK 3 — GONDOLA ============ -->
+  <section class="rack-section" id="rack-gondola" data-rack-section="gondola">
+    <div class="rack-section-inner layout-text-left">
+      <div class="rack-copy">
+        <p class="section-eyebrow">03 — Rack Solutions</p>
+        <h2 class="section-title">Supermarket Gondola Racks</h2>
+        <p class="section-lead">Center-floor, double-sided rack structures that maximize product visibility across supermarkets and departmental stores.</p>
+        <ul class="feature-list">
+          <li>Center-floor merchandise display</li>
+          <li>Double-sided rack structure</li>
+          <li>Suitable for supermarkets and departmental stores</li>
+          <li>Flexible shelf configuration for better product visibility</li>
+        </ul>
+        <p class="suitable-for"><span>Suitable for:</span> Supermarkets, hypermarkets, departmental stores</p>
+        <a href="#contact" class="btn btn-outline">Enquire About Gondola Racks</a>
+      </div>
+      <div class="rack-visual">
+        <div class="rack-stage" data-target="gondola">
+          <div class="stage-glow" aria-hidden="true"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ RACK 4 — CORNER (fullscreen overlay style) ============ -->
+  <section class="rack-section rack-fullscreen" id="rack-corner" data-rack-section="corner">
+    <div class="rack-stage rack-stage-fullscreen" data-target="corner">
+      <div class="stage-glow" aria-hidden="true"></div>
+    </div>
+    <div class="fullscreen-overlay">
+      <p class="section-eyebrow">04 — Rack Solutions</p>
+      <h2 class="section-title">Corner Rack Solutions</h2>
+      <p class="section-lead">Purpose-shaped units that turn awkward corner space into functional, organized display area.</p>
+      <p class="suitable-for"><span>Suitable for:</span> Corner units in supermarkets, showrooms, malls</p>
+      <a href="#contact" class="btn btn-outline">Enquire About Corner Racks</a>
+    </div>
+  </section>
+
+  <!-- ============ RACK 5 — HEAVY DUTY ============ -->
+  <section class="rack-section" id="rack-heavy" data-rack-section="heavy">
+    <div class="rack-section-inner layout-text-right">
+      <div class="rack-visual">
+        <div class="rack-stage" data-target="heavy">
+          <div class="stage-glow" aria-hidden="true"></div>
+        </div>
+      </div>
+      <div class="rack-copy">
+        <p class="section-eyebrow">05 — Rack Solutions</p>
+        <h2 class="section-title">Heavy-Duty Storage Racks</h2>
+        <p class="section-lead">Reinforced storage structures built for backrooms, warehouses and bulk-stock areas that need to hold serious weight.</p>
+        <ul class="feature-list">
+          <li>Reinforced load-bearing structure</li>
+          <li>Suitable for warehouses and bulk storage backrooms</li>
+          <li>Configurable bay widths and heights</li>
+          <li>Professional installation and safety checks</li>
+        </ul>
+        <p class="suitable-for"><span>Suitable for:</span> Warehouses, storerooms, bulk-stock backrooms</p>
+        <a href="#contact" class="btn btn-outline">Enquire About Heavy-Duty Racks</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ RACK 6 — CUSTOM (cinematic horizontal band) ============ -->
+  <section class="rack-section rack-band" id="rack-custom" data-rack-section="custom">
+    <div class="rack-band-inner">
+      <div class="rack-visual">
+        <div class="rack-stage" data-target="custom">
+          <div class="stage-glow" aria-hidden="true"></div>
+        </div>
+      </div>
+      <div class="rack-copy">
+        <p class="section-eyebrow">06 — Rack Solutions</p>
+        <h2 class="section-title">Custom Retail Display Racks</h2>
+        <p class="section-lead">When a standard configuration won't fit the space, we design and build a rack system around your store's exact layout and brand.</p>
+        <p class="suitable-for"><span>Suitable for:</span> Any retail space with non-standard layout or branding needs</p>
+        <a href="#contact" class="btn btn-outline">Discuss a Custom Rack</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ============ ABOUT ============ -->
+<section class="about" id="about">
+  <div class="about-bg-type" aria-hidden="true">YOGTECK</div>
+  <div class="about-inner">
+    <p class="section-eyebrow">About the Company</p>
+    <h2 class="section-title about-title">Built on organized <span class="text-amber">retail space.</span></h2>
+    <p class="about-copy">YogTeck provides professional rack installation and retail display solutions for malls, shopping stores, supermarkets, garment showrooms and modern commercial spaces. We focus on creating organized, functional and visually strong retail environments through dependable rack planning and installation.</p>
+    <div class="about-meta">
+      <div class="meta-block">
+        <span class="meta-label">Company</span>
+        <span class="meta-value">Yog Teck</span>
+      </div>
+      <div class="meta-block">
+        <span class="meta-label">Brand</span>
+        <span class="meta-value">YogTeck</span>
+      </div>
+      <div class="meta-block">
+        <span class="meta-label">Parent Company</span>
+        <span class="meta-value">Yogkart Healthcare Private Limited</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROCESS ============ -->
+<section class="process" id="process">
+  <div class="process-inner">
+    <p class="section-eyebrow">How We Work</p>
+    <h2 class="section-title">Our Process</h2>
+
+    <div class="process-track">
+      <div class="process-line" aria-hidden="true"><span class="process-line-fill" id="processLineFill"></span></div>
+
+      <div class="process-step" data-step="1">
+        <span class="step-index">01</span>
+        <h3 class="step-title">Site Visit &amp; Requirement Understanding</h3>
+        <p class="step-desc">We visit the location and understand the space, footfall and merchandising needs.</p>
+      </div>
+      <div class="process-step" data-step="2">
+        <span class="step-index">02</span>
+        <h3 class="step-title">Space &amp; Rack Planning</h3>
+        <p class="step-desc">Layout planning to make the most of available floor and wall space.</p>
+      </div>
+      <div class="process-step" data-step="3">
+        <span class="step-index">03</span>
+        <h3 class="step-title">Rack Design Selection</h3>
+        <p class="step-desc">Choosing the right rack type and configuration for the store category.</p>
+      </div>
+      <div class="process-step" data-step="4">
+        <span class="step-index">04</span>
+        <h3 class="step-title">Material &amp; Component Preparation</h3>
+        <p class="step-desc">Fabrication and preparation of all rack components ahead of installation.</p>
+      </div>
+      <div class="process-step" data-step="5">
+        <span class="step-index">05</span>
+        <h3 class="step-title">Professional Installation</h3>
+        <p class="step-desc">On-site assembly and installation by our trained rack installation team.</p>
+      </div>
+      <div class="process-step" data-step="6">
+        <span class="step-index">06</span>
+        <h3 class="step-title">Final Inspection &amp; Handover</h3>
+        <p class="step-desc">Quality check, safety verification and handover of the completed space.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROJECTS / GALLERY ============ -->
+<section class="projects" id="projects">
+  <div class="projects-inner">
+    <p class="section-eyebrow">Our Work</p>
+    <h2 class="section-title">Our Projects</h2>
+    <p class="section-lead projects-lead">A look at rack installations and reference layouts across our project categories. Items marked <em>Reference</em> illustrate a rack type rather than a completed site.</p>
+
+    <div class="project-filters" id="projectFilters">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="wall">Wall Racks</button>
+      <button class="filter-btn" data-filter="garment">Garment</button>
+      <button class="filter-btn" data-filter="gondola">Gondola</button>
+      <button class="filter-btn" data-filter="heavy">Heavy-Duty</button>
+    </div>
+
+    <div class="project-grid" id="galleryGrid">
+      <!-- populated by script.js, each item triggers lightbox -->
+    </div>
+  </div>
+</section>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Project preview" hidden>
+  <button class="lightbox-close" id="lightboxClose" aria-label="Close preview">&times;</button>
+  <button class="lightbox-nav lightbox-prev" id="lightboxPrev" aria-label="Previous image">&larr;</button>
+  <div class="lightbox-stage" id="lightboxStage"></div>
+  <button class="lightbox-nav lightbox-next" id="lightboxNext" aria-label="Next image">&rarr;</button>
+  <p class="lightbox-caption" id="lightboxCaption"></p>
+</div>
+
+<!-- ============ TEAM ============ -->
+<section class="team" id="team">
+  <div class="team-inner">
+    <p class="section-eyebrow">The People</p>
+    <h2 class="section-title">Our Team</h2>
+    <p class="section-lead">Team profiles will appear here as details are confirmed. Each card below is an editable placeholder.</p>
+
+    <div class="team-grid">
+      <div class="team-card">
+        <div class="team-photo placeholder-photo" aria-hidden="true"><span>Photo</span></div>
+        <h3 class="team-name">[ Team Member Name ]</h3>
+        <p class="team-role">[ Role / Designation ]</p>
+        <p class="team-desc">Short profile description to be added.</p>
+      </div>
+      <div class="team-card">
+        <div class="team-photo placeholder-photo" aria-hidden="true"><span>Photo</span></div>
+        <h3 class="team-name">[ Team Member Name ]</h3>
+        <p class="team-role">[ Role / Designation ]</p>
+        <p class="team-desc">Short profile description to be added.</p>
+      </div>
+      <div class="team-card">
+        <div class="team-photo placeholder-photo" aria-hidden="true"><span>Photo</span></div>
+        <h3 class="team-name">[ Team Member Name ]</h3>
+        <p class="team-role">[ Role / Designation ]</p>
+        <p class="team-desc">Short profile description to be added.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section class="contact" id="contact">
+  <div class="contact-inner">
+    <div class="contact-info">
+      <p class="section-eyebrow">Get In Touch</p>
+      <h2 class="section-title">Contact Details</h2>
+
+      <ul class="contact-list">
+        <li>
+          <span class="contact-label">Company</span>
+          <span class="contact-value">Yog Teck<br><small>A company of Yogkart Healthcare Private Limited</small></span>
+        </li>
+        <li>
+          <span class="contact-label">Address</span>
+          <span class="contact-value">302/2, Mangala Vihar Second, Shivari Mandir, Kanpur Nagar, Uttar Pradesh – 208015</span>
+        </li>
+        <li>
+          <span class="contact-label">Call</span>
+          <span class="contact-value"><a href="tel:+9191455704921">+91 91455 70492 1</a></span>
+        </li>
+        <li>
+          <span class="contact-label">Email</span>
+          <span class="contact-value"><a href="mailto:yogtech@gmail.com">yogtech&#64;gmail.com</a></span>
+        </li>
+      </ul>
+
+      <a href="https://www.google.com/maps/search/?api=1&query=Mangala+Vihar+Second+Shivari+Mandir+Kanpur+Nagar+Uttar+Pradesh+208015" target="_blank" rel="noopener" class="btn btn-outline">Visit Our Location</a>
+    </div>
+
+    <form class="contact-form" id="contactForm" novalidate>
+      <div class="form-row">
+        <label for="cf-name">Name</label>
+        <input type="text" id="cf-name" name="name" required>
+      </div>
+      <div class="form-row">
+        <label for="cf-phone">Phone</label>
+        <input type="tel" id="cf-phone" name="phone" required>
+      </div>
+      <div class="form-row">
+        <label for="cf-email">Email</label>
+        <input type="email" id="cf-email" name="email" required>
+      </div>
+      <div class="form-row">
+        <label for="cf-rack">Rack Type of Interest</label>
+        <select id="cf-rack" name="rackType">
+          <option value="">Select a rack type</option>
+          <option value="Wall Display Racks">Wall Display Racks</option>
+          <option value="Garment Display Racks">Garment Display Racks</option>
+          <option value="Supermarket Gondola Racks">Supermarket Gondola Racks</option>
+          <option value="Corner Rack Solutions">Corner Rack Solutions</option>
+          <option value="Heavy-Duty Storage Racks">Heavy-Duty Storage Racks</option>
+          <option value="Custom Retail Display Racks">Custom Retail Display Racks</option>
+        </select>
+      </div>
+      <div class="form-row">
+        <label for="cf-message">Message</label>
+        <textarea id="cf-message" name="message" rows="4" required></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary form-submit" id="contactSubmit">Send Enquiry</button>
+
+      <div class="form-success" id="formSuccess" hidden>
+        <span class="success-icon" aria-hidden="true">&#10003;</span>
+        <p>Thank you. Your enquiry has been received — our team will get back to you shortly.</p>
+      </div>
+    </form>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <span class="brand-mark">YT</span>
+      <span class="brand-text">YogTeck</span>
+    </div>
+    <p class="footer-note">A company of Yogkart Healthcare Private Limited</p>
+    <p class="footer-copy">&copy; <span id="footerYear"></span> YogTeck. All rights reserved.</p>
+  </div>
+</footer>

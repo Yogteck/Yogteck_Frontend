@@ -242,9 +242,22 @@ export class HomeComponent implements AfterViewInit, OnDestroy {
   /* ---------------------------------------------------------
      Navigation — transparent-to-solid, active link, smooth scroll
   --------------------------------------------------------- */
+  scrollToSection(event: Event, sectionId: string): void {
+    event.preventDefault();
+    if (!this.isBrowser) return;
+
+    const targetEl = document.getElementById(sectionId);
+    if (!targetEl) return;
+
+    const offset = window.innerWidth <= 1080 ? 0 : parseInt(getComputedStyle(document.documentElement).getPropertyValue('--nav-h')) || 0;
+    const top = targetEl.getBoundingClientRect().top + window.scrollY - offset + 1;
+    window.scrollTo({ top, behavior: this.prefersReducedMotion ? 'auto' : 'smooth' });
+    window.history.replaceState(null, '', `#${sectionId}`);
+    this.closeMobileMenu();
+  }
+
   private initializeNavigation(): void {
     const navbar = document.getElementById('navbar');
-    const inPageLinks = document.querySelectorAll<HTMLAnchorElement>('a[href^="#"]');
     const sections = ['hero', 'about', 'racks', 'projects', 'team', 'contact']
       .map(id => document.getElementById(id))
       .filter((el): el is HTMLElement => !!el);
@@ -256,22 +269,6 @@ export class HomeComponent implements AfterViewInit, OnDestroy {
     const scrollHandler = this.debounce(setScrolled, 10);
     window.addEventListener('scroll', scrollHandler, { passive: true });
     this.cleanupFns.push(() => window.removeEventListener('scroll', scrollHandler));
-
-    inPageLinks.forEach(link => {
-      const handler = (e: Event) => {
-        const targetId = link.hash.slice(1);
-        const targetEl = targetId ? document.getElementById(targetId) : null;
-        if (targetEl) {
-          e.preventDefault();
-          const offset = window.innerWidth <= 1080 ? 0 : parseInt(getComputedStyle(document.documentElement).getPropertyValue('--nav-h')) || 0;
-          const top = targetEl.getBoundingClientRect().top + window.scrollY - offset + 1;
-          window.scrollTo({ top, behavior: this.prefersReducedMotion ? 'auto' : 'smooth' });
-          this.closeMobileMenu();
-        }
-      };
-      link.addEventListener('click', handler);
-      this.cleanupFns.push(() => link.removeEventListener('click', handler));
-    });
 
     const activateLink = (sectionId: string) => {
       document.querySelectorAll('.nav-link').forEach(l => {

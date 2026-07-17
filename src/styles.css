@@ -118,7 +118,7 @@ h1,h2,h3{font-family:var(--font-display);text-transform:uppercase;letter-spacing
    Navigation
 ========================================================= */
 .navbar{
-  position:fixed;top:0;left:0;width:100%;z-index:800;
+  position:fixed;top:0;left:0;width:100%;z-index:1100;pointer-events:auto;
   transition:background .4s var(--ease-out), border-color .4s var(--ease-out), backdrop-filter .4s var(--ease-out);
   border-bottom:1px solid transparent;
 }
@@ -133,7 +133,9 @@ h1,h2,h3{font-family:var(--font-display);text-transform:uppercase;letter-spacing
   height:var(--nav-h);
   display:flex;align-items:center;justify-content:space-between;
   padding:0 32px;
+  position:relative;z-index:1;
 }
+.nav-brand,.nav-link,.nav-cta,.theme-toggle,.nav-toggle{pointer-events:auto;}
 .nav-brand{display:flex;align-items:center;gap:10px;}
 .brand-mark{
   font-family:var(--font-display);font-size:14px;letter-spacing:.08em;

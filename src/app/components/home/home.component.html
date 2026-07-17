@@ -4,22 +4,22 @@
 <!-- ============ NAVIGATION ============ -->
 <nav class="navbar" id="navbar">
   <div class="nav-inner">
-    <a href="#hero" class="nav-brand">
+    <a href="#hero" class="nav-brand" (click)="scrollToSection($event, 'hero')">
       <span class="brand-mark">YT</span>
       <span class="brand-text">YogTeck</span>
     </a>
 
     <ul class="nav-links" id="navLinks">
-      <li><a href="#hero" class="nav-link active" data-section="hero">Home</a></li>
-      <li><a href="#about" class="nav-link" data-section="about">About Us</a></li>
-      <li><a href="#racks" class="nav-link" data-section="racks">Rack Solutions</a></li>
-      <li><a href="#projects" class="nav-link" data-section="projects">Our Projects</a></li>
-      <li><a href="#team" class="nav-link" data-section="team">Our Team</a></li>
-      <li><a href="#projects" class="nav-link" data-section="projects">Gallery</a></li>
-      <li><a href="#contact" class="nav-link" data-section="contact">Contact Details</a></li>
+      <li><a href="#hero" class="nav-link active" data-section="hero" (click)="scrollToSection($event, 'hero')">Home</a></li>
+      <li><a href="#about" class="nav-link" data-section="about" (click)="scrollToSection($event, 'about')">About Us</a></li>
+      <li><a href="#racks" class="nav-link" data-section="racks" (click)="scrollToSection($event, 'racks')">Rack Solutions</a></li>
+      <li><a href="#projects" class="nav-link" data-section="projects" (click)="scrollToSection($event, 'projects')">Our Projects</a></li>
+      <li><a href="#team" class="nav-link" data-section="team" (click)="scrollToSection($event, 'team')">Our Team</a></li>
+      <li><a href="#projects" class="nav-link" data-section="projects" (click)="scrollToSection($event, 'projects')">Gallery</a></li>
+      <li><a href="#contact" class="nav-link" data-section="contact" (click)="scrollToSection($event, 'contact')">Contact Details</a></li>
     </ul>
 
-    <a href="#contact" class="nav-cta">Enquire Now</a>
+    <a href="#contact" class="nav-cta" (click)="scrollToSection($event, 'contact')">Enquire Now</a>
 
     <button class="theme-toggle" id="themeToggle" aria-label="Switch to light mode" aria-pressed="false">
       <svg class="icon-sun" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -47,15 +47,15 @@
 
   <div class="mobile-menu" id="mobileMenu">
     <ul class="mobile-links">
-      <li><a href="#hero" data-section="hero">Home</a></li>
-      <li><a href="#about" data-section="about">About Us</a></li>
-      <li><a href="#racks" data-section="racks">Rack Solutions</a></li>
-      <li><a href="#projects" data-section="projects">Our Projects</a></li>
-      <li><a href="#team" data-section="team">Our Team</a></li>
-      <li><a href="#projects" data-section="projects">Gallery</a></li>
-      <li><a href="#contact" data-section="contact">Contact Details</a></li>
+      <li><a href="#hero" data-section="hero" (click)="scrollToSection($event, 'hero')">Home</a></li>
+      <li><a href="#about" data-section="about" (click)="scrollToSection($event, 'about')">About Us</a></li>
+      <li><a href="#racks" data-section="racks" (click)="scrollToSection($event, 'racks')">Rack Solutions</a></li>
+      <li><a href="#projects" data-section="projects" (click)="scrollToSection($event, 'projects')">Our Projects</a></li>
+      <li><a href="#team" data-section="team" (click)="scrollToSection($event, 'team')">Our Team</a></li>
+      <li><a href="#projects" data-section="projects" (click)="scrollToSection($event, 'projects')">Gallery</a></li>
+      <li><a href="#contact" data-section="contact" (click)="scrollToSection($event, 'contact')">Contact Details</a></li>
     </ul>
-    <a href="#contact" class="mobile-cta">Enquire Now</a>
+    <a href="#contact" class="mobile-cta" (click)="scrollToSection($event, 'contact')">Enquire Now</a>
 
     <button class="theme-toggle theme-toggle-mobile" id="themeToggleMobile" aria-label="Switch to light mode" aria-pressed="false">
       <svg class="icon-sun" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">

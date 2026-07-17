@@ -135,7 +135,7 @@ export class HomeComponent implements AfterViewInit, OnDestroy {
     { key: 'custom', title: 'Custom Rack Build', tag: 'Reference' }
   ];
 
-  private readonly CONTACT_API_URL = 'http://localhost:5000/api/enquiries/contact';
+  private readonly CONTACT_API_URL = 'https://yogteck-backend.vercel.app/api/enquiries/contact';
 
   constructor(@Inject(PLATFORM_ID) platformId: Object) {
     this.isBrowser = isPlatformBrowser(platformId);
@@ -244,7 +244,7 @@ export class HomeComponent implements AfterViewInit, OnDestroy {
   --------------------------------------------------------- */
   private initializeNavigation(): void {
     const navbar = document.getElementById('navbar');
-    const navLinks = document.querySelectorAll('.nav-brand, .nav-link, .nav-cta, .mobile-links a, .mobile-cta');
+    const inPageLinks = document.querySelectorAll<HTMLAnchorElement>('a[href^="#"]');
     const sections = ['hero', 'about', 'racks', 'projects', 'team', 'contact']
       .map(id => document.getElementById(id))
       .filter((el): el is HTMLElement => !!el);
@@ -257,10 +257,10 @@ export class HomeComponent implements AfterViewInit, OnDestroy {
     window.addEventListener('scroll', scrollHandler, { passive: true });
     this.cleanupFns.push(() => window.removeEventListener('scroll', scrollHandler));
 
-    navLinks.forEach(link => {
+    inPageLinks.forEach(link => {
       const handler = (e: Event) => {
-        const targetId = link.getAttribute('href') || '';
-        const targetEl = targetId.startsWith('#') ? document.querySelector(targetId) : null;
+        const targetId = link.hash.slice(1);
+        const targetEl = targetId ? document.getElementById(targetId) : null;
         if (targetEl) {
           e.preventDefault();
           const offset = window.innerWidth <= 1080 ? 0 : parseInt(getComputedStyle(document.documentElement).getPropertyValue('--nav-h')) || 0;

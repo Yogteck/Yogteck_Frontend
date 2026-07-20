@@ -136,6 +136,9 @@ export class HomeComponent implements AfterViewInit, OnDestroy {
   ];
 
   private readonly CONTACT_API_URL = 'https://yogteck-backend.vercel.app/api/enquiries/contact';
+  contactSubmitting = false;
+  contactStatusMessage = '';
+  contactStatusType: 'success' | 'error' = 'success';
 
   constructor(@Inject(PLATFORM_ID) platformId: Object) {
     this.isBrowser = isPlatformBrowser(platformId);
@@ -159,7 +162,6 @@ export class HomeComponent implements AfterViewInit, OnDestroy {
     this.initializeScrollReveal();
     this.initializeGallery();
     this.initializeLightbox();
-    this.initializeContactForm();
     this.initializeProcessTrack();
     this.initializeReducedMotion();
 
@@ -686,65 +688,46 @@ export class HomeComponent implements AfterViewInit, OnDestroy {
   /* ---------------------------------------------------------
      Contact form — validation + backend API submit
   --------------------------------------------------------- */
-  private initializeContactForm(): void {
-    const form = document.getElementById('contactForm') as HTMLFormElement | null;
-    const success = document.getElementById('formSuccess');
-    const submit = document.getElementById('contactSubmit') as HTMLButtonElement | null;
-    const message = success?.querySelector('p') as HTMLParagraphElement | null;
-    if (!form || !success || !message) return;
+  async submitContactForm(event: SubmitEvent): Promise<void> {
+    event.preventDefault();
 
-    const showStatus = (text: string) => {
-      message.textContent = text;
-      success.hidden = false;
-      requestAnimationFrame(() => success.classList.add('show'));
+    const form = event.currentTarget as HTMLFormElement | null;
+    if (!form || this.contactSubmitting) return;
 
-      setTimeout(() => {
-        success.classList.remove('show');
-        setTimeout(() => { success.hidden = true; }, 400);
-      }, 4500);
-    };
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
 
-    const handler = async (e: Event) => {
-      e.preventDefault();
-      if (!form.checkValidity()) {
-        form.reportValidity();
-        return;
-      }
+    const payload: Record<string, FormDataEntryValue> = {};
+    new FormData(form).forEach((value, key) => {
+      payload[key] = value;
+    });
 
-      const payload: Record<string, FormDataEntryValue> = {};
-      new FormData(form).forEach((value, key) => {
-        payload[key] = value;
+    this.contactSubmitting = true;
+    this.contactStatusMessage = '';
+
+    try {
+      const response = await fetch(this.CONTACT_API_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
       });
-      if (submit) {
-        submit.disabled = true;
-        submit.textContent = 'Sending...';
+      const result = await response.json().catch(() => ({}));
+
+      if (!response.ok || !result.success) {
+        throw new Error(result.message || 'Unable to send enquiry right now.');
       }
 
-      try {
-        const response = await fetch(this.CONTACT_API_URL, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload)
-        });
-        const result = await response.json().catch(() => ({}));
-
-        if (!response.ok || !result.success) {
-          throw new Error(result.message || 'Unable to send enquiry right now.');
-        }
-
-        form.reset();
-        showStatus('Thank you. Your enquiry has been received - our team will get back to you shortly.');
-      } catch (error) {
-        showStatus(error instanceof Error ? error.message : 'Unable to send enquiry right now.');
-      } finally {
-        if (submit) {
-          submit.disabled = false;
-          submit.textContent = 'Send Enquiry';
-        }
-      }
-    };
-    form.addEventListener('submit', handler);
-    this.cleanupFns.push(() => form.removeEventListener('submit', handler));
+      form.reset();
+      this.contactStatusType = 'success';
+      this.contactStatusMessage = 'Thank you. Your enquiry has been received - our team will get back to you shortly.';
+    } catch (error) {
+      this.contactStatusType = 'error';
+      this.contactStatusMessage = error instanceof Error ? error.message : 'Unable to send enquiry right now.';
+    } finally {
+      this.contactSubmitting = false;
+    }
   }
 
   /* ---------------------------------------------------------

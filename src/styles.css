@@ -623,6 +623,8 @@ h1,h2,h3{font-family:var(--font-display);text-transform:uppercase;letter-spacing
   color:var(--amber-bright);display:flex;align-items:center;justify-content:center;font-size:22px;
 }
 .form-success p{color:var(--white-dim);max-width:320px;}
+.form-success p:not(.form-status-message){display:none;}
+.form-success.form-error .success-icon{border-color:#ef4444;color:#fca5a5;}
 
 /* =========================================================
    Footer

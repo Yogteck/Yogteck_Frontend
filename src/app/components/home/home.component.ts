@@ -703,6 +703,7 @@ export class HomeComponent implements AfterViewInit, OnDestroy {
     new FormData(form).forEach((value, key) => {
       payload[key] = value;
     });
+    console.log('Contact form submit payload:', payload);
 
     this.contactSubmitting = true;
     this.contactStatusMessage = '';
@@ -714,6 +715,11 @@ export class HomeComponent implements AfterViewInit, OnDestroy {
         body: JSON.stringify(payload)
       });
       const result = await response.json().catch(() => ({}));
+      console.log('Contact form API response:', {
+        status: response.status,
+        ok: response.ok,
+        result
+      });
 
       if (!response.ok || !result.success) {
         throw new Error(result.message || 'Unable to send enquiry right now.');
@@ -723,6 +729,7 @@ export class HomeComponent implements AfterViewInit, OnDestroy {
       this.contactStatusType = 'success';
       this.contactStatusMessage = 'Thank you. Your enquiry has been received - our team will get back to you shortly.';
     } catch (error) {
+      console.error('Contact form submit failed:', error);
       this.contactStatusType = 'error';
       this.contactStatusMessage = error instanceof Error ? error.message : 'Unable to send enquiry right now.';
     } finally {

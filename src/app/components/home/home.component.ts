@@ -251,7 +251,10 @@ export class HomeComponent implements AfterViewInit, OnDestroy {
     const targetEl = document.getElementById(sectionId);
     if (!targetEl) return;
 
-    const offset = window.innerWidth <= 1080 ? 0 : parseInt(getComputedStyle(document.documentElement).getPropertyValue('--nav-h')) || 0;
+    const computed = getComputedStyle(document.documentElement);
+    const navH = parseInt(computed.getPropertyValue('--nav-h')) || 76;
+    const stripH = parseInt(computed.getPropertyValue('--strip-h')) || 38;
+    const offset = window.innerWidth <= 1080 ? stripH : navH + stripH;
     const top = targetEl.getBoundingClientRect().top + window.scrollY - offset + 1;
     window.scrollTo({ top, behavior: this.prefersReducedMotion ? 'auto' : 'smooth' });
     window.history.replaceState(null, '', `#${sectionId}`);

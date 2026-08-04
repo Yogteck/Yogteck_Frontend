@@ -824,3 +824,22 @@ h1,h2,h3{font-family:var(--font-display);text-transform:uppercase;letter-spacing
   .faq-grid{grid-template-columns:1fr;gap:18px;}
   .faq-card{padding:22px 24px;}
 }
+
+/* Hero Spec Badges */
+.hero-specs-strip{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-top:24px;
+}
+.spec-badge{
+  font-size:12px;
+  letter-spacing:.03em;
+  color:var(--amber-bright);
+  background:rgba(229,168,59,0.08);
+  border:1px solid rgba(229,168,59,0.25);
+  padding:6px 14px;
+  border-radius:20px;
+  display:inline-flex;
+  align-items:center;
+}

@@ -150,6 +150,44 @@
   letter-spacing: 0.01em;
 }
 
+.captcha-label-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.captcha-refresh-btn {
+  background: transparent;
+  border: none;
+  color: #FF9A1F;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  transition: transform var(--transition-fast), color var(--transition-fast);
+}
+
+.captcha-refresh-btn:hover {
+  color: #FFB84D;
+  transform: rotate(90deg);
+}
+
+.captcha-refresh-btn svg {
+  width: 14px;
+  height: 14px;
+}
+
+.form-field-error-xs {
+  font-size: 0.71875rem;
+  color: #EF4444;
+  font-weight: 600;
+  margin-top: -4px;
+}
+
 /* X-Small Input Controls & Clear Left Icon Spacing */
 .input-control-wrapper-xs {
   position: relative;

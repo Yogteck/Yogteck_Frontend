@@ -94,103 +94,154 @@
 
           <form #inquiryForm="ngForm" (ngSubmit)="onSubmit(inquiryForm)" class="inquiry-form-body" novalidate>
             
-            <!-- Field 1: Full Name -->
-            <div class="form-group">
-              <label for="contactName" class="form-label">Full Name *</label>
-              <div class="input-control-wrapper has-left-icon">
-                <input
-                  type="text"
-                  id="contactName"
-                  name="name"
-                  [(ngModel)]="formData.name"
-                  #nameCtrl="ngModel"
-                  required
-                  minlength="2"
-                  class="form-input"
-                  [class.is-invalid]="nameCtrl.invalid && (nameCtrl.dirty || nameCtrl.touched)"
-                  placeholder="Enter your full name"
-                  autocomplete="name">
-                <span class="input-icon-left" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-                </span>
+            <div class="inquiry-form-2col">
+              <!-- Field 1: Full Name -->
+              <div class="form-group">
+                <label for="contactName" class="form-label">Full Name *</label>
+                <div class="input-control-wrapper has-left-icon">
+                  <input
+                    type="text"
+                    id="contactName"
+                    name="name"
+                    [(ngModel)]="formData.name"
+                    #nameCtrl="ngModel"
+                    required
+                    minlength="2"
+                    class="form-input"
+                    [class.is-invalid]="nameCtrl.invalid && (nameCtrl.dirty || nameCtrl.touched)"
+                    placeholder="Enter your full name"
+                    autocomplete="name">
+                  <span class="input-icon-left" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                  </span>
+                </div>
+                @if (nameCtrl.invalid && (nameCtrl.dirty || nameCtrl.touched)) {
+                  <span class="form-error-msg">Please enter your name.</span>
+                }
               </div>
-              @if (nameCtrl.invalid && (nameCtrl.dirty || nameCtrl.touched)) {
-                <span class="form-error-msg">Please enter your name (min 2 characters).</span>
-              }
-            </div>
 
-            <!-- Field 2: Mobile Number -->
-            <div class="form-group">
-              <label for="contactPhone" class="form-label">Mobile / WhatsApp Number *</label>
-              <div class="input-control-wrapper has-left-icon">
-                <input
-                  type="tel"
-                  id="contactPhone"
-                  name="phone"
-                  [(ngModel)]="formData.phone"
-                  #phoneCtrl="ngModel"
-                  required
-                  pattern="^[0-9+ ]{10,15}$"
-                  class="form-input"
-                  [class.is-invalid]="phoneCtrl.invalid && (phoneCtrl.dirty || phoneCtrl.touched)"
-                  placeholder="e.g. +91 8299209905"
-                  autocomplete="tel">
-                <span class="input-icon-left" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-                </span>
-              </div>
-              @if (phoneCtrl.invalid && (phoneCtrl.dirty || phoneCtrl.touched)) {
-                <span class="form-error-msg">Please enter a valid mobile number.</span>
-              }
-            </div>
-
-            <!-- Field 3: Email Address -->
-            <div class="form-group">
-              <label for="contactEmail" class="form-label">Email Address *</label>
-              <div class="input-control-wrapper has-left-icon">
-                <input
-                  type="email"
-                  id="contactEmail"
-                  name="email"
-                  [(ngModel)]="formData.email"
-                  #emailCtrl="ngModel"
-                  required
-                  email
-                  class="form-input"
-                  [class.is-invalid]="emailCtrl.invalid && (emailCtrl.dirty || emailCtrl.touched)"
-                  placeholder="name@company.com"
-                  autocomplete="email">
-                <span class="input-icon-left" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-                </span>
-              </div>
-              @if (emailCtrl.invalid && (emailCtrl.dirty || emailCtrl.touched)) {
-                <span class="form-error-msg">Please enter a valid email address.</span>
-              }
-            </div>
-
-            <!-- Field 4: Solution Type Dropdown -->
-            <div class="form-group">
-              <label for="contactService" class="form-label">Required Solution *</label>
-              <div class="input-control-wrapper has-left-icon">
-                <select
-                  id="contactService"
-                  name="serviceType"
-                  [(ngModel)]="formData.serviceType"
-                  class="form-select">
-                  @for (srv of services; track srv.id) {
-                    <option [value]="srv.title">{{ srv.title }}</option>
-                  }
-                  <option value="Marketplace Onboarding">Marketplace Onboarding (Amazon/Flipkart)</option>
-                  <option value="Complete Digital Transformation">Complete Digital Transformation</option>
-                </select>
-                <span class="input-icon-left" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
-                </span>
+              <!-- Field 2: Company Name -->
+              <div class="form-group">
+                <label for="contactCompany" class="form-label">Company Name</label>
+                <div class="input-control-wrapper has-left-icon">
+                  <input
+                    type="text"
+                    id="contactCompany"
+                    name="companyName"
+                    [(ngModel)]="formData.companyName"
+                    class="form-input"
+                    placeholder="e.g. Acme Tech Solutions (Optional)"
+                    autocomplete="organization">
+                  <span class="input-icon-left" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+                  </span>
+                </div>
               </div>
             </div>
 
-            <!-- Field 5: Project Details Textarea -->
+            <div class="inquiry-form-2col">
+              <!-- Field 3: Mobile Number -->
+              <div class="form-group">
+                <label for="contactPhone" class="form-label">Mobile / WhatsApp Number *</label>
+                <div class="input-control-wrapper has-left-icon">
+                  <input
+                    type="tel"
+                    id="contactPhone"
+                    name="phone"
+                    [(ngModel)]="formData.phone"
+                    #phoneCtrl="ngModel"
+                    required
+                    pattern="^[0-9+ ]{10,15}$"
+                    class="form-input"
+                    [class.is-invalid]="phoneCtrl.invalid && (phoneCtrl.dirty || phoneCtrl.touched)"
+                    placeholder="e.g. +91 8299209905"
+                    autocomplete="tel">
+                  <span class="input-icon-left" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                  </span>
+                </div>
+                @if (phoneCtrl.invalid && (phoneCtrl.dirty || phoneCtrl.touched)) {
+                  <span class="form-error-msg">Please enter a valid mobile number.</span>
+                }
+              </div>
+
+              <!-- Field 4: Email Address -->
+              <div class="form-group">
+                <label for="contactEmail" class="form-label">Email Address *</label>
+                <div class="input-control-wrapper has-left-icon">
+                  <input
+                    type="email"
+                    id="contactEmail"
+                    name="email"
+                    [(ngModel)]="formData.email"
+                    #emailCtrl="ngModel"
+                    required
+                    email
+                    class="form-input"
+                    [class.is-invalid]="emailCtrl.invalid && (emailCtrl.dirty || emailCtrl.touched)"
+                    placeholder="name@company.com"
+                    autocomplete="email">
+                  <span class="input-icon-left" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                  </span>
+                </div>
+                @if (emailCtrl.invalid && (emailCtrl.dirty || emailCtrl.touched)) {
+                  <span class="form-error-msg">Please enter a valid email address.</span>
+                }
+              </div>
+            </div>
+
+            <div class="inquiry-form-2col">
+              <!-- Field 5: Solution Type Dropdown -->
+              <div class="form-group">
+                <label for="contactService" class="form-label">Required Solution *</label>
+                <div class="input-control-wrapper has-left-icon">
+                  <select
+                    id="contactService"
+                    name="serviceType"
+                    [(ngModel)]="formData.serviceType"
+                    class="form-select">
+                    @for (srv of services; track srv.id) {
+                      <option [value]="srv.title">{{ srv.title }}</option>
+                    }
+                    <option value="Marketplace Onboarding">Marketplace Onboarding (Amazon/Flipkart)</option>
+                    <option value="Complete Digital Transformation">Complete Digital Transformation</option>
+                  </select>
+                  <span class="input-icon-left" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+                  </span>
+                </div>
+              </div>
+
+              <!-- Field 6: Math Calculation Captcha -->
+              <div class="form-group">
+                <div class="captcha-header-row">
+                  <label for="contactCaptcha" class="form-label">Math Security: Solve {{ captchaNum1 }} + {{ captchaNum2 }} = ? *</label>
+                  <button type="button" (click)="generateCaptcha()" class="captcha-refresh-btn-inquiry" title="Get new math question" aria-label="Refresh Captcha">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
+                  </button>
+                </div>
+                <div class="input-control-wrapper has-left-icon">
+                  <input
+                    type="number"
+                    id="contactCaptcha"
+                    name="captcha"
+                    [(ngModel)]="captchaInput"
+                    required
+                    class="form-input"
+                    [class.is-invalid]="captchaError"
+                    placeholder="Enter answer">
+                  <span class="input-icon-left" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+                  </span>
+                </div>
+                @if (captchaError) {
+                  <span class="form-error-msg">{{ captchaError }}</span>
+                }
+              </div>
+            </div>
+
+            <!-- Field 7: Project Details Textarea -->
             <div class="form-group">
               <label for="contactMessage" class="form-label">Project Details &amp; Requirements *</label>
               <textarea
@@ -218,10 +269,10 @@
             <!-- Submit Button -->
             <button
               type="submit"
-              [disabled]="inquiryForm.invalid || isSubmitting"
+              [disabled]="inquiryForm.invalid || isSubmitting || !captchaInput"
               class="btn btn-primary-orange submit-form-btn">
               @if (isSubmitting) {
-                <span>Sending Enquiry...</span>
+                <span>Sending Enquiry &amp; Confirmation...</span>
               } @else {
                 <span>Send Free Enquiry Now →</span>
               }

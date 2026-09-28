@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
 import { CONTACT_CONFIG } from '../../data/contact.config';
@@ -11,26 +11,54 @@ import { SERVICES_DATA } from '../../data/services.data';
   templateUrl: './inquiry-section.component.html',
   styleUrl: './inquiry-section.component.css'
 })
-export class InquirySectionComponent {
+export class InquirySectionComponent implements OnInit {
   contact = CONTACT_CONFIG;
   services = SERVICES_DATA;
 
   formData = {
     name: '',
+    companyName: '',
     phone: '',
     email: '',
     serviceType: 'Website Development',
     message: ''
   };
 
+  // Math Calculation Captcha
+  captchaNum1 = 6;
+  captchaNum2 = 5;
+  captchaAnswer = 11;
+  captchaInput = '';
+  captchaError = '';
+
   isSubmitting = false;
   submitSuccess = false;
   submitError = '';
+
+  ngOnInit(): void {
+    this.generateCaptcha();
+  }
+
+  generateCaptcha(): void {
+    this.captchaNum1 = Math.floor(Math.random() * 12) + 3; // 3 - 14
+    this.captchaNum2 = Math.floor(Math.random() * 9) + 1;  // 1 - 9
+    this.captchaAnswer = this.captchaNum1 + this.captchaNum2;
+    this.captchaInput = '';
+    this.captchaError = '';
+  }
 
   async onSubmit(form: NgForm): Promise<void> {
     if (form.invalid || this.isSubmitting) {
       return;
     }
+
+    // Validate Math Captcha
+    const parsedAnswer = parseInt(this.captchaInput?.trim() || '', 10);
+    if (isNaN(parsedAnswer) || parsedAnswer !== this.captchaAnswer) {
+      this.captchaError = 'Incorrect math answer. Please try again.';
+      return;
+    }
+    this.captchaError = '';
 
     this.isSubmitting = true;
     this.submitSuccess = false;
@@ -38,9 +66,12 @@ export class InquirySectionComponent {
 
     const payload = {
       name: this.formData.name.trim(),
+      companyName: this.formData.companyName.trim(),
+      company: this.formData.companyName.trim(),
       phone: this.formData.phone.trim(),
       email: this.formData.email.trim(),
-      rackType: this.formData.serviceType, // maps to service type in backend mailer
+      serviceType: this.formData.serviceType,
+      rackType: this.formData.serviceType,
       message: this.formData.message.trim()
     };
 
@@ -61,11 +92,14 @@ export class InquirySectionComponent {
       form.resetForm({
         serviceType: 'Website Development'
       });
+      this.generateCaptcha();
     } catch (err) {
       console.error('Enquiry submission error:', err);
       this.submitError = err instanceof Error ? err.message : 'Unable to connect to server. Please try again.';
+      this.generateCaptcha();
     } finally {
       this.isSubmitting = false;
     }
   }
 }
+

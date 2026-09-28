@@ -1,0 +1,115 @@
+<div class="drawer-backdrop" [class.is-open]="isOpen" (click)="closeDrawer.emit()" aria-hidden="true"></div>
+
+<aside class="mobile-drawer" [class.is-open]="isOpen" role="dialog" aria-label="Mobile Navigation" [attr.aria-hidden]="!isOpen">
+  <!-- Drawer Header -->
+  <div class="drawer-header">
+    <div class="drawer-brand">
+      <span class="brand-title">YOGTECK<span class="brand-dot">.</span></span>
+      <span class="brand-sub">Build • Grow • Succeed</span>
+    </div>
+    <button type="button" (click)="closeDrawer.emit()" class="close-btn" aria-label="Close navigation menu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="18" y1="6" x2="6" y2="18"/>
+        <line x1="6" y1="6" x2="18" y2="18"/>
+      </svg>
+    </button>
+  </div>
+
+  <!-- Drawer Body Navigation -->
+  <div class="drawer-body">
+    <nav class="drawer-nav">
+      <ul class="drawer-menu">
+        
+        <li class="drawer-item">
+          <button type="button" class="drawer-link" (click)="onNavigate('home')">
+            <span>Home</span>
+            <svg viewBox="0 0 20 20" fill="currentColor" class="arrow-icon"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/></svg>
+          </button>
+        </li>
+
+        <!-- Services Accordion -->
+        <li class="drawer-item accordion-item">
+          <button type="button" class="drawer-link accordion-toggle" (click)="toggleAccordion()">
+            <span>Our Services</span>
+            <svg class="chevron-icon" [class.rotated]="isServicesAccordionOpen" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
+            </svg>
+          </button>
+
+          <div class="accordion-content" [class.is-expanded]="isServicesAccordionOpen">
+            <ul class="sub-service-list">
+              @for (srv of services; track srv.id) {
+                <li>
+                  <button type="button" class="sub-service-link" (click)="onNavigate(srv.slug)">
+                    <span class="sub-bullet">•</span>
+                    <span>{{ srv.title }}</span>
+                  </button>
+                </li>
+              }
+            </ul>
+          </div>
+        </li>
+
+        <li class="drawer-item">
+          <button type="button" class="drawer-link" (click)="onNavigate('growth-journey')">
+            <span>Growth Journey</span>
+            <svg viewBox="0 0 20 20" fill="currentColor" class="arrow-icon"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/></svg>
+          </button>
+        </li>
+
+        <li class="drawer-item">
+          <button type="button" class="drawer-link" (click)="onNavigate('marketplaces')">
+            <span>Marketplace Growth</span>
+            <svg viewBox="0 0 20 20" fill="currentColor" class="arrow-icon"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/></svg>
+          </button>
+        </li>
+
+        <li class="drawer-item">
+          <button type="button" class="drawer-link" (click)="onNavigate('projects')">
+            <span>Our Projects</span>
+            <svg viewBox="0 0 20 20" fill="currentColor" class="arrow-icon"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/></svg>
+          </button>
+        </li>
+
+        <li class="drawer-item">
+          <button type="button" class="drawer-link" (click)="onNavigate('clients')">
+            <span>Our Clients</span>
+            <svg viewBox="0 0 20 20" fill="currentColor" class="arrow-icon"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/></svg>
+          </button>
+        </li>
+
+        <li class="drawer-item">
+          <button type="button" class="drawer-link" (click)="onNavigate('about')">
+            <span>About Us</span>
+            <svg viewBox="0 0 20 20" fill="currentColor" class="arrow-icon"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/></svg>
+          </button>
+        </li>
+
+        <li class="drawer-item">
+          <button type="button" class="drawer-link" (click)="onNavigate('contact')">
+            <span>Contact</span>
+            <svg viewBox="0 0 20 20" fill="currentColor" class="arrow-icon"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/></svg>
+          </button>
+        </li>
+
+      </ul>
+    </nav>
+  </div>
+
+  <!-- Drawer Footer Actions -->
+  <div class="drawer-footer">
+    <button type="button" (click)="handleQuoteClick()" class="btn btn-primary-orange w-full">
+      <span>Get Free Quote</span>
+      <svg viewBox="0 0 20 20" fill="currentColor" style="width: 16px; height: 16px;">
+        <path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"/>
+      </svg>
+    </button>
+
+    <a [href]="contact.whatsappLink" target="_blank" rel="noopener noreferrer" class="drawer-whatsapp-btn">
+      <svg viewBox="0 0 24 24" fill="currentColor" style="width: 20px; height: 20px;">
+        <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.592 2.654-.696c1.001.574 1.895.885 2.806.885 3.178 0 5.767-2.587 5.767-5.766.001-3.181-2.587-5.768-5.767-5.768zm0 10.455c-.868 0-1.716-.234-2.454-.672l-.176-.104-1.824.478.487-1.776-.115-.183c-.482-.767-.736-1.657-.735-2.569 0-2.628 2.138-4.767 4.767-4.767 2.628 0 4.767 2.139 4.767 4.767 0 2.629-2.139 4.767-4.767 4.767z"/>
+      </svg>
+      <span>Chat on WhatsApp ({{ contact.phoneDisplay }})</span>
+    </a>
+  </div>
+</aside>

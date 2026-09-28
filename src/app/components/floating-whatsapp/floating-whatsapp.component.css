@@ -1,0 +1,82 @@
+.floating-wa-wrapper {
+  position: fixed;
+  bottom: 30px;
+  right: 28px;
+  z-index: 950;
+  display: block;
+}
+
+.floating-wa-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  position: relative;
+}
+
+.wa-btn-icon {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background: #25D366;
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 24px rgba(37, 211, 102, 0.45);
+  transition: all var(--transition-fast);
+  position: relative;
+}
+
+.wa-btn-icon svg {
+  width: 30px;
+  height: 30px;
+}
+
+.floating-wa-btn:hover .wa-btn-icon {
+  transform: scale(1.08) translateY(-2px);
+  box-shadow: 0 12px 30px rgba(37, 211, 102, 0.6);
+}
+
+.wa-tooltip {
+  position: absolute;
+  right: calc(100% + 14px);
+  top: 50%;
+  transform: translateY(-50%) translateX(10px);
+  background: rgba(10, 19, 48, 0.95);
+  border: 1px solid rgba(37, 211, 102, 0.4);
+  border-radius: var(--radius-md);
+  padding: 8px 14px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: all var(--transition-fast);
+  backdrop-filter: blur(12px);
+}
+
+.wa-tooltip-title {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #FFFFFF;
+}
+
+.wa-tooltip-sub {
+  font-size: 0.6875rem;
+  color: #25D366;
+  font-weight: 600;
+}
+
+.floating-wa-btn:hover .wa-tooltip {
+  opacity: 1;
+  transform: translateY(-50%) translateX(0);
+}
+
+/* Hide floating WhatsApp on mobile since mobile has sticky bottom action bar */
+@media (max-width: 767px) {
+  .floating-wa-wrapper {
+    display: none;
+  }
+}

@@ -1,0 +1,547 @@
+.hero-visual-stage {
+  position: relative;
+  width: 100%;
+  max-width: 620px;
+  margin: 0 auto;
+  min-height: 480px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Marketplace Chips Group Above Laptop */
+.marketplace-chips-group {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  z-index: 10;
+  background: rgba(10, 19, 48, 0.7);
+  padding: 6px 14px;
+  border-radius: var(--radius-pill);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+.chips-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #94A3B8;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.chips-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.marketplace-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 10px;
+  border-radius: var(--radius-pill);
+  font-size: 0.75rem;
+  font-weight: 700;
+  border: 1px solid transparent;
+  transition: transform var(--transition-fast);
+}
+
+.marketplace-chip:hover {
+  transform: translateY(-2px);
+}
+
+.chip-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+}
+
+/* Central Laptop Mockup Container */
+.laptop-container {
+  position: relative;
+  width: 100%;
+  max-width: 500px;
+  z-index: 5;
+  filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.6));
+}
+
+.laptop-screen {
+  background: #0F172A;
+  border: 10px solid #1E293B;
+  border-radius: 14px 14px 0 0;
+  position: relative;
+  overflow: hidden;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+}
+
+.screen-camera {
+  position: absolute;
+  top: 4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #334155;
+  z-index: 20;
+}
+
+.screen-viewport {
+  background: #090E1E;
+  height: 270px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* Mock Browser Bar */
+.mock-browser-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 10px;
+  background: #111C35;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.browser-dots {
+  display: flex;
+  gap: 4px;
+}
+
+.dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+}
+
+.dot-red { background: #EF4444; }
+.dot-yellow { background: #F59E0B; }
+.dot-green { background: #10B981; }
+
+.browser-url-pill {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 2px 12px;
+  border-radius: var(--radius-pill);
+  font-size: 0.6875rem;
+  color: #94A3B8;
+}
+
+.lock-icon {
+  width: 10px;
+  height: 10px;
+  color: #10B981;
+}
+
+.browser-cart-badge {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  color: #FFB84D;
+}
+
+.cart-mini-icon {
+  width: 13px;
+  height: 13px;
+}
+
+.cart-count {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  background: var(--accent-orange-solid);
+  color: #050B1A;
+  border-radius: 50%;
+  width: 14px;
+  height: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Storefront UI */
+.mock-storefront {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.mock-store-banner {
+  background: linear-gradient(135deg, rgba(47, 123, 255, 0.3) 0%, rgba(255, 154, 31, 0.25) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.banner-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.banner-tag {
+  font-size: 0.625rem;
+  text-transform: uppercase;
+  color: #60A5FA;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+
+.banner-title {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: #FFFFFF;
+}
+
+.banner-btn {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  background: var(--accent-orange-gradient);
+  color: #050B1A;
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+}
+
+.mock-product-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.mock-product-card {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 6px;
+  padding: 6px;
+}
+
+.prod-thumb {
+  height: 52px;
+  border-radius: 4px;
+  margin-bottom: 6px;
+}
+
+.prod-bg-1 { background: linear-gradient(135deg, #1E3A8A, #3B82F6); }
+.prod-bg-2 { background: linear-gradient(135deg, #78350F, #F59E0B); }
+.prod-bg-3 { background: linear-gradient(135deg, #064E3B, #10B981); }
+
+.prod-meta {
+  display: flex;
+  flex-direction: column;
+}
+
+.prod-name {
+  font-size: 0.625rem;
+  color: #CBD5E1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.prod-price {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  color: #FFB84D;
+}
+
+/* Laptop Base */
+.laptop-base {
+  background: #334155;
+  height: 12px;
+  border-radius: 0 0 10px 10px;
+  position: relative;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+.laptop-notch {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 70px;
+  height: 4px;
+  background: #1E293B;
+  border-radius: 0 0 4px 4px;
+}
+
+/* Floating Glass Cards */
+.floating-glass-card {
+  position: absolute;
+  background: rgba(10, 19, 48, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: var(--radius-md);
+  padding: 12px 16px;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  z-index: 15;
+  animation: floatSlow 6s ease-in-out infinite alternate;
+}
+
+/* Card 1: Checklist "Your Business Online" (Top-Left) */
+.card-checklist {
+  top: 60px;
+  left: -20px;
+  min-width: 170px;
+  animation-delay: 0s;
+  border-color: rgba(47, 123, 255, 0.35);
+}
+
+.card-header-mini {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.card-icon-pulse {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #10B981;
+  box-shadow: 0 0 8px #10B981;
+}
+
+.card-title-mini {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #FFFFFF;
+}
+
+.checklist-items {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.checklist-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.71875rem;
+  font-weight: 600;
+  color: #CBD5E1;
+}
+
+.check-icon {
+  color: #10B981;
+  font-weight: 800;
+}
+
+/* Card 2: Cart Badge (Left Side) */
+.card-cart-badge {
+  bottom: 80px;
+  left: -35px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  animation-delay: -2s;
+  border-color: rgba(255, 154, 31, 0.35);
+}
+
+.cart-badge-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--accent-orange-gradient);
+  color: #050B1A;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.cart-badge-icon svg {
+  width: 16px;
+  height: 16px;
+}
+
+.badge-pulse-dot {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  width: 8px;
+  height: 8px;
+  background: #10B981;
+  border-radius: 50%;
+  border: 2px solid #0A1330;
+}
+
+.cart-badge-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.badge-title {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #FFFFFF;
+}
+
+.badge-val {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  color: #10B981;
+}
+
+/* Card 3: Analytics Growth Chart (Bottom-Left) */
+.card-analytics {
+  bottom: 10px;
+  right: 15px;
+  min-width: 150px;
+  animation-delay: -3.5s;
+  border-color: rgba(47, 123, 255, 0.35);
+}
+
+.analytics-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.analytics-label {
+  font-size: 0.6875rem;
+  color: #94A3B8;
+  font-weight: 600;
+}
+
+.analytics-growth {
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: #10B981;
+}
+
+.bar-chart-visual {
+  display: flex;
+  align-items: flex-end;
+  gap: 6px;
+  height: 32px;
+}
+
+.bar {
+  flex: 1;
+  background: rgba(47, 123, 255, 0.4);
+  border-radius: 2px 2px 0 0;
+  transition: height 0.5s ease;
+}
+
+.bar-4, .bar-5 {
+  background: var(--accent-orange-gradient);
+}
+
+/* Glowing Upward Growth Arrow Callout (Right Side) */
+.growth-arrow-callout {
+  position: absolute;
+  top: 40px;
+  right: -40px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  z-index: 20;
+}
+
+.growth-text-group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  transform: rotate(-5deg);
+}
+
+.script-tagline {
+  font-family: var(--font-script);
+  font-size: 1.65rem;
+  font-weight: 700;
+  color: #FFC062;
+  line-height: 1.1;
+  text-shadow: 0 0 12px rgba(255, 154, 31, 0.5);
+}
+
+.script-highlight {
+  color: #FFFFFF;
+}
+
+.curved-growth-arrow {
+  width: 90px;
+  height: 90px;
+  margin-top: -10px;
+  margin-right: 15px;
+  filter: drop-shadow(0 0 10px rgba(255, 154, 31, 0.6));
+}
+
+/* Animations */
+@keyframes floatSlow {
+  0% { transform: translateY(0px); }
+  100% { transform: translateY(-8px); }
+}
+
+/* Responsive Adjustments */
+@media (max-width: 1023px) {
+  .hero-visual-stage {
+    min-height: 420px;
+    margin-top: 30px;
+  }
+  .card-checklist {
+    left: 0px;
+  }
+  .card-cart-badge {
+    left: 0px;
+  }
+  .growth-arrow-callout {
+    right: 0px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-visual-stage {
+    min-height: 360px;
+    max-width: 340px;
+  }
+  .laptop-container {
+    max-width: 320px;
+  }
+  .screen-viewport {
+    height: 190px;
+  }
+  .mock-store-banner {
+    padding: 8px;
+  }
+  .banner-title {
+    font-size: 0.6875rem;
+  }
+  .card-checklist {
+    top: 40px;
+    left: -10px;
+    min-width: 140px;
+    padding: 8px 10px;
+  }
+  .card-cart-badge {
+    display: none;
+  }
+  .growth-arrow-callout {
+    top: 10px;
+    right: -10px;
+  }
+  .script-tagline {
+    font-size: 1.25rem;
+  }
+  .curved-growth-arrow {
+    width: 60px;
+    height: 60px;
+  }
+}

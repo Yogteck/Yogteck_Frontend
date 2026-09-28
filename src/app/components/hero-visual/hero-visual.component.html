@@ -1,0 +1,148 @@
+<div class="hero-visual-stage" aria-hidden="true">
+  
+  <!-- Floating Marketplace Chips Above Laptop -->
+  <div class="marketplace-chips-group">
+    <span class="chips-label">Sell on:</span>
+    <div class="chips-wrapper">
+      @for (m of marketplaces; track m.name) {
+        <div class="marketplace-chip" [style.color]="m.color" [style.background]="m.bg" [style.border-color]="m.border">
+          <span class="chip-dot" [style.background]="m.color"></span>
+          <span class="chip-name">{{ m.name }}</span>
+        </div>
+      }
+    </div>
+  </div>
+
+  <!-- Central Laptop Mockup Container -->
+  <div class="laptop-container">
+    
+    <!-- Laptop Screen Bezel -->
+    <div class="laptop-screen">
+      <div class="screen-camera"></div>
+      
+      <!-- Screen Display: E-Commerce Store UI -->
+      <div class="screen-viewport">
+        <!-- Mock Browser Bar -->
+        <div class="mock-browser-bar">
+          <div class="browser-dots">
+            <span class="dot dot-red"></span>
+            <span class="dot dot-yellow"></span>
+            <span class="dot dot-green"></span>
+          </div>
+          <div class="browser-url-pill">
+            <svg viewBox="0 0 24 24" fill="currentColor" class="lock-icon"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
+            <span>yourstore.com</span>
+          </div>
+          <div class="browser-cart-badge">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="cart-mini-icon"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+            <span class="cart-count">3</span>
+          </div>
+        </div>
+
+        <!-- E-Commerce Showcase Page -->
+        <div class="mock-storefront">
+          <div class="mock-store-banner">
+            <div class="banner-text">
+              <span class="banner-tag">Summer Flash Sale</span>
+              <span class="banner-title">Modern Digital Storefront</span>
+            </div>
+            <span class="banner-btn">Shop Now →</span>
+          </div>
+
+          <!-- Product Grid in Mockup -->
+          <div class="mock-product-grid">
+            <div class="mock-product-card">
+              <div class="prod-thumb prod-bg-1"></div>
+              <div class="prod-meta">
+                <span class="prod-name">Pro Tech Product</span>
+                <span class="prod-price">₹1,499</span>
+              </div>
+            </div>
+            <div class="mock-product-card">
+              <div class="prod-thumb prod-bg-2"></div>
+              <div class="prod-meta">
+                <span class="prod-name">Smart Gadget X</span>
+                <span class="prod-price">₹2,899</span>
+              </div>
+            </div>
+            <div class="mock-product-card">
+              <div class="prod-thumb prod-bg-3"></div>
+              <div class="prod-meta">
+                <span class="prod-name">Wireless Gear</span>
+                <span class="prod-price">₹999</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Laptop Base -->
+    <div class="laptop-base">
+      <div class="laptop-notch"></div>
+    </div>
+  </div>
+
+  <!-- Floating Glass Card (Top-Left of Laptop): "Your Business Online" -->
+  <div class="floating-glass-card card-checklist">
+    <div class="card-header-mini">
+      <span class="card-icon-pulse"></span>
+      <span class="card-title-mini">Your Business Online</span>
+    </div>
+    <ul class="checklist-items">
+      @for (item of checklistItems; track item) {
+        <li class="checklist-item">
+          <span class="check-icon">✓</span>
+          <span class="check-label">{{ item }}</span>
+        </li>
+      }
+    </ul>
+  </div>
+
+  <!-- Floating Cart Card (Left of Laptop) -->
+  <div class="floating-glass-card card-cart-badge">
+    <div class="cart-badge-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+      <span class="badge-pulse-dot"></span>
+    </div>
+    <div class="cart-badge-text">
+      <span class="badge-title">New Order!</span>
+      <span class="badge-val">₹4,850 • Paid</span>
+    </div>
+  </div>
+
+  <!-- Floating Bar-Chart Analytics Card (Bottom-Left) -->
+  <div class="floating-glass-card card-analytics">
+    <div class="analytics-header">
+      <span class="analytics-label">Monthly Growth</span>
+      <span class="analytics-growth">+340%</span>
+    </div>
+    <div class="bar-chart-visual">
+      <span class="bar bar-1" style="height: 35%;"></span>
+      <span class="bar bar-2" style="height: 55%;"></span>
+      <span class="bar bar-3" style="height: 72%;"></span>
+      <span class="bar bar-4" style="height: 90%;"></span>
+      <span class="bar bar-5" style="height: 100%;"></span>
+    </div>
+  </div>
+
+  <!-- Big Glowing Orange Growth Arrow & Script Text (Right Side) -->
+  <div class="growth-arrow-callout">
+    <div class="growth-text-group">
+      <span class="script-tagline">More Customers</span>
+      <span class="script-tagline script-highlight">/ More Growth</span>
+    </div>
+    <svg class="curved-growth-arrow" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M20 100 C 40 75, 70 60, 95 25" stroke="url(#growthArrowGrad)" stroke-width="4" stroke-linecap="round" stroke-dasharray="2 4"/>
+      <path d="M75 22 L100 24 L96 49" stroke="#FF9A1F" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+      <defs>
+        <linearGradient id="growthArrowGrad" x1="20" y1="100" x2="100" y2="24" gradientUnits="userSpaceOnUse">
+          <stop stop-color="#FF9A1F" stop-opacity="0.2"/>
+          <stop offset="0.6" stop-color="#FF9A1F"/>
+          <stop offset="1" stop-color="#FFC062"/>
+        </linearGradient>
+      </defs>
+    </svg>
+  </div>
+
+</div>

@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "yogkart-eedb8"
+  },
+  "targets": {
+    "yogkart-eedb8": {
+      "hosting": {
+        "yogteck": [
+          "yogteck"
+        ]
+      }
+    }
+  }
+}

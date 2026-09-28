@@ -1,0 +1,238 @@
+<section id="contact" class="inquiry-section section-dark">
+  
+  <div class="ambient-glow ambient-glow-orange glow-inquiry-1"></div>
+  <div class="ambient-glow ambient-glow-blue glow-inquiry-2"></div>
+
+  <div class="container">
+    
+    <div class="inquiry-grid">
+      
+      <!-- Left Column: Contact Details & Value Pitch -->
+      <div class="inquiry-info-col">
+        <span class="section-label">GET IN TOUCH</span>
+        
+        <h2 class="inquiry-title">
+          Ready to Accelerate Your <span class="gradient-text">Digital Growth?</span>
+        </h2>
+        
+        <p class="inquiry-lead">
+          Connect with our technology architects for a free strategy session, architecture roadmap, and custom project quotation.
+        </p>
+
+        <!-- Direct Contact Cards -->
+        <div class="contact-cards-group">
+          
+          <a [href]="contact.phoneTel" class="contact-card">
+            <div class="contact-card-icon icon-phone">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            </div>
+            <div class="contact-card-text">
+              <span class="card-meta">Call Directly:</span>
+              <span class="card-val">{{ contact.phone }}</span>
+            </div>
+          </a>
+
+          <a [href]="contact.whatsappLink" target="_blank" rel="noopener noreferrer" class="contact-card">
+            <div class="contact-card-icon icon-whatsapp">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.592 2.654-.696c1.001.574 1.895.885 2.806.885 3.178 0 5.767-2.587 5.767-5.766.001-3.181-2.587-5.768-5.767-5.768zm0 10.455c-.868 0-1.716-.234-2.454-.672l-.176-.104-1.824.478.487-1.776-.115-.183c-.482-.767-.736-1.657-.735-2.569 0-2.628 2.138-4.767 4.767-4.767 2.628 0 4.767 2.139 4.767 4.767 0 2.629-2.139 4.767-4.767 4.767z"/></svg>
+            </div>
+            <div class="contact-card-text">
+              <span class="card-meta">WhatsApp Chat:</span>
+              <span class="card-val">{{ contact.phoneDisplay }}</span>
+            </div>
+          </a>
+
+          <a [href]="'mailto:' + contact.emailPrimary" class="contact-card">
+            <div class="contact-card-icon icon-email">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </div>
+            <div class="contact-card-text">
+              <span class="card-meta">Email Us:</span>
+              <span class="card-val">{{ contact.emailPrimary }}</span>
+            </div>
+          </a>
+
+          <div class="contact-card address-card">
+            <div class="contact-card-icon icon-location">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            </div>
+            <div class="contact-card-text">
+              <span class="card-meta">Corporate Address:</span>
+              <span class="card-val">{{ contact.address }}</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Right Column: Glass Card Inquiry Form with ZERO-OVERLAP Form Controls -->
+      <div class="inquiry-form-col">
+        <div class="glass-form-container">
+          
+          <div class="form-header">
+            <h3 class="form-heading">Request a Free Quote</h3>
+            <p class="form-sub">Fill in your requirements below. We respond within 2 hours.</p>
+          </div>
+
+          <!-- Success Alert -->
+          @if (submitSuccess) {
+            <div class="alert alert-success" role="alert">
+              <svg viewBox="0 0 20 20" fill="currentColor" class="alert-icon"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+              <div>
+                <strong>Thank you!</strong> Your enquiry has been received. Our solutions team will contact you shortly.
+              </div>
+            </div>
+          }
+
+          <!-- Error Alert -->
+          @if (submitError) {
+            <div class="alert alert-error" role="alert">
+              <svg viewBox="0 0 20 20" fill="currentColor" class="alert-icon"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/></svg>
+              <div>{{ submitError }}</div>
+            </div>
+          }
+
+          <form #inquiryForm="ngForm" (ngSubmit)="onSubmit(inquiryForm)" class="inquiry-form-body" novalidate>
+            
+            <!-- Field 1: Full Name -->
+            <div class="form-group">
+              <label for="contactName" class="form-label">Full Name *</label>
+              <div class="input-control-wrapper has-left-icon">
+                <input
+                  type="text"
+                  id="contactName"
+                  name="name"
+                  [(ngModel)]="formData.name"
+                  #nameCtrl="ngModel"
+                  required
+                  minlength="2"
+                  class="form-input"
+                  [class.is-invalid]="nameCtrl.invalid && (nameCtrl.dirty || nameCtrl.touched)"
+                  placeholder="Enter your full name"
+                  autocomplete="name">
+                <span class="input-icon-left" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                </span>
+              </div>
+              @if (nameCtrl.invalid && (nameCtrl.dirty || nameCtrl.touched)) {
+                <span class="form-error-msg">Please enter your name (min 2 characters).</span>
+              }
+            </div>
+
+            <!-- Field 2: Mobile Number -->
+            <div class="form-group">
+              <label for="contactPhone" class="form-label">Mobile / WhatsApp Number *</label>
+              <div class="input-control-wrapper has-left-icon">
+                <input
+                  type="tel"
+                  id="contactPhone"
+                  name="phone"
+                  [(ngModel)]="formData.phone"
+                  #phoneCtrl="ngModel"
+                  required
+                  pattern="^[0-9+ ]{10,15}$"
+                  class="form-input"
+                  [class.is-invalid]="phoneCtrl.invalid && (phoneCtrl.dirty || phoneCtrl.touched)"
+                  placeholder="e.g. +91 8299209905"
+                  autocomplete="tel">
+                <span class="input-icon-left" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                </span>
+              </div>
+              @if (phoneCtrl.invalid && (phoneCtrl.dirty || phoneCtrl.touched)) {
+                <span class="form-error-msg">Please enter a valid mobile number.</span>
+              }
+            </div>
+
+            <!-- Field 3: Email Address -->
+            <div class="form-group">
+              <label for="contactEmail" class="form-label">Email Address *</label>
+              <div class="input-control-wrapper has-left-icon">
+                <input
+                  type="email"
+                  id="contactEmail"
+                  name="email"
+                  [(ngModel)]="formData.email"
+                  #emailCtrl="ngModel"
+                  required
+                  email
+                  class="form-input"
+                  [class.is-invalid]="emailCtrl.invalid && (emailCtrl.dirty || emailCtrl.touched)"
+                  placeholder="name@company.com"
+                  autocomplete="email">
+                <span class="input-icon-left" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                </span>
+              </div>
+              @if (emailCtrl.invalid && (emailCtrl.dirty || emailCtrl.touched)) {
+                <span class="form-error-msg">Please enter a valid email address.</span>
+              }
+            </div>
+
+            <!-- Field 4: Solution Type Dropdown -->
+            <div class="form-group">
+              <label for="contactService" class="form-label">Required Solution *</label>
+              <div class="input-control-wrapper has-left-icon">
+                <select
+                  id="contactService"
+                  name="serviceType"
+                  [(ngModel)]="formData.serviceType"
+                  class="form-select">
+                  @for (srv of services; track srv.id) {
+                    <option [value]="srv.title">{{ srv.title }}</option>
+                  }
+                  <option value="Marketplace Onboarding">Marketplace Onboarding (Amazon/Flipkart)</option>
+                  <option value="Complete Digital Transformation">Complete Digital Transformation</option>
+                </select>
+                <span class="input-icon-left" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+                </span>
+              </div>
+            </div>
+
+            <!-- Field 5: Project Details Textarea -->
+            <div class="form-group">
+              <label for="contactMessage" class="form-label">Project Details &amp; Requirements *</label>
+              <textarea
+                id="contactMessage"
+                name="message"
+                [(ngModel)]="formData.message"
+                #msgCtrl="ngModel"
+                required
+                minlength="5"
+                rows="3"
+                class="form-textarea"
+                [class.is-invalid]="msgCtrl.invalid && (msgCtrl.dirty || msgCtrl.touched)"
+                placeholder="Briefly describe your business, timeline, and key requirements..."></textarea>
+              @if (msgCtrl.invalid && (msgCtrl.dirty || msgCtrl.touched)) {
+                <span class="form-error-msg">Please provide details regarding your requirements.</span>
+              }
+            </div>
+
+            <!-- Free Domain + Hosting Banner Notice -->
+            <div class="form-hosting-notice">
+              <svg viewBox="0 0 24 24" fill="currentColor" class="notice-cloud-icon"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96z"/></svg>
+              <span><strong>Free Domain &amp; Cloud Hosting</strong> included with applicable website packages!</span>
+            </div>
+
+            <!-- Submit Button -->
+            <button
+              type="submit"
+              [disabled]="inquiryForm.invalid || isSubmitting"
+              class="btn btn-primary-orange submit-form-btn">
+              @if (isSubmitting) {
+                <span>Sending Enquiry...</span>
+              } @else {
+                <span>Send Free Enquiry Now →</span>
+              }
+            </button>
+
+          </form>
+
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>

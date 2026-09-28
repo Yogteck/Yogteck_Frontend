@@ -1,0 +1,85 @@
+<section id="marketplaces" class="marketplace-section section-dark">
+  
+  <div class="ambient-glow ambient-glow-orange glow-mkt-1"></div>
+  <div class="ambient-glow ambient-glow-blue glow-mkt-2"></div>
+
+  <div class="container">
+    
+    <div class="marketplace-grid">
+      
+      <!-- Left Column: Copy & Value Proposition -->
+      <div class="mkt-content-col">
+        <span class="section-label">MULTI-CHANNEL EXPANSION</span>
+        <h2 class="mkt-heading">
+          Take Your Business From <span class="gradient-text">Local to Global</span>
+        </h2>
+        
+        <p class="mkt-lead">
+          Do not limit your revenue to walk-in footfall. We onboard your products and scale high-margin sales across India’s biggest e-commerce marketplaces.
+        </p>
+
+        <!-- Workflow Step Badges -->
+        <div class="mkt-flow-strip">
+          <div class="flow-badge">Offline Store</div>
+          <span class="flow-arrow">→</span>
+          <div class="flow-badge">Online Store</div>
+          <span class="flow-arrow">→</span>
+          <div class="flow-badge flow-badge-glow">Marketplaces</div>
+          <span class="flow-arrow">→</span>
+          <div class="flow-badge">Global Scale</div>
+        </div>
+
+        <!-- Capability Points Grid -->
+        <div class="capabilities-grid">
+          @for (cap of capabilities; track cap.title) {
+            <div class="cap-card">
+              <div class="cap-check">✓</div>
+              <div class="cap-text">
+                <span class="cap-title">{{ cap.title }}</span>
+                <span class="cap-desc">{{ cap.desc }}</span>
+              </div>
+            </div>
+          }
+        </div>
+
+        <div class="mkt-btn-wrap">
+          <a href="#contact" class="btn btn-primary-orange">
+            <span>Start Selling Online Today →</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Right Column: Interactive Platform Cards -->
+      <div class="mkt-platforms-col">
+        <div class="platform-cards-stack">
+          
+          <div class="stack-header">
+            <span class="stack-title">Platforms We Help You Sell On:</span>
+            <span class="stack-sub">End-to-End Account &amp; Ads Management</span>
+          </div>
+
+          <div class="platforms-grid">
+            @for (p of platforms; track p.name) {
+              <div class="platform-card" [style.border-top-color]="p.color">
+                <div class="p-header">
+                  <div class="p-name-badge" [style.color]="p.color">
+                    <span class="p-dot" [style.background]="p.color"></span>
+                    <span class="p-name">{{ p.name }}</span>
+                  </div>
+                  <span class="p-badge">{{ p.badge }}</span>
+                </div>
+                <p class="p-desc">{{ p.desc }}</p>
+                <div class="p-footer">
+                  <span class="p-status">✓ Full Cataloging &amp; Ads Setup</span>
+                </div>
+              </div>
+            }
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>

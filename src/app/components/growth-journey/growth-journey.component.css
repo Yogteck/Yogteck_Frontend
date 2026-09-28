@@ -1,0 +1,251 @@
+.growth-section {
+  padding-top: 90px;
+  padding-bottom: 90px;
+  position: relative;
+  background-color: var(--bg-navy-900);
+}
+
+.glow-journey-1 {
+  top: 10%;
+  left: -5%;
+  width: 500px;
+  height: 500px;
+}
+
+.glow-journey-2 {
+  bottom: 5%;
+  right: -5%;
+  width: 500px;
+  height: 500px;
+}
+
+.section-header-center {
+  text-align: center;
+  max-width: 680px;
+  margin: 0 auto 50px auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.journey-heading {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #FFFFFF;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  margin-bottom: 14px;
+}
+
+.journey-subheading {
+  font-size: 1.0625rem;
+  color: #94A3B8;
+  line-height: 1.6;
+}
+
+/* Timeline Track & Cards */
+.growth-timeline-wrapper {
+  position: relative;
+  margin-bottom: 50px;
+}
+
+.timeline-track-bar {
+  position: absolute;
+  top: 90px;
+  left: 30px;
+  right: 30px;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.08);
+  z-index: 1;
+  border-radius: 3px;
+}
+
+.track-glow-pulse {
+  height: 100%;
+  width: 40%;
+  background: var(--accent-orange-gradient);
+  box-shadow: 0 0 14px rgba(255, 154, 31, 0.8);
+  border-radius: 3px;
+  animation: pulseTrack 4s ease-in-out infinite alternate;
+}
+
+.growth-steps-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 16px;
+  position: relative;
+  z-index: 2;
+}
+
+.growth-step-card {
+  background: rgba(10, 19, 48, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-lg);
+  padding: 20px 16px;
+  display: flex;
+  flex-direction: column;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  transition: all var(--transition-normal);
+  cursor: pointer;
+  position: relative;
+}
+
+.growth-step-card:hover,
+.growth-step-card.is-current {
+  background: rgba(15, 28, 68, 0.92);
+  border-color: rgba(255, 154, 31, 0.5);
+  transform: translateY(-8px);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.5), 0 0 24px rgba(255, 154, 31, 0.2);
+}
+
+.step-top-badge {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.step-num {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #FFB84D;
+  font-family: inherit;
+}
+
+.step-tag {
+  font-size: 0.625rem;
+  font-weight: 700;
+  color: #94A3B8;
+  background: rgba(255, 255, 255, 0.06);
+  padding: 2px 6px;
+  border-radius: var(--radius-pill);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.step-icon-circle {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(47, 123, 255, 0.15);
+  border: 1px solid rgba(47, 123, 255, 0.3);
+  color: #60A5FA;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+  transition: all var(--transition-fast);
+}
+
+.step-icon-circle svg {
+  width: 22px;
+  height: 22px;
+}
+
+.growth-step-card:hover .step-icon-circle,
+.growth-step-card.is-current .step-icon-circle {
+  background: var(--accent-orange-gradient);
+  border-color: transparent;
+  color: #050B1A;
+  box-shadow: var(--shadow-orange-glow);
+}
+
+.step-stage-label {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  color: #FF9A1F;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 4px;
+  display: block;
+}
+
+.step-title {
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: #FFFFFF;
+  margin-bottom: 8px;
+  line-height: 1.3;
+}
+
+.step-desc {
+  font-size: 0.75rem;
+  color: #94A3B8;
+  line-height: 1.45;
+  flex: 1;
+}
+
+.step-arrow-flow {
+  display: none;
+}
+
+/* Bottom Action Callout */
+.journey-cta-box {
+  background: linear-gradient(135deg, rgba(16, 28, 66, 0.9) 0%, rgba(10, 19, 48, 0.9) 100%);
+  border: 1px solid rgba(255, 154, 31, 0.25);
+  border-radius: var(--radius-lg);
+  padding: 24px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.4);
+}
+
+.cta-box-left {
+  display: flex;
+  flex-direction: column;
+}
+
+.cta-box-title {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #FFFFFF;
+  margin-bottom: 4px;
+}
+
+.cta-box-desc {
+  font-size: 0.875rem;
+  color: #94A3B8;
+}
+
+@keyframes pulseTrack {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(150%); }
+}
+
+/* Responsive Rules per Section D */
+@media (max-width: 1200px) {
+  .growth-steps-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .timeline-track-bar {
+    display: none;
+  }
+}
+
+@media (max-width: 767px) {
+  .growth-section {
+    padding-top: 60px;
+    padding-bottom: 60px;
+  }
+  .journey-heading {
+    font-size: 1.85rem;
+  }
+  .growth-steps-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .growth-step-card {
+    padding: 16px;
+  }
+  .journey-cta-box {
+    flex-direction: column;
+    text-align: center;
+    padding: 20px;
+  }
+  .journey-cta-box .btn {
+    width: 100%;
+  }
+}

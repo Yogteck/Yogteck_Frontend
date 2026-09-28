@@ -1,0 +1,148 @@
+<header class="navbar-header" [class.is-scrolled]="isScrolled">
+  <div class="container navbar-container">
+    
+    <!-- Brand Logo -->
+    <a href="#" (click)="scrollTo('home', $event)" class="brand-logo" aria-label="YOGTECK Home">
+      <div class="logo-mark">
+        <svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="44" height="44" rx="10" fill="#0A1330"/>
+          <rect x="2" y="2" width="40" height="40" rx="8" stroke="url(#logoGlow)" stroke-width="2"/>
+          <path d="M12 14H20M16 14V30M22 14H32M27 14V30" stroke="url(#logoTextGrad)" stroke-width="2.8" stroke-linecap="round"/>
+          <defs>
+            <linearGradient id="logoGlow" x1="0" y1="0" x2="44" y2="44" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#FF9A1F"/>
+              <stop offset="1" stop-color="#FFB84D"/>
+            </linearGradient>
+            <linearGradient id="logoTextGrad" x1="12" y1="14" x2="32" y2="30" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#FFFFFF"/>
+              <stop offset="1" stop-color="#FFB84D"/>
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
+      <div class="brand-text">
+        <span class="brand-name">YOGTECK<span class="brand-dot">.</span></span>
+        <span class="brand-slogan">Build • Grow • Succeed</span>
+      </div>
+    </a>
+
+    <!-- Desktop Nav Links -->
+    <nav class="desktop-nav" aria-label="Main Navigation">
+      <ul class="nav-list">
+        
+        <li class="nav-item">
+          <a href="#home" (click)="scrollTo('home', $event)" class="nav-link" [class.active]="activeSection === 'home'">
+            Home
+            <span class="active-indicator"></span>
+          </a>
+        </li>
+
+        <!-- Our Services Dropdown -->
+        <li class="nav-item dropdown-parent" [class.dropdown-open]="isServicesDropdownOpen">
+          <button type="button" (click)="toggleDropdown($event)" class="nav-link dropdown-trigger" [class.active]="activeSection === 'services'" aria-haspopup="true" [attr.aria-expanded]="isServicesDropdownOpen">
+            <span>Our Services</span>
+            <svg class="chevron-icon" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
+            </svg>
+            <span class="active-indicator"></span>
+          </button>
+
+          <!-- Dropdown Mega Menu (8 Services) -->
+          <div class="services-dropdown" (click)="$event.stopPropagation()">
+            <div class="dropdown-header">
+              <span class="dropdown-title">Explore Our Digital Capabilities</span>
+              <span class="dropdown-badge">8 Core Solutions</span>
+            </div>
+            <div class="dropdown-grid">
+              @for (srv of services; track srv.id) {
+                <a [href]="'#' + srv.slug" (click)="scrollTo(srv.slug, $event)" class="service-dropdown-item">
+                  <div class="item-icon-wrap">
+                    @switch (srv.icon) {
+                      @case ('globe') {
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                      }
+                      @case ('cart') {
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+                      }
+                      @case ('gear') {
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+                      }
+                      @case ('target') {
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+                      }
+                      @case ('code') {
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                      }
+                      @default {
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+                      }
+                    }
+                  </div>
+                  <div class="item-text">
+                    <span class="item-title">{{ srv.title }}</span>
+                    <span class="item-desc">{{ srv.shortDesc }}</span>
+                  </div>
+                </a>
+              }
+            </div>
+          </div>
+        </li>
+
+        <li class="nav-item">
+          <a href="#growth-journey" (click)="scrollTo('growth-journey', $event)" class="nav-link" [class.active]="activeSection === 'growth-journey'">
+            Growth Journey
+            <span class="active-indicator"></span>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a href="#projects" (click)="scrollTo('projects', $event)" class="nav-link" [class.active]="activeSection === 'projects'">
+            Our Projects
+            <span class="active-indicator"></span>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a href="#clients" (click)="scrollTo('clients', $event)" class="nav-link" [class.active]="activeSection === 'clients'">
+            Our Clients
+            <span class="active-indicator"></span>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a href="#about" (click)="scrollTo('about', $event)" class="nav-link" [class.active]="activeSection === 'about'">
+            About Us
+            <span class="active-indicator"></span>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a href="#contact" (click)="scrollTo('contact', $event)" class="nav-link" [class.active]="activeSection === 'contact'">
+            Contact
+            <span class="active-indicator"></span>
+          </a>
+        </li>
+
+      </ul>
+    </nav>
+
+    <!-- Right Side Actions (Desktop) -->
+    <div class="navbar-actions">
+      <!-- Get Free Quote Button -->
+      <button type="button" (click)="openQuote.emit()" class="btn btn-outline-orange quote-btn">
+        <span>Get Free Quote</span>
+        <svg viewBox="0 0 20 20" fill="currentColor" class="btn-arrow">
+          <path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"/>
+        </svg>
+      </button>
+
+      <!-- Mobile Hamburger Button -->
+      <button type="button" (click)="toggleDrawer.emit()" class="hamburger-btn" aria-label="Open Navigation Menu">
+        <span class="ham-line"></span>
+        <span class="ham-line"></span>
+        <span class="ham-line"></span>
+      </button>
+    </div>
+
+  </div>
+</header>

@@ -13,19 +13,21 @@ export interface RedirectMapping {
 })
 export class SmartRedirectService {
   private readonly validRoutes: RedirectMapping[] = [
-    { slug: 'supermarket-racks', target: '/#supermarket-racks', keywords: ['supermarket', 'gondola', 'grocery', 'store'] },
-    { slug: 'display-racks', target: '/#display-racks', keywords: ['display', 'showroom', 'retail', 'shelf'] },
-    { slug: 'warehouse-racks', target: '/#warehouse-racks', keywords: ['warehouse', 'heavy', 'duty', 'industrial', 'slotted'] },
-    { slug: 'garment-racks', target: '/#garment-racks', keywords: ['garment', 'clothes', 'apparel', 'hangers'] },
-    { slug: 'medical-racks', target: '/#medical-racks', keywords: ['medical', 'pharmacy', 'medicine'] },
-    { slug: 'steel-racks', target: '/#steel-racks', keywords: ['steel', 'iron', 'metal', 'angle'] },
-    { slug: 'kanpur-nagar', target: '/#kanpur-nagar', keywords: ['kanpur nagar', 'kanpurnagar', 'kanpur', 'nagar', 'uttar pradesh', 'up'] },
-    { slug: 'kanpur', target: '/#kanpur-nagar', keywords: ['kanpur', 'kanpur nagar', 'uttar pradesh', 'up'] },
-    { slug: 'delhi', target: '/#delhi', keywords: ['delhi', 'ncr'] },
-    { slug: 'hyderabad', target: '/#hyderabad', keywords: ['hyderabad', 'telangana'] },
-    { slug: 'bangalore', target: '/#bangalore', keywords: ['bangalore', 'bengaluru', 'karnataka'] },
-    { slug: 'chennai', target: '/#chennai', keywords: ['chennai', 'tamil nadu'] },
-    { slug: 'contact', target: '/#contact', keywords: ['contact', 'enquiry', 'phone', 'location'] }
+    { slug: 'website-development', target: '/#website-development', keywords: ['website', 'web', 'portal', 'landing', 'responsive'] },
+    { slug: 'ecommerce-solutions', target: '/#ecommerce-solutions', keywords: ['ecommerce', 'e-commerce', 'store', 'shop', 'cart', 'selling'] },
+    { slug: 'erp-solutions', target: '/#erp-solutions', keywords: ['erp', 'enterprise', 'inventory', 'billing', 'accounts', 'software'] },
+    { slug: 'digital-marketing-seo', target: '/#digital-marketing-seo', keywords: ['marketing', 'seo', 'ads', 'google', 'traffic', 'leads'] },
+    { slug: 'custom-software-development', target: '/#custom-software-development', keywords: ['custom', 'software', 'application', 'saas', 'cloud'] },
+    { slug: 'mlm-solutions', target: '/#mlm-solutions', keywords: ['mlm', 'network', 'direct', 'selling', 'binary'] },
+    { slug: 'saas-solutions', target: '/#saas-solutions', keywords: ['saas', 'multi-tenant', 'subscription'] },
+    { slug: 'sales-service-solutions', target: '/#sales-service-solutions', keywords: ['crm', 'helpdesk', 'pipeline', 'sales', 'service'] },
+    { slug: 'marketplaces', target: '/#marketplaces', keywords: ['marketplace', 'amazon', 'flipkart', 'meesho', 'walmart'] },
+    { slug: 'growth-journey', target: '/#growth-journey', keywords: ['growth', 'journey', 'scale', 'transformation'] },
+    { slug: 'projects', target: '/#projects', keywords: ['project', 'projects', 'portfolio', 'case', 'studies', 'work'] },
+    { slug: 'clients', target: '/#clients', keywords: ['client', 'clients', 'customers', 'partners', 'trusted'] },
+    { slug: 'about', target: '/#about', keywords: ['about', 'why', 'company', 'team', 'experience'] },
+    { slug: 'contact', target: '/#contact', keywords: ['contact', 'quote', 'enquiry', 'phone', 'whatsapp', 'email', 'kanpur'] },
+    { slug: 'kanpur', target: '/#contact', keywords: ['kanpur', 'kanpur nagar', 'uttar pradesh', 'up'] }
   ];
 
   private logCache: Set<string> = new Set();

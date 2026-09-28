@@ -1,0 +1,35 @@
+<section id="clients" class="clients-section section-dark">
+  
+  <div class="container">
+    
+    <!-- Centered Heading & Subline -->
+    <div class="clients-header-center">
+      <h2 class="clients-title">Trusted by Leading Businesses</h2>
+      <p class="clients-subtitle">Partnering with ambitious enterprises to engineer market-leading digital experiences.</p>
+    </div>
+
+    <!-- Client Pills Row (Rule F1 Compliance) -->
+    <div class="clients-pill-track">
+      @for (client of clients; track client.id) {
+        <div class="client-pill-card">
+          <div class="client-logo-avatar" [style.color]="client.accentColor" [style.border-color]="client.accentColor">
+            <span>{{ client.initials }}</span>
+          </div>
+          <div class="client-info">
+            <span class="client-name">{{ client.name }}</span>
+            <span class="client-category">{{ client.category }}</span>
+          </div>
+        </div>
+      }
+
+      <!-- "View All Clients →" Outline Button at the end (as in image) -->
+      <a href="#contact" class="btn btn-outline-orange view-clients-btn">
+        <span>View All Clients</span>
+        <svg viewBox="0 0 20 20" fill="currentColor" style="width: 16px; height: 16px;">
+          <path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"/>
+        </svg>
+      </a>
+    </div>
+
+  </div>
+</section>

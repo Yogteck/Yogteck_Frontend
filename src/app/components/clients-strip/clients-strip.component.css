@@ -1,0 +1,135 @@
+.clients-section {
+  padding-top: 70px;
+  padding-bottom: 70px;
+  position: relative;
+  background-color: var(--bg-navy-900);
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.clients-header-center {
+  text-align: center;
+  max-width: 620px;
+  margin: 0 auto 36px auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.clients-title {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #FFFFFF;
+  margin-bottom: 8px;
+  letter-spacing: -0.02em;
+}
+
+.clients-subtitle {
+  font-size: 0.9375rem;
+  color: #94A3B8;
+  line-height: 1.5;
+}
+
+/* Client Pills Row */
+.clients-pill-track {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.client-pill-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: rgba(10, 19, 48, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: var(--radius-pill);
+  padding: 10px 24px 10px 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: all var(--transition-fast);
+}
+
+.client-pill-card:hover {
+  border-color: rgba(255, 154, 31, 0.5);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45);
+}
+
+.client-logo-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1.5px solid;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.875rem;
+  font-weight: 800;
+  flex-shrink: 0;
+}
+
+.client-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.client-name {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: #FFFFFF;
+  line-height: 1.25;
+}
+
+.client-category {
+  font-size: 0.6875rem;
+  font-weight: 500;
+  color: #94A3B8;
+}
+
+.view-clients-btn {
+  padding: 11px 22px;
+  font-size: 0.84375rem;
+  gap: 8px;
+}
+
+/* Responsive Rules per Section D */
+@media (max-width: 900px) {
+  .clients-pill-track {
+    justify-content: flex-start;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    padding-bottom: 12px;
+    -webkit-overflow-scrolling: touch;
+  }
+  .client-pill-card {
+    flex-shrink: 0;
+  }
+  .view-clients-btn {
+    flex-shrink: 0;
+  }
+}
+
+@media (max-width: 640px) {
+  .clients-section {
+    padding-top: 50px;
+    padding-bottom: 50px;
+  }
+  .clients-title {
+    font-size: 1.6rem;
+  }
+  .client-pill-card {
+    padding: 8px 18px 8px 10px;
+  }
+  .client-logo-avatar {
+    width: 34px;
+    height: 34px;
+    font-size: 0.75rem;
+  }
+  .client-name {
+    font-size: 0.8125rem;
+  }
+}

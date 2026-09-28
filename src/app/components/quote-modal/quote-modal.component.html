@@ -1,0 +1,161 @@
+<div class="modal-backdrop" [class.is-open]="isOpen" (click)="closeModal.emit()" aria-hidden="true"></div>
+
+<div class="modal-dialog-wrapper" [class.is-open]="isOpen" role="dialog" aria-modal="true" aria-labelledby="quoteModalTitle">
+  <div class="modal-content-card" (click)="$event.stopPropagation()">
+    
+    <!-- Compact Modal Header -->
+    <div class="modal-header">
+      <div class="modal-title-wrap">
+        <div class="modal-badge-row">
+          <span class="pill-badge-mini">✦ Free Architecture Estimate</span>
+        </div>
+        <h3 id="quoteModalTitle" class="modal-title">Get a Free Instant Quote</h3>
+        <p class="modal-sub">Enquiry will be sent directly to official solutions team.</p>
+      </div>
+      <button type="button" (click)="closeModal.emit()" class="modal-close-btn" aria-label="Close quote modal">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <line x1="18" y1="6" x2="6" y2="18"/>
+          <line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Alert States -->
+    @if (submitSuccess) {
+      <div class="alert alert-success" role="alert">
+        <svg viewBox="0 0 20 20" fill="currentColor" class="alert-icon"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+        <div><strong>Enquiry Sent!</strong> We have received your request and our team will get back to you shortly.</div>
+      </div>
+    }
+
+    @if (submitError) {
+      <div class="alert alert-error" role="alert">
+        <svg viewBox="0 0 20 20" fill="currentColor" class="alert-icon"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/></svg>
+        <div>{{ submitError }}</div>
+      </div>
+    }
+
+    <!-- Compact Modal Form Body (2-Column X-Small Layout) -->
+    <form #quoteForm="ngForm" (ngSubmit)="onSubmit(quoteForm)" class="modal-form-compact" novalidate>
+      
+      <!-- Row 1: Name & Phone (2 Columns) -->
+      <div class="form-row-2col">
+        
+        <!-- Full Name -->
+        <div class="form-group-xs">
+          <label for="modalName" class="form-label-xs">Your Name *</label>
+          <div class="input-control-wrapper-xs has-left-icon">
+            <input
+              type="text"
+              id="modalName"
+              name="name"
+              [(ngModel)]="formData.name"
+              #mName="ngModel"
+              required
+              minlength="2"
+              class="form-input-xs"
+              [class.is-invalid]="mName.invalid && (mName.dirty || mName.touched)"
+              placeholder="Full name">
+            <span class="input-icon-xs" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </span>
+          </div>
+        </div>
+
+        <!-- Phone / WhatsApp -->
+        <div class="form-group-xs">
+          <label for="modalPhone" class="form-label-xs">Mobile / WhatsApp *</label>
+          <div class="input-control-wrapper-xs has-left-icon">
+            <input
+              type="tel"
+              id="modalPhone"
+              name="phone"
+              [(ngModel)]="formData.phone"
+              #mPhone="ngModel"
+              required
+              pattern="^[0-9+ ]{10,15}$"
+              class="form-input-xs"
+              [class.is-invalid]="mPhone.invalid && (mPhone.dirty || mPhone.touched)"
+              placeholder="e.g. 8299209905">
+            <span class="input-icon-xs" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            </span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Row 2: Email & Solution Dropdown (2 Columns) -->
+      <div class="form-row-2col">
+        
+        <!-- Email Address -->
+        <div class="form-group-xs">
+          <label for="modalEmail" class="form-label-xs">Email Address *</label>
+          <div class="input-control-wrapper-xs has-left-icon">
+            <input
+              type="email"
+              id="modalEmail"
+              name="email"
+              [(ngModel)]="formData.email"
+              #mEmail="ngModel"
+              required
+              email
+              class="form-input-xs"
+              [class.is-invalid]="mEmail.invalid && (mEmail.dirty || mEmail.touched)"
+              placeholder="name@company.com">
+            <span class="input-icon-xs" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </span>
+          </div>
+        </div>
+
+        <!-- Solution Type -->
+        <div class="form-group-xs">
+          <label for="modalService" class="form-label-xs">Required Solution *</label>
+          <div class="input-control-wrapper-xs has-left-icon">
+            <select
+              id="modalService"
+              name="serviceType"
+              [(ngModel)]="formData.serviceType"
+              class="form-select-xs">
+              @for (srv of services; track srv.id) {
+                <option [value]="srv.title">{{ srv.title }}</option>
+              }
+              <option value="Marketplace Onboarding">Marketplace Onboarding</option>
+              <option value="Complete Digital Transformation">Complete Digital Transformation</option>
+            </select>
+            <span class="input-icon-xs" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+            </span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Row 3: Project Notes / Requirements -->
+      <div class="form-group-xs">
+        <label for="modalMsg" class="form-label-xs">Project Details / Requirements (Optional)</label>
+        <textarea
+          id="modalMsg"
+          name="message"
+          [(ngModel)]="formData.message"
+          rows="2"
+          class="form-textarea-xs"
+          placeholder="Briefly describe your requirements or website goals..."></textarea>
+      </div>
+
+      <!-- Submit Action Button -->
+      <div class="modal-action-row">
+        <button type="submit" [disabled]="quoteForm.invalid || isSubmitting" class="btn btn-primary-orange modal-submit-btn-xs">
+          @if (isSubmitting) {
+            <span>Sending Enquiry via Email...</span>
+          } @else {
+            <span>Send Free Quote Enquiry →</span>
+          }
+        </button>
+      </div>
+
+    </form>
+
+  </div>
+</div>

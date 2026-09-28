@@ -1,0 +1,99 @@
+<section id="services" class="services-section section-light">
+  
+  <div class="container services-container">
+    
+    <!-- Left Column: Sticky Section Header & CTA (~30% Desktop) -->
+    <div class="services-header-col">
+      <div class="header-sticky-box">
+        <span class="section-label">OUR SERVICES</span>
+        
+        <h2 class="services-title">
+          Complete Digital Solutions for Your Business
+        </h2>
+        
+        <p class="services-lead">
+          We architect, build and scale end-to-end technology and marketing engines to accelerate your digital growth.
+        </p>
+
+        <a href="#contact" (click)="scrollToContact($event)" class="btn btn-navy-light-section explore-btn">
+          <span>Explore Our Services</span>
+          <svg viewBox="0 0 20 20" fill="currentColor" class="btn-arrow-icon">
+            <path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"/>
+          </svg>
+        </a>
+
+        <!-- Service Assurance Highlight -->
+        <div class="services-assurance-box">
+          <div class="assurance-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <div class="assurance-text">
+            <span class="assurance-title">Enterprise Standards</span>
+            <span class="assurance-desc">Zero-downtime deployment, clean code &amp; 100% IP ownership.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Column: 4x2 Grid of White Service Cards (~70% Desktop) -->
+    <div class="services-grid-col">
+      <div class="services-cards-grid">
+        
+        @for (srv of services; track srv.id) {
+          <div [id]="srv.slug" class="service-card" (click)="onCardClick(srv)">
+            
+            <div class="card-top-row">
+              <!-- Pale-Blue Rounded Icon Tile -->
+              <div class="service-icon-tile">
+                @switch (srv.icon) {
+                  @case ('globe') {
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                  }
+                  @case ('cart') {
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+                  }
+                  @case ('gear') {
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+                  }
+                  @case ('target') {
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+                  }
+                  @case ('code') {
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                  }
+                  @case ('network') {
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+                  }
+                  @case ('cloud-sparkle') {
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/></svg>
+                  }
+                  @case ('headset') {
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
+                  }
+                }
+              </div>
+
+              @if (srv.badge) {
+                <span class="card-badge">{{ srv.badge }}</span>
+              }
+            </div>
+
+            <h3 class="service-card-title">{{ srv.title }}</h3>
+            <p class="service-card-desc">{{ srv.shortDesc }}</p>
+
+            <div class="card-action-link">
+              <span>Learn more</span>
+              <svg viewBox="0 0 20 20" fill="currentColor" class="card-arrow">
+                <path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"/>
+              </svg>
+            </div>
+
+          </div>
+        }
+
+      </div>
+    </div>
+
+  </div>
+
+</section>

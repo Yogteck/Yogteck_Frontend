@@ -1,0 +1,66 @@
+<section id="about" class="about-section section-dark">
+  
+  <div class="ambient-glow ambient-glow-blue glow-about-1"></div>
+
+  <div class="container">
+    
+    <div class="about-top-grid">
+      
+      <!-- Left Column: Story & Metrics -->
+      <div class="about-story-col">
+        <span class="section-label">WHY CHOOSE YOGTECK</span>
+        
+        <h2 class="about-heading">
+          Your Dedicated <span class="gradient-text">Technology &amp; Digital Growth Partner</span>
+        </h2>
+
+        <p class="about-p">
+          At YOGTECK, we bridge the gap between technical complexity and business growth. Founded with a mission to empower enterprises and ambitious local businesses, we engineer robust digital products that drive real revenue.
+        </p>
+
+        <!-- 4 Key Proven Stats -->
+        <div class="about-stats-grid">
+          <div class="stat-card">
+            <span class="stat-num gradient-text">5+</span>
+            <span class="stat-label">Years of Engineering Excellence</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-num gradient-text">100+</span>
+            <span class="stat-label">Digital Projects Delivered</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-num gradient-text">99.9%</span>
+            <span class="stat-label">Uptime &amp; SLA Reliability</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-num gradient-text">24/7</span>
+            <span class="stat-label">Dedicated Technical Support</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Right Column: 6 Core Trust Pillars -->
+      <div class="about-pillars-col">
+        <div class="pillars-container">
+          <h3 class="pillars-title">The 6 Pillars of the YOGTECK Standard</h3>
+          
+          <div class="pillars-grid">
+            @for (point of trustPoints; track point.title; let idx = $index) {
+              <div class="pillar-card">
+                <div class="pillar-num">0{{ idx + 1 }}</div>
+                <div class="pillar-body">
+                  <h4 class="pillar-heading">{{ point.title }}</h4>
+                  <p class="pillar-desc">{{ point.desc }}</p>
+                </div>
+              </div>
+            }
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>

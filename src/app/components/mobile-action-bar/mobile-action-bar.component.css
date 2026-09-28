@@ -1,0 +1,83 @@
+.mobile-bottom-bar {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: calc(var(--mobile-bottom-bar-height) + env(safe-area-inset-bottom, 0px));
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  background: rgba(5, 11, 26, 0.92);
+  border-top: 1px solid rgba(255, 154, 31, 0.25);
+  box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  z-index: 999;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.action-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  height: 100%;
+  text-decoration: none;
+  color: #94A3B8;
+  transition: all var(--transition-fast);
+}
+
+.action-item:hover,
+.action-item:active {
+  color: #FFFFFF;
+}
+
+.action-icon-wrap {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform var(--transition-fast);
+}
+
+.icon-call-wrap {
+  background: rgba(47, 123, 255, 0.15);
+  color: #60A5FA;
+}
+
+.icon-wa-wrap {
+  background: #10B981;
+  color: #FFFFFF;
+  box-shadow: 0 0 12px rgba(16, 185, 129, 0.4);
+}
+
+.icon-email-wrap {
+  background: rgba(255, 154, 31, 0.15);
+  color: #FFB84D;
+}
+
+.action-icon-wrap svg {
+  width: 16px;
+  height: 16px;
+}
+
+.action-label {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.action-whatsapp .action-label {
+  color: #10B981;
+  font-weight: 700;
+}
+
+@media (max-width: 767px) {
+  .mobile-bottom-bar {
+    display: flex;
+  }
+}

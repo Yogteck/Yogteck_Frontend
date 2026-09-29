@@ -961,10 +961,12 @@ body.theme-light {
   .pillar-card {
     background: #FFFFFF;
     border: 1px solid #E2E8F0;
+    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.02);
   }
   .pillar-card:hover {
-    border-color: #FDBA74;
-    box-shadow: 0 6px 18px rgba(15, 23, 42, 0.05);
+    background: #FFFFFF !important;
+    border-color: #EA580C;
+    box-shadow: 0 6px 20px rgba(234, 88, 12, 0.12);
   }
   .pillar-heading {
     color: #0F172A;
@@ -1177,11 +1179,95 @@ body.theme-light {
     border-top: 1px solid #E2E8F0;
     box-shadow: 0 -4px 20px rgba(15, 23, 42, 0.06);
   }
-  .action-item {
+  /* Footer Light Mode Overrides */
+  .site-footer {
+    background-color: #FFFFFF;
+    border-top: 1px solid #E2E8F0;
+    color: #334155;
+  }
+  .footer-top-band {
+    border-bottom: 1px solid #E2E8F0;
+  }
+  .footer-divider-vert {
+    background: #E2E8F0;
+  }
+  .footer-brand-name {
+    color: #0F172A;
+  }
+  .footer-brand-slogan {
+    color: #EA580C;
+  }
+  .footer-bio {
+    color: #475569;
+  }
+  .block-title {
+    color: #0F172A;
+    font-weight: 700;
+  }
+  .footer-contact-item {
+    color: #1E293B;
+    font-weight: 500;
+  }
+  .footer-contact-item:hover {
+    color: #EA580C;
+  }
+  .icon-wa {
+    background: #ECFDF5;
+    color: #059669;
+  }
+  .icon-mail {
+    background: #EFF6FF;
+    color: #2563EB;
+  }
+  .icon-pin {
+    background: #FFF1F2;
+    color: #E11D48;
+  }
+  .address-text {
+    color: #1E293B;
+    font-weight: 500;
+  }
+  .footer-offer-box {
+    background: #FFF7ED;
+    border: 1px dashed #F97316;
+    box-shadow: 0 4px 16px rgba(234, 88, 12, 0.08);
+  }
+  .offer-icon {
+    background: #FFEDD5;
+    color: #EA580C;
+  }
+  .offer-badge {
+    color: #059669;
+  }
+  .offer-title {
+    color: #0F172A;
+  }
+  .offer-sub {
     color: #64748B;
   }
-  .action-item:hover, .action-item:active {
-    color: #0F172A;
+  .footer-bottom-band {
+    color: #475569;
+  }
+  .footer-copyright {
+    color: #475569;
+  }
+  .footer-nav-links a {
+    color: #475569;
+  }
+  .footer-nav-links a:hover {
+    color: #EA580C;
+  }
+  .f-sep {
+    color: #CBD5E1;
+  }
+  .footer-quick-wa {
+    background: #ECFDF5;
+    border: 1px solid #A7F3D0;
+    color: #059669;
+  }
+  .footer-quick-wa:hover {
+    background: #059669;
+    color: #FFFFFF;
   }
 }
 

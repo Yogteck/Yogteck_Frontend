@@ -9,6 +9,7 @@ export interface ProjectItem {
   tags: string[];
   gradient: string;
   icon: string;
+  image?: string;
 }
 
 export const PROJECTS_DATA: ProjectItem[] = [
@@ -21,8 +22,9 @@ export const PROJECTS_DATA: ProjectItem[] = [
     summary: 'Direct-to-consumer pharmacy & healthcare ecommerce with multi-warehouse inventory, prescription upload, and instant payment checkout.',
     metrics: '+320% Online Order Growth',
     tags: ['E-Commerce', 'Payment Gateway', 'Inventory Sync', 'Mobile App'],
-    gradient: 'linear-gradient(135deg, #0A192F 0%, #172A45 100%)',
-    icon: 'cart'
+    gradient: 'linear-gradient(135deg, #064E3B 0%, #047857 100%)',
+    icon: 'cart',
+    image: '/assets/images/projects/yogkart-healthcare.png'
   },
   {
     id: 'proj-mmr-portal',
@@ -34,7 +36,8 @@ export const PROJECTS_DATA: ProjectItem[] = [
     metrics: '99.9% Uptime & 2.4x Lead Inflow',
     tags: ['NextGen Web', 'Fast Load', 'Lead Generation', 'SEO'],
     gradient: 'linear-gradient(135deg, #0F172A 0%, #1E293B 100%)',
-    icon: 'globe'
+    icon: 'globe',
+    image: '/assets/images/projects/mmr-constructions.png'
   },
   {
     id: 'proj-erp-distribution',
@@ -46,7 +49,8 @@ export const PROJECTS_DATA: ProjectItem[] = [
     metrics: '70% Faster Invoice Cycles',
     tags: ['Cloud ERP', 'GST Invoicing', 'Stock Management', 'APIs'],
     gradient: 'linear-gradient(135deg, #0B1B3A 0%, #1E3A8A 100%)',
-    icon: 'gear'
+    icon: 'gear',
+    image: '/assets/images/projects/omnichannel-erp.png'
   },
   {
     id: 'proj-marketplace-growth',

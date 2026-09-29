@@ -1,7 +1,8 @@
-import { Component, EventEmitter, HostListener, Output } from '@angular/core';
+import { Component, EventEmitter, HostListener, Output, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CONTACT_CONFIG } from '../../data/contact.config';
 import { SERVICES_DATA, ServiceItem } from '../../data/services.data';
+import { ThemeService } from '../../services/theme.service';
 
 @Component({
   selector: 'app-navbar',
@@ -14,6 +15,7 @@ export class NavbarComponent {
   @Output() openQuote = new EventEmitter<void>();
   @Output() toggleDrawer = new EventEmitter<void>();
 
+  themeService = inject(ThemeService);
   contact = CONTACT_CONFIG;
   services = SERVICES_DATA;
   isScrolled = false;

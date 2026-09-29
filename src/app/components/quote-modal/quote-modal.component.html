@@ -166,6 +166,7 @@
               id="modalCaptcha"
               name="captcha"
               [(ngModel)]="captchaInput"
+              (input)="onCaptchaInput()"
               required
               class="form-input-xs"
               [class.is-invalid]="captchaError"
@@ -196,7 +197,7 @@
 
       <!-- Submit Action Button -->
       <div class="modal-action-row">
-        <button type="submit" [disabled]="quoteForm.invalid || isSubmitting || !captchaInput" class="btn btn-primary-orange modal-submit-btn-xs">
+        <button type="submit" [disabled]="isSubmitting" class="btn btn-primary-orange modal-submit-btn-xs">
           @if (isSubmitting) {
             <span>Sending Enquiry &amp; Confirmation...</span>
           } @else {

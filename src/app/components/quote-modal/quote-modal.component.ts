@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
 import { CONTACT_CONFIG } from '../../data/contact.config';
@@ -15,6 +15,7 @@ export class QuoteModalComponent implements OnInit, OnChanges {
   @Input() isOpen = false;
   @Input() defaultServiceTitle = 'Website Development';
   @Output() closeModal = new EventEmitter<void>();
+  @ViewChild('quoteForm') quoteForm?: NgForm;
 
   contact = CONTACT_CONFIG;
   services = SERVICES_DATA;
@@ -35,6 +36,12 @@ export class QuoteModalComponent implements OnInit, OnChanges {
   captchaInput: string = '';
   captchaError = '';
 
+  isSubmitting = false;
+  submitSuccess = false;
+  submitError = '';
+
+  constructor(private elRef: ElementRef) {}
+
   ngOnInit(): void {
     this.generateCaptcha();
   }
@@ -46,6 +53,8 @@ export class QuoteModalComponent implements OnInit, OnChanges {
     if (changes['isOpen'] && this.isOpen) {
       this.generateCaptcha();
       this.captchaError = '';
+      this.submitSuccess = false;
+      this.submitError = '';
     }
   }
 
@@ -57,21 +66,70 @@ export class QuoteModalComponent implements OnInit, OnChanges {
     this.captchaError = '';
   }
 
-  isSubmitting = false;
-  submitSuccess = false;
-  submitError = '';
+  onCaptchaInput(): void {
+    if (this.captchaError) {
+      this.captchaError = '';
+    }
+  }
+
+  private focusAndHighlight(elementId: string): void {
+    setTimeout(() => {
+      const el = (this.elRef.nativeElement as HTMLElement).querySelector(`#${elementId}`) as HTMLElement | null;
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        el.focus();
+        el.classList.add('shake-highlight');
+        setTimeout(() => el.classList.remove('shake-highlight'), 1000);
+      }
+    }, 50);
+  }
 
   async onSubmit(form: NgForm): Promise<void> {
-    if (form.invalid || this.isSubmitting) return;
+    if (this.isSubmitting) return;
 
-    // Validate Math Captcha
-    const parsedAnswer = parseInt(this.captchaInput?.trim() || '', 10);
-    if (isNaN(parsedAnswer) || parsedAnswer !== this.captchaAnswer) {
-      this.captchaError = 'Incorrect math answer. Please try again.';
+    // 1. Mark all controls as touched to display validation indicators
+    if (form.controls) {
+      Object.keys(form.controls).forEach(key => {
+        form.controls[key].markAsTouched();
+        form.controls[key].markAsDirty();
+      });
+    }
+
+    // 2. Validate mandatory form fields and auto-focus first missing field
+    if (!this.formData.name || this.formData.name.trim().length < 2) {
+      this.focusAndHighlight('modalName');
       return;
     }
-    this.captchaError = '';
 
+    const phoneRegex = /^[0-9+ ]{10,15}$/;
+    if (!this.formData.phone || !phoneRegex.test(this.formData.phone.trim())) {
+      this.focusAndHighlight('modalPhone');
+      return;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!this.formData.email || !emailRegex.test(this.formData.email.trim())) {
+      this.focusAndHighlight('modalEmail');
+      return;
+    }
+
+    // 3. Validate Math Captcha
+    const rawInput = String(this.captchaInput || '').trim();
+    if (!rawInput) {
+      this.captchaError = 'Please enter the math security answer to submit (कैप्चा भरें).';
+      this.focusAndHighlight('modalCaptcha');
+      return;
+    }
+
+    const parsedAnswer = parseInt(rawInput, 10);
+    if (isNaN(parsedAnswer) || parsedAnswer !== this.captchaAnswer) {
+      this.captchaError = 'Incorrect math captcha! Please solve and enter the correct sum (कैप्चा गलत है).';
+      this.focusAndHighlight('modalCaptcha');
+      return;
+    }
+
+    // Captcha is correct!
+    this.captchaError = '';
     this.isSubmitting = true;
     this.submitSuccess = false;
     this.submitError = '';
@@ -106,7 +164,7 @@ export class QuoteModalComponent implements OnInit, OnChanges {
         this.generateCaptcha();
         this.submitSuccess = false;
         this.closeModal.emit();
-      }, 3500);
+      }, 3000);
     } catch (err) {
       this.submitError = err instanceof Error ? err.message : 'Unable to submit quote. Please try WhatsApp directly.';
       this.generateCaptcha();
@@ -115,4 +173,5 @@ export class QuoteModalComponent implements OnInit, OnChanges {
     }
   }
 }
+
 

@@ -1,7 +1,8 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CONTACT_CONFIG } from '../../data/contact.config';
 import { SERVICES_DATA } from '../../data/services.data';
+import { ThemeService } from '../../services/theme.service';
 
 @Component({
   selector: 'app-mobile-drawer',
@@ -15,6 +16,7 @@ export class MobileDrawerComponent {
   @Output() closeDrawer = new EventEmitter<void>();
   @Output() openQuote = new EventEmitter<void>();
 
+  themeService = inject(ThemeService);
   contact = CONTACT_CONFIG;
   services = SERVICES_DATA;
   isServicesAccordionOpen = false;

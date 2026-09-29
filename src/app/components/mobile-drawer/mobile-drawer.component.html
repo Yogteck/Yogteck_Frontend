@@ -98,6 +98,32 @@
 
   <!-- Drawer Footer Actions -->
   <div class="drawer-footer">
+    <!-- Day / Night Mode Switcher in Drawer -->
+    <button type="button" (click)="themeService.toggleTheme()" class="drawer-theme-btn" [class.is-light-active]="themeService.isLight()">
+      <div class="drawer-theme-pill">
+        <span class="theme-icon-slot">
+          @if (themeService.isDark()) {
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="sun-icon">
+              <circle cx="12" cy="12" r="5"></circle>
+              <line x1="12" y1="1" x2="12" y2="3"></line>
+              <line x1="12" y1="21" x2="12" y2="23"></line>
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+              <line x1="1" y1="12" x2="3" y2="12"></line>
+              <line x1="21" y1="12" x2="23" y2="12"></line>
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            </svg>
+          } @else {
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="moon-icon">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+          }
+        </span>
+        <span class="drawer-theme-label">{{ themeService.isDark() ? 'Switch to Day / Light Mode' : 'Switch to Night / Dark Mode' }}</span>
+      </div>
+    </button>
+
     <button type="button" (click)="handleQuoteClick()" class="btn btn-primary-orange w-full">
       <span>Get Free Quote</span>
       <svg viewBox="0 0 20 20" fill="currentColor" style="width: 16px; height: 16px;">

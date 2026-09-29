@@ -227,6 +227,7 @@
                     id="contactCaptcha"
                     name="captcha"
                     [(ngModel)]="captchaInput"
+                    (input)="onCaptchaInput()"
                     required
                     class="form-input"
                     [class.is-invalid]="captchaError"
@@ -269,7 +270,7 @@
             <!-- Submit Button -->
             <button
               type="submit"
-              [disabled]="inquiryForm.invalid || isSubmitting || !captchaInput"
+              [disabled]="isSubmitting"
               class="btn btn-primary-orange submit-form-btn">
               @if (isSubmitting) {
                 <span>Sending Enquiry &amp; Confirmation...</span>

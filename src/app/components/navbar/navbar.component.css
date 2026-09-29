@@ -261,8 +261,82 @@
 .navbar-actions {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 12px;
   flex-shrink: 0;
+}
+
+/* Theme Toggle Button */
+.theme-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #F8FAFC;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  backdrop-filter: blur(8px);
+}
+
+.theme-toggle-btn:hover {
+  background: rgba(255, 255, 255, 0.14);
+  border-color: rgba(255, 154, 31, 0.5);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(255, 154, 31, 0.2);
+}
+
+.theme-icon-track {
+  width: 24px;
+  height: 24px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.theme-mode-icon {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.35s var(--ease-spring);
+}
+
+.theme-mode-icon svg {
+  width: 18px;
+  height: 18px;
+}
+
+.sun-icon {
+  color: #FFB84D;
+  opacity: 1;
+  transform: rotate(0deg) scale(1);
+}
+
+.moon-icon {
+  color: #60A5FA;
+  opacity: 0;
+  transform: rotate(90deg) scale(0.4);
+}
+
+.theme-icon-track.is-light-active .sun-icon {
+  opacity: 0;
+  transform: rotate(-90deg) scale(0.4);
+}
+
+.theme-icon-track.is-light-active .moon-icon {
+  opacity: 1;
+  transform: rotate(0deg) scale(1);
+  color: #1D6AE5;
+}
+
+.theme-btn-label {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
 }
 
 .quote-btn {

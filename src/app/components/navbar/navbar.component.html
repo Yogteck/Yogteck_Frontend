@@ -128,35 +128,44 @@
 
     <!-- Right Side Actions (Desktop) -->
     <div class="navbar-actions">
-      <!-- Theme Switcher Toggle (Day / Night Mode) -->
-      <button
-        type="button"
-        (click)="themeService.toggleTheme()"
-        class="theme-toggle-btn"
-        [attr.aria-label]="themeService.isDark() ? 'Switch to Day / Light Mode' : 'Switch to Night / Dark Mode'"
-        [title]="themeService.isDark() ? 'Switch to Day / Light Mode' : 'Switch to Night / Dark Mode'">
-        <div class="theme-icon-track" [class.is-light-active]="themeService.isLight()">
-          <span class="theme-mode-icon sun-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="12" cy="12" r="5"></circle>
-              <line x1="12" y1="1" x2="12" y2="3"></line>
-              <line x1="12" y1="21" x2="12" y2="23"></line>
-              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-              <line x1="1" y1="12" x2="3" y2="12"></line>
-              <line x1="21" y1="12" x2="23" y2="12"></line>
-              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-            </svg>
-          </span>
-          <span class="theme-mode-icon moon-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-            </svg>
-          </span>
-        </div>
-        <span class="theme-btn-label">{{ themeService.isDark() ? 'Day Mode' : 'Night Mode' }}</span>
-      </button>
+      <!-- Segmented Dual Theme Switcher (Day & Night Mode) -->
+      <div class="theme-segmented-toggle" role="radiogroup" aria-label="Theme Selection">
+        <!-- Day Option -->
+        <button
+          type="button"
+          (click)="themeService.setTheme('light')"
+          class="theme-segment-btn"
+          [class.is-active]="themeService.isLight()"
+          title="Switch to Day Mode (Light)"
+          aria-label="Day Mode">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="seg-icon sun-icon">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+          <span class="seg-text">Day</span>
+        </button>
+
+        <!-- Night Option -->
+        <button
+          type="button"
+          (click)="themeService.setTheme('dark')"
+          class="theme-segment-btn"
+          [class.is-active]="themeService.isDark()"
+          title="Switch to Night Mode (Dark)"
+          aria-label="Night Mode">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="seg-icon moon-icon">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+          <span class="seg-text">Night</span>
+        </button>
+      </div>
 
       <!-- Get Free Quote Button -->
       <button type="button" (click)="openQuote.emit()" class="btn btn-outline-orange quote-btn">

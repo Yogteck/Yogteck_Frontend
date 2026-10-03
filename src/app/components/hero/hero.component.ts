@@ -15,6 +15,18 @@ export class HeroComponent {
 
   contact = CONTACT_CONFIG;
 
+  focusHeroForm(): void {
+    const nameEl = document.getElementById('heroFormName');
+    if (nameEl) {
+      nameEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      nameEl.focus();
+      nameEl.classList.add('shake-highlight');
+      setTimeout(() => nameEl.classList.remove('shake-highlight'), 1000);
+    } else {
+      this.openQuote.emit();
+    }
+  }
+
   scrollTo(targetId: string, event?: Event): void {
     if (event) event.preventDefault();
     const el = document.getElementById(targetId);

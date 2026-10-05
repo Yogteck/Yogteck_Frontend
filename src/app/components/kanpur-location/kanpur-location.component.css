@@ -1,0 +1,489 @@
+/* Location Page Styles (Kanpur, Lucknow, Raebareli) */
+
+.location-page-main {
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Hero Section */
+.location-hero-section {
+  position: relative;
+  padding: calc(var(--navbar-height) + 24px) 0 60px;
+  background: radial-gradient(circle at 50% 10%, var(--bg-navy-800) 0%, var(--bg-navy-900) 100%);
+}
+
+.glow-loc-1 {
+  top: 10%;
+  left: 5%;
+}
+
+.glow-loc-2 {
+  top: 35%;
+  right: 5%;
+}
+
+.location-hero-content {
+  max-width: 920px;
+  margin: 16px auto 0;
+  text-align: center;
+}
+
+.hero-pill-wrapper {
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.location-hero-title {
+  font-size: clamp(2.2rem, 4.5vw, 3.4rem);
+  font-weight: 800;
+  color: var(--text-dark-primary);
+  line-height: 1.18;
+  margin-bottom: 16px;
+  letter-spacing: -0.02em;
+}
+
+.location-hero-tagline {
+  font-size: clamp(1.15rem, 2.2vw, 1.4rem);
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.location-hero-lead {
+  font-size: 1.15rem;
+  color: var(--text-dark-secondary);
+  line-height: 1.7;
+  max-width: 820px;
+  margin: 0 auto 32px;
+}
+
+.location-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: center;
+  margin-bottom: 40px;
+}
+
+/* Entity Card (AEO/GEO Section) */
+.entity-overview-section {
+  padding: 64px 0;
+}
+
+.entity-card-box {
+  background: var(--bg-card-white);
+  border: 1px solid var(--border-light);
+  border-left: 5px solid var(--accent-orange-solid);
+  border-radius: var(--radius-lg);
+  padding: 36px 32px;
+  box-shadow: var(--shadow-card-light);
+  margin-bottom: 48px;
+}
+
+.entity-badge-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.entity-pill {
+  background: var(--accent-orange-subtle);
+  color: var(--accent-orange-solid);
+  font-size: 0.75rem;
+  font-weight: 800;
+  padding: 4px 12px;
+  border-radius: var(--radius-pill);
+  letter-spacing: 0.05em;
+}
+
+.entity-reg-no {
+  font-size: 0.82rem;
+  color: var(--text-light-muted);
+  font-weight: 600;
+}
+
+.entity-title {
+  font-size: 1.45rem;
+  font-weight: 800;
+  color: var(--text-light-primary);
+  margin-bottom: 12px;
+}
+
+.entity-p {
+  font-size: 1.02rem;
+  color: var(--text-light-secondary);
+  line-height: 1.7;
+  margin-bottom: 24px;
+}
+
+.entity-meta-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border-light-subtle);
+}
+
+.em-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.em-label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--text-light-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.em-val {
+  font-size: 0.98rem;
+  font-weight: 600;
+  color: var(--text-light-primary);
+}
+
+.city-narrative-block {
+  max-width: 860px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.narrative-heading {
+  font-size: clamp(1.6rem, 2.8vw, 2.2rem);
+  font-weight: 800;
+  color: var(--text-light-primary);
+  margin: 8px 0 16px;
+}
+
+.narrative-p {
+  font-size: 1.05rem;
+  color: var(--text-light-secondary);
+  line-height: 1.75;
+}
+
+/* Services Grid */
+.services-overview-section {
+  padding: 80px 0;
+}
+
+.services-overview-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.srv-overview-card {
+  background: var(--bg-navy-card);
+  border: 1px solid var(--border-dark-subtle);
+  border-radius: var(--radius-md);
+  padding: 30px 26px;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.srv-overview-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--accent-orange-solid);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+}
+
+.srv-icon-box {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background: rgba(255, 154, 31, 0.12);
+  color: var(--accent-orange-solid);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 18px;
+}
+
+.srv-icon-box svg {
+  width: 22px;
+  height: 22px;
+}
+
+.srv-card-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-dark-primary);
+  margin-bottom: 10px;
+}
+
+.srv-card-desc {
+  font-size: 0.95rem;
+  color: var(--text-dark-secondary);
+  line-height: 1.6;
+  margin: 0 0 16px;
+  flex-grow: 1;
+}
+
+.srv-explore-link {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--accent-orange-solid);
+}
+
+/* Industries Grid */
+.industries-section {
+  padding: 80px 0;
+}
+
+.industries-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.industry-card {
+  background: var(--bg-card-white);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  padding: 28px 24px;
+  box-shadow: var(--shadow-card-light);
+  display: flex;
+  flex-direction: column;
+}
+
+.ind-icon-wrap {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: var(--accent-blue-light);
+  color: var(--accent-blue);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.ind-icon-wrap svg {
+  width: 20px;
+  height: 20px;
+}
+
+.ind-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text-light-primary);
+  margin-bottom: 8px;
+}
+
+.ind-desc {
+  font-size: 0.93rem;
+  color: var(--text-light-secondary);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Challenges Grid */
+.challenges-section {
+  padding: 80px 0;
+}
+
+.challenges-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+
+.challenge-card {
+  background: var(--bg-navy-card);
+  border: 1px solid var(--border-dark-subtle);
+  border-radius: var(--radius-md);
+  padding: 30px 26px;
+}
+
+.challenge-num {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--accent-orange-solid);
+  opacity: 0.85;
+  display: block;
+  margin-bottom: 10px;
+  font-family: monospace;
+}
+
+.challenge-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--text-dark-primary);
+  margin-bottom: 10px;
+}
+
+.challenge-desc {
+  font-size: 0.95rem;
+  color: var(--text-dark-secondary);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Why City Grid */
+.why-city-section {
+  padding: 80px 0;
+}
+
+.why-city-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+
+.why-card {
+  background: var(--bg-card-white);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  padding: 28px;
+  box-shadow: var(--shadow-card-light);
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.why-check {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(16, 185, 129, 0.12);
+  color: #10B981;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.why-check svg {
+  width: 18px;
+  height: 18px;
+}
+
+.why-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text-light-primary);
+  margin: 0 0 6px;
+}
+
+.why-desc {
+  font-size: 0.95rem;
+  color: var(--text-light-secondary);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Location CTA Banner */
+.location-cta-banner {
+  padding: 60px 0 80px;
+  background: var(--bg-navy-900);
+}
+
+.cta-banner-glass {
+  background: linear-gradient(135deg, rgba(16, 28, 66, 0.85) 0%, rgba(10, 19, 48, 0.95) 100%);
+  border: 1px solid var(--border-dark-glow);
+  border-radius: var(--radius-xl);
+  padding: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
+}
+
+.cta-badge {
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  color: var(--accent-orange-solid);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.cta-title {
+  font-size: clamp(1.6rem, 2.8vw, 2.2rem);
+  font-weight: 800;
+  color: #FFFFFF;
+  margin-bottom: 12px;
+  line-height: 1.25;
+}
+
+.cta-lead {
+  font-size: 1.05rem;
+  color: var(--text-dark-secondary);
+  line-height: 1.6;
+  max-width: 620px;
+  margin: 0;
+}
+
+.cta-banner-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.btn-outline-light {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: #FFFFFF;
+  padding: 12px 24px;
+  border-radius: var(--radius-pill);
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.btn-outline-light:hover {
+  border-color: #FFFFFF;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .services-overview-grid,
+  .industries-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .cta-banner-glass {
+    flex-direction: column;
+    text-align: center;
+    padding: 36px 24px;
+  }
+  .cta-banner-actions {
+    flex-direction: row;
+  }
+}
+
+@media (max-width: 768px) {
+  .services-overview-grid,
+  .industries-grid,
+  .challenges-grid,
+  .why-city-grid,
+  .entity-meta-grid {
+    grid-template-columns: 1fr;
+  }
+  .cta-banner-actions {
+    flex-direction: column;
+    width: 100%;
+  }
+  .cta-banner-actions .btn {
+    width: 100%;
+  }
+  .srv-overview-card,
+  .industry-card,
+  .challenge-card,
+  .why-card,
+  .entity-card-box {
+    padding: 22px 18px;
+  }
+}

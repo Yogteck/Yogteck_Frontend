@@ -40,7 +40,7 @@
       <div class="services-cards-grid">
         
         @for (srv of services; track srv.id) {
-          <div [id]="srv.slug" class="service-card" (click)="onCardClick(srv)">
+          <a [id]="srv.slug" [routerLink]="['/services', srv.slug]" class="service-card" style="text-decoration: none; color: inherit;">
             
             <div class="card-top-row">
               <!-- Pale-Blue Rounded Icon Tile -->
@@ -88,7 +88,7 @@
               </svg>
             </div>
 
-          </div>
+          </a>
         }
 
       </div>

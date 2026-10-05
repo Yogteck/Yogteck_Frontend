@@ -43,7 +43,70 @@
   <!-- 8. Selected Projects & Case Studies (Light Section) -->
   <app-projects-section></app-projects-section>
 
-  <!-- 9. CTA & Inquiry Form (Dark Glass) -->
+  <!-- 9. Regional Service Locations & Entity Overview (Dark Section - SEO & AEO/GEO) -->
+  <section class="section-dark home-entity-section" id="locations">
+    <div class="container">
+      
+      <!-- Factual AI Entity Block -->
+      <div class="home-entity-card">
+        <div class="he-pill-row">
+          <span class="pill-badge pill-badge-outline-orange">COMPANY ENTITY PROFILE</span>
+          <span class="he-hq-tag">Kanpur Nagar, UP, India</span>
+        </div>
+        <h2 class="he-title">
+          Yogteck Business Solution — <span class="gradient-text">IT &amp; Software Company in Kanpur</span>
+        </h2>
+        <p class="he-statement">
+          Yogteck Business Solution is an IT and software company based in Kanpur, Uttar Pradesh (Registered Office: 302/2, Mangla Vihar 2, New PAC Line, Kanpur Nagar, 208015). We engineer modern website development, custom software applications, cloud ERP platforms, GST billing software, e-commerce storefronts, and search engine optimization (SEO) for businesses in Kanpur, Lucknow, Raebareli, and across India.
+        </p>
+      </div>
+
+      <!-- Regional Hubs Grid -->
+      <div class="section-center-header" style="margin-top: 48px;">
+        <span class="section-label">REGIONAL SERVICE HUBS</span>
+        <h2 class="section-heading">Dedicated Solutions for Key Uttar Pradesh Markets</h2>
+        <p class="section-lead">
+          Explore specialized software engineering and digital transformation hubs across UP and pan-India.
+        </p>
+      </div>
+
+      <div class="home-locations-grid">
+        <!-- Kanpur Card -->
+        <a routerLink="/it-software-company-kanpur" class="home-loc-card loc-kanpur">
+          <span class="hl-badge">Headquarters &amp; Primary Hub</span>
+          <h3 class="hl-title">IT &amp; Software Company in Kanpur</h3>
+          <p class="hl-desc">Custom software, web development, leather &amp; textile ERP, GST billing, and local SEO for Kanpur businesses.</p>
+          <span class="hl-cta">Explore Kanpur Page →</span>
+        </a>
+
+        <!-- Lucknow Card -->
+        <a routerLink="/it-software-company-lucknow" class="home-loc-card loc-lucknow">
+          <span class="hl-badge">State Capital</span>
+          <h3 class="hl-title">IT &amp; Software for Lucknow</h3>
+          <p class="hl-desc">Enterprise web applications, multi-branch ERP, retail POS, and digital marketing for Lucknow organizations.</p>
+          <span class="hl-cta">Explore Lucknow Page →</span>
+        </a>
+
+        <!-- Raebareli Card -->
+        <a routerLink="/it-software-company-raebareli" class="home-loc-card loc-raebareli">
+          <span class="hl-badge">Industrial Hub</span>
+          <h3 class="hl-title">IT &amp; Software for Raebareli</h3>
+          <p class="hl-desc">Industrial manufacturing software, ERP, GST billing, and web development for Raebareli enterprises.</p>
+          <span class="hl-cta">Explore Raebareli Page →</span>
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 10. Frequently Asked Questions (AEO/GEO Section) -->
+  <app-faq-section
+    [title]="'Frequently Asked Questions About Yogteck Business Solution'"
+    [subtitle]="'Direct factual information about our IT services, Kanpur headquarters, custom software development, and Pan-India delivery.'"
+    [faqs]="homepageFaqs">
+  </app-faq-section>
+
+  <!-- 11. CTA & Inquiry Form (Dark Glass) -->
   <app-inquiry-section></app-inquiry-section>
 
 </main>

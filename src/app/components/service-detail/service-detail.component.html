@@ -1,0 +1,324 @@
+<!-- Navbar -->
+<app-navbar
+  (openQuote)="openQuoteModal()"
+  (toggleDrawer)="openDrawer()">
+</app-navbar>
+
+<!-- Mobile Slide-out Drawer -->
+<app-mobile-drawer
+  [isOpen]="isDrawerOpen"
+  (closeDrawer)="closeDrawer()"
+  (openQuote)="openQuoteModal()">
+</app-mobile-drawer>
+
+<main class="service-page-main" *ngIf="serviceData">
+  
+  <!-- Hero Section -->
+  <section class="service-hero-section">
+    <div class="ambient-glow ambient-glow-blue glow-srv-1"></div>
+    <div class="ambient-glow ambient-glow-orange glow-srv-2"></div>
+
+    <div class="container">
+      
+      <!-- Breadcrumbs -->
+      <app-breadcrumbs [items]="breadcrumbItems"></app-breadcrumbs>
+
+      <div class="service-hero-content">
+        <div class="hero-pill-wrapper">
+          <span class="pill-badge pill-badge-outline-orange">
+            <span class="pill-sparkle">✦</span>
+            <span>{{ serviceData.badge }}</span>
+          </span>
+        </div>
+
+        <h1 class="service-hero-title">
+          {{ serviceData.h1 }}
+        </h1>
+
+        <p class="service-hero-tagline gradient-text">
+          {{ serviceData.tagline }}
+        </p>
+
+        <p class="service-hero-lead">
+          {{ serviceData.heroSummary }}
+        </p>
+
+        <div class="service-hero-actions">
+          <button type="button" (click)="openQuoteModal()" class="btn btn-primary-orange">
+            <span>Get Free Quote &amp; Architecture Roadmap</span>
+            <svg viewBox="0 0 20 20" fill="currentColor" class="cta-arrow">
+              <path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"/>
+            </svg>
+          </button>
+          <a [href]="contact.whatsappLink" target="_blank" rel="noopener noreferrer" class="btn btn-secondary-dark">
+            <span>Chat on WhatsApp</span>
+          </a>
+        </div>
+
+        <div class="hero-trust-bar">
+          <div class="trust-item">
+            <svg viewBox="0 0 20 20" fill="currentColor" class="check-gold"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+            <span>Kanpur Headquartered</span>
+          </div>
+          <div class="trust-divider">•</div>
+          <div class="trust-item">
+            <svg viewBox="0 0 20 20" fill="currentColor" class="check-gold"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+            <span>Pan-India Delivery</span>
+          </div>
+          <div class="trust-divider">•</div>
+          <div class="trust-item">
+            <svg viewBox="0 0 20 20" fill="currentColor" class="check-gold"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+            <span>100% IP &amp; Code Ownership</span>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Problem & Solution Overview -->
+  <section class="section-light problem-solution-section">
+    <div class="container">
+      <div class="problem-solution-grid">
+        
+        <div class="ps-card problem-card">
+          <div class="ps-icon-wrap icon-problem">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          </div>
+          <span class="ps-label">THE BUSINESS CHALLENGE</span>
+          <h2 class="ps-title">{{ serviceData.problemTitle }}</h2>
+          <p class="ps-desc">{{ serviceData.problemDesc }}</p>
+        </div>
+
+        <div class="ps-card solution-card">
+          <div class="ps-icon-wrap icon-solution">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          </div>
+          <span class="ps-label">THE YOGTECK SOLUTION</span>
+          <h2 class="ps-title">{{ serviceData.solutionTitle }}</h2>
+          <p class="ps-desc">{{ serviceData.solutionDesc }}</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Core Features & Capabilities Grid -->
+  <section class="section-dark features-section">
+    <div class="container">
+      
+      <div class="section-center-header">
+        <span class="section-label">KEY CAPABILITIES</span>
+        <h2 class="section-heading">
+          Engineered for Performance, Security &amp; Scale
+        </h2>
+        <p class="section-lead">
+          Every solution from Yogteck Business Solution is built on modern, future-proof architectural standards.
+        </p>
+      </div>
+
+      <div class="features-grid">
+        @for (feat of serviceData.features; track feat.title) {
+          <div class="feat-card">
+            <div class="feat-icon-box">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+            </div>
+            <h3 class="feat-title">{{ feat.title }}</h3>
+            <p class="feat-desc">{{ feat.description }}</p>
+          </div>
+        }
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Who This Solution Is For (Target Audience) -->
+  <section class="section-light audience-section">
+    <div class="container">
+      
+      <div class="section-center-header">
+        <span class="section-label">WHO WE SERVE</span>
+        <h2 class="section-heading">
+          Tailored for Growing Enterprises &amp; Ambitious MSMEs
+        </h2>
+        <p class="section-lead">
+          Designed specifically to solve real operational bottlenecks across key industrial and retail sectors.
+        </p>
+      </div>
+
+      <div class="audience-grid">
+        @for (aud of serviceData.targetAudience; track aud.title) {
+          <div class="audience-card">
+            <div class="audience-check-icon">
+              <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+            </div>
+            <h3 class="audience-title">{{ aud.title }}</h3>
+            <p class="audience-desc">{{ aud.description }}</p>
+          </div>
+        }
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 4-Step Engineering & Delivery Process -->
+  <section class="section-dark process-section">
+    <div class="container">
+      
+      <div class="section-center-header">
+        <span class="section-label">OUR DELIVERY PROCESS</span>
+        <h2 class="section-heading">
+          Transparent, Agile &amp; Milestone-Driven Delivery
+        </h2>
+        <p class="section-lead">
+          From concept wireframing to live deployment and post-launch support.
+        </p>
+      </div>
+
+      <div class="process-grid">
+        @for (step of serviceData.processSteps; track step.step) {
+          <div class="process-card">
+            <span class="process-step-num">{{ step.step }}</span>
+            <h3 class="process-step-title">{{ step.title }}</h3>
+            <p class="process-step-desc">{{ step.desc }}</p>
+          </div>
+        }
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Business Benefits & ROI -->
+  <section class="section-light benefits-section">
+    <div class="container">
+      
+      <div class="section-center-header">
+        <span class="section-label">TANGIBLE VALUE</span>
+        <h2 class="section-heading">
+          The Business Impact You Can Measure
+        </h2>
+        <p class="section-lead">
+          How our software and digital engineering translates directly to your bottom-line profitability.
+        </p>
+      </div>
+
+      <div class="benefits-grid">
+        @for (ben of serviceData.benefits; track ben.title) {
+          <div class="benefit-card">
+            <div class="benefit-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+            <div class="benefit-body">
+              <h3 class="benefit-title">{{ ben.title }}</h3>
+              <p class="benefit-desc">{{ ben.desc }}</p>
+            </div>
+          </div>
+        }
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FAQs (AEO/GEO Optimized) -->
+  <app-faq-section
+    [title]="'Frequently Asked Questions About ' + serviceData.title"
+    [subtitle]="'Direct, factual answers regarding our engineering standards, timelines, pricing, and support.'"
+    [faqs]="serviceData.faqs">
+  </app-faq-section>
+
+  <!-- Related Services & Regional Coverage -->
+  <section class="section-dark regional-links-section">
+    <div class="container">
+      
+      <div class="section-center-header">
+        <span class="section-label">REGIONAL IT SOLUTIONS</span>
+        <h2 class="section-heading">
+          Serving Businesses in Kanpur, Lucknow, Raebareli &amp; Pan-India
+        </h2>
+        <p class="section-lead">
+          Explore our dedicated location hubs and complementary digital solutions.
+        </p>
+      </div>
+
+      <div class="regional-grid">
+        <!-- Location 1: Kanpur -->
+        <a routerLink="/it-software-company-kanpur" class="regional-card">
+          <span class="reg-badge">Primary Hub</span>
+          <h3 class="reg-title">IT &amp; Software in Kanpur</h3>
+          <p class="reg-desc">Headquartered in Kanpur Nagar (Mangla Vihar 2). Local on-site support for manufacturing, leather, and retail trade.</p>
+          <span class="reg-link-text">Explore Kanpur Solutions →</span>
+        </a>
+
+        <!-- Location 2: Lucknow -->
+        <a routerLink="/it-software-company-lucknow" class="regional-card">
+          <span class="reg-badge">State Capital</span>
+          <h3 class="reg-title">IT &amp; Software for Lucknow</h3>
+          <p class="reg-desc">Enterprise web, custom software, multi-branch ERP &amp; digital marketing for Lucknow enterprises and startups.</p>
+          <span class="reg-link-text">Explore Lucknow Solutions →</span>
+        </a>
+
+        <!-- Location 3: Raebareli -->
+        <a routerLink="/it-software-company-raebareli" class="regional-card">
+          <span class="reg-badge">Industrial Hub</span>
+          <h3 class="reg-title">IT &amp; Software for Raebareli</h3>
+          <p class="reg-desc">Industrial ERP, manufacturing software, GST billing, and web development for Raebareli businesses.</p>
+          <span class="reg-link-text">Explore Raebareli Solutions →</span>
+        </a>
+      </div>
+
+      <!-- Related Services Pills -->
+      <div class="related-services-wrap">
+        <span class="rel-label">Related Capabilities:</span>
+        <div class="rel-pills">
+          @for (rel of serviceData.relatedServices; track rel.slug) {
+            <a [routerLink]="['/services', rel.slug]" class="rel-pill">
+              {{ rel.title }}
+            </a>
+          }
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Bottom CTA Banner -->
+  <section class="service-cta-banner">
+    <div class="container">
+      <div class="cta-banner-glass">
+        <div class="cta-banner-content">
+          <span class="cta-badge">GET STARTED TODAY</span>
+          <h2 class="cta-title">Ready to Transform Your Business with {{ serviceData.title }}?</h2>
+          <p class="cta-lead">
+            Contact our technology experts today for a free architecture review, timeline estimate, and tailored quotation.
+          </p>
+        </div>
+        <div class="cta-banner-actions">
+          <button type="button" (click)="openQuoteModal()" class="btn btn-primary-orange">
+            <span>Request Free Quote</span>
+          </button>
+          <a [href]="contact.phoneTel" class="btn btn-outline-light">
+            <span>Call +91 {{ contact.phoneDisplay }}</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- Footer -->
+<app-footer></app-footer>
+
+<!-- Sticky Mobile Action Bar -->
+<app-mobile-action-bar></app-mobile-action-bar>
+
+<!-- Floating WhatsApp Support Button -->
+<app-floating-whatsapp></app-floating-whatsapp>
+
+<!-- Instant Free Quote Modal Dialog -->
+<app-quote-modal
+  [isOpen]="isQuoteModalOpen"
+  [defaultServiceTitle]="serviceData?.title || 'Website Development'"
+  (closeModal)="closeQuoteModal()">
+</app-quote-modal>

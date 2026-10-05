@@ -40,7 +40,7 @@
             <ul class="sub-service-list">
               @for (srv of services; track srv.id) {
                 <li>
-                  <button type="button" class="sub-service-link" (click)="onNavigate(srv.slug)">
+                  <button type="button" class="sub-service-link" (click)="navigateToService(srv.slug)">
                     <span class="sub-bullet">•</span>
                     <span>{{ srv.title }}</span>
                   </button>

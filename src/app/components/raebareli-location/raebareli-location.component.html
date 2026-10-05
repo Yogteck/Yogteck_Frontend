@@ -1,0 +1,285 @@
+<!-- Navbar -->
+<app-navbar
+  (openQuote)="openQuoteModal()"
+  (toggleDrawer)="openDrawer()">
+</app-navbar>
+
+<!-- Mobile Slide-out Drawer -->
+<app-mobile-drawer
+  [isOpen]="isDrawerOpen"
+  (closeDrawer)="closeDrawer()"
+  (openQuote)="openQuoteModal()">
+</app-mobile-drawer>
+
+<main class="location-page-main">
+  
+  <!-- Hero Section -->
+  <section class="location-hero-section">
+    <div class="ambient-glow ambient-glow-blue glow-loc-1"></div>
+    <div class="ambient-glow ambient-glow-orange glow-loc-2"></div>
+
+    <div class="container">
+      
+      <app-breadcrumbs [items]="breadcrumbItems"></app-breadcrumbs>
+
+      <div class="location-hero-content">
+        <div class="hero-pill-wrapper">
+          <span class="pill-badge pill-badge-outline-orange">
+            <span class="pill-sparkle">✦</span>
+            <span>Industrial &amp; Manufacturing IT Solutions</span>
+          </span>
+        </div>
+
+        <h1 class="location-hero-title">
+          {{ locationData.h1 }}
+        </h1>
+
+        <p class="location-hero-tagline gradient-text">
+          {{ locationData.tagline }}
+        </p>
+
+        <p class="location-hero-lead">
+          {{ locationData.heroIntro }}
+        </p>
+
+        <div class="location-hero-actions">
+          <button type="button" (click)="openQuoteModal()" class="btn btn-primary-orange">
+            <span>Get Free Raebareli Business Consultation</span>
+            <svg viewBox="0 0 20 20" fill="currentColor" class="cta-arrow">
+              <path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"/>
+            </svg>
+          </button>
+          <a [href]="contact.whatsappLink" target="_blank" rel="noopener noreferrer" class="btn btn-secondary-dark">
+            <span>Connect on WhatsApp</span>
+          </a>
+        </div>
+
+        <!-- Trust Signals -->
+        <div class="hero-trust-bar">
+          <div class="trust-item">
+            <svg viewBox="0 0 20 20" fill="currentColor" class="check-gold"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+            <span>Industrial &amp; MSME Focus</span>
+          </div>
+          <div class="trust-divider">•</div>
+          <div class="trust-item">
+            <svg viewBox="0 0 20 20" fill="currentColor" class="check-gold"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+            <span>Regional On-Site Support</span>
+          </div>
+          <div class="trust-divider">•</div>
+          <div class="trust-item">
+            <svg viewBox="0 0 20 20" fill="currentColor" class="check-gold"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+            <span>Transparent Pricing</span>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Entity Statement & Raebareli Overview -->
+  <section class="section-light entity-overview-section">
+    <div class="container">
+      
+      <div class="entity-card-box">
+        <div class="entity-badge-row">
+          <span class="entity-pill">REGIONAL IT &amp; SOFTWARE PARTNER</span>
+          <span class="entity-reg-no">Serving Raebareli Industrial &amp; Commercial Hubs</span>
+        </div>
+        <h2 class="entity-title">Yogteck Business Solution for Raebareli Enterprises</h2>
+        <p class="entity-p">
+          {{ locationData.entityStatement }}
+        </p>
+        <div class="entity-meta-grid">
+          <div class="em-item">
+            <span class="em-label">Service Area:</span>
+            <span class="em-val">Raebareli, Lalganj, Modern Coach Factory Area &amp; Regional Markets</span>
+          </div>
+          <div class="em-item">
+            <span class="em-label">Direct Consultation:</span>
+            <span class="em-val">+91 {{ contact.phoneDisplay }}</span>
+          </div>
+          <div class="em-item">
+            <span class="em-label">Official Email:</span>
+            <span class="em-val">{{ contact.emailPrimary }}</span>
+          </div>
+          <div class="em-item">
+            <span class="em-label">Headquarters:</span>
+            <span class="em-val">Kanpur Nagar, Uttar Pradesh (Reliable Regional Support)</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="city-narrative-block">
+        <span class="section-label">RAEBARELI INDUSTRIAL ECOSYSTEM</span>
+        <h2 class="narrative-heading">Modernizing Raebareli’s Manufacturing &amp; Trade</h2>
+        <p class="narrative-p">{{ locationData.cityOverview }}</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Key Services for Raebareli -->
+  <section class="section-dark services-overview-section">
+    <div class="container">
+      
+      <div class="section-center-header">
+        <span class="section-label">OUR CORE CAPABILITIES</span>
+        <h2 class="section-heading">
+          Software &amp; Digital Solutions for Raebareli Businesses
+        </h2>
+        <p class="section-lead">
+          Industrial ERP, fast GST billing software, and custom business websites.
+        </p>
+      </div>
+
+      <div class="services-overview-grid">
+        @for (srv of locationData.keyServices; track srv.title) {
+          <a [routerLink]="['/services', srv.slug]" class="srv-overview-card">
+            <div class="srv-icon-box">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+            </div>
+            <h3 class="srv-card-title">{{ srv.title }}</h3>
+            <p class="srv-card-desc">{{ srv.desc }}</p>
+            <span class="srv-explore-link">Explore Details →</span>
+          </a>
+        }
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Industries in Raebareli -->
+  <section class="section-light industries-section">
+    <div class="container">
+      
+      <div class="section-center-header">
+        <span class="section-label">KEY INDUSTRY SECTORS</span>
+        <h2 class="section-heading">
+          Custom Solutions for Raebareli’s Leading Trades
+        </h2>
+        <p class="section-lead">
+          Railway engineering ancillaries, agricultural distributors, retail hubs, and schools.
+        </p>
+      </div>
+
+      <div class="industries-grid">
+        @for (ind of locationData.industriesServed; track ind.industry) {
+          <div class="industry-card">
+            <div class="ind-icon-wrap">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+            </div>
+            <h3 class="ind-title">{{ ind.industry }}</h3>
+            <p class="ind-desc">{{ ind.desc }}</p>
+          </div>
+        }
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Raebareli Challenges -->
+  <section class="section-dark challenges-section">
+    <div class="container">
+      
+      <div class="section-center-header">
+        <span class="section-label">OVERCOMING LOCAL HURDLES</span>
+        <h2 class="section-heading">
+          Solving Supply Chain, Billing &amp; Digital Roadblocks
+        </h2>
+        <p class="section-lead">
+          How our software helps Raebareli enterprises compete nationally.
+        </p>
+      </div>
+
+      <div class="challenges-grid">
+        @for (ch of locationData.businessChallenges; track ch.title; let i = $index) {
+          <div class="challenge-card">
+            <span class="challenge-num">0{{ i + 1 }}</span>
+            <h3 class="challenge-title">{{ ch.title }}</h3>
+            <p class="challenge-desc">{{ ch.desc }}</p>
+          </div>
+        }
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Why Choose Yogteck for Raebareli -->
+  <section class="section-light why-city-section">
+    <div class="container">
+      
+      <div class="section-center-header">
+        <span class="section-label">THE YOGTECK ADVANTAGE</span>
+        <h2 class="section-heading">
+          Why Raebareli Enterprises Trust Yogteck
+        </h2>
+        <p class="section-lead">
+          Dependable regional proximity, practical software, and responsive support.
+        </p>
+      </div>
+
+      <div class="why-city-grid">
+        @for (point of locationData.whyYogteckForCity; track point.title) {
+          <div class="why-card">
+            <div class="why-check">
+              <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+            </div>
+            <div class="why-body">
+              <h3 class="why-title">{{ point.title }}</h3>
+              <p class="why-desc">{{ point.desc }}</p>
+            </div>
+          </div>
+        }
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Raebareli FAQs (AEO/GEO) -->
+  <app-faq-section
+    [title]="'Frequently Asked Questions About IT & Software Services in Raebareli'"
+    [subtitle]="'Direct answers for businesses in Raebareli seeking dependable software, websites, and GST billing.'"
+    [faqs]="locationData.faqs">
+  </app-faq-section>
+
+  <!-- Bottom CTA -->
+  <section class="location-cta-banner">
+    <div class="container">
+      <div class="cta-banner-glass">
+        <div class="cta-banner-content">
+          <span class="cta-badge">GET IN TOUCH</span>
+          <h2 class="cta-title">Modernize Your Raebareli Business Operations Today</h2>
+          <p class="cta-lead">
+            Contact our technology team today for a free consultation, software demo, and custom quotation.
+          </p>
+        </div>
+        <div class="cta-banner-actions">
+          <button type="button" (click)="openQuoteModal()" class="btn btn-primary-orange">
+            <span>Request Free Quote</span>
+          </button>
+          <a [href]="contact.phoneTel" class="btn btn-outline-light">
+            <span>Call +91 {{ contact.phoneDisplay }}</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- Footer -->
+<app-footer></app-footer>
+
+<!-- Sticky Mobile Action Bar -->
+<app-mobile-action-bar></app-mobile-action-bar>
+
+<!-- Floating WhatsApp Support Button -->
+<app-floating-whatsapp></app-floating-whatsapp>
+
+<!-- Instant Free Quote Modal Dialog -->
+<app-quote-modal
+  [isOpen]="isQuoteModalOpen"
+  [defaultServiceTitle]="'IT & Software Solutions in Raebareli'"
+  (closeModal)="closeQuoteModal()">
+</app-quote-modal>

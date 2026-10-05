@@ -12,29 +12,65 @@ export interface RedirectMapping {
   providedIn: 'root'
 })
 export class SmartRedirectService {
+  private readonly validRoutePaths: string[] = [
+    '/',
+    '/admin',
+    '/admin/login',
+    '/admin/dashboard',
+    '/it-software-company-kanpur',
+    '/it-software-company-lucknow',
+    '/it-software-company-raebareli',
+    '/services/website-development',
+    '/services/custom-software-development',
+    '/services/mobile-app-development',
+    '/services/erp-software',
+    '/services/billing-software',
+    '/services/ecommerce-development',
+    '/services/seo-digital-growth',
+    '/services/business-software'
+  ];
+
   private readonly validRoutes: RedirectMapping[] = [
-    { slug: 'website-development', target: '/#website-development', keywords: ['website', 'web', 'portal', 'landing', 'responsive'] },
-    { slug: 'ecommerce-solutions', target: '/#ecommerce-solutions', keywords: ['ecommerce', 'e-commerce', 'store', 'shop', 'cart', 'selling'] },
-    { slug: 'erp-solutions', target: '/#erp-solutions', keywords: ['erp', 'enterprise', 'inventory', 'billing', 'accounts', 'software'] },
-    { slug: 'digital-marketing-seo', target: '/#digital-marketing-seo', keywords: ['marketing', 'seo', 'ads', 'google', 'traffic', 'leads'] },
-    { slug: 'custom-software-development', target: '/#custom-software-development', keywords: ['custom', 'software', 'application', 'saas', 'cloud'] },
-    { slug: 'mlm-solutions', target: '/#mlm-solutions', keywords: ['mlm', 'network', 'direct', 'selling', 'binary'] },
-    { slug: 'saas-solutions', target: '/#saas-solutions', keywords: ['saas', 'multi-tenant', 'subscription'] },
-    { slug: 'sales-service-solutions', target: '/#sales-service-solutions', keywords: ['crm', 'helpdesk', 'pipeline', 'sales', 'service'] },
+    { slug: 'website-development', target: '/services/website-development', keywords: ['website', 'web', 'portal', 'landing', 'responsive'] },
+    { slug: 'custom-software-development', target: '/services/custom-software-development', keywords: ['custom', 'software', 'application', 'saas', 'cloud'] },
+    { slug: 'mobile-app-development', target: '/services/mobile-app-development', keywords: ['mobile', 'app', 'android', 'ios', 'flutter', 'react native'] },
+    { slug: 'erp-software', target: '/services/erp-software', keywords: ['erp', 'enterprise', 'inventory', 'bom', 'stock'] },
+    { slug: 'erp-solutions', target: '/services/erp-software', keywords: ['erp', 'enterprise'] },
+    { slug: 'billing-software', target: '/services/billing-software', keywords: ['billing', 'pos', 'invoice', 'gst', 'barcode'] },
+    { slug: 'ecommerce-development', target: '/services/ecommerce-development', keywords: ['ecommerce', 'e-commerce', 'store', 'shop', 'cart', 'selling'] },
+    { slug: 'ecommerce-solutions', target: '/services/ecommerce-development', keywords: ['ecommerce', 'store'] },
+    { slug: 'seo-digital-growth', target: '/services/seo-digital-growth', keywords: ['seo', 'marketing', 'ranking', 'traffic', 'ads', 'google'] },
+    { slug: 'digital-marketing-seo', target: '/services/seo-digital-growth', keywords: ['marketing', 'seo'] },
+    { slug: 'business-software', target: '/services/business-software', keywords: ['crm', 'helpdesk', 'pipeline', 'sales', 'service'] },
+    { slug: 'sales-service-solutions', target: '/services/business-software', keywords: ['sales', 'service'] },
+    { slug: 'it-software-company-kanpur', target: '/it-software-company-kanpur', keywords: ['kanpur', 'kanpur nagar', 'uttar pradesh'] },
+    { slug: 'kanpur', target: '/it-software-company-kanpur', keywords: ['kanpur'] },
+    { slug: 'it-software-company-lucknow', target: '/it-software-company-lucknow', keywords: ['lucknow'] },
+    { slug: 'lucknow', target: '/it-software-company-lucknow', keywords: ['lucknow'] },
+    { slug: 'it-software-company-raebareli', target: '/it-software-company-raebareli', keywords: ['raebareli'] },
+    { slug: 'raebareli', target: '/it-software-company-raebareli', keywords: ['raebareli'] },
     { slug: 'marketplaces', target: '/#marketplaces', keywords: ['marketplace', 'amazon', 'flipkart', 'meesho', 'walmart'] },
     { slug: 'growth-journey', target: '/#growth-journey', keywords: ['growth', 'journey', 'scale', 'transformation'] },
     { slug: 'projects', target: '/#projects', keywords: ['project', 'projects', 'portfolio', 'case', 'studies', 'work'] },
     { slug: 'clients', target: '/#clients', keywords: ['client', 'clients', 'customers', 'partners', 'trusted'] },
     { slug: 'about', target: '/#about', keywords: ['about', 'why', 'company', 'team', 'experience'] },
-    { slug: 'contact', target: '/#contact', keywords: ['contact', 'quote', 'enquiry', 'phone', 'whatsapp', 'email', 'kanpur'] },
-    { slug: 'kanpur', target: '/#contact', keywords: ['kanpur', 'kanpur nagar', 'uttar pradesh', 'up'] }
+    { slug: 'contact', target: '/#contact', keywords: ['contact', 'quote', 'enquiry', 'phone', 'whatsapp', 'email'] }
   ];
 
   private logCache: Set<string> = new Set();
 
   constructor(private router: Router, private http: HttpClient) {}
 
+  public isKnownRoute(path: string): boolean {
+    const clean = path.split('?')[0].split('#')[0];
+    return this.validRoutePaths.includes(clean);
+  }
+
   public handleUnknownUrl(url: string): void {
+    if (this.isKnownRoute(url)) {
+      return;
+    }
+
     // Ignore static assets or api calls
     if (/\.(ico|png|jpg|jpeg|svg|css|js|xml|txt)$/i.test(url) || url.startsWith('/api')) {
       return;
@@ -136,7 +172,7 @@ export class SmartRedirectService {
       timestamp: new Date().toISOString()
     }).subscribe({
       error: () => {
-        // Silent catch for log endpoint errors
+        // Silent catch
       }
     });
   }

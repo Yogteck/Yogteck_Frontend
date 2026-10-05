@@ -2,12 +2,12 @@
   
   <div class="container">
     
-    <!-- Top Band (Single Row, 4 Blocks with Vertical Dividers as in Image) -->
+    <!-- Top Band: 4 Columns -->
     <div class="footer-top-band">
       
       <!-- Block 1: Logo & Slogan -->
       <div class="footer-block block-brand">
-        <a href="#home" (click)="scrollTo('home', $event)" class="footer-brand-logo">
+        <a routerLink="/" class="footer-brand-logo">
           <div class="footer-logo-mark">
             <svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
               <rect width="44" height="44" rx="10" fill="#0A1330"/>
@@ -22,18 +22,18 @@
             </svg>
           </div>
           <div class="footer-brand-text">
-            <span class="footer-brand-name">YOGTECK<span class="brand-dot">.</span></span>
+            <span class="footer-brand-name">Yogteck<span class="brand-dot">.</span></span>
             <span class="footer-brand-slogan">{{ contact.tagline }}</span>
           </div>
         </a>
         <p class="footer-bio">
-          Empowering modern businesses with high-converting websites, e-commerce stores, ERP solutions &amp; marketplace scale.
+          Yogteck Business Solution is an IT and software company in Kanpur delivering custom software, modern websites, ERP, e-commerce, and digital business solutions across India.
         </p>
       </div>
 
       <div class="footer-divider-vert" aria-hidden="true"></div>
 
-      <!-- Block 2: WhatsApp & Emails -->
+      <!-- Block 2: Direct Contact -->
       <div class="footer-block block-contact">
         <span class="block-title">Direct Contact</span>
         
@@ -78,7 +78,7 @@
 
       <div class="footer-divider-vert" aria-hidden="true"></div>
 
-      <!-- Block 4: Outlined Glass Box "Free Domain + Hosting Offer" (Rule F6 wording) -->
+      <!-- Block 4: Special Inclusion Offer Box -->
       <div class="footer-block block-offer">
         <div class="footer-offer-box">
           <div class="offer-icon">
@@ -94,29 +94,66 @@
 
     </div>
 
-    <!-- Bottom Band: Copyright, Links, Socials -->
+    <!-- SEO Links Navigation Band (Services & Locations) -->
+    <div class="footer-seo-links-band">
+      <div class="seo-links-group">
+        <span class="seo-group-title">Software &amp; Digital Services:</span>
+        <div class="seo-links-pills">
+          <a routerLink="/services/website-development">Website Development</a>
+          <span class="seo-sep">•</span>
+          <a routerLink="/services/custom-software-development">Custom Software Development</a>
+          <span class="seo-sep">•</span>
+          <a routerLink="/services/mobile-app-development">Mobile App Development</a>
+          <span class="seo-sep">•</span>
+          <a routerLink="/services/erp-software">ERP Software</a>
+          <span class="seo-sep">•</span>
+          <a routerLink="/services/billing-software">Billing &amp; POS Software</a>
+          <span class="seo-sep">•</span>
+          <a routerLink="/services/ecommerce-development">E-Commerce Development</a>
+          <span class="seo-sep">•</span>
+          <a routerLink="/services/seo-digital-growth">SEO &amp; Digital Growth</a>
+          <span class="seo-sep">•</span>
+          <a routerLink="/services/business-software">Business Management Software</a>
+        </div>
+      </div>
+
+      <div class="seo-links-group" style="margin-top: 14px;">
+        <span class="seo-group-title">Key Service Locations:</span>
+        <div class="seo-links-pills">
+          <a routerLink="/it-software-company-kanpur" style="color: var(--accent-orange-solid); font-weight: 700;">IT &amp; Software Company in Kanpur</a>
+          <span class="seo-sep">•</span>
+          <a routerLink="/it-software-company-lucknow">IT &amp; Software in Lucknow</a>
+          <span class="seo-sep">•</span>
+          <a routerLink="/it-software-company-raebareli">IT &amp; Software in Raebareli</a>
+          <span class="seo-sep">•</span>
+          <span style="color: var(--text-dark-secondary);">Pan-India Delivery</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Band: Copyright, Nav Links, Socials -->
     <div class="footer-bottom-band">
       
-      <!-- Left: Dynamic Copyright (Rule F5) -->
+      <!-- Left: Copyright -->
       <div class="footer-copyright">
-        © {{ currentYear }} YOGTECK. All rights reserved.
+        © {{ currentYear }} Yogteck Business Solution. All rights reserved.
       </div>
 
       <!-- Center: Nav Links Row -->
       <nav class="footer-nav-links" aria-label="Footer Navigation">
-        <a href="#home" (click)="scrollTo('home', $event)">Home</a>
+        <a routerLink="/" (click)="scrollTo('home', $event)">Home</a>
         <span class="f-sep">|</span>
-        <a href="#services" (click)="scrollTo('services', $event)">Our Services</a>
+        <a routerLink="/" (click)="scrollTo('services', $event)">Our Services</a>
         <span class="f-sep">|</span>
-        <a href="#growth-journey" (click)="scrollTo('growth-journey', $event)">Growth Journey</a>
+        <a routerLink="/" (click)="scrollTo('growth-journey', $event)">Growth Journey</a>
         <span class="f-sep">|</span>
-        <a href="#projects" (click)="scrollTo('projects', $event)">Our Projects</a>
+        <a routerLink="/" (click)="scrollTo('projects', $event)">Our Projects</a>
         <span class="f-sep">|</span>
-        <a href="#clients" (click)="scrollTo('clients', $event)">Our Clients</a>
+        <a routerLink="/" (click)="scrollTo('clients', $event)">Our Clients</a>
         <span class="f-sep">|</span>
-        <a href="#about" (click)="scrollTo('about', $event)">About Us</a>
+        <a routerLink="/" (click)="scrollTo('about', $event)">About Us</a>
         <span class="f-sep">|</span>
-        <a href="#contact" (click)="scrollTo('contact', $event)">Contact</a>
+        <a routerLink="/" (click)="scrollTo('contact', $event)">Contact</a>
       </nav>
 
       <!-- Right: Direct WhatsApp Quick Link -->

@@ -4,88 +4,111 @@
   <url>
     <loc>https://yogteck.com/</loc>
     <lastmod>2026-10-05</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>1.00</priority>
   </url>
-
-  <!-- Primary Location Hub: Kanpur -->
+  <!-- Kanpur Hub -->
   <url>
     <loc>https://yogteck.com/it-software-company-kanpur</loc>
     <lastmod>2026-10-05</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.95</priority>
   </url>
-
-  <!-- Secondary Location Hub: Lucknow -->
+  <!-- Lucknow Hub -->
   <url>
     <loc>https://yogteck.com/it-software-company-lucknow</loc>
     <lastmod>2026-10-05</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
   </url>
-
-  <!-- Secondary Location Hub: Raebareli -->
+  <!-- Raebareli Hub -->
   <url>
     <loc>https://yogteck.com/it-software-company-raebareli</loc>
     <lastmod>2026-10-05</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
   </url>
-
-  <!-- Core Services -->
+  <!-- Website Development -->
   <url>
     <loc>https://yogteck.com/services/website-development</loc>
     <lastmod>2026-10-05</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
   </url>
-
+  <!-- Custom Software Development -->
   <url>
     <loc>https://yogteck.com/services/custom-software-development</loc>
     <lastmod>2026-10-05</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
   </url>
-
+  <!-- Mobile App Development -->
   <url>
     <loc>https://yogteck.com/services/mobile-app-development</loc>
     <lastmod>2026-10-05</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
   </url>
-
+  <!-- ERP Software Solutions -->
   <url>
     <loc>https://yogteck.com/services/erp-software</loc>
     <lastmod>2026-10-05</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
   </url>
-
+  <!-- Billing & Invoicing Software -->
   <url>
     <loc>https://yogteck.com/services/billing-software</loc>
     <lastmod>2026-10-05</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
   </url>
-
+  <!-- E-Commerce Development -->
   <url>
     <loc>https://yogteck.com/services/ecommerce-development</loc>
     <lastmod>2026-10-05</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
   </url>
-
+  <!-- SEO & Digital Growth -->
   <url>
     <loc>https://yogteck.com/services/seo-digital-growth</loc>
     <lastmod>2026-10-05</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
   </url>
-
+  <!-- Business Management Software -->
   <url>
     <loc>https://yogteck.com/services/business-software</loc>
     <lastmod>2026-10-05</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
   </url>
+
+  <!-- PLANNED PAGES (Uncomment when routes and content are published):
+  <url>
+    <loc>https://yogteck.com/services/inventory-broadcasting-system</loc>
+    <lastmod>2026-10-05</lastmod>
+  </url>
+  <url>
+    <loc>https://yogteck.com/services/business-process-automation</loc>
+    <lastmod>2026-10-05</lastmod>
+  </url>
+  <url>
+    <loc>https://yogteck.com/services/digital-sms-email-marketing</loc>
+    <lastmod>2026-10-05</lastmod>
+  </url>
+  <url>
+    <loc>https://yogteck.com/services/inventory-management-software</loc>
+    <lastmod>2026-10-05</lastmod>
+  </url>
+  <url>
+    <loc>https://yogteck.com/services/custom-erp-software</loc>
+    <lastmod>2026-10-05</lastmod>
+  </url>
+  <url>
+    <loc>https://yogteck.com/services/sales-as-a-service</loc>
+    <lastmod>2026-10-05</lastmod>
+  </url>
+  <url>
+    <loc>https://yogteck.com/industries/wholesalers-bulk-traders</loc>
+    <lastmod>2026-10-05</lastmod>
+  </url>
+  <url>
+    <loc>https://yogteck.com/industries/distributors-stockists</loc>
+    <lastmod>2026-10-05</lastmod>
+  </url>
+  <url>
+    <loc>https://yogteck.com/industries/sme-manufacturers</loc>
+    <lastmod>2026-10-05</lastmod>
+  </url>
+  <url>
+    <loc>https://yogteck.com/industries/retail-chains-marts</loc>
+    <lastmod>2026-10-05</lastmod>
+  </url>
+  <url>
+    <loc>https://yogteck.com/industries/commodity-goods-traders</loc>
+    <lastmod>2026-10-05</lastmod>
+  </url>
+  <url>
+    <loc>https://yogteck.com/industries/schools-educational-institutes</loc>
+    <lastmod>2026-10-05</lastmod>
+  </url>
+  -->
 </urlset>

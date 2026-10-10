@@ -1,4 +1,8 @@
 User-agent: *
 Allow: /
 
+# Private & administrative routes
+Disallow: /admin
+Disallow: /admin/
+
 Sitemap: https://yogteck.com/sitemap.xml

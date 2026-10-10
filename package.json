@@ -6,7 +6,8 @@
     "start": "ng serve",
     "build": "npx ng build",
     "watch": "npx ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "sitemap": "node scripts/generate-sitemap.mjs"
   },
   "private": true,
   "dependencies": {

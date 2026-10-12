@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { isValidLocale } from '../data/locales.config';
 
 export interface RedirectMapping {
   slug: string;
@@ -62,8 +63,19 @@ export class SmartRedirectService {
   constructor(private router: Router, private http: HttpClient) {}
 
   public isKnownRoute(path: string): boolean {
-    const clean = path.split('?')[0].split('#')[0];
-    return this.validRoutePaths.includes(clean);
+    const clean = path.split('?')[0].split('#')[0].replace(/\/$/, '') || '/';
+    if (this.validRoutePaths.includes(clean)) {
+      return true;
+    }
+
+    const segments = clean.split('/').filter(Boolean);
+    if (segments.length > 0 && isValidLocale(segments[0])) {
+      segments.shift();
+      const relative = '/' + segments.join('/');
+      return this.validRoutePaths.includes(relative) || relative === '/' || relative === '/404' || relative === '/erp-kaihatsu';
+    }
+
+    return false;
   }
 
   public handleUnknownUrl(url: string): void {

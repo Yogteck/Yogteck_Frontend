@@ -1,27 +1,34 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Router } from '@angular/router';
 import { CONTACT_CONFIG } from '../../data/contact.config';
 import { SERVICES_DATA } from '../../data/services.data';
+import { LocaleService } from '../../services/locale.service';
+import { LanguageSwitcherComponent } from '../language-switcher/language-switcher.component';
 
 @Component({
   selector: 'app-footer',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, LanguageSwitcherComponent],
   templateUrl: './footer.component.html',
   styleUrl: './footer.component.css'
 })
 export class FooterComponent {
+  router = inject(Router);
+  localeService = inject(LocaleService);
+
   contact = CONTACT_CONFIG;
   services = SERVICES_DATA;
+  dict = this.localeService.currentDict;
   currentYear = new Date().getFullYear();
 
-  constructor(private router: Router) {}
-
   scrollTo(targetId: string, event: Event): void {
-    if (this.router.url !== '/' && !this.router.url.startsWith('/#')) {
-      // If on subpage, navigate to homepage with fragment
-      this.router.navigate(['/'], { fragment: targetId });
+    const url = this.router.url;
+    const isRootOrLocale = url === '/' || /^\/[a-z]{2}(-[a-z]{2})?\/?$/i.test(url);
+
+    if (!isRootOrLocale) {
+      const targetLocale = this.localeService.currentConfig().code;
+      this.router.navigate([`/${targetLocale}`], { fragment: targetId });
       return;
     }
 

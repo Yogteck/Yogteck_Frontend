@@ -4,11 +4,13 @@ import { RouterModule, Router } from '@angular/router';
 import { CONTACT_CONFIG } from '../../data/contact.config';
 import { SERVICES_DATA, ServiceItem } from '../../data/services.data';
 import { ThemeService } from '../../services/theme.service';
+import { LocaleService } from '../../services/locale.service';
+import { LanguageSwitcherComponent } from '../language-switcher/language-switcher.component';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, LanguageSwitcherComponent],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css'
 })
@@ -18,8 +20,12 @@ export class NavbarComponent {
 
   router = inject(Router);
   themeService = inject(ThemeService);
+  localeService = inject(LocaleService);
+
   contact = CONTACT_CONFIG;
   services = SERVICES_DATA;
+  dict = this.localeService.currentDict;
+
   isScrolled = false;
   isServicesDropdownOpen = false;
   activeSection = 'home';
@@ -45,7 +51,10 @@ export class NavbarComponent {
   }
 
   private detectActiveSection(): void {
-    if (this.router.url !== '/' && !this.router.url.startsWith('/#')) {
+    const url = this.router.url;
+    // Check if we are on root or locale root
+    const isRootOrLocaleRoot = url === '/' || /^\/[a-z]{2}(-[a-z]{2})?\/?$/i.test(url);
+    if (!isRootOrLocaleRoot) {
       return;
     }
     const sections = ['home', 'services', 'growth-journey', 'marketplaces', 'projects', 'clients', 'about', 'contact'];
@@ -68,20 +77,17 @@ export class NavbarComponent {
     if (event) event.preventDefault();
     this.closeDropdown();
 
-    if (this.router.url !== '/' && !this.router.url.startsWith('/#')) {
-      this.router.navigate(['/'], { fragment: targetId });
-      return;
-    }
+    const currentUrl = this.router.url;
+    const isRootOrLocale = currentUrl === '/' || /^\/[a-z]{2}(-[a-z]{2})?\/?$/i.test(currentUrl);
 
-    const el = document.getElementById(targetId);
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth' });
+    if (isRootOrLocale) {
+      const el = document.getElementById(targetId);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth' });
+      }
+    } else {
+      const targetLocale = this.localeService.currentConfig().code;
+      this.router.navigate([`/${targetLocale}`], { fragment: targetId });
     }
-  }
-
-  navigateToService(slug: string, event?: Event): void {
-    if (event) event.preventDefault();
-    this.closeDropdown();
-    this.router.navigate(['/services', slug]);
   }
 }

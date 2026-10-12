@@ -1,81 +1,86 @@
-<section id="home" class="hero-section">
+<section id="home" class="hero-section" [class.dir-rtl]="localeService.isRtl()">
   
-  <!-- Background Image & Gradient Layer -->
+  <!-- Canvas 3D Perspective Network Layer with dark fallback (#070A1F) -->
   <div class="hero-bg-layer" aria-hidden="true">
-    <div class="hero-bg-image" style="background-image: url('/assets/images/hero-bg.jpg');"></div>
+    <div class="hero-fallback-gradient"></div>
+    <app-hero-canvas></app-hero-canvas>
     <div class="hero-bg-overlay"></div>
     <div class="ambient-glow ambient-glow-blue hero-glow-left"></div>
     <div class="ambient-glow ambient-glow-orange hero-glow-right"></div>
   </div>
 
   <div class="container hero-container">
-    <div class="hero-grid">
+    <div class="hero-grid" [class.hero-grid-rtl]="localeService.isRtl()">
       
-      <!-- Left Column: Copy & Actions -->
+      <!-- Protected Zone: Headline, Sub-copy & CTA (Right-aligned in RTL) -->
       <div class="hero-content">
         
-        <!-- Top Pill: "Your Growth Partner" -->
+        <!-- Top Pill Badge -->
         <div class="hero-pill-wrapper">
           <div class="pill-badge pill-badge-outline-orange">
             <span class="pill-sparkle">✦</span>
-            <span>Your Growth Partner</span>
+            <span>{{ dict().hero.badge }}</span>
           </div>
         </div>
 
-        <!-- 3-Line Title Case Heading -->
+        <!-- Semantic 3-Line Heading with Protected Zone Legibility -->
         <h1 class="hero-title">
-          <span class="title-line title-line-1">Take Your Business</span>
-          <span class="title-line title-line-2">Online &amp; <span class="gradient-text">Grow</span> with</span>
-          <span class="title-line title-line-3"><span class="gradient-text brand-title-lg">YOGTECK</span></span>
+          <span class="title-line title-line-1">{{ dict().hero.titleLine1 }}</span>
+          <span class="title-line title-line-2">
+            {{ dict().hero.titleLine2Prefix }}<span class="gradient-text">{{ dict().hero.titleLine2Highlight }}</span>{{ dict().hero.titleLine2Suffix }}
+          </span>
+          <span class="title-line title-line-3">
+            <span class="gradient-text brand-title-lg">{{ dict().hero.brandName }}</span>
+          </span>
         </h1>
 
-        <!-- Sub-copy (2 lines max) -->
+        <!-- Localized Sub-copy -->
         <p class="hero-subcopy">
-          Yogteck Business Solution is an IT &amp; software company in Kanpur delivering custom software, modern websites, ERP, e-commerce, and digital business solutions across India.
+          {{ dict().hero.subcopy }}
         </p>
 
-        <!-- CTA Buttons -->
+        <!-- CTA Action Buttons -->
         <div class="hero-actions">
           <!-- Primary CTA Button -->
           <button type="button" (click)="focusHeroForm()" class="btn btn-primary-orange hero-cta-btn">
-            <span>Get Free Consultation</span>
-            <svg viewBox="0 0 20 20" fill="currentColor" class="cta-arrow">
+            <span>{{ dict().hero.ctaPrimary }}</span>
+            <svg viewBox="0 0 20 20" fill="currentColor" class="cta-arrow" aria-hidden="true">
               <path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"/>
             </svg>
           </button>
 
-          <!-- Secondary CTA: "See How We Grow Businesses" -->
+          <!-- Secondary CTA -->
           <button type="button" (click)="scrollTo('growth-journey', $event)" class="btn btn-secondary-dark hero-secondary-btn">
             <span class="play-circle-icon">
-              <svg viewBox="0 0 20 20" fill="currentColor">
+              <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                 <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v3.586L7.707 9.293a1 1 0 00-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L11 10.586V7z" clip-rule="evenodd"/>
               </svg>
             </span>
-            <span>See How We Grow Businesses</span>
+            <span>{{ dict().hero.ctaSecondary }}</span>
           </button>
         </div>
 
-        <!-- Trust Badges & Free Hosting Hint -->
+        <!-- Trust Badges Bar -->
         <div class="hero-trust-bar">
           <div class="trust-item">
-            <svg viewBox="0 0 20 20" fill="currentColor" class="check-gold"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-            <span>5+ Years Experience</span>
+            <svg viewBox="0 0 20 20" fill="currentColor" class="check-gold" aria-hidden="true"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+            <span>{{ dict().hero.trustExp }}</span>
           </div>
-          <div class="trust-divider">•</div>
+          <div class="trust-divider" aria-hidden="true">•</div>
           <div class="trust-item">
-            <svg viewBox="0 0 20 20" fill="currentColor" class="check-gold"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-            <span>Free Domain &amp; Cloud Hosting*</span>
+            <svg viewBox="0 0 20 20" fill="currentColor" class="check-gold" aria-hidden="true"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+            <span>{{ dict().hero.trustHosting }}</span>
           </div>
-          <div class="trust-divider">•</div>
+          <div class="trust-divider" aria-hidden="true">•</div>
           <div class="trust-item">
-            <svg viewBox="0 0 20 20" fill="currentColor" class="check-gold"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-            <span>100% Dedicated Support</span>
+            <svg viewBox="0 0 20 20" fill="currentColor" class="check-gold" aria-hidden="true"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+            <span>{{ dict().hero.trustSupport }}</span>
           </div>
         </div>
 
       </div>
 
-      <!-- Right Column: Enquiry Form Card -->
+      <!-- Hero Visual Wrapper: Consultation Form Card (Left in RTL, Right in LTR) -->
       <div class="hero-visual-wrapper">
         <app-hero-visual></app-hero-visual>
       </div>

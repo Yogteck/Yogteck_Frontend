@@ -4,11 +4,13 @@ import { RouterModule, Router } from '@angular/router';
 import { CONTACT_CONFIG } from '../../data/contact.config';
 import { SERVICES_DATA } from '../../data/services.data';
 import { ThemeService } from '../../services/theme.service';
+import { LocaleService } from '../../services/locale.service';
+import { LanguageSwitcherComponent } from '../language-switcher/language-switcher.component';
 
 @Component({
   selector: 'app-mobile-drawer',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, LanguageSwitcherComponent],
   templateUrl: './mobile-drawer.component.html',
   styleUrl: './mobile-drawer.component.css'
 })
@@ -19,8 +21,11 @@ export class MobileDrawerComponent {
 
   router = inject(Router);
   themeService = inject(ThemeService);
+  localeService = inject(LocaleService);
+
   contact = CONTACT_CONFIG;
   services = SERVICES_DATA;
+  dict = this.localeService.currentDict;
   isServicesAccordionOpen = false;
 
   toggleAccordion(): void {
@@ -30,8 +35,12 @@ export class MobileDrawerComponent {
   onNavigate(targetId: string): void {
     this.closeDrawer.emit();
 
-    if (this.router.url !== '/' && !this.router.url.startsWith('/#')) {
-      this.router.navigate(['/'], { fragment: targetId });
+    const currentUrl = this.router.url;
+    const isRootOrLocale = currentUrl === '/' || /^\/[a-z]{2}(-[a-z]{2})?\/?$/i.test(currentUrl);
+
+    if (!isRootOrLocale) {
+      const targetLocale = this.localeService.currentConfig().code;
+      this.router.navigate([`/${targetLocale}`], { fragment: targetId });
       return;
     }
 
@@ -45,12 +54,14 @@ export class MobileDrawerComponent {
 
   navigateToService(slug: string): void {
     this.closeDrawer.emit();
-    this.router.navigate(['/services', slug]);
+    const targetLocale = this.localeService.currentConfig().code;
+    this.router.navigate([`/${targetLocale}/services`, slug]);
   }
 
   navigateToLocation(slug: string): void {
     this.closeDrawer.emit();
-    this.router.navigate(['/' + slug]);
+    const targetLocale = this.localeService.currentConfig().code;
+    this.router.navigate([`/${targetLocale}/${slug}`]);
   }
 
   handleQuoteClick(): void {

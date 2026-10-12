@@ -14,6 +14,8 @@ import { MobileActionBarComponent } from '../mobile-action-bar/mobile-action-bar
 import { FloatingWhatsappComponent } from '../floating-whatsapp/floating-whatsapp.component';
 import { QuoteModalComponent } from '../quote-modal/quote-modal.component';
 
+import { LocaleService } from '../../services/locale.service';
+
 @Component({
   selector: 'app-service-detail',
   standalone: true,
@@ -43,12 +45,15 @@ export class ServiceDetailComponent implements OnInit, OnDestroy {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private seoService: SeoService
+    private seoService: SeoService,
+    public localeService: LocaleService
   ) {}
 
   ngOnInit(): void {
     this.routeSub = this.route.paramMap.subscribe(params => {
-      const slug = params.get('slug') || '';
+      const urlSegments = this.router.url.split('?')[0].split('/').filter(Boolean);
+      const lastSegment = urlSegments[urlSegments.length - 1] || '';
+      const slug = params.get('slug') || lastSegment;
       this.loadService(slug);
     });
   }
@@ -60,20 +65,24 @@ export class ServiceDetailComponent implements OnInit, OnDestroy {
   private loadService(slug: string): void {
     // Check direct slug or aliases
     let targetSlug = slug;
+    if (slug === 'erp-kaihatsu') targetSlug = 'erp-software';
     if (slug === 'ecommerce-solutions') targetSlug = 'ecommerce-development';
     if (slug === 'erp-solutions') targetSlug = 'erp-software';
     if (slug === 'digital-marketing-seo') targetSlug = 'seo-digital-growth';
     if (slug === 'sales-service-solutions') targetSlug = 'business-software';
 
     const data = SERVICES_SEO_DATA[targetSlug];
+    const currentLocale = this.localeService.currentConfig();
+    const localeCode = currentLocale.code;
+
     if (!data) {
-      this.router.navigate(['/']);
+      this.router.navigate([`/${localeCode}/`]);
       return;
     }
 
     this.serviceData = data;
     this.breadcrumbItems = [
-      { label: 'Services', url: '/#services' },
+      { label: 'Services', url: `/${localeCode}/#services` },
       { label: data.title }
     ];
 
@@ -87,19 +96,19 @@ export class ServiceDetailComponent implements OnInit, OnDestroy {
           "@type": "ListItem",
           "position": 1,
           "name": "Home",
-          "item": "https://yogteck.com/"
+          "item": `https://yogteck.com/${localeCode}/`
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "Services",
-          "item": "https://yogteck.com/#services"
+          "item": `https://yogteck.com/${localeCode}/#services`
         },
         {
           "@type": "ListItem",
           "position": 3,
           "name": data.title,
-          "item": `https://yogteck.com${canonicalPath}`
+          "item": `https://yogteck.com/${localeCode}${canonicalPath}/`
         }
       ]
     };
@@ -108,10 +117,11 @@ export class ServiceDetailComponent implements OnInit, OnDestroy {
       "@context": "https://schema.org",
       "@type": "Service",
       "serviceType": data.title,
+      "inLanguage": currentLocale.htmlLang,
       "provider": {
         "@type": "Organization",
         "name": "Yogteck Business Solution",
-        "url": "https://yogteck.com/",
+        "url": `https://yogteck.com/${localeCode}/`,
         "logo": "https://yogteck.com/favicon-512x512.png",
         "telephone": "+91-8299209905",
         "email": "yogteck@gmail.com",
@@ -125,10 +135,8 @@ export class ServiceDetailComponent implements OnInit, OnDestroy {
         }
       },
       "areaServed": [
-        { "@type": "City", "name": "Kanpur" },
-        { "@type": "City", "name": "Lucknow" },
-        { "@type": "City", "name": "Raebareli" },
-        { "@type": "Country", "name": "India" }
+        { "@type": "Country", "name": currentLocale.country },
+        { "@type": "City", "name": "Kanpur" }
       ],
       "description": data.metaDescription
     };
@@ -136,6 +144,7 @@ export class ServiceDetailComponent implements OnInit, OnDestroy {
     const faqSchema = {
       "@context": "https://schema.org",
       "@type": "FAQPage",
+      "inLanguage": currentLocale.htmlLang,
       "mainEntity": data.faqs.map(faq => ({
         "@type": "Question",
         "name": faq.question,
@@ -146,11 +155,12 @@ export class ServiceDetailComponent implements OnInit, OnDestroy {
       }))
     };
 
-    // Apply SEO
-    this.seoService.setPageSeo({
+    // Apply SEO with reciprocal hreflangs across all locales
+    this.seoService.setLocalizedPageSeo({
       title: data.metaTitle,
       description: data.metaDescription,
-      canonicalPath: canonicalPath,
+      localeCode: localeCode,
+      pathWithoutLocale: `services/${data.slug}`,
       jsonLdSchemas: [breadcrumbSchema, serviceSchema, faqSchema]
     });
 

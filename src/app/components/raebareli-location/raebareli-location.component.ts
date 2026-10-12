@@ -13,6 +13,8 @@ import { MobileActionBarComponent } from '../mobile-action-bar/mobile-action-bar
 import { FloatingWhatsappComponent } from '../floating-whatsapp/floating-whatsapp.component';
 import { QuoteModalComponent } from '../quote-modal/quote-modal.component';
 
+import { LocaleService } from '../../services/locale.service';
+
 @Component({
   selector: 'app-raebareli-location',
   standalone: true,
@@ -36,16 +38,23 @@ export class RaebareliLocationComponent implements OnInit {
   contact = CONTACT_CONFIG;
   isDrawerOpen = false;
   isQuoteModalOpen = false;
-  breadcrumbItems: BreadcrumbItem[] = [
-    { label: 'Locations', url: '/#about' },
-    { label: 'Raebareli' }
-  ];
+  breadcrumbItems: BreadcrumbItem[] = [];
 
-  constructor(private seoService: SeoService) {}
+  constructor(
+    private seoService: SeoService,
+    public localeService: LocaleService
+  ) {}
 
   ngOnInit(): void {
     const data = this.locationData;
-    const canonicalPath = `/${data.slug}`;
+    const currentLocale = this.localeService.currentConfig();
+    const localeCode = currentLocale.code;
+    const canonicalPath = `/${localeCode}/${data.slug}/`;
+
+    this.breadcrumbItems = [
+      { label: 'Locations', url: `/${localeCode}/#about` },
+      { label: 'Raebareli' }
+    ];
 
     const breadcrumbSchema = {
       "@context": "https://schema.org",
@@ -55,13 +64,13 @@ export class RaebareliLocationComponent implements OnInit {
           "@type": "ListItem",
           "position": 1,
           "name": "Home",
-          "item": "https://yogteck.com/"
+          "item": `https://yogteck.com/${localeCode}/`
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "Raebareli",
-          "item": `https://yogteck.com${canonicalPath}`
+          "item": `https://yogteck.com/${localeCode}/${data.slug}/`
         }
       ]
     };
@@ -110,11 +119,12 @@ export class RaebareliLocationComponent implements OnInit {
       }))
     };
 
-    this.seoService.setPageSeo({
+    this.seoService.setLocalizedPageSeo({
       title: data.metaTitle,
       description: data.metaDescription,
       keywords: 'it company in raebareli, software company in raebareli, software development company in raebareli, web development company in raebareli, erp software raebareli, billing software raebareli, yogteck business solution',
-      canonicalPath: canonicalPath,
+      localeCode: localeCode,
+      pathWithoutLocale: data.slug,
       jsonLdSchemas: [breadcrumbSchema, serviceSchema, faqSchema]
     });
 

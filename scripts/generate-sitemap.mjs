@@ -10,92 +10,90 @@ const projectRoot = path.resolve(__dirname, '..');
 // 1. Live Domain Configuration
 const DOMAIN = (process.env.SITE_URL || 'https://yogteck.com').replace(/\/+$/, '');
 
-// 2. Real Live Routes Verified in app.routes.ts and seo-content.data.ts
+// 2. Multi-Country Locales & Hreflang Identifiers
+const LOCALES = [
+  { code: 'en-us', hreflang: 'en-US', label: 'United States (English)' },
+  { code: 'en-ca', hreflang: 'en-CA', label: 'Canada (English)' },
+  { code: 'fr-ca', hreflang: 'fr-CA', label: 'Canada (French)' },
+  { code: 'en-au', hreflang: 'en-AU', label: 'Australia (English)' },
+  { code: 'ja-jp', hreflang: 'ja-JP', label: 'Japan (Japanese)' },
+  { code: 'ar-sa', hreflang: 'ar-SA', label: 'Saudi Arabia (Arabic, RTL)' },
+  { code: 'ar-kw', hreflang: 'ar-KW', label: 'Kuwait (Arabic, RTL)' },
+  { code: 'ar-bh', hreflang: 'ar-BH', label: 'Bahrain (Arabic, RTL)' },
+  { code: 'en-in', hreflang: 'en-IN', label: 'India (English)' },
+  { code: 'hi-in', hreflang: 'hi-IN', label: 'India (Hindi)' },
+  { code: 'en', hreflang: 'x-default', label: 'Global Fallback (x-default)' }
+];
+
+// 3. Real Live Routes Verified in app.routes.ts
 const LIVE_ROUTES = [
   // Homepage
   {
-    path: '/',
+    path: '',
     sourceFile: 'src/app/components/home/home.component.ts',
-    label: 'Homepage'
+    label: 'Home'
   },
-  // Regional Location Hubs (Standalone Components + LOCATIONS_SEO_DATA)
+  // Regional Location Hubs
   {
-    path: '/it-software-company-kanpur',
+    path: 'it-software-company-kanpur',
     sourceFile: 'src/app/components/kanpur-location/kanpur-location.component.ts',
     label: 'Kanpur Hub'
   },
   {
-    path: '/it-software-company-lucknow',
+    path: 'it-software-company-lucknow',
     sourceFile: 'src/app/components/lucknow-location/lucknow-location.component.ts',
     label: 'Lucknow Hub'
   },
   {
-    path: '/it-software-company-raebareli',
+    path: 'it-software-company-raebareli',
     sourceFile: 'src/app/components/raebareli-location/raebareli-location.component.ts',
     label: 'Raebareli Hub'
   },
-  // Active Core Services (Rendered by ServiceDetailComponent + SERVICES_SEO_DATA)
+  // Active Core Services
   {
-    path: '/services/website-development',
+    path: 'services/website-development',
     sourceFile: 'src/app/data/seo-content.data.ts',
     label: 'Website Development'
   },
   {
-    path: '/services/custom-software-development',
+    path: 'services/custom-software-development',
     sourceFile: 'src/app/data/seo-content.data.ts',
     label: 'Custom Software Development'
   },
   {
-    path: '/services/mobile-app-development',
+    path: 'services/mobile-app-development',
     sourceFile: 'src/app/data/seo-content.data.ts',
     label: 'Mobile App Development'
   },
   {
-    path: '/services/erp-software',
+    path: 'services/erp-software',
     sourceFile: 'src/app/data/seo-content.data.ts',
     label: 'ERP Software Solutions'
   },
   {
-    path: '/services/billing-software',
+    path: 'services/billing-software',
     sourceFile: 'src/app/data/seo-content.data.ts',
     label: 'Billing & Invoicing Software'
   },
   {
-    path: '/services/ecommerce-development',
+    path: 'services/ecommerce-development',
     sourceFile: 'src/app/data/seo-content.data.ts',
     label: 'E-Commerce Development'
   },
   {
-    path: '/services/seo-digital-growth',
+    path: 'services/seo-digital-growth',
     sourceFile: 'src/app/data/seo-content.data.ts',
     label: 'SEO & Digital Growth'
   },
   {
-    path: '/services/business-software',
+    path: 'services/business-software',
     sourceFile: 'src/app/data/seo-content.data.ts',
     label: 'Business Management Software'
   }
 ];
 
-// 3. Planned / In-Development Pages (Not Live in app.routes.ts yet)
-// Placed inside XML comment block for easy uncommenting when deployed
-const PLANNED_PAGES = [
-  { path: '/services/inventory-broadcasting-system', label: 'Inventory-to-Customer Broadcasting' },
-  { path: '/services/business-process-automation', label: 'Business Process Automation & Migration' },
-  { path: '/services/digital-sms-email-marketing', label: 'DLT SMS & Email Marketing' },
-  { path: '/services/inventory-management-software', label: 'Multi-Godown Inventory Software' },
-  { path: '/services/custom-erp-software', label: 'Custom Tailored ERP Software' },
-  { path: '/services/sales-as-a-service', label: 'B2B Sales-as-a-Service' },
-  { path: '/industries/wholesalers-bulk-traders', label: 'Wholesale & Bulk Trading Software' },
-  { path: '/industries/distributors-stockists', label: 'Distribution & Stockist Management' },
-  { path: '/industries/sme-manufacturers', label: 'Production & Manufacturing ERP' },
-  { path: '/industries/retail-chains-marts', label: 'Retail Multi-Store POS Software' },
-  { path: '/industries/commodity-goods-traders', label: 'Commodity & Mandi Trading Software' },
-  { path: '/industries/schools-educational-institutes', label: 'School ERP & Fee Collection' }
-];
-
 /**
- * Get real last-modified date (YYYY-MM-DD) from Git log, falling back to file mtime or latest commit date.
+ * Get real last-modified date (YYYY-MM-DD) from Git log, falling back to file mtime or default date.
  */
 function getLastModDate(filePath) {
   try {
@@ -117,38 +115,57 @@ function getLastModDate(filePath) {
   } catch {
     // Fallback if git fails
   }
-  return '2026-10-05';
+  return '2026-10-12';
 }
 
 /**
- * Generate XML content
+ * Build dynamic multi-country, multi-language sitemap XML with reciprocal xhtml:link hreflangs
  */
 function buildSitemapXml() {
   const lines = [
     '<?xml version="1.0" encoding="UTF-8"?>',
-    '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
+    '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"',
+    '        xmlns:xhtml="http://www.w3.org/1999/xhtml">'
   ];
 
   for (const route of LIVE_ROUTES) {
-    const loc = route.path === '/' ? `${DOMAIN}/` : `${DOMAIN}${route.path}`;
+    const subpath = route.path ? `/${route.path}/` : '/';
     const lastmod = getLastModDate(route.sourceFile);
-    lines.push(`  <!-- ${route.label} -->`);
-    lines.push('  <url>');
-    lines.push(`    <loc>${loc}</loc>`);
-    lines.push(`    <lastmod>${lastmod}</lastmod>`);
-    lines.push('  </url>');
+
+    lines.push(`  <!-- ════════ ${route.label} (${subpath}) ════════ -->`);
+
+    // Output a <url> entry for every supported locale
+    for (const locale of LOCALES) {
+      const pageLoc = `${DOMAIN}/${locale.code}${subpath}`;
+
+      lines.push('  <url>');
+      lines.push(`    <loc>${pageLoc}</loc>`);
+      lines.push(`    <lastmod>${lastmod}</lastmod>`);
+
+      // Reciprocal alternate links for all locales including x-default
+      for (const alt of LOCALES) {
+        const altUrl = `${DOMAIN}/${alt.code}${subpath}`;
+        lines.push(`    <xhtml:link rel="alternate" hreflang="${alt.hreflang}" href="${altUrl}"/>`);
+      }
+
+      lines.push('  </url>');
+    }
   }
 
-  lines.push('');
-  lines.push('  <!-- PLANNED PAGES (Uncomment when routes and content are published):');
-  for (const planned of PLANNED_PAGES) {
-    const loc = `${DOMAIN}${planned.path}`;
-    lines.push(`  <url>`);
-    lines.push(`    <loc>${loc}</loc>`);
-    lines.push(`    <lastmod>2026-10-05</lastmod>`);
-    lines.push(`  </url>`);
+  // Localized Japanese ERP route (/ja-jp/erp-kaihatsu/)
+  const erpDate = getLastModDate('src/app/data/seo-content.data.ts');
+  lines.push('  <!-- ════════ Japanese ERP localized route (/ja-jp/erp-kaihatsu/) ════════ -->');
+  lines.push('  <url>');
+  lines.push(`    <loc>${DOMAIN}/ja-jp/erp-kaihatsu/</loc>`);
+  lines.push(`    <lastmod>${erpDate}</lastmod>`);
+  for (const alt of LOCALES) {
+    const altUrl = alt.code === 'ja-jp'
+      ? `${DOMAIN}/ja-jp/erp-kaihatsu/`
+      : `${DOMAIN}/${alt.code}/services/erp-software/`;
+    lines.push(`    <xhtml:link rel="alternate" hreflang="${alt.hreflang}" href="${altUrl}"/>`);
   }
-  lines.push('  -->');
+  lines.push('  </url>');
+
   lines.push('</urlset>');
   lines.push('');
 
@@ -156,7 +173,7 @@ function buildSitemapXml() {
 }
 
 /**
- * Build robots.txt
+ * Build robots.txt ensuring crawler access to all locales and sitemap reference
  */
 function buildRobotsTxt() {
   return [
@@ -182,7 +199,7 @@ const sitemapPath = path.join(publicDir, 'sitemap.xml');
 const robotsPath = path.join(publicDir, 'robots.txt');
 
 fs.writeFileSync(sitemapPath, buildSitemapXml(), 'utf8');
-console.log(`[sitemap] Successfully generated: ${sitemapPath}`);
+console.log(`[sitemap] Successfully generated multi-locale sitemap: ${sitemapPath}`);
 
 fs.writeFileSync(robotsPath, buildRobotsTxt(), 'utf8');
-console.log(`[robots]  Successfully generated: ${robotsPath}`);
+console.log(`[robots]  Successfully generated robots.txt: ${robotsPath}`);

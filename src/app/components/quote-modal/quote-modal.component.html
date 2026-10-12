@@ -1,18 +1,18 @@
 <div class="modal-backdrop" [class.is-open]="isOpen" (click)="closeModal.emit()" aria-hidden="true"></div>
 
-<div class="modal-dialog-wrapper" [class.is-open]="isOpen" role="dialog" aria-modal="true" aria-labelledby="quoteModalTitle">
+<div class="modal-dialog-wrapper" [class.is-open]="isOpen" [class.dir-rtl]="localeService.isRtl()" role="dialog" aria-modal="true" aria-labelledby="quoteModalTitle">
   <div class="modal-content-card" (click)="$event.stopPropagation()">
     
     <!-- Compact Modal Header -->
     <div class="modal-header">
       <div class="modal-title-wrap">
         <div class="modal-badge-row">
-          <span class="pill-badge-mini">✦ Free Architecture Estimate</span>
+          <span class="pill-badge-mini">✦ {{ dict().hero.badge }}</span>
         </div>
-        <h3 id="quoteModalTitle" class="modal-title">Get a Free Instant Quote</h3>
-        <p class="modal-sub">Enquiry will be sent directly to official solutions team.</p>
+        <h3 id="quoteModalTitle" class="modal-title">{{ dict().quoteModal.title }}</h3>
+        <p class="modal-sub">{{ dict().quoteModal.subtitle }}</p>
       </div>
-      <button type="button" (click)="closeModal.emit()" class="modal-close-btn" aria-label="Close quote modal">
+      <button type="button" (click)="closeModal.emit()" class="modal-close-btn" [attr.aria-label]="dict().quoteModal.closeBtn">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
           <line x1="18" y1="6" x2="6" y2="18"/>
           <line x1="6" y1="6" x2="18" y2="18"/>
@@ -24,7 +24,7 @@
     @if (submitSuccess) {
       <div class="alert alert-success" role="alert">
         <svg viewBox="0 0 20 20" fill="currentColor" class="alert-icon"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
-        <div><strong>Enquiry Sent!</strong> Confirmation email sent to your inbox. Our team will contact you shortly.</div>
+        <div><strong>{{ dict().heroForm.successTitle }}</strong> {{ dict().inquiry.successMessage }}</div>
       </div>
     }
 
@@ -35,15 +35,15 @@
       </div>
     }
 
-    <!-- Compact Modal Form Body (2-Column X-Small Layout) -->
+    <!-- Compact Modal Form Body (2-Column Layout) -->
     <form #quoteForm="ngForm" (ngSubmit)="onSubmit(quoteForm)" class="modal-form-compact" novalidate>
       
-      <!-- Row 1: Name & Company Name (2 Columns) -->
+      <!-- Row 1: Name & Company Name -->
       <div class="form-row-2col">
         
         <!-- Full Name -->
         <div class="form-group-xs">
-          <label for="modalName" class="form-label-xs">Your Name *</label>
+          <label for="modalName" class="form-label-xs">{{ dict().inquiry.nameLabel }}</label>
           <div class="input-control-wrapper-xs has-left-icon">
             <input
               type="text"
@@ -55,7 +55,7 @@
               minlength="2"
               class="form-input-xs"
               [class.is-invalid]="mName.invalid && (mName.dirty || mName.touched)"
-              placeholder="Full name">
+              [placeholder]="dict().inquiry.namePlaceholder">
             <span class="input-icon-xs" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
             </span>
@@ -64,7 +64,7 @@
 
         <!-- Company Name -->
         <div class="form-group-xs">
-          <label for="modalCompany" class="form-label-xs">Company Name</label>
+          <label for="modalCompany" class="form-label-xs">{{ dict().inquiry.companyLabel }}</label>
           <div class="input-control-wrapper-xs has-left-icon">
             <input
               type="text"
@@ -72,7 +72,7 @@
               name="companyName"
               [(ngModel)]="formData.companyName"
               class="form-input-xs"
-              placeholder="e.g. Acme Corp (Optional)">
+              [placeholder]="dict().inquiry.companyPlaceholder">
             <span class="input-icon-xs" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
             </span>
@@ -81,33 +81,44 @@
 
       </div>
 
-      <!-- Row 2: Phone & Email (2 Columns) -->
+      <!-- Row 2: Phone & Email with Dial Code -->
       <div class="form-row-2col">
         
         <!-- Phone / WhatsApp -->
         <div class="form-group-xs">
-          <label for="modalPhone" class="form-label-xs">Mobile / WhatsApp *</label>
-          <div class="input-control-wrapper-xs has-left-icon">
-            <input
-              type="tel"
-              id="modalPhone"
-              name="phone"
-              [(ngModel)]="formData.phone"
-              #mPhone="ngModel"
-              required
-              pattern="^[0-9+ ]{10,15}$"
-              class="form-input-xs"
-              [class.is-invalid]="mPhone.invalid && (mPhone.dirty || mPhone.touched)"
-              placeholder="e.g. 8299209905">
-            <span class="input-icon-xs" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-            </span>
+          <label for="modalPhone" class="form-label-xs">{{ dict().inquiry.phoneLabel }}</label>
+          <div class="modal-phone-row">
+            <select
+              name="modalDialCode"
+              [(ngModel)]="selectedDialCode"
+              class="modal-dial-select"
+              aria-label="Country Dial Code"
+              dir="ltr">
+              @for (item of dialCodes; track item.countryCode) {
+                <option [value]="item.dialCode">
+                  {{ item.flag }} {{ item.dialCode }}
+                </option>
+              }
+            </select>
+            <div class="input-control-wrapper-xs modal-phone-input">
+              <input
+                type="tel"
+                id="modalPhone"
+                name="phone"
+                [(ngModel)]="formData.phone"
+                #mPhone="ngModel"
+                required
+                class="form-input-xs ltr-input"
+                dir="ltr"
+                [class.is-invalid]="mPhone.invalid && (mPhone.dirty || mPhone.touched)"
+                [placeholder]="dict().inquiry.phonePlaceholder">
+            </div>
           </div>
         </div>
 
         <!-- Email Address -->
         <div class="form-group-xs">
-          <label for="modalEmail" class="form-label-xs">Email Address *</label>
+          <label for="modalEmail" class="form-label-xs">{{ dict().inquiry.emailLabel }}</label>
           <div class="input-control-wrapper-xs has-left-icon">
             <input
               type="email"
@@ -117,9 +128,10 @@
               #mEmail="ngModel"
               required
               email
-              class="form-input-xs"
+              class="form-input-xs ltr-input"
+              dir="ltr"
               [class.is-invalid]="mEmail.invalid && (mEmail.dirty || mEmail.touched)"
-              placeholder="name@company.com">
+              [placeholder]="dict().inquiry.emailPlaceholder">
             <span class="input-icon-xs" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
             </span>
@@ -128,12 +140,12 @@
 
       </div>
 
-      <!-- Row 3: Solution Type & Math Captcha (2 Columns) -->
+      <!-- Row 3: Solution Type & Math Captcha -->
       <div class="form-row-2col">
         
-        <!-- Solution Type -->
+        <!-- Required Solution Dropdown -->
         <div class="form-group-xs">
-          <label for="modalService" class="form-label-xs">Required Solution *</label>
+          <label for="modalService" class="form-label-xs">{{ dict().inquiry.serviceLabel }}</label>
           <div class="input-control-wrapper-xs has-left-icon">
             <select
               id="modalService"
@@ -143,7 +155,7 @@
               @for (srv of services; track srv.id) {
                 <option [value]="srv.title">{{ srv.title }}</option>
               }
-              <option value="Marketplace Onboarding">Marketplace Onboarding</option>
+              <option value="Marketplace Onboarding">Marketplace Onboarding (Amazon/Flipkart)</option>
               <option value="Complete Digital Transformation">Complete Digital Transformation</option>
             </select>
             <span class="input-icon-xs" aria-hidden="true">
@@ -152,11 +164,13 @@
           </div>
         </div>
 
-        <!-- Math Calculation Captcha -->
+        <!-- Math Security Verification -->
         <div class="form-group-xs">
-          <div class="captcha-label-row">
-            <label for="modalCaptcha" class="form-label-xs">Solve: {{ captchaNum1 }} + {{ captchaNum2 }} = ? *</label>
-            <button type="button" (click)="generateCaptcha()" class="captcha-refresh-btn" title="Get new math question" aria-label="Refresh Captcha">
+          <div class="captcha-label-row-xs">
+            <label for="modalCaptcha" class="form-label-xs">
+              {{ dict().inquiry.captchaLabel }}: {{ captchaNum1 }} + {{ captchaNum2 }} = ?
+            </label>
+            <button type="button" (click)="generateCaptcha()" class="captcha-refresh-btn-xs" title="Refresh math sum" aria-label="Refresh Captcha">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
             </button>
           </div>
@@ -168,9 +182,10 @@
               [(ngModel)]="captchaInput"
               (input)="onCaptchaInput()"
               required
-              class="form-input-xs"
+              class="form-input-xs ltr-input"
+              dir="ltr"
               [class.is-invalid]="captchaError"
-              placeholder="Answer">
+              [placeholder]="dict().inquiry.captchaPlaceholder">
             <span class="input-icon-xs" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
             </span>
@@ -179,29 +194,35 @@
 
       </div>
 
-      @if (captchaError) {
-        <div class="form-field-error-xs">{{ captchaError }}</div>
-      }
-
-      <!-- Row 4: Project Notes / Requirements -->
+      <!-- Row 4: Project Requirements Details -->
       <div class="form-group-xs">
-        <label for="modalMsg" class="form-label-xs">Project Details / Requirements (Optional)</label>
+        <label for="modalMessage" class="form-label-xs">{{ dict().inquiry.messageLabel }}</label>
         <textarea
-          id="modalMsg"
+          id="modalMessage"
           name="message"
           [(ngModel)]="formData.message"
           rows="2"
           class="form-textarea-xs"
-          placeholder="Briefly describe your requirements or website goals..."></textarea>
+          [placeholder]="dict().inquiry.messagePlaceholder"></textarea>
       </div>
 
-      <!-- Submit Action Button -->
-      <div class="modal-action-row">
-        <button type="submit" [disabled]="isSubmitting" class="btn btn-primary-orange modal-submit-btn-xs">
+      <!-- Action Buttons Row -->
+      <div class="modal-actions-row">
+        <button
+          type="button"
+          (click)="closeModal.emit()"
+          class="btn btn-secondary-dark modal-cancel-btn">
+          {{ dict().quoteModal.closeBtn }}
+        </button>
+
+        <button
+          type="submit"
+          [disabled]="isSubmitting"
+          class="btn btn-primary-orange modal-submit-btn">
           @if (isSubmitting) {
-            <span>Sending Enquiry &amp; Confirmation...</span>
+            <span>{{ dict().quoteModal.submittingBtn }}</span>
           } @else {
-            <span>Send Free Quote Enquiry →</span>
+            <span>{{ dict().quoteModal.submitBtn }} →</span>
           }
         </button>
       </div>
@@ -210,4 +231,3 @@
 
   </div>
 </div>
-

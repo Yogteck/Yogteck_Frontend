@@ -1,36 +1,36 @@
-<div class="hero-enquiry-card-container">
+<div class="hero-enquiry-card-container" [class.dir-rtl]="localeService.isRtl()">
   
   <!-- Outer Ambient Glow -->
-  <div class="card-ambient-glow"></div>
+  <div class="card-ambient-glow" aria-hidden="true"></div>
 
   <div class="hero-enquiry-card">
     
     <!-- Top Decorative Line -->
-    <div class="card-top-bar"></div>
+    <div class="card-top-bar" aria-hidden="true"></div>
 
     <!-- ==================== FORM STATE ==================== -->
     @if (!submitSuccess) {
       <div class="card-header">
         <div class="live-status-pill">
-          <span class="live-dot"></span>
-          <span>Quick Response Active &bull; 2-4 Hrs</span>
+          <span class="live-dot" aria-hidden="true"></span>
+          <span>{{ dict().heroForm.badge }} &bull; 2-4 Hrs</span>
         </div>
         <h2 class="card-title">
-          Get Free <span class="gradient-text">Consultation</span> &amp; Quote
+          {{ dict().heroForm.title }}
         </h2>
         <p class="card-subtitle">
-          Share your requirements. We'll send a tailored proposal &amp; estimate directly to your email.
+          {{ dict().heroForm.subtitle }}
         </p>
       </div>
 
       @if (submitError) {
         <div class="alert-banner alert-error" role="alert">
-          <div class="alert-icon">⚠️</div>
+          <div class="alert-icon" aria-hidden="true">⚠️</div>
           <div class="alert-content">
-            <span class="alert-title">Submission Error</span>
+            <span class="alert-title">Notice</span>
             <p class="alert-msg">{{ submitError }}</p>
             <a [href]="contact.whatsappLink" target="_blank" rel="noopener noreferrer" class="alert-whatsapp-link">
-              💬 Instant WhatsApp Support (+91 8299209905)
+              💬 Instant WhatsApp Support (+91 {{ contact.phoneDisplay }})
             </a>
           </div>
         </div>
@@ -43,11 +43,10 @@
           <!-- Name Field -->
           <div class="form-group">
             <label for="heroFormName" class="form-label">
-              <span>Your Name</span>
-              <span class="required-star">*</span>
+              <span>{{ dict().heroForm.nameLabel }}</span>
             </label>
             <div class="input-wrapper">
-              <svg viewBox="0 0 20 20" fill="currentColor" class="input-icon">
+              <svg viewBox="0 0 20 20" fill="currentColor" class="input-icon" aria-hidden="true">
                 <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/>
               </svg>
               <input
@@ -58,41 +57,53 @@
                 #nameRef="ngModel"
                 required
                 minlength="2"
-                placeholder="e.g. Akash Sharma"
+                [placeholder]="dict().heroForm.namePlaceholder"
                 class="form-control"
                 [class.is-invalid]="nameRef.invalid && (nameRef.touched || nameRef.dirty)"
                 autocomplete="name"
               />
             </div>
             @if (nameRef.invalid && (nameRef.touched || nameRef.dirty)) {
-              <div class="field-error">Please enter your name (at least 2 chars).</div>
+              <div class="field-error">{{ dict().inquiry.validation.nameRequired }}</div>
             }
           </div>
 
-          <!-- Phone Field -->
+          <!-- Phone Field with Country Dial Code Selector -->
           <div class="form-group">
             <label for="heroFormPhone" class="form-label">
-              <span>Phone / WhatsApp</span>
-              <span class="required-star">*</span>
+              <span>{{ dict().heroForm.phoneLabel }}</span>
             </label>
-            <div class="input-wrapper">
-              <span class="input-prefix">+91</span>
-              <input
-                type="tel"
-                id="heroFormPhone"
-                name="phone"
-                [(ngModel)]="formData.phone"
-                #phoneRef="ngModel"
-                required
-                pattern="^[0-9+ ]{10,15}$"
-                placeholder="10-digit mobile"
-                class="form-control with-prefix"
-                [class.is-invalid]="phoneRef.invalid && (phoneRef.touched || phoneRef.dirty)"
-                autocomplete="tel"
-              />
+            <div class="hero-phone-composite">
+              <select
+                name="heroDialCode"
+                [(ngModel)]="selectedDialCode"
+                class="hero-dial-select"
+                aria-label="Country dial code"
+                dir="ltr">
+                @for (item of dialCodes; track item.countryCode) {
+                  <option [value]="item.dialCode">
+                    {{ item.flag }} {{ item.dialCode }}
+                  </option>
+                }
+              </select>
+              <div class="input-wrapper phone-flex-input">
+                <input
+                  type="tel"
+                  id="heroFormPhone"
+                  name="phone"
+                  [(ngModel)]="formData.phone"
+                  #phoneRef="ngModel"
+                  required
+                  [placeholder]="dict().heroForm.phonePlaceholder"
+                  class="form-control ltr-input"
+                  dir="ltr"
+                  [class.is-invalid]="phoneRef.invalid && (phoneRef.touched || phoneRef.dirty)"
+                  autocomplete="tel"
+                />
+              </div>
             </div>
             @if (phoneRef.invalid && (phoneRef.touched || phoneRef.dirty)) {
-              <div class="field-error">Enter a valid 10-digit mobile number.</div>
+              <div class="field-error">{{ dict().inquiry.validation.phoneRequired }}</div>
             }
           </div>
         </div>
@@ -102,11 +113,10 @@
           <!-- Email Field -->
           <div class="form-group">
             <label for="heroFormEmail" class="form-label">
-              <span>Email Address</span>
-              <span class="required-star">*</span>
+              <span>{{ dict().heroForm.emailLabel }}</span>
             </label>
             <div class="input-wrapper">
-              <svg viewBox="0 0 20 20" fill="currentColor" class="input-icon">
+              <svg viewBox="0 0 20 20" fill="currentColor" class="input-icon" aria-hidden="true">
                 <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
                 <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
               </svg>
@@ -117,194 +127,139 @@
                 [(ngModel)]="formData.email"
                 #emailRef="ngModel"
                 required
-                pattern="^[^\s@]+@[^\s@]+\.[^\s@]+$"
-                placeholder="your.email@gmail.com"
-                class="form-control"
+                email
+                [placeholder]="dict().heroForm.emailPlaceholder"
+                class="form-control ltr-input"
+                dir="ltr"
                 [class.is-invalid]="emailRef.invalid && (emailRef.touched || emailRef.dirty)"
                 autocomplete="email"
               />
             </div>
             @if (emailRef.invalid && (emailRef.touched || emailRef.dirty)) {
-              <div class="field-error">Enter a valid email address for proposal.</div>
+              <div class="field-error">{{ dict().inquiry.validation.emailRequired }}</div>
             }
           </div>
 
-          <!-- Service Select -->
+          <!-- Service Dropdown -->
           <div class="form-group">
             <label for="heroFormService" class="form-label">
-              <span>Required Service</span>
-              <span class="required-star">*</span>
+              <span>{{ dict().heroForm.serviceLabel }}</span>
             </label>
-            <div class="input-wrapper select-wrapper">
+            <div class="input-wrapper">
+              <svg viewBox="0 0 20 20" fill="currentColor" class="input-icon" aria-hidden="true">
+                <path fill-rule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd"/>
+              </svg>
               <select
                 id="heroFormService"
                 name="serviceType"
                 [(ngModel)]="formData.serviceType"
-                class="form-control custom-select"
+                class="form-control select-control"
               >
-                @for (s of services; track s.id) {
-                  <option [value]="s.title">{{ s.title }}</option>
+                @for (srv of services; track srv.id) {
+                  <option [value]="srv.title">{{ srv.title }}</option>
                 }
+                <option value="Marketplace Onboarding">Marketplace Onboarding (Amazon/Flipkart)</option>
+                <option value="Complete Digital Transformation">Complete Digital Transformation</option>
               </select>
-              <svg viewBox="0 0 20 20" fill="currentColor" class="select-arrow">
-                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
-              </svg>
             </div>
           </div>
         </div>
 
-        <!-- Project Requirements / Message -->
-        <div class="form-group">
-          <label for="heroFormMessage" class="form-label">
-            <span>Project Details / Requirements</span>
-            <span class="optional-hint">(Optional)</span>
-          </label>
-          <div class="input-wrapper textarea-wrapper">
-            <textarea
-              id="heroFormMessage"
-              name="message"
-              [(ngModel)]="formData.message"
-              rows="2"
-              placeholder="Briefly describe what you want to build or your goals..."
-              class="form-control textarea-control"
-            ></textarea>
+        <!-- Captcha Verification Field -->
+        <div class="form-row captcha-row">
+          <div class="form-group captcha-group">
+            <div class="captcha-label-row">
+              <label for="heroFormCaptcha" class="form-label captcha-label">
+                <span>{{ dict().heroForm.captchaLabel }}: {{ captchaNum1 }} + {{ captchaNum2 }} = ?</span>
+              </label>
+              <button
+                type="button"
+                (click)="generateCaptcha()"
+                class="captcha-refresh-btn"
+                title="Get a new math sum"
+                aria-label="Refresh Captcha"
+              >
+                <svg viewBox="0 0 20 20" fill="currentColor" class="refresh-icon" aria-hidden="true">
+                  <path fill-rule="evenodd" d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z" clip-rule="evenodd"/>
+                </svg>
+              </button>
+            </div>
+            <div class="input-wrapper">
+              <span class="captcha-symbol" aria-hidden="true">∑</span>
+              <input
+                type="number"
+                id="heroFormCaptcha"
+                name="captcha"
+                [(ngModel)]="captchaInput"
+                (input)="onCaptchaInput()"
+                required
+                [placeholder]="dict().heroForm.captchaPlaceholder"
+                class="form-control ltr-input"
+                dir="ltr"
+                [class.is-invalid]="captchaError"
+              />
+            </div>
+            @if (captchaError) {
+              <div class="field-error">{{ captchaError }}</div>
+            }
           </div>
         </div>
-
-        <!-- Anti-Spam Security Sum (Math Captcha) -->
-        <div class="captcha-row">
-          <div class="captcha-label">
-            <svg viewBox="0 0 20 20" fill="currentColor" class="shield-icon">
-              <path fill-rule="evenodd" d="M10 1.944A11.954 11.954 0 012.166 5C2.056 5.649 2 6.319 2 7c0 5.225 3.34 9.67 8 11.317C14.66 16.67 18 12.225 18 7c0-.682-.057-1.35-.166-2.001A11.954 11.954 0 0110 1.944zM11 14a1 1 0 11-2 0 1 1 0 012 0zm0-7a1 1 0 10-2 0v3a1 1 0 102 0V7z" clip-rule="evenodd"/>
-            </svg>
-            <span>Security: What is <strong>{{ captchaNum1 }} + {{ captchaNum2 }}</strong>?</span>
-          </div>
-          <div class="captcha-inputs">
-            <input
-              type="text"
-              id="heroFormCaptcha"
-              name="captchaInput"
-              [(ngModel)]="captchaInput"
-              (input)="onCaptchaInput()"
-              placeholder="Sum"
-              class="form-control captcha-input"
-              [class.is-invalid]="captchaError"
-              maxlength="4"
-              inputmode="numeric"
-            />
-            <button
-              type="button"
-              (click)="generateCaptcha()"
-              class="captcha-refresh-btn"
-              title="Refresh security question"
-              aria-label="Refresh security sum"
-            >
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="refresh-icon">
-                <path d="M23 4v6h-6M1 20v-6h6"/>
-                <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/>
-              </svg>
-            </button>
-          </div>
-        </div>
-        @if (captchaError) {
-          <div class="field-error captcha-error-text">{{ captchaError }}</div>
-        }
 
         <!-- Submit Button -->
         <button
           type="submit"
-          class="hero-submit-btn"
+          class="btn-submit-hero"
           [disabled]="isSubmitting"
-          [class.loading]="isSubmitting"
         >
-          @if (!isSubmitting) {
-            <span class="btn-sparkle">🚀</span>
-            <span class="btn-text">Send Enquiry &amp; Get Free Quote</span>
-            <svg viewBox="0 0 20 20" fill="currentColor" class="btn-arrow-icon">
+          @if (isSubmitting) {
+            <span class="spinner" aria-hidden="true"></span>
+            <span>{{ dict().heroForm.submittingBtn }}</span>
+          } @else {
+            <span>{{ dict().heroForm.submitBtn }}</span>
+            <svg viewBox="0 0 20 20" fill="currentColor" class="submit-arrow" aria-hidden="true">
               <path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"/>
             </svg>
-          } @else {
-            <span class="btn-spinner" aria-hidden="true"></span>
-            <span>Sending &amp; Delivering to Email...</span>
           }
         </button>
 
-        <!-- Trust Note Footer -->
-        <div class="card-footer-trust">
-          <svg viewBox="0 0 20 20" fill="currentColor" class="lock-mini-icon">
-            <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"/>
-          </svg>
-          <span>100% Privacy &bull; Instant Email Notification &bull; No Spam</span>
+        <!-- Privacy & Trust Footnote -->
+        <div class="form-footnote">
+          <span class="lock-icon" aria-hidden="true">🔒</span>
+          <span>100% Privacy Guaranteed &bull; Direct Response &bull; No Spam</span>
         </div>
 
       </form>
     }
 
     <!-- ==================== SUCCESS STATE ==================== -->
-    @else {
-      <div class="success-state-container">
-        
-        <div class="success-badge-wrapper">
-          <div class="success-checkmark-circle">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="check-svg">
-              <polyline points="20 6 9 17 4 12"></polyline>
-            </svg>
-          </div>
-          <div class="success-pulse-ring"></div>
+    @if (submitSuccess) {
+      <div class="card-success-state">
+        <div class="success-badge-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+          </svg>
         </div>
 
-        <h3 class="success-title">🎉 Enquiry Received!</h3>
+        <h3 class="success-title">{{ dict().heroForm.successTitle }}</h3>
         <p class="success-desc">
-          Thank you, <strong>{{ formData.name }}</strong>! Your request for <strong>{{ formData.serviceType }}</strong> has been forwarded directly to our technical team.
+          {{ dict().heroForm.successMessage }}
         </p>
 
-        <!-- Notification Highlights Box -->
-        <div class="email-delivery-box">
-          <div class="delivery-item">
-            <span class="delivery-icon">✉️</span>
-            <div class="delivery-text">
-              <span class="delivery-label">Delivered to Admin</span>
-              <span class="delivery-val">yogteck&#64;gmail.com</span>
-            </div>
-          </div>
-          <div class="delivery-divider"></div>
-          <div class="delivery-item">
-            <span class="delivery-icon">📬</span>
-            <div class="delivery-text">
-              <span class="delivery-label">Confirmation Sent To</span>
-              <span class="delivery-val">{{ formData.email }}</span>
-            </div>
-          </div>
-          <div class="delivery-divider"></div>
-          <div class="delivery-item">
-            <span class="delivery-icon">📞</span>
-            <div class="delivery-text">
-              <span class="delivery-label">Contact Phone</span>
-              <span class="delivery-val">+91 {{ formData.phone }}</span>
-            </div>
-          </div>
-        </div>
-
-        <p class="success-hint">
-          Our senior consultant will review your specifications and contact you within <strong>2 to 4 business hours</strong>.
-        </p>
-
-        <!-- Action CTAs -->
-        <div class="success-actions">
-          <a [href]="contact.whatsappLink" target="_blank" rel="noopener noreferrer" class="btn-success-whatsapp">
-            <span class="wa-icon">
-              <svg viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.312.045-.634.053-1.849-.444-1.442-.591-2.404-2.029-2.477-2.126-.073-.097-.584-.778-.584-1.485 0-.706.368-1.054.499-1.201.131-.146.286-.183.382-.183.096 0 .192.002.276.006.088.005.207-.034.323.247.12.291.411 1.004.447 1.077.036.073.06.158.012.255-.049.097-.073.158-.146.242-.073.085-.154.19-.22.256-.073.073-.149.153-.064.298.085.146.377.621.808 1.005.556.495 1.025.648 1.171.72.146.073.232.061.318-.036.085-.098.365-.424.463-.57.097-.146.195-.121.328-.073.134.049.851.401.997.474.146.073.243.109.279.17.037.061.037.352-.107.757z"/>
-              </svg>
-            </span>
-            <span>Chat Directly on WhatsApp</span>
+        <div class="whatsapp-cta-box">
+          <span class="wa-box-label">Need immediate consultation?</span>
+          <a
+            [href]="contact.whatsappLink"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn-whatsapp-direct"
+          >
+            <span>Chat Directly on WhatsApp (+91 {{ contact.phoneDisplay }})</span>
           </a>
-
-          <button type="button" (click)="resetForm()" class="btn-success-reset">
-            <span>Submit Another Enquiry</span>
-          </button>
         </div>
 
+        <button type="button" (click)="resetForm()" class="btn-submit-another">
+          Submit Another Request
+        </button>
       </div>
     }
 

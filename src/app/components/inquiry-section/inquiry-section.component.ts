@@ -1,8 +1,9 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
-import { CONTACT_CONFIG } from '../../data/contact.config';
+import { CONTACT_CONFIG, DIAL_CODE_OPTIONS, DialCodeOption } from '../../data/contact.config';
 import { SERVICES_DATA } from '../../data/services.data';
+import { LocaleService } from '../../services/locale.service';
 
 @Component({
   selector: 'app-inquiry-section',
@@ -14,8 +15,13 @@ import { SERVICES_DATA } from '../../data/services.data';
 export class InquirySectionComponent implements OnInit {
   @ViewChild('inquiryForm') inquiryForm?: NgForm;
 
+  public localeService = inject(LocaleService);
   contact = CONTACT_CONFIG;
   services = SERVICES_DATA;
+  dialCodes = DIAL_CODE_OPTIONS;
+  selectedDialCode = '+91';
+
+  dict = this.localeService.currentDict;
 
   formData = {
     name: '',
@@ -37,10 +43,17 @@ export class InquirySectionComponent implements OnInit {
   submitSuccess = false;
   submitError = '';
 
-  constructor(private elRef: ElementRef) {}
+  constructor(
+    private elRef: ElementRef
+  ) {}
 
   ngOnInit(): void {
     this.generateCaptcha();
+    // Default country code from visitor locale
+    const cfg = this.localeService.currentConfig();
+    if (cfg && cfg.dialCode) {
+      this.selectedDialCode = cfg.dialCode;
+    }
   }
 
   generateCaptcha(): void {
@@ -74,6 +87,8 @@ export class InquirySectionComponent implements OnInit {
       return;
     }
 
+    const dict = this.dict();
+
     // 1. Mark all fields as touched to display errors
     if (form.controls) {
       Object.keys(form.controls).forEach(key => {
@@ -88,8 +103,8 @@ export class InquirySectionComponent implements OnInit {
       return;
     }
 
-    const phoneRegex = /^[0-9+ ]{10,15}$/;
-    if (!this.formData.phone || !phoneRegex.test(this.formData.phone.trim())) {
+    const rawPhone = this.formData.phone.trim();
+    if (!rawPhone || rawPhone.length < 5) {
       this.focusAndHighlight('contactPhone');
       return;
     }
@@ -108,14 +123,14 @@ export class InquirySectionComponent implements OnInit {
     // 3. Validate Captcha
     const rawInput = String(this.captchaInput || '').trim();
     if (!rawInput) {
-      this.captchaError = 'Please enter the math security answer to submit (कैप्चा भरें).';
+      this.captchaError = dict.inquiry.validation.captchaRequired;
       this.focusAndHighlight('contactCaptcha');
       return;
     }
 
     const parsedAnswer = parseInt(rawInput, 10);
     if (isNaN(parsedAnswer) || parsedAnswer !== this.captchaAnswer) {
-      this.captchaError = 'Incorrect math captcha! Please solve and enter the correct sum (कैप्चा गलत है).';
+      this.captchaError = dict.inquiry.validation.captchaInvalid;
       this.focusAndHighlight('contactCaptcha');
       return;
     }
@@ -126,15 +141,27 @@ export class InquirySectionComponent implements OnInit {
     this.submitSuccess = false;
     this.submitError = '';
 
+    // Full phone value formatted with dial code
+    const fullPhone = `${this.selectedDialCode} ${rawPhone}`.trim();
+
+    // Optional controlled message annotation
+    let messageBody = this.formData.message.trim();
+    if (this.contact.enableLocaleAnnotationInMessage) {
+      const cfg = this.localeService.currentConfig();
+      const pageUrl = typeof window !== 'undefined' ? window.location.href : '';
+      messageBody += `\n\n[Lang: ${cfg.htmlLang} | Country: ${cfg.country} | Page: ${pageUrl}]`;
+    }
+
+    // Exact backend payload shape preserved
     const payload = {
       name: this.formData.name.trim(),
       companyName: this.formData.companyName.trim(),
       company: this.formData.companyName.trim(),
-      phone: this.formData.phone.trim(),
+      phone: fullPhone,
       email: this.formData.email.trim(),
       serviceType: this.formData.serviceType,
       rackType: this.formData.serviceType,
-      message: this.formData.message.trim()
+      message: messageBody
     };
 
     try {
@@ -147,7 +174,7 @@ export class InquirySectionComponent implements OnInit {
       const result = await response.json().catch(() => ({}));
 
       if (!response.ok || !result.success) {
-        throw new Error(result.message || 'Unable to submit your enquiry right now.');
+        throw new Error(result.message || dict.inquiry.errorMessage);
       }
 
       this.submitSuccess = true;
@@ -157,12 +184,10 @@ export class InquirySectionComponent implements OnInit {
       this.generateCaptcha();
     } catch (err) {
       console.error('Enquiry submission error:', err);
-      this.submitError = err instanceof Error ? err.message : 'Unable to connect to server. Please contact us on WhatsApp directly.';
+      this.submitError = err instanceof Error ? err.message : dict.inquiry.errorMessage;
       this.generateCaptcha();
     } finally {
       this.isSubmitting = false;
     }
   }
 }
-
-

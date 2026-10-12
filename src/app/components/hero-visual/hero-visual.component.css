@@ -744,3 +744,47 @@
     flex: 1;
   }
 }
+
+/* Hero Phone Composite Row */
+.hero-phone-composite {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+}
+
+.hero-dial-select {
+  width: 90px;
+  height: 33px;
+  flex-shrink: 0;
+  background: rgba(15, 23, 42, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  color: #FFFFFF;
+  border-radius: 7px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0 4px;
+  outline: none;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+.hero-dial-select:focus {
+  border-color: #FF9A1F;
+}
+
+.phone-flex-input {
+  flex-grow: 1;
+}
+
+.ltr-input {
+  direction: ltr !important;
+  text-align: start !important;
+}
+
+/* RTL Support */
+.dir-rtl .hero-enquiry-card,
+[dir="rtl"] .hero-enquiry-card {
+  text-align: start;
+}
+

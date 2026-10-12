@@ -333,3 +333,46 @@
     gap: 8px;
   }
 }
+
+/* Modal Phone Dial Code Composite */
+.modal-phone-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+}
+
+.modal-dial-select {
+  width: 85px;
+  height: 34px;
+  flex-shrink: 0;
+  background: var(--input-bg);
+  border: 1px solid var(--input-border);
+  color: var(--input-text);
+  border-radius: var(--radius-xs);
+  padding: 0 4px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  outline: none;
+  cursor: pointer;
+}
+
+.modal-dial-select:focus {
+  border-color: var(--accent-orange-solid);
+}
+
+.modal-phone-input {
+  flex-grow: 1;
+}
+
+.ltr-input {
+  direction: ltr !important;
+  text-align: start !important;
+}
+
+/* RTL Support */
+.dir-rtl .modal-content-card,
+[dir="rtl"] .modal-content-card {
+  text-align: start;
+}
+

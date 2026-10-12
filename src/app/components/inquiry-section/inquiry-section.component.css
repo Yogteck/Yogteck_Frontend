@@ -485,3 +485,54 @@ body.theme-light .form-textarea::placeholder {
     gap: 10px;
   }
 }
+
+/* Phone Composite Dial-Code Selector */
+.phone-composite-row {
+  display: flex;
+  align-items: stretch;
+  gap: 8px;
+}
+
+.dial-code-picker {
+  width: 105px;
+  flex-shrink: 0;
+  background: var(--input-bg);
+  border: 1px solid var(--input-border);
+  color: var(--input-text);
+  border-radius: var(--radius-sm);
+  padding: 0 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  outline: none;
+  transition: border-color var(--transition-fast);
+}
+
+.dial-code-picker:focus {
+  border-color: var(--accent-orange-solid);
+}
+
+.phone-input-fill {
+  flex-grow: 1;
+}
+
+.ltr-input {
+  direction: ltr !important;
+  text-align: start !important;
+}
+
+/* RTL Support */
+.inquiry-grid-rtl,
+[dir="rtl"] .inquiry-grid {
+  direction: rtl;
+}
+
+.dir-rtl .inquiry-info-col,
+[dir="rtl"] .inquiry-info-col {
+  text-align: start;
+}
+
+[dir="rtl"] .contact-card:hover {
+  transform: translateX(-4px);
+}
+

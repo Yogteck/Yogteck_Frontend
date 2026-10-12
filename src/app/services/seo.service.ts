@@ -11,6 +11,7 @@ export interface LocalizedSeoConfig {
   pathWithoutLocale?: string; // e.g. '', 'services/erp-software', 'it-software-company-kanpur'
   ogImage?: string;
   ogType?: string;
+  robots?: string;
   jsonLdSchemas?: object[];
 }
 
@@ -43,7 +44,10 @@ export class SeoService {
     if (config.keywords) {
       this.metaService.updateTag({ name: 'keywords', content: config.keywords });
     }
-    this.metaService.updateTag({ name: 'robots', content: 'index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1' });
+    this.metaService.updateTag({
+      name: 'robots',
+      content: config.robots || 'index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1'
+    });
     this.metaService.updateTag({ name: 'author', content: 'Yogteck Business Solution' });
 
     // 2. Open Graph & Twitter Tags

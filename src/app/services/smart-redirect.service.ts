@@ -92,14 +92,16 @@ export class SmartRedirectService {
     const matchedTarget = this.findBestMatch(cleanSlug);
 
     // Log invalid URL hit to backend asynchronously
-    this.logRedirectAttempt(url, matchedTarget);
+    this.logRedirectAttempt(url, matchedTarget && matchedTarget !== '/' ? matchedTarget : '404');
 
-    // Redirect to closest match or home
+    // Redirect to closest match if a strong match exists; otherwise let router display 404
     if (matchedTarget && matchedTarget !== '/') {
       this.router.navigateByUrl(matchedTarget, { replaceUrl: true });
-    } else {
-      this.router.navigate(['/'], { replaceUrl: true });
     }
+  }
+
+  public log404Hit(url: string): void {
+    this.logRedirectAttempt(url, '404');
   }
 
   private normalizeSlug(url: string): string {

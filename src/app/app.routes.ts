@@ -46,7 +46,10 @@ export const routes: Routes = [
       { path: 'erp-kaihatsu', component: ServiceDetailComponent },
 
       // Localized 404
-      { path: '404', component: NotFoundComponent }
+      { path: '404', component: NotFoundComponent },
+
+      // Catch-all for unrecognized paths within a valid locale
+      { path: '**', component: NotFoundComponent }
     ]
   },
 
@@ -56,6 +59,7 @@ export const routes: Routes = [
   { path: 'it-software-company-raebareli', redirectTo: 'en/it-software-company-raebareli', pathMatch: 'full' },
   { path: 'services/:slug', redirectTo: 'en/services/:slug', pathMatch: 'full' },
 
-  // 5. Global fallback
+  // 5. Global 404 and fallback
+  { path: '404', component: NotFoundComponent },
   { path: '**', component: NotFoundComponent }
 ];

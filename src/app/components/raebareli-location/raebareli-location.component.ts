@@ -47,13 +47,11 @@ export class RaebareliLocationComponent implements OnInit {
 
   ngOnInit(): void {
     const data = this.locationData;
-    const currentLocale = this.localeService.currentConfig();
-    const localeCode = currentLocale.code;
-    const canonicalPath = `/${localeCode}/${data.slug}/`;
+    const canonicalUrl = `https://yogteck.com/${data.slug}`;
 
     this.breadcrumbItems = [
-      { label: 'Locations', url: `/${localeCode}/#about` },
-      { label: 'Raebareli' }
+      { label: 'Home', url: '/' },
+      { label: 'Raebareli Software Services' }
     ];
 
     const breadcrumbSchema = {
@@ -64,45 +62,34 @@ export class RaebareliLocationComponent implements OnInit {
           "@type": "ListItem",
           "position": 1,
           "name": "Home",
-          "item": `https://yogteck.com/${localeCode}/`
+          "item": "https://yogteck.com/"
         },
         {
           "@type": "ListItem",
           "position": 2,
-          "name": "Raebareli",
-          "item": `https://yogteck.com/${localeCode}/${data.slug}/`
+          "name": "Raebareli Software Services",
+          "item": canonicalUrl
         }
       ]
     };
 
     const serviceSchema = {
       "@context": "https://schema.org",
-      "@type": "ProfessionalService",
+      "@type": "Service",
       "name": "Yogteck Business Solution - Raebareli Services",
-      "alternateName": "Yogteck",
-      "image": "https://yogteck.com/favicon-512x512.png",
-      "url": `https://yogteck.com${canonicalPath}`,
-      "telephone": "+91-8299209905",
-      "email": "yogteck@gmail.com",
-      "priceRange": "$$",
+      "serviceType": "IT & Software Development",
+      "url": canonicalUrl,
       "description": data.metaDescription,
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "302/2, Mangla Vihar 2, New PAC Line",
-        "addressLocality": "Kanpur Nagar",
-        "addressRegion": "Uttar Pradesh",
-        "postalCode": "208015",
-        "addressCountry": "IN"
+      "provider": {
+        "@type": "Organization",
+        "name": "Yogteck Business Solution",
+        "url": "https://yogteck.com/",
+        "telephone": "+91-8299209905",
+        "email": "yogteck@gmail.com"
       },
       "areaServed": {
         "@type": "City",
         "name": "Raebareli"
-      },
-      "openingHoursSpecification": {
-        "@type": "OpeningHoursSpecification",
-        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-        "opens": "09:00",
-        "closes": "20:00"
       }
     };
 
@@ -119,12 +106,10 @@ export class RaebareliLocationComponent implements OnInit {
       }))
     };
 
-    this.seoService.setLocalizedPageSeo({
+    this.seoService.setCanonicalPageSeo({
       title: data.metaTitle,
       description: data.metaDescription,
-      keywords: 'it company in raebareli, software company in raebareli, software development company in raebareli, web development company in raebareli, erp software raebareli, billing software raebareli, yogteck business solution',
-      localeCode: localeCode,
-      pathWithoutLocale: data.slug,
+      canonicalUrl: canonicalUrl,
       jsonLdSchemas: [breadcrumbSchema, serviceSchema, faqSchema]
     });
 

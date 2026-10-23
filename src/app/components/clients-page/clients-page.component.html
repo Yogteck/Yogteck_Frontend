@@ -1,0 +1,156 @@
+<!-- Navbar -->
+<app-navbar
+  (openQuote)="openQuoteModal()"
+  (toggleDrawer)="openDrawer()">
+</app-navbar>
+
+<!-- Mobile Drawer -->
+<app-mobile-drawer
+  [isOpen]="isDrawerOpen"
+  (closeDrawer)="closeDrawer()"
+  (openQuote)="openQuoteModal()">
+</app-mobile-drawer>
+
+<main class="clients-page-main">
+  
+  <!-- Index View (/clients) -->
+  <div *ngIf="!isDetailView">
+    <section class="clients-hero-section">
+      <div class="container">
+        <app-breadcrumbs [items]="breadcrumbItems"></app-breadcrumbs>
+        
+        <div class="section-center-header">
+          <span class="section-label">CLIENT PARTNERSHIPS</span>
+          <h1 class="page-title">Trusted by Leading Enterprises &amp; Fast-Growing Brands</h1>
+          <!-- Answer-first intro -->
+          <p class="hero-direct-answer">
+            YogTeck Business Solution engineers mission-critical web portals, e-commerce engines, and enterprise ERP systems for ambitious corporate organizations in Kanpur and across India. We deliver measurable business growth, guaranteed high availability, and 100% intellectual property ownership to our client partners.
+          </p>
+        </div>
+
+        <div class="clients-grid">
+          @for (client of clientsList; track client.id) {
+            <div class="client-card">
+              <div class="client-card-header">
+                <div class="client-avatar" [style.color]="client.accentColor" [style.border-color]="client.accentColor">
+                  <span>{{ client.initials }}</span>
+                </div>
+                <div class="client-title-wrap">
+                  <span class="client-cat-pill">{{ client.category }}</span>
+                  <h2 class="client-company-name">{{ client.name }}</h2>
+                </div>
+              </div>
+
+              <p class="client-summary-text">
+                {{ client.description }}
+              </p>
+
+              <div class="client-card-footer">
+                <a [routerLink]="['/clients', client.id]" class="btn btn-outline-orange view-case-study-btn">
+                  <span>View Case Study &amp; Metrics →</span>
+                </a>
+              </div>
+            </div>
+          }
+        </div>
+
+      </div>
+    </section>
+  </div>
+
+  <!-- Detail View (/clients/:clientId) -->
+  <div *ngIf="isDetailView && caseStudy">
+    <section class="case-study-hero">
+      <div class="container">
+        <app-breadcrumbs [items]="breadcrumbItems"></app-breadcrumbs>
+
+        <div class="case-study-header">
+          <span class="case-study-industry" [style.color]="caseStudy.accentColor">{{ caseStudy.industry }}</span>
+          <h1 class="case-study-title">{{ caseStudy.h1 }}</h1>
+          <p class="case-study-summary">{{ caseStudy.summary }}</p>
+
+          <!-- Direct answer overview -->
+          <div class="case-study-direct-answer">
+            <strong>Project Partnership Overview:</strong> {{ caseStudy.clientOverview }}
+          </div>
+        </div>
+
+        <!-- Challenge & Solution Grid -->
+        <div class="challenge-solution-grid">
+          <div class="cs-box challenge-box">
+            <h2 class="cs-subheading">The Operational Challenge</h2>
+            <p>{{ caseStudy.challengeSolved }}</p>
+          </div>
+
+          <div class="cs-box solution-box">
+            <h2 class="cs-subheading">The YogTeck Solution</h2>
+            <p>{{ caseStudy.solutionDelivered }}</p>
+          </div>
+        </div>
+
+        <!-- Verified Metrics Box -->
+        <div class="verified-metrics-card">
+          <h2 class="metrics-heading">Verified Results &amp; Platform Metrics</h2>
+          <ul class="metrics-list">
+            @for (m of caseStudy.verifiedMetrics; track m) {
+              <li>
+                <svg viewBox="0 0 20 20" fill="currentColor" class="metric-star"><polygon points="10 1 12.7 6.5 18.6 7.3 14.3 11.5 15.3 17.4 10 14.6 4.7 17.4 5.7 11.5 1.4 7.3 7.3 6.5 10 1"/></svg>
+                <span>{{ m }}</span>
+              </li>
+            }
+          </ul>
+
+          <div class="owner-placeholder-note" *ngFor="let p of caseStudy.ownerPlaceholders">
+            <em>{{ p }}</em>
+          </div>
+        </div>
+
+        <!-- Tags -->
+        <div class="case-study-tags-row">
+          @for (tag of caseStudy.tags; track tag) {
+            <span class="case-tag">{{ tag }}</span>
+          }
+        </div>
+
+        <!-- FAQs -->
+        <app-faq-section
+          [title]="caseStudy.shortName + ' Case Study FAQs'"
+          subtitle="Key technical and implementation facts regarding this digital deployment."
+          [faqs]="caseStudy.faqs">
+        </app-faq-section>
+
+        <!-- CTA Box -->
+        <div class="case-study-cta-box">
+          <h2 class="cta-heading">Ready to Engineer Similar Results for Your Business?</h2>
+          <p class="cta-sub">Speak directly with our engineering team in Kanpur to discuss your platform requirements.</p>
+          <div class="cta-btns">
+            <button type="button" (click)="openQuoteModal()" class="btn btn-primary-orange">
+              <span>Request Free Consultation</span>
+            </button>
+            <a [href]="contact.whatsappLink" target="_blank" rel="noopener noreferrer" class="btn btn-secondary-dark">
+              <span>Chat on WhatsApp</span>
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </div>
+
+</main>
+
+<!-- Footer -->
+<app-footer></app-footer>
+
+<!-- Sticky Mobile Action Bar -->
+<app-mobile-action-bar></app-mobile-action-bar>
+
+<!-- Floating WhatsApp Button -->
+<app-floating-whatsapp></app-floating-whatsapp>
+
+<!-- Quote Modal -->
+<app-quote-modal
+  [isOpen]="isQuoteModalOpen"
+  defaultServiceTitle="Client Case Study Inquiry"
+  (closeModal)="closeQuoteModal()">
+</app-quote-modal>

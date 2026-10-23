@@ -1,0 +1,241 @@
+<!-- Navbar -->
+<app-navbar
+  (openQuote)="openQuoteModal()"
+  (toggleDrawer)="openDrawer()">
+</app-navbar>
+
+<!-- Mobile Slide-out Drawer -->
+<app-mobile-drawer
+  [isOpen]="isDrawerOpen"
+  (closeDrawer)="closeDrawer()"
+  (openQuote)="openQuoteModal()">
+</app-mobile-drawer>
+
+<main class="product-page-main" *ngIf="productData">
+  
+  <!-- Hero Section (Answer-First) -->
+  <section class="product-hero-section">
+    <div class="ambient-glow ambient-glow-blue glow-prd-1"></div>
+    <div class="ambient-glow ambient-glow-orange glow-prd-2"></div>
+
+    <div class="container">
+      
+      <!-- Breadcrumbs -->
+      <app-breadcrumbs [items]="breadcrumbItems"></app-breadcrumbs>
+
+      <div class="product-hero-content">
+        <div class="hero-pill-wrapper">
+          <span class="pill-badge pill-badge-outline-orange">
+            <span class="pill-sparkle">✦</span>
+            <span>{{ productData.badge }}</span>
+          </span>
+        </div>
+
+        <h1 class="product-hero-title">
+          {{ productData.h1 }}
+        </h1>
+
+        <p class="product-hero-tagline gradient-text">
+          {{ productData.tagline }}
+        </p>
+
+        <!-- Direct 2-3 sentence answer -->
+        <p class="product-hero-lead">
+          {{ productData.heroAnswer }}
+        </p>
+
+        <div class="product-hero-actions">
+          <button type="button" (click)="openQuoteModal()" class="btn btn-primary-orange">
+            <span>Request Live Demo &amp; Pricing</span>
+            <svg viewBox="0 0 20 20" fill="currentColor" class="cta-arrow">
+              <path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"/>
+            </svg>
+          </button>
+          <a [href]="contact.whatsappLink" target="_blank" rel="noopener noreferrer" class="btn btn-secondary-dark">
+            <span>Instant WhatsApp Demo</span>
+          </a>
+        </div>
+
+        <div class="hero-trust-bar">
+          <div class="trust-item">
+            <svg viewBox="0 0 20 20" fill="currentColor" class="check-gold"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+            <span>Kanpur Headquartered Office</span>
+          </div>
+          <div class="trust-divider">•</div>
+          <div class="trust-item">
+            <svg viewBox="0 0 20 20" fill="currentColor" class="check-gold"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+            <span>Multi-Device Cloud Access</span>
+          </div>
+          <div class="trust-divider">•</div>
+          <div class="trust-item">
+            <svg viewBox="0 0 20 20" fill="currentColor" class="check-gold"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+            <span>Dedicated Setup &amp; Onboarding</span>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- What It Does Section -->
+  <section class="section-light what-it-does-section">
+    <div class="container">
+      <div class="section-center-header">
+        <span class="section-label">OVERVIEW &amp; CAPABILITIES</span>
+        <h2 class="section-heading">What {{ productData.title }} Does</h2>
+      </div>
+      <div class="what-it-does-card">
+        <p class="what-it-does-text">
+          {{ productData.whatItDoes }}
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Who It Is For Section -->
+  <section class="section-dark who-for-section">
+    <div class="container">
+      <div class="section-center-header">
+        <span class="section-label">TARGET AUDIENCE</span>
+        <h2 class="section-heading">Who It Is For</h2>
+        <p class="section-lead">Engineered specifically to solve real operational bottlenecks across Indian business sectors.</p>
+      </div>
+
+      <div class="who-grid">
+        @for (item of productData.whoItIsFor; track item.title) {
+          <div class="who-card">
+            <div class="who-icon-dot"></div>
+            <h3 class="who-title">{{ item.title }}</h3>
+            <p class="who-desc">{{ item.description }}</p>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Key Features Grid -->
+  <section class="section-light features-section">
+    <div class="container">
+      <div class="section-center-header">
+        <span class="section-label">SYSTEM FEATURES</span>
+        <h2 class="section-heading">Core Capabilities &amp; Architecture</h2>
+        <p class="section-lead">Everything required to operate with speed, compliance, and total reliability.</p>
+      </div>
+
+      <div class="features-grid">
+        @for (feat of productData.keyFeatures; track feat.title) {
+          <div class="feature-card">
+            <div class="feat-icon-wrap">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+            <h3 class="feat-title">{{ feat.title }}</h3>
+            <p class="feat-desc">{{ feat.description }}</p>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Plans & Pricing Section -->
+  <section class="section-dark pricing-section">
+    <div class="container">
+      <div class="section-center-header">
+        <span class="section-label">PLANS &amp; PRICING</span>
+        <h2 class="section-heading">Transparent Subscription &amp; Licensing</h2>
+        <p class="section-lead">Choose the tier that matches your operational scale. All packages include setup assistance.</p>
+      </div>
+
+      <div class="pricing-grid">
+        @for (plan of productData.plansPricing; track plan.name) {
+          <div class="pricing-card" [class.is-highlighted]="plan.highlighted">
+            @if (plan.highlighted) {
+              <div class="plan-badge">MOST POPULAR</div>
+            }
+            <h3 class="plan-name">{{ plan.name }}</h3>
+            <div class="plan-price-wrap">
+              <span class="plan-price">{{ plan.price }}</span>
+              <span class="plan-period">{{ plan.period }}</span>
+            </div>
+            <p class="plan-desc">{{ plan.description }}</p>
+
+            <ul class="plan-features-list">
+              @for (f of plan.features; track f) {
+                <li>
+                  <svg viewBox="0 0 20 20" fill="currentColor" class="feat-check"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                  <span>{{ f }}</span>
+                </li>
+              }
+            </ul>
+
+            <button type="button" (click)="openQuoteModal()" class="btn" [class.btn-primary-orange]="plan.highlighted" [class.btn-outline-orange]="!plan.highlighted">
+              <span>Choose {{ plan.name }}</span>
+            </button>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section (AEO / GEO) -->
+  <app-faq-section
+    [title]="productData.title + ' Frequently Asked Questions'"
+    subtitle="Direct answers to common questions about deployment, pricing, integrations, and support."
+    [faqs]="productData.faqs">
+  </app-faq-section>
+
+  <!-- Related Products Strip -->
+  <section class="section-dark related-products-section">
+    <div class="container">
+      <div class="section-center-header">
+        <span class="section-label">PRODUCT ECOSYSTEM</span>
+        <h2 class="section-heading">Complementary Business Solutions</h2>
+      </div>
+
+      <div class="related-grid">
+        @for (item of productData.relatedProducts; track item.slug) {
+          <a [routerLink]="['/products', item.slug]" class="related-card">
+            <h3 class="related-title">{{ item.title }}</h3>
+            <p class="related-desc">{{ item.desc }}</p>
+            <span class="related-arrow">Explore Product →</span>
+          </a>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Box -->
+  <section class="section-light cta-banner-section">
+    <div class="container">
+      <div class="cta-banner-card">
+        <h2 class="cta-banner-heading">Ready to Deploy {{ productData.title }} for Your Business?</h2>
+        <p class="cta-banner-sub">Speak with our Kanpur engineering team or schedule a live screen-share walkthrough.</p>
+        <div class="cta-banner-buttons">
+          <button type="button" (click)="openQuoteModal()" class="btn btn-primary-orange">
+            <span>Schedule Walkthrough</span>
+          </button>
+          <a [href]="'tel:' + contact.phoneTel" class="btn btn-outline-dark">
+            <span>Call +91 {{ contact.phoneDisplay }}</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- Footer -->
+<app-footer></app-footer>
+
+<!-- Sticky Mobile Action Bar -->
+<app-mobile-action-bar></app-mobile-action-bar>
+
+<!-- Floating WhatsApp Button -->
+<app-floating-whatsapp></app-floating-whatsapp>
+
+<!-- Quote Modal -->
+<app-quote-modal
+  [isOpen]="isQuoteModalOpen"
+  [defaultServiceTitle]="productData?.title || 'Product Inquiry'"
+  (closeModal)="closeQuoteModal()">
+</app-quote-modal>

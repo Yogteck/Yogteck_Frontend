@@ -2,7 +2,7 @@
   <div class="container navbar-container">
     
     <!-- Brand Logo -->
-    <a href="#" (click)="scrollTo('home', $event)" class="brand-logo" aria-label="YOGTECK Home">
+    <a routerLink="/" class="brand-logo" aria-label="YOGTECK Home">
       <div class="logo-mark">
         <svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
           <rect width="44" height="44" rx="10" fill="#0A1330"/>
@@ -31,15 +31,15 @@
       <ul class="nav-list">
         
         <li class="nav-item">
-          <a href="#home" (click)="scrollTo('home', $event)" class="nav-link" [class.active]="activeSection === 'home'">
+          <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="nav-link">
             {{ dict().nav.home }}
             <span class="active-indicator"></span>
           </a>
         </li>
 
-        <!-- Our Services Dropdown -->
+        <!-- Services Dropdown -->
         <li class="nav-item dropdown-parent" [class.dropdown-open]="isServicesDropdownOpen">
-          <button type="button" (click)="toggleDropdown($event)" class="nav-link dropdown-trigger" [class.active]="activeSection === 'services'" aria-haspopup="true" [attr.aria-expanded]="isServicesDropdownOpen">
+          <button type="button" (click)="toggleDropdown($event)" class="nav-link dropdown-trigger" aria-haspopup="true" [attr.aria-expanded]="isServicesDropdownOpen">
             <span>{{ dict().nav.services }}</span>
             <svg class="chevron-icon" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
               <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
@@ -55,7 +55,7 @@
             </div>
             <div class="dropdown-grid">
               @for (srv of services; track srv.id) {
-                <a [href]="'#' + srv.slug" (click)="scrollTo(srv.slug, $event)" class="service-dropdown-item">
+                <a [routerLink]="['/services', srv.slug]" (click)="closeDropdown()" class="service-dropdown-item">
                   <div class="item-icon-wrap">
                     @switch (srv.icon) {
                       @case ('globe') {
@@ -88,36 +88,64 @@
           </div>
         </li>
 
+        <!-- Products Dropdown -->
+        <li class="nav-item dropdown-parent" [class.dropdown-open]="isProductsDropdownOpen">
+          <button type="button" (click)="toggleProductsDropdown($event)" class="nav-link dropdown-trigger" aria-haspopup="true" [attr.aria-expanded]="isProductsDropdownOpen">
+            <span>Products</span>
+            <svg class="chevron-icon" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+              <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
+            </svg>
+            <span class="active-indicator"></span>
+          </button>
+
+          <div class="services-dropdown products-dropdown" (click)="$event.stopPropagation()">
+            <div class="dropdown-header">
+              <span class="dropdown-title">SaaS & Enterprise Platforms</span>
+              <span class="dropdown-badge">3 Ready Products</span>
+            </div>
+            <div class="dropdown-grid">
+              @for (prod of products; track prod.id) {
+                <a [routerLink]="['/products', prod.slug]" (click)="closeDropdown()" class="service-dropdown-item">
+                  <div class="item-icon-wrap">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                  </div>
+                  <div class="item-text">
+                    <span class="item-title">{{ prod.title }}</span>
+                    <span class="item-desc">{{ prod.tagline }}</span>
+                  </div>
+                </a>
+              }
+            </div>
+          </div>
+        </li>
+
+        <!-- Tools -->
         <li class="nav-item">
-          <a href="#growth-journey" (click)="scrollTo('growth-journey', $event)" class="nav-link" [class.active]="activeSection === 'growth-journey'">
-            {{ dict().nav.growthJourney }}
+          <a routerLink="/tools" routerLinkActive="active" class="nav-link">
+            Tools
             <span class="active-indicator"></span>
           </a>
         </li>
 
+        <!-- Our Clients -->
         <li class="nav-item">
-          <a href="#projects" (click)="scrollTo('projects', $event)" class="nav-link" [class.active]="activeSection === 'projects'">
-            {{ dict().nav.projects }}
-            <span class="active-indicator"></span>
-          </a>
-        </li>
-
-        <li class="nav-item">
-          <a href="#clients" (click)="scrollTo('clients', $event)" class="nav-link" [class.active]="activeSection === 'clients'">
+          <a routerLink="/clients" routerLinkActive="active" class="nav-link">
             {{ dict().nav.clients }}
             <span class="active-indicator"></span>
           </a>
         </li>
 
+        <!-- About -->
         <li class="nav-item">
-          <a href="#about" (click)="scrollTo('about', $event)" class="nav-link" [class.active]="activeSection === 'about'">
+          <a routerLink="/about" routerLinkActive="active" class="nav-link">
             {{ dict().nav.about }}
             <span class="active-indicator"></span>
           </a>
         </li>
 
+        <!-- Contact -->
         <li class="nav-item">
-          <a href="#contact" (click)="scrollTo('contact', $event)" class="nav-link" [class.active]="activeSection === 'contact'">
+          <a routerLink="/contact" routerLinkActive="active" class="nav-link">
             {{ dict().nav.contact }}
             <span class="active-indicator"></span>
           </a>

@@ -7,93 +7,58 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const projectRoot = path.resolve(__dirname, '..');
 
-// 1. Live Domain Configuration
+// Canonical Live Domain Configuration (strictly https, no trailing slash)
 const DOMAIN = (process.env.SITE_URL || 'https://yogteck.com').replace(/\/+$/, '');
 
-// 2. Multi-Country Locales & Hreflang Identifiers
-const LOCALES = [
-  { code: 'en-us', hreflang: 'en-US', label: 'United States (English)' },
-  { code: 'en-ca', hreflang: 'en-CA', label: 'Canada (English)' },
-  { code: 'fr-ca', hreflang: 'fr-CA', label: 'Canada (French)' },
-  { code: 'en-au', hreflang: 'en-AU', label: 'Australia (English)' },
-  { code: 'ja-jp', hreflang: 'ja-JP', label: 'Japan (Japanese)' },
-  { code: 'ar-sa', hreflang: 'ar-SA', label: 'Saudi Arabia (Arabic, RTL)' },
-  { code: 'ar-kw', hreflang: 'ar-KW', label: 'Kuwait (Arabic, RTL)' },
-  { code: 'ar-bh', hreflang: 'ar-BH', label: 'Bahrain (Arabic, RTL)' },
-  { code: 'en-in', hreflang: 'en-IN', label: 'India (English)' },
-  { code: 'hi-in', hreflang: 'hi-IN', label: 'India (Hindi)' },
-  { code: 'en', hreflang: 'x-default', label: 'Global Fallback (x-default)' }
-];
-
-// 3. Real Live Routes Verified in app.routes.ts
-const LIVE_ROUTES = [
+// Canonical Public Pages submitted to Search Engines
+// Note: City pages with [OWNER: city-specific content needed] (Noida, Delhi, Gurugram, Pune, Mumbai)
+// are marked with meta robots 'noindex, nofollow' and are excluded from this sitemap until filled.
+export const CANONICAL_ROUTES = [
   // Homepage
-  {
-    path: '',
-    sourceFile: 'src/app/components/home/home.component.ts',
-    label: 'Home'
-  },
-  // Regional Location Hubs
-  {
-    path: 'it-software-company-kanpur',
-    sourceFile: 'src/app/components/kanpur-location/kanpur-location.component.ts',
-    label: 'Kanpur Hub'
-  },
-  {
-    path: 'it-software-company-lucknow',
-    sourceFile: 'src/app/components/lucknow-location/lucknow-location.component.ts',
-    label: 'Lucknow Hub'
-  },
-  {
-    path: 'it-software-company-raebareli',
-    sourceFile: 'src/app/components/raebareli-location/raebareli-location.component.ts',
-    label: 'Raebareli Hub'
-  },
-  // Active Core Services
-  {
-    path: 'services/website-development',
-    sourceFile: 'src/app/data/seo-content.data.ts',
-    label: 'Website Development'
-  },
-  {
-    path: 'services/custom-software-development',
-    sourceFile: 'src/app/data/seo-content.data.ts',
-    label: 'Custom Software Development'
-  },
-  {
-    path: 'services/mobile-app-development',
-    sourceFile: 'src/app/data/seo-content.data.ts',
-    label: 'Mobile App Development'
-  },
-  {
-    path: 'services/erp-software',
-    sourceFile: 'src/app/data/seo-content.data.ts',
-    label: 'ERP Software Solutions'
-  },
-  {
-    path: 'services/billing-software',
-    sourceFile: 'src/app/data/seo-content.data.ts',
-    label: 'Billing & Invoicing Software'
-  },
-  {
-    path: 'services/ecommerce-development',
-    sourceFile: 'src/app/data/seo-content.data.ts',
-    label: 'E-Commerce Development'
-  },
-  {
-    path: 'services/seo-digital-growth',
-    sourceFile: 'src/app/data/seo-content.data.ts',
-    label: 'SEO & Digital Growth'
-  },
-  {
-    path: 'services/business-software',
-    sourceFile: 'src/app/data/seo-content.data.ts',
-    label: 'Business Management Software'
-  }
+  { path: '', sourceFile: 'src/app/components/home/home.component.ts', priority: '1.0', changefreq: 'weekly' },
+
+  // Company Information & Legal
+  { path: 'about', sourceFile: 'src/app/components/about-page/about-page.component.ts', priority: '0.8', changefreq: 'monthly' },
+  { path: 'contact', sourceFile: 'src/app/components/contact-page/contact-page.component.ts', priority: '0.8', changefreq: 'monthly' },
+  { path: 'blog', sourceFile: 'src/app/components/blog-page/blog-page.component.ts', priority: '0.7', changefreq: 'weekly' },
+  { path: 'privacy-policy', sourceFile: 'src/app/components/legal-page/legal-page.component.ts', priority: '0.3', changefreq: 'yearly' },
+  { path: 'terms-of-service', sourceFile: 'src/app/components/legal-page/legal-page.component.ts', priority: '0.3', changefreq: 'yearly' },
+
+  // Core Services
+  { path: 'services/website-development', sourceFile: 'src/app/data/seo-content.data.ts', priority: '0.9', changefreq: 'monthly' },
+  { path: 'services/mobile-app-development', sourceFile: 'src/app/data/seo-content.data.ts', priority: '0.9', changefreq: 'monthly' },
+  { path: 'services/custom-software-development', sourceFile: 'src/app/data/seo-content.data.ts', priority: '0.9', changefreq: 'monthly' },
+  { path: 'services/billing-software', sourceFile: 'src/app/data/seo-content.data.ts', priority: '0.9', changefreq: 'monthly' },
+  { path: 'services/ecommerce-development', sourceFile: 'src/app/data/seo-content.data.ts', priority: '0.9', changefreq: 'monthly' },
+  { path: 'services/seo-digital-growth', sourceFile: 'src/app/data/seo-content.data.ts', priority: '0.9', changefreq: 'monthly' },
+  { path: 'services/business-software', sourceFile: 'src/app/data/seo-content.data.ts', priority: '0.8', changefreq: 'monthly' },
+  { path: 'services/real-estate-plotting-software', sourceFile: 'src/app/data/seo-content.data.ts', priority: '0.9', changefreq: 'monthly' },
+
+  // Product Suites
+  { path: 'products/erp-software', sourceFile: 'src/app/data/extended-seo.data.ts', priority: '0.9', changefreq: 'monthly' },
+  { path: 'products/saas-platform', sourceFile: 'src/app/data/extended-seo.data.ts', priority: '0.9', changefreq: 'monthly' },
+  { path: 'products/whatsapp-marketing-tool', sourceFile: 'src/app/data/extended-seo.data.ts', priority: '0.9', changefreq: 'monthly' },
+
+  // Tools
+  { path: 'tools', sourceFile: 'src/app/components/tools-page/tools-page.component.ts', priority: '0.8', changefreq: 'monthly' },
+  { path: 'tools/whatsapp-marketing-tool', sourceFile: 'src/app/data/extended-seo.data.ts', priority: '0.8', changefreq: 'monthly' },
+  { path: 'tools/gst-billing-software', sourceFile: 'src/app/data/extended-seo.data.ts', priority: '0.8', changefreq: 'monthly' },
+  { path: 'tools/cloud-erp', sourceFile: 'src/app/data/extended-seo.data.ts', priority: '0.8', changefreq: 'monthly' },
+
+  // Case Studies & Clients
+  { path: 'clients', sourceFile: 'src/app/components/clients-page/clients-page.component.ts', priority: '0.8', changefreq: 'monthly' },
+  { path: 'clients/mmr-constructions', sourceFile: 'src/app/data/extended-seo.data.ts', priority: '0.8', changefreq: 'monthly' },
+  { path: 'clients/yogkart-healthcare', sourceFile: 'src/app/data/extended-seo.data.ts', priority: '0.8', changefreq: 'monthly' },
+  { path: 'clients/business-web-solutions', sourceFile: 'src/app/data/extended-seo.data.ts', priority: '0.8', changefreq: 'monthly' },
+
+  // Indexable Regional Office / Service Hubs
+  { path: 'it-software-company-kanpur', sourceFile: 'src/app/components/kanpur-location/kanpur-location.component.ts', priority: '0.9', changefreq: 'monthly' },
+  { path: 'it-software-company-lucknow', sourceFile: 'src/app/components/lucknow-location/lucknow-location.component.ts', priority: '0.8', changefreq: 'monthly' },
+  { path: 'it-software-company-raebareli', sourceFile: 'src/app/components/raebareli-location/raebareli-location.component.ts', priority: '0.8', changefreq: 'monthly' }
 ];
 
 /**
- * Get real last-modified date (YYYY-MM-DD) from Git log, falling back to file mtime or default date.
+ * Get real last-modified date (YYYY-MM-DD) from Git log, falling back to file mtime.
  */
 function getLastModDate(filePath) {
   try {
@@ -113,58 +78,31 @@ function getLastModDate(filePath) {
       return stats.mtime.toISOString().split('T')[0];
     }
   } catch {
-    // Fallback if git fails
+    // Git fallback
   }
-  return '2026-10-12';
+  return new Date().toISOString().split('T')[0];
 }
 
 /**
- * Build dynamic multi-country, multi-language sitemap XML with reciprocal xhtml:link hreflangs
+ * Build canonical XML sitemap
  */
-function buildSitemapXml() {
+export function buildSitemapXml() {
   const lines = [
     '<?xml version="1.0" encoding="UTF-8"?>',
-    '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"',
-    '        xmlns:xhtml="http://www.w3.org/1999/xhtml">'
+    '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
   ];
 
-  for (const route of LIVE_ROUTES) {
-    const subpath = route.path ? `/${route.path}/` : '/';
+  for (const route of CANONICAL_ROUTES) {
+    const pageUrl = route.path ? `${DOMAIN}/${route.path}` : `${DOMAIN}/`;
     const lastmod = getLastModDate(route.sourceFile);
 
-    lines.push(`  <!-- ════════ ${route.label} (${subpath}) ════════ -->`);
-
-    // Output a <url> entry for every supported locale
-    for (const locale of LOCALES) {
-      const pageLoc = `${DOMAIN}/${locale.code}${subpath}`;
-
-      lines.push('  <url>');
-      lines.push(`    <loc>${pageLoc}</loc>`);
-      lines.push(`    <lastmod>${lastmod}</lastmod>`);
-
-      // Reciprocal alternate links for all locales including x-default
-      for (const alt of LOCALES) {
-        const altUrl = `${DOMAIN}/${alt.code}${subpath}`;
-        lines.push(`    <xhtml:link rel="alternate" hreflang="${alt.hreflang}" href="${altUrl}"/>`);
-      }
-
-      lines.push('  </url>');
-    }
+    lines.push('  <url>');
+    lines.push(`    <loc>${pageUrl}</loc>`);
+    lines.push(`    <lastmod>${lastmod}</lastmod>`);
+    lines.push(`    <changefreq>${route.changefreq}</changefreq>`);
+    lines.push(`    <priority>${route.priority}</priority>`);
+    lines.push('  </url>');
   }
-
-  // Localized Japanese ERP route (/ja-jp/erp-kaihatsu/)
-  const erpDate = getLastModDate('src/app/data/seo-content.data.ts');
-  lines.push('  <!-- ════════ Japanese ERP localized route (/ja-jp/erp-kaihatsu/) ════════ -->');
-  lines.push('  <url>');
-  lines.push(`    <loc>${DOMAIN}/ja-jp/erp-kaihatsu/</loc>`);
-  lines.push(`    <lastmod>${erpDate}</lastmod>`);
-  for (const alt of LOCALES) {
-    const altUrl = alt.code === 'ja-jp'
-      ? `${DOMAIN}/ja-jp/erp-kaihatsu/`
-      : `${DOMAIN}/${alt.code}/services/erp-software/`;
-    lines.push(`    <xhtml:link rel="alternate" hreflang="${alt.hreflang}" href="${altUrl}"/>`);
-  }
-  lines.push('  </url>');
 
   lines.push('</urlset>');
   lines.push('');
@@ -172,34 +110,12 @@ function buildSitemapXml() {
   return lines.join('\n');
 }
 
-/**
- * Build robots.txt ensuring crawler access to all locales and sitemap reference
- */
-function buildRobotsTxt() {
-  return [
-    'User-agent: *',
-    'Allow: /',
-    '',
-    '# Private & administrative routes',
-    'Disallow: /admin',
-    'Disallow: /admin/',
-    '',
-    `Sitemap: ${DOMAIN}/sitemap.xml`,
-    ''
-  ].join('\n');
-}
-
-// 4. Write to public/
+// Generate to public/sitemap.xml
 const publicDir = path.join(projectRoot, 'public');
 if (!fs.existsSync(publicDir)) {
   fs.mkdirSync(publicDir, { recursive: true });
 }
 
 const sitemapPath = path.join(publicDir, 'sitemap.xml');
-const robotsPath = path.join(publicDir, 'robots.txt');
-
 fs.writeFileSync(sitemapPath, buildSitemapXml(), 'utf8');
-console.log(`[sitemap] Successfully generated multi-locale sitemap: ${sitemapPath}`);
-
-fs.writeFileSync(robotsPath, buildRobotsTxt(), 'utf8');
-console.log(`[robots]  Successfully generated robots.txt: ${robotsPath}`);
+console.log(`[sitemap] Successfully generated canonical sitemap (${CANONICAL_ROUTES.length} URLs): ${sitemapPath}`);

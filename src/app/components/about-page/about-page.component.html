@@ -1,0 +1,140 @@
+<!-- Navbar -->
+<app-navbar
+  (openQuote)="openQuoteModal()"
+  (toggleDrawer)="openDrawer()">
+</app-navbar>
+
+<!-- Mobile Drawer -->
+<app-mobile-drawer
+  [isOpen]="isDrawerOpen"
+  (closeDrawer)="closeDrawer()"
+  (openQuote)="openQuoteModal()">
+</app-mobile-drawer>
+
+<main class="about-page-main">
+  
+  <section class="about-hero-section">
+    <div class="container">
+      <app-breadcrumbs [items]="breadcrumbItems"></app-breadcrumbs>
+
+      <div class="section-center-header">
+        <span class="section-label">COMPANY OVERVIEW</span>
+        <h1 class="page-title">About YogTeck Business Solution</h1>
+        
+        <!-- Answer-first intro -->
+        <p class="hero-direct-answer">
+          YogTeck Business Solution is an IT and software development company based in Kanpur, Uttar Pradesh (Registered Office: 302/2, Mangla Vihar 2, New PAC Line, Kanpur Nagar, UP 208015). We specialize in custom website development, enterprise ERP platforms, GST billing software, mobile applications, and digital growth systems for enterprises, manufacturers, and startups in Kanpur and across India.
+        </p>
+      </div>
+
+      <!-- Company Identity & Values -->
+      <div class="about-grid">
+        <div class="about-card">
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+          </div>
+          <h2 class="card-heading">Our Core Mission</h2>
+          <p class="card-text">
+            To empower traditional Indian manufacturers, traders, and growing direct-to-consumer brands with enterprise-grade cloud software, high-converting websites, and automated operations that eliminate human error and drive lasting business profitability.
+          </p>
+        </div>
+
+        <div class="about-card">
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+          </div>
+          <h2 class="card-heading">Engineering Philosophy</h2>
+          <p class="card-text">
+            We reject bloated templates, hidden licensing fees, and vendor lock-in. Every solution we build is engineered for high performance, sub-second response times, stringent data security, and 100% intellectual property ownership handed over to you.
+          </p>
+        </div>
+
+        <div class="about-card">
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <h2 class="card-heading">Local Presence &amp; Real Support</h2>
+          <p class="card-text">
+            Headquartered in Kanpur Nagar, we understand the local manufacturing cycles of leather, textiles, chemical trade, and wholesale distribution. We provide in-person discovery, on-site staff training, and fast remote helpdesk support.
+          </p>
+        </div>
+      </div>
+
+      <!-- Company History & Founder Story (Honest Placeholder) -->
+      <div class="about-story-section">
+        <h2 class="section-heading">Company Background &amp; Story</h2>
+        <div class="story-content-box">
+          <p>
+            YogTeck Business Solution was founded with a clear focus: bridging the gap between high-end digital technology and practical MSME business operations in Uttar Pradesh and North India. Having partnered with enterprise leaders in real estate (MMR Constructions), healthcare e-commerce (Yogkart Healthcare), and technology distribution (Business Web Solutions), we continue to engineer scalable platforms that transform offline business workflows into competitive online assets.
+          </p>
+          <div class="owner-placeholder-block">
+            <em>[OWNER: founder story / company registration date / full team background details to be filled upon owner review]</em>
+          </div>
+        </div>
+      </div>
+
+      <!-- Registered NAP Details -->
+      <div class="nap-details-card">
+        <h2 class="nap-heading">Registered Office &amp; Contact Information</h2>
+        <div class="nap-grid">
+          <div class="nap-item">
+            <span class="nap-label">Registered Legal Name:</span>
+            <span class="nap-value">Yogteck Business Solution</span>
+          </div>
+          <div class="nap-item">
+            <span class="nap-label">Registered Office Address:</span>
+            <span class="nap-value">{{ contact.address }}</span>
+          </div>
+          <div class="nap-item">
+            <span class="nap-label">Primary Telephone:</span>
+            <span class="nap-value"><a [href]="'tel:' + contact.phoneTel">+91 {{ contact.phoneDisplay }}</a></span>
+          </div>
+          <div class="nap-item">
+            <span class="nap-label">Official Emails:</span>
+            <span class="nap-value">{{ contact.emailPrimary }} / {{ contact.emailSecondary }}</span>
+          </div>
+          <div class="nap-item">
+            <span class="nap-label">Hours of Operation:</span>
+            <span class="nap-value">Monday – Saturday: 09:00 AM – 08:00 PM IST</span>
+          </div>
+          <div class="nap-item">
+            <span class="nap-label">Service Area:</span>
+            <span class="nap-value">Kanpur (Headquarters), Lucknow, Raebareli, Noida, Delhi NCR, Pune, Mumbai &amp; Pan-India</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CTA -->
+      <div class="about-cta-card">
+        <h2 class="cta-title">Looking for a Reliable Technology Partner?</h2>
+        <p class="cta-sub">Consult with our technical leadership in Kanpur to plan your software or website project.</p>
+        <div class="cta-actions">
+          <button type="button" (click)="openQuoteModal()" class="btn btn-primary-orange">
+            <span>Request Free Discovery Call</span>
+          </button>
+          <a [href]="contact.whatsappLink" target="_blank" rel="noopener noreferrer" class="btn btn-secondary-dark">
+            <span>Chat on WhatsApp</span>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+<!-- Footer -->
+<app-footer></app-footer>
+
+<!-- Sticky Mobile Action Bar -->
+<app-mobile-action-bar></app-mobile-action-bar>
+
+<!-- Floating WhatsApp Button -->
+<app-floating-whatsapp></app-floating-whatsapp>
+
+<!-- Quote Modal -->
+<app-quote-modal
+  [isOpen]="isQuoteModalOpen"
+  defaultServiceTitle="General Business Inquiry"
+  (closeModal)="closeQuoteModal()">
+</app-quote-modal>

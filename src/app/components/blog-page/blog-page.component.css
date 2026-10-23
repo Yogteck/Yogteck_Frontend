@@ -1,0 +1,111 @@
+.blog-page-main {
+  min-height: 100vh;
+  background-color: var(--bg-dark-primary, #060B19);
+  color: var(--text-dark-primary, #F8FAFC);
+  padding-bottom: 80px;
+}
+
+.blog-hero-section {
+  padding: 130px 0 60px;
+}
+
+.page-title {
+  font-size: clamp(2.2rem, 5vw, 3.4rem);
+  font-weight: 800;
+  line-height: 1.2;
+  margin: 16px 0 24px;
+  color: #FFFFFF;
+}
+
+.hero-direct-answer {
+  max-width: 860px;
+  margin: 0 auto 48px;
+  font-size: 1.1rem;
+  line-height: 1.7;
+  color: #94A3B8;
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-left: 4px solid #FF9A1F;
+  padding: 20px 24px;
+  border-radius: 8px;
+  text-align: left;
+}
+
+.articles-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 28px;
+  margin-bottom: 56px;
+}
+
+.article-card {
+  background: rgba(15, 23, 42, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.article-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(255, 154, 31, 0.4);
+}
+
+.art-meta-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.8rem;
+  margin-bottom: 16px;
+}
+
+.art-category {
+  color: #FF9A1F;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.art-date {
+  color: #64748B;
+}
+
+.art-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #FFFFFF;
+  margin-bottom: 14px;
+  line-height: 1.35;
+}
+
+.art-summary {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #94A3B8;
+  margin-bottom: 24px;
+  flex-grow: 1;
+}
+
+.art-read-link {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #FF9A1F;
+}
+
+.blog-publishing-note {
+  max-width: 860px;
+  margin: 0 auto;
+  text-align: center;
+  background: #0F172A;
+  border: 1px dashed rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
+  padding: 24px;
+}
+
+.blog-publishing-note p {
+  font-size: 0.95rem;
+  color: #CBD5E1;
+  margin: 0;
+}

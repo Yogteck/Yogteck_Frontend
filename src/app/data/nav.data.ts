@@ -6,12 +6,11 @@ export interface NavLink {
 }
 
 export const NAV_LINKS: NavLink[] = [
-  { label: 'Home', url: '#' },
-  { label: 'Our Services', url: '#services', hasDropdown: true },
-  { label: 'Growth Journey', url: '#growth-journey' },
-  { label: 'Marketplaces', url: '#marketplaces' },
-  { label: 'Our Projects', url: '#projects' },
-  { label: 'Our Clients', url: '#clients' },
-  { label: 'About Us', url: '#about' },
-  { label: 'Contact', url: '#contact' }
+  { label: 'Home', url: '/' },
+  { label: 'Our Services', url: '/services/website-development', hasDropdown: true },
+  { label: 'Our Products', url: '/products/erp-software', hasDropdown: true },
+  { label: 'Tools', url: '/tools' },
+  { label: 'Our Clients', url: '/clients' },
+  { label: 'About Us', url: '/about' },
+  { label: 'Contact', url: '/contact' }
 ];

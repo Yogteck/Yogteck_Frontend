@@ -55,36 +55,56 @@
           </div>
         </li>
 
+        <!-- Products Accordion -->
+        <li class="drawer-item accordion-item">
+          <button type="button" class="drawer-link accordion-toggle" (click)="toggleProductsAccordion()">
+            <span>Products</span>
+            <svg class="chevron-icon" [class.rotated]="isProductsAccordionOpen" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+              <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
+            </svg>
+          </button>
+
+          <div class="accordion-content" [class.is-expanded]="isProductsAccordionOpen">
+            <ul class="sub-service-list">
+              @for (prod of products; track prod.id) {
+                <li>
+                  <button type="button" class="sub-service-link" (click)="navigateToProduct(prod.slug)">
+                    <span class="sub-bullet">•</span>
+                    <span>{{ prod.title }}</span>
+                  </button>
+                </li>
+              }
+            </ul>
+          </div>
+        </li>
+
+        <!-- Tools -->
         <li class="drawer-item">
-          <button type="button" class="drawer-link" (click)="onNavigate('growth-journey')">
-            <span>{{ dict().nav.growthJourney }}</span>
+          <button type="button" class="drawer-link" (click)="navigateToPage('/tools')">
+            <span>Tools</span>
             <svg viewBox="0 0 20 20" fill="currentColor" class="arrow-icon" aria-hidden="true"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/></svg>
           </button>
         </li>
 
+        <!-- Our Clients -->
         <li class="drawer-item">
-          <button type="button" class="drawer-link" (click)="onNavigate('projects')">
-            <span>{{ dict().nav.projects }}</span>
-            <svg viewBox="0 0 20 20" fill="currentColor" class="arrow-icon" aria-hidden="true"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/></svg>
-          </button>
-        </li>
-
-        <li class="drawer-item">
-          <button type="button" class="drawer-link" (click)="onNavigate('clients')">
+          <button type="button" class="drawer-link" (click)="navigateToPage('/clients')">
             <span>{{ dict().nav.clients }}</span>
             <svg viewBox="0 0 20 20" fill="currentColor" class="arrow-icon" aria-hidden="true"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/></svg>
           </button>
         </li>
 
+        <!-- About -->
         <li class="drawer-item">
-          <button type="button" class="drawer-link" (click)="onNavigate('about')">
+          <button type="button" class="drawer-link" (click)="navigateToPage('/about')">
             <span>{{ dict().nav.about }}</span>
             <svg viewBox="0 0 20 20" fill="currentColor" class="arrow-icon" aria-hidden="true"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/></svg>
           </button>
         </li>
 
+        <!-- Contact -->
         <li class="drawer-item">
-          <button type="button" class="drawer-link" (click)="onNavigate('contact')">
+          <button type="button" class="drawer-link" (click)="navigateToPage('/contact')">
             <span>{{ dict().nav.contact }}</span>
             <svg viewBox="0 0 20 20" fill="currentColor" class="arrow-icon" aria-hidden="true"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/></svg>
           </button>

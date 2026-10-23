@@ -1,0 +1,97 @@
+<!-- Navbar -->
+<app-navbar
+  (openQuote)="openQuoteModal()"
+  (toggleDrawer)="openDrawer()">
+</app-navbar>
+
+<!-- Mobile Drawer -->
+<app-mobile-drawer
+  [isOpen]="isDrawerOpen"
+  (closeDrawer)="closeDrawer()"
+  (openQuote)="openQuoteModal()">
+</app-mobile-drawer>
+
+<main class="contact-page-main">
+  
+  <section class="contact-hero-section">
+    <div class="container">
+      <app-breadcrumbs [items]="breadcrumbItems"></app-breadcrumbs>
+
+      <div class="section-center-header">
+        <span class="section-label">GET IN TOUCH</span>
+        <h1 class="page-title">Contact YogTeck Business Solution</h1>
+        
+        <!-- Answer-first intro -->
+        <p class="hero-direct-answer">
+          Connect directly with YogTeck Business Solution for custom website development, enterprise ERP implementations, GST billing software, and digital growth consulting. Our registered office is located in Kanpur Nagar, Uttar Pradesh, serving enterprises locally and across India. Call us at +91 8299209905 or message us on WhatsApp for rapid response.
+        </p>
+      </div>
+
+      <!-- Contact Info Cards -->
+      <div class="contact-cards-grid">
+        <div class="info-card">
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          </div>
+          <h2 class="card-title">Phone &amp; Direct Call</h2>
+          <p class="card-desc">Speak directly with our technical advisors:</p>
+          <a [href]="'tel:' + contact.phoneTel" class="contact-link">+91 {{ contact.phoneDisplay }}</a>
+          <span class="hours-tag">Mon – Sat: 9:00 AM – 8:00 PM IST</span>
+        </div>
+
+        <div class="info-card">
+          <div class="card-icon icon-wa">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.592 2.654-.696c1.001.574 1.895.885 2.806.885 3.178 0 5.767-2.587 5.767-5.766.001-3.181-2.587-5.768-5.767-5.768zm0 10.455c-.868 0-1.716-.234-2.454-.672l-.176-.104-1.824.478.487-1.776-.115-.183c-.482-.767-.736-1.657-.735-2.569 0-2.628 2.138-4.767 4.767-4.767 2.628 0 4.767 2.139 4.767 4.767 0 2.629-2.139 4.767-4.767 4.767z"/></svg>
+          </div>
+          <h2 class="card-title">WhatsApp Support</h2>
+          <p class="card-desc">Instant replies, demo booking &amp; inquiries:</p>
+          <a [href]="contact.whatsappLink" target="_blank" rel="noopener noreferrer" class="contact-link link-wa">Message on WhatsApp →</a>
+          <span class="hours-tag">Fast Response Time</span>
+        </div>
+
+        <div class="info-card">
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </div>
+          <h2 class="card-title">Email Correspondence</h2>
+          <p class="card-desc">Send detailed RFP &amp; project briefs:</p>
+          <a [href]="'mailto:' + contact.emailPrimary" class="contact-link">{{ contact.emailPrimary }}</a>
+          <span class="hours-tag">{{ contact.emailSecondary }}</span>
+        </div>
+
+        <div class="info-card">
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <h2 class="card-title">Registered Office</h2>
+          <p class="card-desc">Physical Headquarters in Uttar Pradesh:</p>
+          <address class="office-address">{{ contact.address }}</address>
+          <span class="hours-tag">PIN: {{ contact.pincode }} • Kanpur, India</span>
+        </div>
+      </div>
+
+      <!-- Integrated Inquiry Form -->
+      <div class="contact-form-wrapper">
+        <app-inquiry-section></app-inquiry-section>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+<!-- Footer -->
+<app-footer></app-footer>
+
+<!-- Sticky Mobile Action Bar -->
+<app-mobile-action-bar></app-mobile-action-bar>
+
+<!-- Floating WhatsApp Button -->
+<app-floating-whatsapp></app-floating-whatsapp>
+
+<!-- Quote Modal -->
+<app-quote-modal
+  [isOpen]="isQuoteModalOpen"
+  defaultServiceTitle="General Contact Inquiry"
+  (closeModal)="closeQuoteModal()">
+</app-quote-modal>

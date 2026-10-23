@@ -1,20 +1,67 @@
 import { Routes } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
 import { ServiceDetailComponent } from './components/service-detail/service-detail.component';
+import { ProductDetailComponent } from './components/product-detail/product-detail.component';
+import { ClientsPageComponent } from './components/clients-page/clients-page.component';
+import { ToolsPageComponent } from './components/tools-page/tools-page.component';
+import { AboutPageComponent } from './components/about-page/about-page.component';
+import { ContactPageComponent } from './components/contact-page/contact-page.component';
+import { LegalPageComponent } from './components/legal-page/legal-page.component';
+import { BlogPageComponent } from './components/blog-page/blog-page.component';
 import { KanpurLocationComponent } from './components/kanpur-location/kanpur-location.component';
 import { LucknowLocationComponent } from './components/lucknow-location/lucknow-location.component';
 import { RaebareliLocationComponent } from './components/raebareli-location/raebareli-location.component';
+import { CityPageComponent } from './components/city-page/city-page.component';
 import { AdminLoginComponent } from './components/admin-login/admin-login.component';
 import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { adminAuthGuard } from './guards/admin-auth.guard';
-import { rootLocaleRedirectGuard, localeValidationGuard } from './guards/locale.guard';
+import { localeValidationGuard } from './guards/locale.guard';
 
 export const routes: Routes = [
-  // 1. Root '/' geo-detection redirect (never traps bots; redirects humans to best matching locale)
-  { path: '', canActivate: [rootLocaleRedirectGuard], pathMatch: 'full', children: [] },
+  // 1. Primary Public Canonical Routes (Zero-redirect top-level paths)
+  { path: '', component: HomeComponent, pathMatch: 'full' },
+  { path: 'about', component: AboutPageComponent },
+  { path: 'contact', component: ContactPageComponent },
+  { path: 'clients', component: ClientsPageComponent },
+  { path: 'clients/:clientId', component: ClientsPageComponent },
+  { path: 'tools', component: ToolsPageComponent },
+  { path: 'tools/:toolId', component: ToolsPageComponent },
+  
+  // Dedicated Service Pages
+  { path: 'services/:slug', component: ServiceDetailComponent },
+  { path: 'services/website-development', component: ServiceDetailComponent },
+  { path: 'services/custom-software-development', component: ServiceDetailComponent },
+  { path: 'services/mobile-app-development', component: ServiceDetailComponent },
+  { path: 'services/erp-software', component: ServiceDetailComponent },
+  { path: 'services/billing-software', component: ServiceDetailComponent },
+  { path: 'services/ecommerce-development', component: ServiceDetailComponent },
+  { path: 'services/seo-digital-growth', component: ServiceDetailComponent },
+  { path: 'services/real-estate-plotting-software', component: ServiceDetailComponent },
+  { path: 'services/business-software', component: ServiceDetailComponent },
 
-  // 2. Admin Authentication & Inquiry Dashboard (Direct system paths)
+  // Dedicated Product Pages
+  { path: 'products/:slug', component: ProductDetailComponent },
+  { path: 'products/erp-software', component: ProductDetailComponent },
+  { path: 'products/saas-platform', component: ProductDetailComponent },
+  { path: 'products/whatsapp-marketing-tool', component: ProductDetailComponent },
+
+  // Location Hubs (Kanpur HQ + Service Areas)
+  { path: 'it-software-company-kanpur', component: KanpurLocationComponent },
+  { path: 'it-software-company-lucknow', component: LucknowLocationComponent },
+  { path: 'it-software-company-raebareli', component: RaebareliLocationComponent },
+  { path: 'it-software-company-noida', component: CityPageComponent },
+  { path: 'it-software-company-delhi', component: CityPageComponent },
+  { path: 'it-software-company-gurugram', component: CityPageComponent },
+  { path: 'it-software-company-pune', component: CityPageComponent },
+  { path: 'it-software-company-mumbai', component: CityPageComponent },
+
+  // Legal & Informational Pages
+  { path: 'privacy-policy', component: LegalPageComponent },
+  { path: 'terms-of-service', component: LegalPageComponent },
+  { path: 'blog', component: BlogPageComponent },
+
+  // 2. Admin Authentication & Dashboard
   { path: 'admin', redirectTo: 'admin/login', pathMatch: 'full' },
   { path: 'admin/login', component: AdminLoginComponent },
   { path: 'admin/dashboard', component: AdminDashboardComponent, canActivate: [adminAuthGuard] },
@@ -25,41 +72,26 @@ export const routes: Routes = [
     canActivate: [localeValidationGuard],
     children: [
       { path: '', component: HomeComponent, pathMatch: 'full' },
-
-      // Location Hubs
+      { path: 'about', component: AboutPageComponent },
+      { path: 'contact', component: ContactPageComponent },
+      { path: 'clients', component: ClientsPageComponent },
+      { path: 'clients/:clientId', component: ClientsPageComponent },
+      { path: 'tools', component: ToolsPageComponent },
+      { path: 'tools/:toolId', component: ToolsPageComponent },
+      { path: 'services/:slug', component: ServiceDetailComponent },
+      { path: 'products/:slug', component: ProductDetailComponent },
       { path: 'it-software-company-kanpur', component: KanpurLocationComponent },
       { path: 'it-software-company-lucknow', component: LucknowLocationComponent },
       { path: 'it-software-company-raebareli', component: RaebareliLocationComponent },
-
-      // Dedicated Services
-      { path: 'services/:slug', component: ServiceDetailComponent },
-      { path: 'services/website-development', component: ServiceDetailComponent },
-      { path: 'services/custom-software-development', component: ServiceDetailComponent },
-      { path: 'services/mobile-app-development', component: ServiceDetailComponent },
-      { path: 'services/erp-software', component: ServiceDetailComponent },
-      { path: 'services/billing-software', component: ServiceDetailComponent },
-      { path: 'services/ecommerce-development', component: ServiceDetailComponent },
-      { path: 'services/seo-digital-growth', component: ServiceDetailComponent },
-      { path: 'services/business-software', component: ServiceDetailComponent },
-
-      // Localized Slugs (e.g. Japanese ERP alias)
-      { path: 'erp-kaihatsu', component: ServiceDetailComponent },
-
-      // Localized 404
+      { path: 'privacy-policy', component: LegalPageComponent },
+      { path: 'terms-of-service', component: LegalPageComponent },
+      { path: 'blog', component: BlogPageComponent },
       { path: '404', component: NotFoundComponent },
-
-      // Catch-all for unrecognized paths within a valid locale
       { path: '**', component: NotFoundComponent }
     ]
   },
 
-  // 4. Non-prefixed legacy aliases (redirects to /en/ for crawl compatibility)
-  { path: 'it-software-company-kanpur', redirectTo: 'en/it-software-company-kanpur', pathMatch: 'full' },
-  { path: 'it-software-company-lucknow', redirectTo: 'en/it-software-company-lucknow', pathMatch: 'full' },
-  { path: 'it-software-company-raebareli', redirectTo: 'en/it-software-company-raebareli', pathMatch: 'full' },
-  { path: 'services/:slug', redirectTo: 'en/services/:slug', pathMatch: 'full' },
-
-  // 5. Global 404 and fallback
+  // 4. Global 404
   { path: '404', component: NotFoundComponent },
   { path: '**', component: NotFoundComponent }
 ];

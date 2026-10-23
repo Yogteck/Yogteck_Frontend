@@ -7,6 +7,8 @@ import { ThemeService } from '../../services/theme.service';
 import { LocaleService } from '../../services/locale.service';
 import { LanguageSwitcherComponent } from '../language-switcher/language-switcher.component';
 
+import { PRODUCTS_SEO_DATA } from '../../data/extended-seo.data';
+
 @Component({
   selector: 'app-navbar',
   standalone: true,
@@ -24,10 +26,12 @@ export class NavbarComponent {
 
   contact = CONTACT_CONFIG;
   services = SERVICES_DATA;
+  products = Object.values(PRODUCTS_SEO_DATA);
   dict = this.localeService.currentDict;
 
   isScrolled = false;
   isServicesDropdownOpen = false;
+  isProductsDropdownOpen = false;
   activeSection = 'home';
 
   @HostListener('window:scroll', [])
@@ -38,11 +42,19 @@ export class NavbarComponent {
 
   toggleDropdown(event: Event): void {
     event.stopPropagation();
+    this.isProductsDropdownOpen = false;
     this.isServicesDropdownOpen = !this.isServicesDropdownOpen;
+  }
+
+  toggleProductsDropdown(event: Event): void {
+    event.stopPropagation();
+    this.isServicesDropdownOpen = false;
+    this.isProductsDropdownOpen = !this.isProductsDropdownOpen;
   }
 
   closeDropdown(): void {
     this.isServicesDropdownOpen = false;
+    this.isProductsDropdownOpen = false;
   }
 
   @HostListener('document:click', [])

@@ -94,39 +94,75 @@
 
     </div>
 
-    <!-- SEO Links Navigation Band (Services & Locations) -->
+    <!-- SEO Links Navigation Band (Services, Products, Tools, Clients & Locations) -->
     <div class="footer-seo-links-band">
+      <!-- Services -->
       <div class="seo-links-group">
-        <span class="seo-group-title">{{ dict().footer.servicesTitle }}:</span>
+        <span class="seo-group-title">Services:</span>
         <div class="seo-links-pills">
-          <a [routerLink]="'/' + localeService.currentConfig().code + '/services/website-development'">{{ dict().services.items.webTitle }}</a>
+          <a routerLink="/services/website-development">Website Development</a>
           <span class="seo-sep">•</span>
-          <a [routerLink]="'/' + localeService.currentConfig().code + '/services/custom-software-development'">{{ dict().services.items.softwareTitle }}</a>
+          <a routerLink="/services/mobile-app-development">Mobile App Development</a>
           <span class="seo-sep">•</span>
-          <a [routerLink]="'/' + localeService.currentConfig().code + '/services/mobile-app-development'">{{ dict().services.items.mobileTitle }}</a>
+          <a routerLink="/services/custom-software-development">Custom Software Development</a>
           <span class="seo-sep">•</span>
-          <a [routerLink]="'/' + localeService.currentConfig().code + '/services/erp-software'">{{ dict().services.items.erpTitle }}</a>
+          <a routerLink="/services/billing-software">Billing Software</a>
           <span class="seo-sep">•</span>
-          <a [routerLink]="'/' + localeService.currentConfig().code + '/services/billing-software'">{{ dict().services.items.billingTitle }}</a>
+          <a routerLink="/services/ecommerce-development">E-commerce Development</a>
           <span class="seo-sep">•</span>
-          <a [routerLink]="'/' + localeService.currentConfig().code + '/services/ecommerce-development'">{{ dict().services.items.ecommerceTitle }}</a>
+          <a routerLink="/services/seo-digital-growth">SEO & Digital Marketing</a>
           <span class="seo-sep">•</span>
-          <a [routerLink]="'/' + localeService.currentConfig().code + '/services/seo-digital-growth'">{{ dict().services.items.seoTitle }}</a>
+          <a routerLink="/services/business-software">Business Software</a>
           <span class="seo-sep">•</span>
-          <a [routerLink]="'/' + localeService.currentConfig().code + '/services/business-software'">{{ dict().services.items.businessTitle }}</a>
+          <a routerLink="/services/real-estate-plotting-software">Real-Estate Plotting Software</a>
         </div>
       </div>
 
+      <!-- Products & Tools -->
       <div class="seo-links-group" style="margin-top: 14px;">
-        <span class="seo-group-title">{{ dict().footer.locationsTitle }}:</span>
+        <span class="seo-group-title">Products & Tools:</span>
         <div class="seo-links-pills">
-          <a [routerLink]="'/' + localeService.currentConfig().code + '/it-software-company-kanpur'" style="color: var(--accent-orange-solid); font-weight: 700;">{{ dict().locations.hubKanpurTitle }}</a>
+          <a routerLink="/products/erp-software">Cloud ERP Platform</a>
           <span class="seo-sep">•</span>
-          <a [routerLink]="'/' + localeService.currentConfig().code + '/it-software-company-lucknow'">{{ dict().locations.hubLucknowTitle }}</a>
+          <a routerLink="/products/saas-platform">Multi-Tenant SaaS Platform</a>
           <span class="seo-sep">•</span>
-          <a [routerLink]="'/' + localeService.currentConfig().code + '/it-software-company-raebareli'">{{ dict().locations.hubRaebareliTitle }}</a>
+          <a routerLink="/products/whatsapp-marketing-tool">WhatsApp Marketing Tool</a>
           <span class="seo-sep">•</span>
-          <span style="color: var(--text-dark-secondary);">Global Delivery</span>
+          <a routerLink="/tools">All Tools</a>
+          <span class="seo-sep">•</span>
+          <a routerLink="/tools/whatsapp-marketing-tool">WhatsApp Automation</a>
+          <span class="seo-sep">•</span>
+          <a routerLink="/tools/gst-billing-software">GST Billing Tool</a>
+          <span class="seo-sep">•</span>
+          <a routerLink="/tools/cloud-erp">Cloud ERP Tool</a>
+        </div>
+      </div>
+
+      <!-- Client Case Studies -->
+      <div class="seo-links-group" style="margin-top: 14px;">
+        <span class="seo-group-title">Case Studies & Clients:</span>
+        <div class="seo-links-pills">
+          <a routerLink="/clients">Client Directory</a>
+          <span class="seo-sep">•</span>
+          <a routerLink="/clients/mmr-constructions">MMR Constructions (Plot CRM)</a>
+          <span class="seo-sep">•</span>
+          <a routerLink="/clients/yogkart-healthcare">Yogkart Healthcare (E-Commerce)</a>
+          <span class="seo-sep">•</span>
+          <a routerLink="/clients/business-web-solutions">Business Web Solutions (Corporate Portal)</a>
+        </div>
+      </div>
+
+      <!-- Locations -->
+      <div class="seo-links-group" style="margin-top: 14px;">
+        <span class="seo-group-title">Office & Service Hubs:</span>
+        <div class="seo-links-pills">
+          <a routerLink="/it-software-company-kanpur" style="color: var(--accent-orange-solid); font-weight: 700;">Kanpur (Registered Office)</a>
+          <span class="seo-sep">•</span>
+          <a routerLink="/it-software-company-lucknow">Lucknow Service Area</a>
+          <span class="seo-sep">•</span>
+          <a routerLink="/it-software-company-raebareli">Raebareli Service Area</a>
+          <span class="seo-sep">•</span>
+          <span style="color: var(--text-dark-secondary);">Delhi NCR • Noida • Gurugram • Pune • Mumbai</span>
         </div>
       </div>
     </div>
@@ -136,24 +172,26 @@
       
       <!-- Left: Copyright -->
       <div class="footer-copyright">
-        © {{ currentYear }} {{ dict().footer.rightsReserved }}
+        © {{ currentYear }} YogTeck Business Solution. All rights reserved.
       </div>
 
       <!-- Center: Nav Links Row -->
       <nav class="footer-nav-links" aria-label="Footer Navigation">
-        <a [routerLink]="'/' + localeService.currentConfig().code" (click)="scrollTo('home', $event)">{{ dict().nav.home }}</a>
+        <a routerLink="/">Home</a>
         <span class="f-sep">|</span>
-        <a [routerLink]="'/' + localeService.currentConfig().code" (click)="scrollTo('services', $event)">{{ dict().nav.services }}</a>
+        <a routerLink="/about">About</a>
         <span class="f-sep">|</span>
-        <a [routerLink]="'/' + localeService.currentConfig().code" (click)="scrollTo('growth-journey', $event)">{{ dict().nav.growthJourney }}</a>
+        <a routerLink="/clients">Clients</a>
         <span class="f-sep">|</span>
-        <a [routerLink]="'/' + localeService.currentConfig().code" (click)="scrollTo('projects', $event)">{{ dict().nav.projects }}</a>
+        <a routerLink="/tools">Tools</a>
         <span class="f-sep">|</span>
-        <a [routerLink]="'/' + localeService.currentConfig().code" (click)="scrollTo('clients', $event)">{{ dict().nav.clients }}</a>
+        <a routerLink="/blog">Blog</a>
         <span class="f-sep">|</span>
-        <a [routerLink]="'/' + localeService.currentConfig().code" (click)="scrollTo('about', $event)">{{ dict().nav.about }}</a>
+        <a routerLink="/contact">Contact</a>
         <span class="f-sep">|</span>
-        <a [routerLink]="'/' + localeService.currentConfig().code" (click)="scrollTo('contact', $event)">{{ dict().nav.contact }}</a>
+        <a routerLink="/privacy-policy">Privacy Policy</a>
+        <span class="f-sep">|</span>
+        <a routerLink="/terms-of-service">Terms of Service</a>
       </nav>
 
       <!-- Right: Country Switcher & WhatsApp -->

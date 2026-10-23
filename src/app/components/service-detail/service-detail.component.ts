@@ -80,14 +80,16 @@ export class ServiceDetailComponent implements OnInit, OnDestroy {
       return;
     }
 
-    this.serviceData = data;
+    const isTopLevel = !this.router.url.split('?')[0].match(/^\/[a-z]{2}(-[a-z]{2})?\//);
+    const canonicalUrl = `https://yogteck.com/services/${data.slug}`;
+
     this.breadcrumbItems = [
-      { label: 'Services', url: `/${localeCode}/#services` },
+      { label: 'Home', url: '/' },
+      { label: 'Services', url: '/services/website-development' },
       { label: data.title }
     ];
 
     // Build Structured Data (JSON-LD)
-    const canonicalPath = `/services/${data.slug}`;
     const breadcrumbSchema = {
       "@context": "https://schema.org",
       "@type": "BreadcrumbList",
@@ -96,19 +98,19 @@ export class ServiceDetailComponent implements OnInit, OnDestroy {
           "@type": "ListItem",
           "position": 1,
           "name": "Home",
-          "item": `https://yogteck.com/${localeCode}/`
+          "item": "https://yogteck.com/"
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "Services",
-          "item": `https://yogteck.com/${localeCode}/#services`
+          "item": "https://yogteck.com/services/website-development"
         },
         {
           "@type": "ListItem",
           "position": 3,
           "name": data.title,
-          "item": `https://yogteck.com/${localeCode}${canonicalPath}/`
+          "item": canonicalUrl
         }
       ]
     };
@@ -117,11 +119,11 @@ export class ServiceDetailComponent implements OnInit, OnDestroy {
       "@context": "https://schema.org",
       "@type": "Service",
       "serviceType": data.title,
-      "inLanguage": currentLocale.htmlLang,
+      "inLanguage": "en-IN",
       "provider": {
         "@type": "Organization",
         "name": "Yogteck Business Solution",
-        "url": `https://yogteck.com/${localeCode}/`,
+        "url": "https://yogteck.com/",
         "logo": "https://yogteck.com/favicon-512x512.png",
         "telephone": "+91-8299209905",
         "email": "yogteck@gmail.com",
@@ -135,7 +137,7 @@ export class ServiceDetailComponent implements OnInit, OnDestroy {
         }
       },
       "areaServed": [
-        { "@type": "Country", "name": currentLocale.country },
+        { "@type": "Country", "name": "India" },
         { "@type": "City", "name": "Kanpur" }
       ],
       "description": data.metaDescription
@@ -144,7 +146,6 @@ export class ServiceDetailComponent implements OnInit, OnDestroy {
     const faqSchema = {
       "@context": "https://schema.org",
       "@type": "FAQPage",
-      "inLanguage": currentLocale.htmlLang,
       "mainEntity": data.faqs.map(faq => ({
         "@type": "Question",
         "name": faq.question,
@@ -155,14 +156,22 @@ export class ServiceDetailComponent implements OnInit, OnDestroy {
       }))
     };
 
-    // Apply SEO with reciprocal hreflangs across all locales
-    this.seoService.setLocalizedPageSeo({
-      title: data.metaTitle,
-      description: data.metaDescription,
-      localeCode: localeCode,
-      pathWithoutLocale: `services/${data.slug}`,
-      jsonLdSchemas: [breadcrumbSchema, serviceSchema, faqSchema]
-    });
+    if (isTopLevel) {
+      this.seoService.setCanonicalPageSeo({
+        title: data.metaTitle,
+        description: data.metaDescription,
+        canonicalUrl: canonicalUrl,
+        jsonLdSchemas: [breadcrumbSchema, serviceSchema, faqSchema]
+      });
+    } else {
+      this.seoService.setLocalizedPageSeo({
+        title: data.metaTitle,
+        description: data.metaDescription,
+        localeCode: localeCode,
+        pathWithoutLocale: `services/${data.slug}`,
+        jsonLdSchemas: [breadcrumbSchema, serviceSchema, faqSchema]
+      });
+    }
 
     if (typeof window !== 'undefined') {
       window.scrollTo({ top: 0, behavior: 'instant' });

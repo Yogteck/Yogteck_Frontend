@@ -86,5 +86,15 @@ export const SERVICES_DATA: ServiceItem[] = [
     fullDesc: 'Lead management CRM, field service automation, ticketing helpdesks, and customer feedback loops to accelerate revenue.',
     icon: 'headset',
     features: ['Lead Capture & Scoring', 'Ticket Dispatch & Tracking', 'WhatsApp Automation', 'Executive Sales Dashboard']
+  },
+  {
+    id: 'real-estate-software',
+    slug: 'real-estate-plotting-software',
+    title: 'Real-Estate & Plotting Software',
+    shortDesc: 'Plot booking, EMI & associate commission',
+    fullDesc: 'Specialized real-estate platform with interactive plot layouts, site visit bookings, EMI payment schedules, associate commissions, and customer allotment portals.',
+    icon: 'map',
+    badge: 'Specialized',
+    features: ['Interactive Plot Status Map', 'Customer EMI Schedules', 'Associate Multi-Tier Commission', 'Instant WhatsApp Receipts']
   }
 ];

@@ -1,0 +1,131 @@
+<!-- Navbar -->
+<app-navbar
+  (openQuote)="openQuoteModal()"
+  (toggleDrawer)="openDrawer()">
+</app-navbar>
+
+<!-- Mobile Drawer -->
+<app-mobile-drawer
+  [isOpen]="isDrawerOpen"
+  (closeDrawer)="closeDrawer()"
+  (openQuote)="openQuoteModal()">
+</app-mobile-drawer>
+
+<main class="tools-page-main">
+
+  <!-- Index View (/tools) -->
+  <div *ngIf="!isDetailView">
+    <section class="tools-hero-section">
+      <div class="container">
+        <app-breadcrumbs [items]="breadcrumbItems"></app-breadcrumbs>
+
+        <div class="section-center-header">
+          <span class="section-label">PROPRIETARY SOFTWARE PRODUCTS</span>
+          <h1 class="page-title">Digital Tools &amp; Business Software Solutions</h1>
+          <!-- Direct answer intro -->
+          <p class="hero-direct-answer">
+            YogTeck Business Solution builds proprietary business software platforms engineered to accelerate revenue, automate operational bottlenecks, and streamline GST compliance for enterprises across India. Explore our core platforms: WhatsApp messaging automation, lightning-fast retail &amp; wholesale billing POS, and cloud enterprise resource planning.
+          </p>
+        </div>
+
+        <div class="tools-grid">
+          @for (tool of toolsList; track tool.id) {
+            <div class="tool-card">
+              <div class="tool-badge">{{ tool.badge }}</div>
+              <h2 class="tool-title">{{ tool.title }}</h2>
+              <p class="tool-summary">{{ tool.summary }}</p>
+
+              <ul class="tool-features-list">
+                @for (f of tool.features; track f) {
+                  <li>
+                    <svg viewBox="0 0 20 20" fill="currentColor" class="feat-check"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                    <span>{{ f }}</span>
+                  </li>
+                }
+              </ul>
+
+              <div class="tool-card-actions">
+                <a [routerLink]="['/tools', tool.slug]" class="btn btn-primary-orange">
+                  <span>Explore {{ tool.title }} →</span>
+                </a>
+              </div>
+            </div>
+          }
+        </div>
+
+      </div>
+    </section>
+  </div>
+
+  <!-- Detail View (/tools/:toolId) -->
+  <div *ngIf="isDetailView && activeTool">
+    <section class="tool-detail-hero">
+      <div class="container">
+        <app-breadcrumbs [items]="breadcrumbItems"></app-breadcrumbs>
+
+        <div class="tool-detail-header">
+          <span class="tool-detail-badge">{{ activeTool.badge }}</span>
+          <h1 class="tool-detail-title">{{ activeTool.h1 }}</h1>
+          <p class="tool-detail-summary">{{ activeTool.summary }}</p>
+
+          <div class="tool-detail-actions">
+            <button type="button" (click)="openQuoteModal()" class="btn btn-primary-orange">
+              <span>Request Software Demo</span>
+            </button>
+            <a [href]="contact.whatsappLink" target="_blank" rel="noopener noreferrer" class="btn btn-secondary-dark">
+              <span>Instant WhatsApp Demo</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- If product data is available, show features & plans -->
+        <div *ngIf="toolProductData" class="tool-extended-content">
+          <div class="tool-overview-box">
+            <h2 class="section-heading">Operational Capabilities</h2>
+            <p>{{ toolProductData.whatItDoes }}</p>
+          </div>
+
+          <div class="pricing-snapshot-box">
+            <h2 class="section-heading">Available Subscription &amp; Deployment Plans</h2>
+            <div class="pricing-cards-row">
+              @for (plan of toolProductData.plansPricing; track plan.name) {
+                <div class="plan-mini-card">
+                  <h3 class="mini-plan-name">{{ plan.name }}</h3>
+                  <div class="mini-price">{{ plan.price }} <span class="mini-period">{{ plan.period }}</span></div>
+                  <p class="mini-desc">{{ plan.description }}</p>
+                  <button type="button" (click)="openQuoteModal()" class="btn btn-outline-orange mini-cta-btn">
+                    <span>Inquire for {{ plan.name }}</span>
+                  </button>
+                </div>
+              }
+            </div>
+          </div>
+
+          <app-faq-section
+            [title]="activeTool.title + ' FAQs'"
+            subtitle="Common questions regarding software compatibility, deployment, and pricing."
+            [faqs]="toolProductData.faqs">
+          </app-faq-section>
+        </div>
+
+      </div>
+    </section>
+  </div>
+
+</main>
+
+<!-- Footer -->
+<app-footer></app-footer>
+
+<!-- Sticky Mobile Action Bar -->
+<app-mobile-action-bar></app-mobile-action-bar>
+
+<!-- Floating WhatsApp Button -->
+<app-floating-whatsapp></app-floating-whatsapp>
+
+<!-- Quote Modal -->
+<app-quote-modal
+  [isOpen]="isQuoteModalOpen"
+  [defaultServiceTitle]="activeTool?.title || 'Tool Inquiry'"
+  (closeModal)="closeQuoteModal()">
+</app-quote-modal>

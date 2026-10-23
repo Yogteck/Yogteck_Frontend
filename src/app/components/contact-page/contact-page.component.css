@@ -1,0 +1,113 @@
+.contact-page-main {
+  min-height: 100vh;
+  background-color: var(--bg-dark-primary, #060B19);
+  color: var(--text-dark-primary, #F8FAFC);
+  padding-bottom: 80px;
+}
+
+.contact-hero-section {
+  padding: 130px 0 60px;
+}
+
+.page-title {
+  font-size: clamp(2.2rem, 5vw, 3.4rem);
+  font-weight: 800;
+  line-height: 1.2;
+  margin: 16px 0 24px;
+  color: #FFFFFF;
+}
+
+.hero-direct-answer {
+  max-width: 860px;
+  margin: 0 auto 48px;
+  font-size: 1.1rem;
+  line-height: 1.7;
+  color: #94A3B8;
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-left: 4px solid #FF9A1F;
+  padding: 20px 24px;
+  border-radius: 8px;
+  text-align: left;
+}
+
+.contact-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 24px;
+  margin-bottom: 56px;
+}
+
+.info-card {
+  background: rgba(15, 23, 42, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 30px 24px;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background: rgba(255, 154, 31, 0.15);
+  color: #FF9A1F;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 18px;
+}
+
+.card-icon.icon-wa {
+  background: rgba(37, 211, 102, 0.15);
+  color: #25D366;
+}
+
+.card-icon svg {
+  width: 22px;
+  height: 22px;
+}
+
+.card-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #FFFFFF;
+  margin-bottom: 8px;
+}
+
+.card-desc {
+  font-size: 0.88rem;
+  color: #94A3B8;
+  margin-bottom: 16px;
+}
+
+.contact-link {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #FF9A1F;
+  text-decoration: none;
+  margin-bottom: 12px;
+}
+
+.contact-link.link-wa {
+  color: #25D366;
+}
+
+.office-address {
+  font-style: normal;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #E2E8F0;
+  margin-bottom: 12px;
+}
+
+.hours-tag {
+  font-size: 0.8rem;
+  color: #64748B;
+  margin-top: auto;
+}
+
+.contact-form-wrapper {
+  margin-top: 40px;
+}

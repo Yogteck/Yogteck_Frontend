@@ -1,0 +1,162 @@
+<!-- Navbar -->
+<app-navbar
+  (openQuote)="openQuoteModal()"
+  (toggleDrawer)="openDrawer()">
+</app-navbar>
+
+<!-- Mobile Drawer -->
+<app-mobile-drawer
+  [isOpen]="isDrawerOpen"
+  (closeDrawer)="closeDrawer()"
+  (openQuote)="openQuoteModal()">
+</app-mobile-drawer>
+
+<main class="legal-page-main">
+  
+  <section class="legal-hero-section">
+    <div class="container">
+      <app-breadcrumbs [items]="breadcrumbItems"></app-breadcrumbs>
+
+      <!-- Privacy Policy Content -->
+      <article *ngIf="isPrivacy" class="legal-article">
+        <span class="legal-badge">LEGAL &amp; COMPLIANCE</span>
+        <h1 class="page-title">Privacy Policy</h1>
+        <p class="last-updated">Effective Date: October 2026 • Yogteck Business Solution</p>
+
+        <!-- Direct Answer Summary -->
+        <div class="legal-direct-answer">
+          <strong>Privacy Summary:</strong> YogTeck Business Solution is committed to transparent, ethical data practices. We collect only necessary information provided through our inquiry forms, quotation requests, and website analytics to deliver requested software services. We do not sell, rent, or trade your personal or business data to third parties.
+        </div>
+
+        <section class="legal-section">
+          <h2>1. Information We Collect</h2>
+          <p>
+            When you interact with the YogTeck website or submit a contact inquiry, we may collect:
+          </p>
+          <ul>
+            <li><strong>Contact Details:</strong> Your full name, company name, email address, and mobile/WhatsApp telephone number.</li>
+            <li><strong>Project Scope Information:</strong> Details you provide regarding your software requirements, desired features, and timeline expectations.</li>
+            <li><strong>Automated Usage Data:</strong> Technical details such as browser type, device information, IP address, and anonymized user flow data collected via Google Analytics.</li>
+          </ul>
+        </section>
+
+        <section class="legal-section">
+          <h2>2. How We Use Your Information</h2>
+          <p>The collected information is utilized strictly to:</p>
+          <ul>
+            <li>Respond to your technical inquiries and deliver customized architecture proposals and cost estimates.</li>
+            <li>Coordinate discovery sessions, project milestones, and live software demonstrations.</li>
+            <li>Provide customer support, SLA service notifications, and system status updates.</li>
+            <li>Analyze website performance and optimize user experience across modern devices.</li>
+          </ul>
+        </section>
+
+        <section class="legal-section">
+          <h2>3. Data Protection &amp; Security</h2>
+          <p>
+            We implement robust organizational and technological safeguards including SSL/TLS encryption for all data in transit, strict access control policies, and regular security reviews. Your information is stored on secure, monitored servers.
+          </p>
+        </section>
+
+        <section class="legal-section">
+          <h2>4. Cookies &amp; Tracking Technologies</h2>
+          <p>
+            We use essential and analytics cookies to maintain website performance, remember your light/dark display theme preference, and understand user navigation patterns. You can disable non-essential cookies through your browser settings.
+          </p>
+        </section>
+
+        <section class="legal-section">
+          <h2>5. Third-Party Services</h2>
+          <p>
+            We may utilize verified third-party service providers (such as Google Analytics for aggregated usage metrics and cloud email delivery services) that operate under strict confidentiality agreements. We never sell your data to marketing aggregators.
+          </p>
+        </section>
+
+        <section class="legal-section">
+          <h2>6. Your Rights &amp; Contact Information</h2>
+          <p>
+            You have the right to request access to, correction of, or deletion of your contact records from our systems at any time. For privacy inquiries, please contact:
+          </p>
+          <div class="contact-box">
+            <strong>Data Privacy Officer</strong><br>
+            Yogteck Business Solution<br>
+            302/2, Mangla Vihar 2, New PAC Line, Kanpur Nagar, UP 208015<br>
+            Email: <a [href]="'mailto:' + contact.emailPrimary">{{ contact.emailPrimary }}</a> • Phone: +91 {{ contact.phoneDisplay }}
+          </div>
+        </section>
+      </article>
+
+      <!-- Terms of Service Content -->
+      <article *ngIf="!isPrivacy" class="legal-article">
+        <span class="legal-badge">LEGAL &amp; COMPLIANCE</span>
+        <h1 class="page-title">Terms of Service</h1>
+        <p class="last-updated">Effective Date: October 2026 • Yogteck Business Solution</p>
+
+        <!-- Direct Answer Summary -->
+        <div class="legal-direct-answer">
+          <strong>Terms Summary:</strong> These Terms of Service govern the engagement between YogTeck Business Solution and clients purchasing our website development, custom software, ERP, billing software, and digital marketing services. We deliver 100% intellectual property ownership upon full project payment and back our work with defined milestone warranties.
+        </div>
+
+        <section class="legal-section">
+          <h2>1. Engagement &amp; Scope of Work</h2>
+          <p>
+            All custom development engagements are governed by an agreed Statement of Work (SOW) or formal quotation detailing technical specifications, milestone deliverables, project schedules, and commercial fees. Any out-of-scope feature additions will be estimated and approved separately.
+          </p>
+        </section>
+
+        <section class="legal-section">
+          <h2>2. Intellectual Property (IP) &amp; Code Ownership</h2>
+          <p>
+            Upon receipt of full and final project payment, the client retains 100% exclusive intellectual property rights and full source code ownership for custom-developed software assets. Pre-existing proprietary libraries, developer frameworks, and third-party open-source components remain subject to their respective licenses.
+          </p>
+        </section>
+
+        <section class="legal-section">
+          <h2>3. Payment Milestones &amp; Terms</h2>
+          <p>
+            Project fees are structured in milestone stages (typically initial architecture deposit, prototype milestone, and final production handover). Invoices are due within the timeframe specified on the quotation. Subscription software services (such as our WhatsApp Marketing Tool) operate on monthly or annual prepaid billing cycles.
+          </p>
+        </section>
+
+        <section class="legal-section">
+          <h2>4. Warranty &amp; Technical Support</h2>
+          <p>
+            All custom software and web development deliverables include a complimentary post-launch bug-fix warranty period (as defined in your project contract) covering defect remediation. Extended maintenance, feature evolutions, and server monitoring are available through Annual Maintenance Contracts (AMC).
+          </p>
+        </section>
+
+        <section class="legal-section">
+          <h2>5. Confidentiality &amp; Non-Disclosure</h2>
+          <p>
+            YogTeck Business Solution and the client mutually agree to maintain strict confidentiality regarding all proprietary business data, customer records, database contents, and technical architectures exchanged during the engagement.
+          </p>
+        </section>
+
+        <section class="legal-section">
+          <h2>6. Governing Law &amp; Jurisdiction</h2>
+          <p>
+            These terms are governed by and construed in accordance with the laws of India. Any legal disputes arising in connection with our services shall be subject to the exclusive jurisdiction of the competent courts in Kanpur Nagar, Uttar Pradesh, India.
+          </p>
+        </section>
+      </article>
+
+    </div>
+  </section>
+
+</main>
+
+<!-- Footer -->
+<app-footer></app-footer>
+
+<!-- Sticky Mobile Action Bar -->
+<app-mobile-action-bar></app-mobile-action-bar>
+
+<!-- Floating WhatsApp Button -->
+<app-floating-whatsapp></app-floating-whatsapp>
+
+<!-- Quote Modal -->
+<app-quote-modal
+  [isOpen]="isQuoteModalOpen"
+  defaultServiceTitle="Legal Inquiry"
+  (closeModal)="closeQuoteModal()">
+</app-quote-modal>

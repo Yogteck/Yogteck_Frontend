@@ -79,7 +79,7 @@ export const SERVICES_SEO_DATA: Record<string, ServiceDetailData> = {
     slug: 'website-development',
     id: 'web-dev',
     title: 'Website Development',
-    metaTitle: 'Website Development Company in Kanpur | Yogteck Business Solution',
+    metaTitle: 'Website Development | YogTeck Business Solution',
     metaDescription: 'Yogteck Business Solution builds fast, SEO-friendly, mobile-responsive business websites in Kanpur and across India. Get custom UI/UX, free domain & hosting inclusions.',
     h1: 'Website Development Company in Kanpur, India',
     tagline: 'High-Converting, Lightning-Fast Business Websites & Portals',
@@ -145,7 +145,7 @@ export const SERVICES_SEO_DATA: Record<string, ServiceDetailData> = {
     slug: 'custom-software-development',
     id: 'custom-software',
     title: 'Custom Software Development',
-    metaTitle: 'Custom Software Development Company in Kanpur | Yogteck',
+    metaTitle: 'Custom Software Development | YogTeck Business Solution',
     metaDescription: 'Yogteck Business Solution engineers custom software, cloud applications, SaaS platforms, and workflow automation solutions for businesses in Kanpur and across India.',
     h1: 'Custom Software Development Company in Kanpur, India',
     tagline: 'Tailored Cloud Applications, SaaS Platforms & Automation Systems',
@@ -211,7 +211,7 @@ export const SERVICES_SEO_DATA: Record<string, ServiceDetailData> = {
     slug: 'mobile-app-development',
     id: 'mobile-app',
     title: 'Mobile App Development',
-    metaTitle: 'Mobile App Development Company in Kanpur | Android & iOS | Yogteck',
+    metaTitle: 'Mobile App Development | YogTeck Business Solution',
     metaDescription: 'Yogteck Business Solution develops high-performance Android & iOS mobile applications in Kanpur. Native & cross-platform Flutter/React Native solutions for business growth.',
     h1: 'Mobile App Development Company in Kanpur, India',
     tagline: 'High-Performance Android & iOS Apps with Seamless User Experiences',
@@ -273,7 +273,7 @@ export const SERVICES_SEO_DATA: Record<string, ServiceDetailData> = {
     slug: 'erp-software',
     id: 'erp-solutions',
     title: 'ERP Software Solutions',
-    metaTitle: 'ERP Software Company in Kanpur | Enterprise Solutions | Yogteck',
+    metaTitle: 'ERP Software | YogTeck Business Solution',
     metaDescription: 'Yogteck Business Solution delivers cloud ERP software in Kanpur for manufacturers, distributors, and traders. Real-time inventory, GST billing, payroll & multi-branch sync.',
     h1: 'ERP Software Development Company in Kanpur, India',
     tagline: 'Unified Enterprise Resource Planning for Manufacturing, Trading & Distribution',
@@ -335,7 +335,7 @@ export const SERVICES_SEO_DATA: Record<string, ServiceDetailData> = {
     slug: 'billing-software',
     id: 'billing-software',
     title: 'Billing & Invoicing Software',
-    metaTitle: 'GST Billing & Invoicing Software in Kanpur | Yogteck',
+    metaTitle: 'Billing Software | YogTeck Business Solution',
     metaDescription: 'Fast GST billing software, retail POS, and inventory management in Kanpur by Yogteck Business Solution. Barcode scanning, thermal printing, and WhatsApp invoice sharing.',
     h1: 'Billing & Invoicing Software Company in Kanpur, India',
     tagline: 'High-Speed GST Invoicing, Retail POS & Inventory Management',
@@ -397,7 +397,7 @@ export const SERVICES_SEO_DATA: Record<string, ServiceDetailData> = {
     slug: 'ecommerce-development',
     id: 'ecommerce',
     title: 'E-Commerce Development',
-    metaTitle: 'E-Commerce Website Development in Kanpur | Yogteck',
+    metaTitle: 'E-commerce Development | YogTeck Business Solution',
     metaDescription: 'Launch your online store with Yogteck Business Solution in Kanpur. Secure payment gateway, automated shipping, mobile-friendly design, and marketplace integration.',
     h1: 'E-Commerce Development Company in Kanpur, India',
     tagline: 'High-Converting Online Storefronts & Multi-Vendor Marketplaces',
@@ -459,7 +459,7 @@ export const SERVICES_SEO_DATA: Record<string, ServiceDetailData> = {
     slug: 'seo-digital-growth',
     id: 'digital-marketing',
     title: 'SEO & Digital Growth Services',
-    metaTitle: 'SEO Company in Kanpur | Digital Growth Services | Yogteck',
+    metaTitle: 'SEO & Digital Marketing | YogTeck Business Solution',
     metaDescription: 'Yogteck Business Solution is a top SEO company in Kanpur. Local SEO, Google Business Profile ranking, technical SEO, high-ROI Google Ads, and organic business growth.',
     h1: 'SEO & Digital Growth Company in Kanpur, India',
     tagline: 'Dominate Google Search, Attract High-Intent Buyers & Scale Revenue',
@@ -521,7 +521,7 @@ export const SERVICES_SEO_DATA: Record<string, ServiceDetailData> = {
     slug: 'business-software',
     id: 'sales-service',
     title: 'Business Management Software & CRM',
-    metaTitle: 'Business Management Software & CRM in Kanpur | Yogteck',
+    metaTitle: 'Business Management Software | YogTeck Business Solution',
     metaDescription: 'Automate sales pipelines, customer support, field operations, and lead management in Kanpur with custom business management software by Yogteck Business Solution.',
     h1: 'Business Management Software & CRM Company in Kanpur, India',
     tagline: 'Automated CRM, Sales Pipelines, Field Service & Operations Management',
@@ -577,6 +577,59 @@ export const SERVICES_SEO_DATA: Record<string, ServiceDetailData> = {
       { title: 'ERP Software Solutions', slug: 'erp-software', desc: 'Complete enterprise resource planning for multi-department organizations.' },
       { title: 'SEO & Digital Growth', slug: 'seo-digital-growth', desc: 'Generate more qualified inbound leads for your sales pipeline.' }
     ]
+  },
+
+  'real-estate-plotting-software': {
+    slug: 'real-estate-plotting-software',
+    id: 'real-estate-software',
+    title: 'Real-Estate & Plotting Software',
+    metaTitle: 'Real-Estate Plotting Software | YogTeck Business Solution',
+    metaDescription: 'YogTeck delivers real-estate plotting and plot booking software with interactive maps, EMI installment tracking, associate commissions, and customer portals.',
+    h1: 'Real-Estate & Plot Booking Management Software',
+    tagline: 'Streamline Plot Inventory, EMI Schedules, Associate Commissions & Bookings',
+    badge: 'Specialized Real-Estate Platform',
+    icon: 'map',
+    heroSummary: 'YogTeck Business Solution provides dedicated real-estate and plot booking management software for infrastructure developers, colonizers, and plotting projects across Uttar Pradesh and India. Our platform streamlines plot inventory status, site visit scheduling, customer installment and EMI tracking, associate commission distribution, and client document management into one reliable dashboard.',
+    problemTitle: 'Why Managing Plotting Projects on Paper Causes Chaos',
+    problemDesc: 'Real estate developers managing plotting layouts frequently suffer from double-booking errors, delayed customer installment payments, disputed agent/associate commission calculations, and lack of real-time plot availability on physical site maps.',
+    solutionTitle: 'Complete Real-Estate & Plot Management Software',
+    solutionDesc: 'Our specialized real-estate software provides an interactive digital plot map displaying live availability (Available, Booked, Hold, Registered), automated EMI schedule alerts, tiered associate commission tracking, and digital customer booking slips.',
+    targetAudience: [
+      { title: 'Township Colonizers & Plot Developers', description: 'Manage multi-acre plotted layouts, sector divisions, plot dimension records, and registration dates.' },
+      { title: 'Real Estate Sales Networks & Agencies', description: 'Track associate and channel partner trees, calculate direct/indirect commissions, and verify milestone payouts.' },
+      { title: 'Infrastructure & Commercial Builders', description: 'Monitor commercial plot allocations, corner/PLC charges, payment milestones, and registry documents.' }
+    ],
+    features: [
+      { title: 'Interactive Layout & Plot Status Map', description: 'Color-coded visual layout displaying real-time plot status: Available (Green), Booked (Yellow), Hold (Blue), and Registered (Red).', icon: 'map' },
+      { title: 'EMI & Payment Installment Tracking', description: 'Automated installment schedules, overdue payment reminders, penalty calculation, and digital payment receipts.', icon: 'dollar-sign' },
+      { title: 'Associate Multi-Tier Commission Engine', description: 'Transparent multilevel associate commission calculations based on realized booking payments and rank hierarchies.', icon: 'users' },
+      { title: 'Customer Document & Booking Portal', description: 'Digital allotment letters, KYC document storage, payment ledger access, and instant WhatsApp booking confirmation.', icon: 'file-text' },
+      { title: 'Site Visit & Lead Tracking CRM', description: 'Schedule site visits with driver and vehicle allocation, record customer feedback, and assign leads to sales executives.', icon: 'navigation' },
+      { title: 'Executive Sales & Revenue Dashboards', description: 'Real-time revenue realization reports, pending registry lists, and project cash flow forecasts on mobile or desktop.', icon: 'trending-up' }
+    ],
+    processSteps: [
+      { step: '01', title: 'Layout Map & Plot Master Import', desc: 'Importing your CAD/plot layout maps, plot numbers, dimensions (sq ft / sq yard), and base rate pricing.' },
+      { step: '02', title: 'Payment Plan & Commission Config', desc: 'Configuring lump sum and EMI payment plan templates alongside associate commission rank structures.' },
+      { step: '03', title: 'Data Migration & Staff Training', desc: 'Uploading existing plot booking registers, customer ledgers, and training office sales teams.' },
+      { step: '04', title: 'Live Deployment & Support', desc: 'Launching your secure cloud portal with daily automated backups and dedicated phone support.' }
+    ],
+    benefits: [
+      { title: 'Zero Plot Double-Booking', desc: 'Live cloud inventory locks plots the instant an advance token is logged, preventing costly sales mistakes.' },
+      { title: 'Accelerate Installment Collections', desc: 'Automated WhatsApp and SMS payment reminders ensure customers pay monthly EMIs on time.' },
+      { title: 'Total Associate Network Trust', desc: 'Transparent commission ledgers eliminate agent disputes and motivate your sales force.' },
+      { title: 'Real-Time Oversight on Smartphone', desc: 'Check total plots sold, collections received, and pending registrations from any location.' }
+    ],
+    faqs: [
+      { question: 'What is the cost of real-estate and plot booking software with YogTeck?', answer: 'Pricing is structured based on the number of active projects, plotting layout size, and user accounts. Contact YogTeck for a custom demonstration and transparent package quotation tailored to your developments.' },
+      { question: 'Does the software support interactive digital plot maps?', answer: 'Yes. We build responsive, interactive layout maps where clicking on any plot reveals its dimensions, facing (East, West, North, South), PLC charges, base price, and live booking status.' },
+      { question: 'Can the software manage associate and agent commissions?', answer: 'Yes. The system automates associate rank hierarchies, direct broker commission, differential overrides, and milestone-based commission disbursements upon customer payment realization.' },
+      { question: 'Can customers view their payment ledger and download allotment receipts?', answer: 'Yes. Customers receive a secure login or digital link to view their payment history, download GST payment receipts, and check upcoming installment due dates.' }
+    ],
+    relatedServices: [
+      { title: 'Custom Software Development', slug: 'custom-software-development', desc: 'Tailored enterprise software and backend databases.' },
+      { title: 'Billing Software', slug: 'billing-software', desc: 'POS and accounting software for business management.' },
+      { title: 'Website Development', slug: 'website-development', desc: 'High-converting real estate developer corporate websites.' }
+    ]
   }
 };
 
@@ -584,7 +637,7 @@ export const LOCATIONS_SEO_DATA: Record<string, LocationDetailData> = {
   'kanpur': {
     city: 'Kanpur',
     slug: 'it-software-company-kanpur',
-    metaTitle: 'IT & Software Company in Kanpur | Yogteck Business Solution',
+    metaTitle: 'IT & Software Company in Kanpur | YogTeck Business Solution',
     metaDescription: 'Yogteck Business Solution is a leading IT & software company in Kanpur. We deliver website development, custom software, ERP, billing software & digital growth solutions.',
     h1: 'Top IT & Software Company in Kanpur, Uttar Pradesh',
     tagline: 'Empowering Kanpur Businesses with Modern Software, Websites & Digital Technology',
@@ -642,7 +695,7 @@ export const LOCATIONS_SEO_DATA: Record<string, LocationDetailData> = {
   'lucknow': {
     city: 'Lucknow',
     slug: 'it-software-company-lucknow',
-    metaTitle: 'IT & Software Company Serving Lucknow | Yogteck Business Solution',
+    metaTitle: 'IT & Software Services in Lucknow | YogTeck Business Solution',
     metaDescription: 'Yogteck Business Solution delivers modern IT, web development, custom software, ERP & digital growth solutions for enterprises and startups in Lucknow, UP.',
     h1: 'IT & Software Development Services for Lucknow, Uttar Pradesh',
     tagline: 'Modern Web, Enterprise Software & Digital Growth for Lucknow Businesses',
@@ -693,7 +746,7 @@ export const LOCATIONS_SEO_DATA: Record<string, LocationDetailData> = {
   'raebareli': {
     city: 'Raebareli',
     slug: 'it-software-company-raebareli',
-    metaTitle: 'IT & Software Company Serving Raebareli | Yogteck Business Solution',
+    metaTitle: 'IT & Software Services in Raebareli | YogTeck Business Solution',
     metaDescription: 'Yogteck Business Solution provides custom software, website development, ERP, GST billing software & digital marketing for businesses in Raebareli, UP.',
     h1: 'IT, Software & Web Development Services for Raebareli, UP',
     tagline: 'Empowering Raebareli Manufacturing, Trading & Industrial Businesses with Technology',

@@ -1,0 +1,72 @@
+<!-- Navbar -->
+<app-navbar
+  (openQuote)="openQuoteModal()"
+  (toggleDrawer)="openDrawer()">
+</app-navbar>
+
+<!-- Mobile Drawer -->
+<app-mobile-drawer
+  [isOpen]="isDrawerOpen"
+  (closeDrawer)="closeDrawer()"
+  (openQuote)="openQuoteModal()">
+</app-mobile-drawer>
+
+<main class="blog-page-main">
+  
+  <section class="blog-hero-section">
+    <div class="container">
+      <app-breadcrumbs [items]="breadcrumbItems"></app-breadcrumbs>
+
+      <div class="section-center-header">
+        <span class="section-label">ENGINEERING &amp; DIGITAL GROWTH</span>
+        <h1 class="page-title">YogTeck Insights &amp; Knowledge Base</h1>
+        <!-- Direct answer intro -->
+        <p class="hero-direct-answer">
+          Welcome to the YogTeck engineering and business growth blog. We share practical, actionable frameworks on software architecture, GST billing automation, enterprise ERP selection, and ethical search engine optimization tailored for Indian enterprises, MSMEs, and technology startups.
+        </p>
+      </div>
+
+      <!-- Articles Grid -->
+      <div class="articles-grid">
+        @for (art of articles; track art.id) {
+          <article class="article-card">
+            <div class="art-meta-row">
+              <span class="art-category">{{ art.category }}</span>
+              <span class="art-date">{{ art.date }} • {{ art.readTime }}</span>
+            </div>
+            <h2 class="art-title">{{ art.title }}</h2>
+            <p class="art-summary">{{ art.summary }}</p>
+            <div class="art-footer">
+              <span class="art-read-link">Read Full Guide →</span>
+            </div>
+          </article>
+        }
+      </div>
+
+      <!-- Note for regular publishing -->
+      <div class="blog-publishing-note">
+        <p>
+          We publish 1–2 in-depth technical guides every month answering the real questions our manufacturing, healthcare, and retail clients ask during digital transitions.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+<!-- Footer -->
+<app-footer></app-footer>
+
+<!-- Sticky Mobile Action Bar -->
+<app-mobile-action-bar></app-mobile-action-bar>
+
+<!-- Floating WhatsApp Button -->
+<app-floating-whatsapp></app-floating-whatsapp>
+
+<!-- Quote Modal -->
+<app-quote-modal
+  [isOpen]="isQuoteModalOpen"
+  defaultServiceTitle="Blog Inquiry"
+  (closeModal)="closeQuoteModal()">
+</app-quote-modal>

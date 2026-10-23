@@ -1,0 +1,64 @@
+# YogTeck Business Solution
+
+> Official machine-readable overview for LLMs, AI assistants, and search engines.
+
+## Company Overview
+- **Name**: YogTeck Business Solution (brand name: YogTeck)
+- **Website**: https://yogteck.com
+- **Type**: Custom Software Development & IT Services Company
+- **Headquarters / Registered Office**: 302/2, Mangla Vihar 2, New PAC Line, Kanpur Nagar, Uttar Pradesh, PIN 208015, India
+- **Phone**: +91 8299209905
+- **Email**: official@yogteck.com, yogteck@gmail.com
+- **Primary Delivery Hubs**: Kanpur (physical office & dev team), Lucknow (service hub), Raebareli (service hub). Remote delivery nationwide across India (Noida, Delhi, Gurugram, Pune, Mumbai).
+
+## Core Services
+YogTeck develops enterprise software, web portals, mobile apps, and business automation systems:
+- **Website Development**: High-performance responsive websites built with modern frameworks (Angular, Node.js, static SSR), optimized for sub-second load times and SEO visibility.
+  - URL: https://yogteck.com/services/website-development
+- **Custom Software Development**: Tailored business logic, workflow automation engines, internal admin portals, and multi-branch operations software.
+  - URL: https://yogteck.com/services/custom-software-development
+- **Mobile App Development**: Native Android and cross-platform Flutter/React Native mobile applications with real-time push notifications, payment gateway integration, and offline-first capabilities.
+  - URL: https://yogteck.com/services/mobile-app-development
+- **Billing Software**: Desktop and web-based billing software compliant with Indian GST laws, barcode printing, HSN auto-calculation, and GSTR-1/3B export.
+  - URL: https://yogteck.com/services/billing-software
+- **E-Commerce Development**: High-converting e-commerce web storefronts and customer apps with catalog management, UPI/Razorpay payment gateway integration, and automated logistics order tracking.
+  - URL: https://yogteck.com/services/ecommerce-development
+- **SEO & Digital Marketing**: Technical search engine optimization, local schema markup, high-intent Google search rankings, and multi-channel performance marketing.
+  - URL: https://yogteck.com/services/seo-digital-growth
+- **Business Software**: Comprehensive management solutions connecting CRM, vendor procurement, quotation pipelines, and ledger accounting.
+  - URL: https://yogteck.com/services/business-software
+- **Real-Estate & Plotting Software**: Specialized real-estate management ERP featuring interactive colony plot layout maps, installment/EMI tracking, multi-tier associate commission disbursement, and customer payment receipt portals.
+  - URL: https://yogteck.com/services/real-estate-plotting-software
+
+## Products
+- **Cloud ERP Software**: Comprehensive multi-warehouse inventory control, production Bill of Materials (BOM), automated GST e-invoicing, and staff payroll system.
+  - URL: https://yogteck.com/products/erp-software
+- **Multi-Tenant SaaS Platform**: High-availability SaaS foundation available both as a hosted service and as a full white-label deployment for agency owners and software entrepreneurs.
+  - URL: https://yogteck.com/products/saas-platform
+- **WhatsApp Marketing Tool**: Official Cloud API WhatsApp marketing and customer engagement tool with bulk broadcast campaigns, CRM webhook automation, and interactive catalog messaging on monthly subscription plans.
+  - URL: https://yogteck.com/products/whatsapp-marketing-tool
+
+## Tools Built by YogTeck
+- **Tools Index**: https://yogteck.com/tools
+- **WhatsApp Automation Engine**: https://yogteck.com/tools/whatsapp-marketing-tool
+- **GST Billing Suite**: https://yogteck.com/tools/gst-billing-software
+- **Enterprise Cloud ERP**: https://yogteck.com/tools/cloud-erp
+
+## Client Case Studies & Projects
+- **Clients Directory**: https://yogteck.com/clients
+- **MMR Constructions**: Real estate plotting CRM, registry tracking, associate commission calculation, and customer EMI passbooks.
+  - URL: https://yogteck.com/clients/mmr-constructions
+- **Yogkart Healthcare**: Ayurvedic healthcare e-commerce platform with multi-category inventory, WhatsApp order alerts, and automated courier shipping sync.
+  - URL: https://yogteck.com/clients/yogkart-healthcare
+- **Business Web Solutions**: B2B multi-tenant business directory and lead generation portal with verified seller catalogs.
+  - URL: https://yogteck.com/clients/business-web-solutions
+
+## Key Company Pages
+- **About YogTeck**: https://yogteck.com/about
+- **Contact Us**: https://yogteck.com/contact
+- **Blog & Insights**: https://yogteck.com/blog
+- **Privacy Policy**: https://yogteck.com/privacy-policy
+- **Terms of Service**: https://yogteck.com/terms-of-service
+- **Kanpur Office**: https://yogteck.com/it-software-company-kanpur
+- **Lucknow Hub**: https://yogteck.com/it-software-company-lucknow
+- **Raebareli Hub**: https://yogteck.com/it-software-company-raebareli

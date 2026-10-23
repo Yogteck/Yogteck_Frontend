@@ -1,0 +1,87 @@
+<!-- Navbar -->
+<app-navbar
+  (openQuote)="openQuoteModal()"
+  (toggleDrawer)="openDrawer()">
+</app-navbar>
+
+<!-- Mobile Drawer -->
+<app-mobile-drawer
+  [isOpen]="isDrawerOpen"
+  (closeDrawer)="closeDrawer()"
+  (openQuote)="openQuoteModal()">
+</app-mobile-drawer>
+
+<main class="city-page-main" *ngIf="cityData">
+  
+  <section class="city-hero-section">
+    <div class="container">
+      <app-breadcrumbs [items]="breadcrumbItems"></app-breadcrumbs>
+
+      <div class="city-hero-content">
+        <span class="city-badge">SERVICE DELIVERY AREA</span>
+        <h1 class="city-title">{{ cityData.h1 }}</h1>
+
+        <!-- Visible Marker if owner content is needed (with noindex) -->
+        <div *ngIf="cityData.needsOwnerContent" class="owner-marker-box">
+          <span class="marker-tag">PENDING OWNER INPUT (NOINDEX APPLIED)</span>
+          <p class="marker-msg">[OWNER: city-specific content needed — genuine local industries, specific commercial case studies, and localized client references needed before public indexing].</p>
+        </div>
+
+        <!-- Answer-first intro -->
+        <p class="city-direct-answer">
+          {{ cityData.heroAnswer }}
+        </p>
+
+        <!-- Service area note -->
+        <div class="service-area-notice">
+          <strong>Service Area Notice:</strong> YogTeck Business Solution serves clients in {{ cityData.city }} via cloud architecture, remote collaboration, and dedicated account management. Our registered physical office and development center is located at 302/2, Mangla Vihar 2, New PAC Line, Kanpur Nagar, UP 208015.
+        </div>
+
+        <div class="city-context-card">
+          <h2 class="context-heading">{{ cityData.city }} Regional Business Landscape</h2>
+          <p>{{ cityData.cityContext }}</p>
+        </div>
+
+        <div class="local-industries-grid">
+          @for (ind of cityData.localIndustries; track ind.industry) {
+            <div class="ind-card">
+              <h3 class="ind-title">{{ ind.industry }}</h3>
+              <p class="ind-desc">{{ ind.description }}</p>
+            </div>
+          }
+        </div>
+
+        <div class="city-cta-card">
+          <h2 class="cta-heading">Consult on Your {{ cityData.city }} Project</h2>
+          <p class="cta-sub">Call our technical office or schedule an initial online discovery session.</p>
+          <div class="cta-buttons">
+            <button type="button" (click)="openQuoteModal()" class="btn btn-primary-orange">
+              <span>Request Consultation</span>
+            </button>
+            <a [href]="contact.whatsappLink" target="_blank" rel="noopener noreferrer" class="btn btn-secondary-dark">
+              <span>Message on WhatsApp</span>
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- Footer -->
+<app-footer></app-footer>
+
+<!-- Sticky Mobile Action Bar -->
+<app-mobile-action-bar></app-mobile-action-bar>
+
+<!-- Floating WhatsApp Button -->
+<app-floating-whatsapp></app-floating-whatsapp>
+
+<!-- Quote Modal -->
+<app-quote-modal
+  [isOpen]="isQuoteModalOpen"
+  [defaultServiceTitle]="cityData?.city + ' Inquiry'"
+  (closeModal)="closeQuoteModal()">
+</app-quote-modal>

@@ -15,6 +15,16 @@ export interface LocalizedSeoConfig {
   jsonLdSchemas?: object[];
 }
 
+export interface CanonicalSeoConfig {
+  title: string;
+  description: string;
+  canonicalUrl: string; // e.g. 'https://yogteck.com/services/website-development'
+  ogImage?: string;
+  ogType?: string;
+  robots?: string;
+  jsonLdSchemas?: object[];
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -28,6 +38,44 @@ export class SeoService {
     private metaService: Meta,
     @Inject(DOCUMENT) private doc: Document
   ) {}
+
+  /**
+   * Sets top-level canonical SEO with self-referencing URL, OpenGraph, Twitter, and JSON-LD
+   */
+  public setCanonicalPageSeo(config: CanonicalSeoConfig): void {
+    this.titleService.setTitle(config.title);
+    this.metaService.updateTag({ name: 'description', content: config.description });
+    this.metaService.updateTag({
+      name: 'robots',
+      content: config.robots || 'index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1'
+    });
+    this.metaService.updateTag({ name: 'author', content: 'Yogteck Business Solution' });
+
+    // Open Graph
+    this.metaService.updateTag({ property: 'og:title', content: config.title });
+    this.metaService.updateTag({ property: 'og:description', content: config.description });
+    this.metaService.updateTag({ property: 'og:url', content: config.canonicalUrl });
+    this.metaService.updateTag({ property: 'og:type', content: config.ogType || 'website' });
+    this.metaService.updateTag({ property: 'og:site_name', content: this.defaultSiteName });
+    this.metaService.updateTag({ property: 'og:locale', content: 'en_IN' });
+    this.metaService.updateTag({ property: 'og:image', content: config.ogImage || this.defaultOgImage });
+    this.metaService.updateTag({ property: 'og:image:width', content: '1200' });
+    this.metaService.updateTag({ property: 'og:image:height', content: '630' });
+
+    // Twitter
+    this.metaService.updateTag({ name: 'twitter:card', content: 'summary_large_image' });
+    this.metaService.updateTag({ name: 'twitter:title', content: config.title });
+    this.metaService.updateTag({ name: 'twitter:description', content: config.description });
+    this.metaService.updateTag({ name: 'twitter:image', content: config.ogImage || this.defaultOgImage });
+
+    // Self-referencing Canonical URL
+    this.updateCanonicalUrl(config.canonicalUrl);
+
+    // Injected JSON-LD
+    if (config.jsonLdSchemas && config.jsonLdSchemas.length > 0) {
+      this.injectJsonLd(config.jsonLdSchemas);
+    }
+  }
 
   /**
    * Updates complete page SEO: title, description, robots, OpenGraph, Twitter, canonical, reciprocal hreflangs, and JSON-LD schemas

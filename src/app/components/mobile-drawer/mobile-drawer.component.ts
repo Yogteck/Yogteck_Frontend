@@ -7,6 +7,8 @@ import { ThemeService } from '../../services/theme.service';
 import { LocaleService } from '../../services/locale.service';
 import { LanguageSwitcherComponent } from '../language-switcher/language-switcher.component';
 
+import { PRODUCTS_SEO_DATA } from '../../data/extended-seo.data';
+
 @Component({
   selector: 'app-mobile-drawer',
   standalone: true,
@@ -25,37 +27,41 @@ export class MobileDrawerComponent {
 
   contact = CONTACT_CONFIG;
   services = SERVICES_DATA;
+  products = Object.values(PRODUCTS_SEO_DATA);
   dict = this.localeService.currentDict;
   isServicesAccordionOpen = false;
+  isProductsAccordionOpen = false;
 
   toggleAccordion(): void {
     this.isServicesAccordionOpen = !this.isServicesAccordionOpen;
   }
 
+  toggleProductsAccordion(): void {
+    this.isProductsAccordionOpen = !this.isProductsAccordionOpen;
+  }
+
   onNavigate(targetId: string): void {
     this.closeDrawer.emit();
-
-    const currentUrl = this.router.url;
-    const isRootOrLocale = currentUrl === '/' || /^\/[a-z]{2}(-[a-z]{2})?\/?$/i.test(currentUrl);
-
-    if (!isRootOrLocale) {
-      const targetLocale = this.localeService.currentConfig().code;
-      this.router.navigate([`/${targetLocale}`], { fragment: targetId });
+    if (targetId === 'home') {
+      this.router.navigate(['/']);
       return;
     }
-
-    setTimeout(() => {
-      const el = document.getElementById(targetId);
-      if (el) {
-        el.scrollIntoView({ behavior: 'smooth' });
-      }
-    }, 250);
+    this.router.navigate(['/' + targetId]);
   }
 
   navigateToService(slug: string): void {
     this.closeDrawer.emit();
-    const targetLocale = this.localeService.currentConfig().code;
-    this.router.navigate([`/${targetLocale}/services`, slug]);
+    this.router.navigate(['/services', slug]);
+  }
+
+  navigateToProduct(slug: string): void {
+    this.closeDrawer.emit();
+    this.router.navigate(['/products', slug]);
+  }
+
+  navigateToPage(path: string): void {
+    this.closeDrawer.emit();
+    this.router.navigate([path]);
   }
 
   navigateToLocation(slug: string): void {

@@ -98,14 +98,23 @@ export class HomeComponent implements OnInit {
       faqs: currentDict.faq.items
     });
 
-    this.seoService.setLocalizedPageSeo({
-      title: currentDict.seo.title,
-      description: currentDict.seo.description,
-      keywords: currentDict.seo.keywords,
-      localeCode: localeCfg.code,
-      pathWithoutLocale: '',
-      jsonLdSchemas: schemas
-    });
+    const routeLocale = this.route.snapshot.paramMap.get('locale');
+    if (!routeLocale) {
+      this.seoService.setCanonicalPageSeo({
+        title: currentDict.seo.title,
+        description: currentDict.seo.description,
+        canonicalUrl: 'https://yogteck.com/',
+        jsonLdSchemas: schemas
+      });
+    } else {
+      this.seoService.setLocalizedPageSeo({
+        title: currentDict.seo.title,
+        description: currentDict.seo.description,
+        localeCode: localeCfg.code,
+        pathWithoutLocale: '',
+        jsonLdSchemas: schemas
+      });
+    }
   }
 
   openDrawer(): void {

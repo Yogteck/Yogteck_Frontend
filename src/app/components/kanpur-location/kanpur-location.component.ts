@@ -47,13 +47,11 @@ export class KanpurLocationComponent implements OnInit {
 
   ngOnInit(): void {
     const data = this.locationData;
-    const currentLocale = this.localeService.currentConfig();
-    const localeCode = currentLocale.code;
-    const canonicalPath = `/${localeCode}/${data.slug}/`;
+    const canonicalUrl = `https://yogteck.com/${data.slug}`;
 
     this.breadcrumbItems = [
-      { label: 'Locations', url: `/${localeCode}/#about` },
-      { label: 'Kanpur' }
+      { label: 'Home', url: '/' },
+      { label: 'Kanpur Software Company' }
     ];
 
     // Schema: BreadcrumbList, LocalBusiness, FAQPage
@@ -65,13 +63,13 @@ export class KanpurLocationComponent implements OnInit {
           "@type": "ListItem",
           "position": 1,
           "name": "Home",
-          "item": `https://yogteck.com/${localeCode}/`
+          "item": "https://yogteck.com/"
         },
         {
           "@type": "ListItem",
           "position": 2,
-          "name": "Kanpur",
-          "item": `https://yogteck.com/${localeCode}/${data.slug}/`
+          "name": "Kanpur Software Company",
+          "item": canonicalUrl
         }
       ]
     };
@@ -80,9 +78,9 @@ export class KanpurLocationComponent implements OnInit {
       "@context": "https://schema.org",
       "@type": "ProfessionalService",
       "name": "Yogteck Business Solution",
-      "alternateName": "Yogteck",
+      "alternateName": "YogTeck",
       "image": "https://yogteck.com/favicon-512x512.png",
-      "url": `https://yogteck.com${canonicalPath}`,
+      "url": canonicalUrl,
       "telephone": "+91-8299209905",
       "email": "yogteck@gmail.com",
       "priceRange": "$$",
@@ -105,8 +103,7 @@ export class KanpurLocationComponent implements OnInit {
         "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
         "opens": "09:00",
         "closes": "20:00"
-      },
-      "sameAs": []
+      }
     };
 
     const faqSchema = {
@@ -122,12 +119,10 @@ export class KanpurLocationComponent implements OnInit {
       }))
     };
 
-    this.seoService.setLocalizedPageSeo({
+    this.seoService.setCanonicalPageSeo({
       title: data.metaTitle,
       description: data.metaDescription,
-      keywords: 'it company in kanpur, software company in kanpur, best it company in kanpur, top software company in kanpur, web development company kanpur, website development kanpur, custom software kanpur, erp software kanpur, billing software kanpur, yogteck business solution',
-      localeCode: localeCode,
-      pathWithoutLocale: data.slug,
+      canonicalUrl: canonicalUrl,
       jsonLdSchemas: [breadcrumbSchema, localBusinessSchema, faqSchema]
     });
 

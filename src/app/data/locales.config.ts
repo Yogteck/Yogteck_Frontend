@@ -99,6 +99,234 @@ export const SUPPORTED_LOCALES: LocaleConfig[] = [
     dateFormatLocale: 'en-AU'
   },
   {
+    code: 'en-gb',
+    urlPrefix: '/en-gb',
+    lang: 'en',
+    country: 'GB',
+    htmlLang: 'en-GB',
+    name: 'English (United Kingdom)',
+    nativeName: 'English (UK)',
+    languageName: 'English',
+    countryName: 'United Kingdom',
+    dir: 'ltr',
+    isRtl: false,
+    flagEmoji: '🇬🇧',
+    dialCode: '+44',
+    currencyCode: 'GBP',
+    currencySymbol: '£',
+    numberFormatLocale: 'en-GB',
+    dateFormatLocale: 'en-GB'
+  },
+  {
+    code: 'en-sg',
+    urlPrefix: '/en-sg',
+    lang: 'en',
+    country: 'SG',
+    htmlLang: 'en-SG',
+    name: 'English (Singapore)',
+    nativeName: 'English (SG)',
+    languageName: 'English',
+    countryName: 'Singapore',
+    dir: 'ltr',
+    isRtl: false,
+    flagEmoji: '🇸🇬',
+    dialCode: '+65',
+    currencyCode: 'SGD',
+    currencySymbol: 'S$',
+    numberFormatLocale: 'en-SG',
+    dateFormatLocale: 'en-SG'
+  },
+  {
+    code: 'en-ph',
+    urlPrefix: '/en-ph',
+    lang: 'en',
+    country: 'PH',
+    htmlLang: 'en-PH',
+    name: 'English (Philippines)',
+    nativeName: 'English (PH)',
+    languageName: 'English',
+    countryName: 'Philippines',
+    dir: 'ltr',
+    isRtl: false,
+    flagEmoji: '🇵🇭',
+    dialCode: '+63',
+    currencyCode: 'PHP',
+    currencySymbol: '₱',
+    numberFormatLocale: 'en-PH',
+    dateFormatLocale: 'en-PH'
+  },
+  {
+    code: 'en-nz',
+    urlPrefix: '/en-nz',
+    lang: 'en',
+    country: 'NZ',
+    htmlLang: 'en-NZ',
+    name: 'English (New Zealand)',
+    nativeName: 'English (NZ)',
+    languageName: 'English',
+    countryName: 'New Zealand',
+    dir: 'ltr',
+    isRtl: false,
+    flagEmoji: '🇳🇿',
+    dialCode: '+64',
+    currencyCode: 'NZD',
+    currencySymbol: 'NZ$',
+    numberFormatLocale: 'en-NZ',
+    dateFormatLocale: 'en-NZ'
+  },
+  {
+    code: 'en-ae',
+    urlPrefix: '/en-ae',
+    lang: 'en',
+    country: 'AE',
+    htmlLang: 'en-AE',
+    name: 'English (United Arab Emirates)',
+    nativeName: 'English (UAE)',
+    languageName: 'English',
+    countryName: 'United Arab Emirates',
+    dir: 'ltr',
+    isRtl: false,
+    flagEmoji: '🇦🇪',
+    dialCode: '+971',
+    currencyCode: 'AED',
+    currencySymbol: 'AED',
+    numberFormatLocale: 'en-AE',
+    dateFormatLocale: 'en-AE'
+  },
+  {
+    code: 'de-de',
+    urlPrefix: '/de-de',
+    lang: 'de',
+    country: 'DE',
+    htmlLang: 'de-DE',
+    name: 'Deutsch (Deutschland)',
+    nativeName: 'Deutsch',
+    languageName: 'Deutsch',
+    countryName: 'Deutschland',
+    dir: 'ltr',
+    isRtl: false,
+    flagEmoji: '🇩🇪',
+    dialCode: '+49',
+    currencyCode: 'EUR',
+    currencySymbol: '€',
+    numberFormatLocale: 'de-DE',
+    dateFormatLocale: 'de-DE'
+  },
+  {
+    code: 'fr-fr',
+    urlPrefix: '/fr-fr',
+    lang: 'fr',
+    country: 'FR',
+    htmlLang: 'fr-FR',
+    name: 'Français (France)',
+    nativeName: 'Français',
+    languageName: 'Français',
+    countryName: 'France',
+    dir: 'ltr',
+    isRtl: false,
+    flagEmoji: '🇫🇷',
+    dialCode: '+33',
+    currencyCode: 'EUR',
+    currencySymbol: '€',
+    numberFormatLocale: 'fr-FR',
+    dateFormatLocale: 'fr-FR'
+  },
+  {
+    code: 'es-es',
+    urlPrefix: '/es-es',
+    lang: 'es',
+    country: 'ES',
+    htmlLang: 'es-ES',
+    name: 'Español (España)',
+    nativeName: 'Español',
+    languageName: 'Español',
+    countryName: 'España',
+    dir: 'ltr',
+    isRtl: false,
+    flagEmoji: '🇪🇸',
+    dialCode: '+34',
+    currencyCode: 'EUR',
+    currencySymbol: '€',
+    numberFormatLocale: 'es-ES',
+    dateFormatLocale: 'es-ES'
+  },
+  {
+    code: 'it-it',
+    urlPrefix: '/it-it',
+    lang: 'it',
+    country: 'IT',
+    htmlLang: 'it-IT',
+    name: 'Italiano (Italia)',
+    nativeName: 'Italiano',
+    languageName: 'Italiano',
+    countryName: 'Italia',
+    dir: 'ltr',
+    isRtl: false,
+    flagEmoji: '🇮🇹',
+    dialCode: '+39',
+    currencyCode: 'EUR',
+    currencySymbol: '€',
+    numberFormatLocale: 'it-IT',
+    dateFormatLocale: 'it-IT'
+  },
+  {
+    code: 'nl-nl',
+    urlPrefix: '/nl-nl',
+    lang: 'nl',
+    country: 'NL',
+    htmlLang: 'nl-NL',
+    name: 'Nederlands (Nederland)',
+    nativeName: 'Nederlands',
+    languageName: 'Nederlands',
+    countryName: 'Nederland',
+    dir: 'ltr',
+    isRtl: false,
+    flagEmoji: '🇳🇱',
+    dialCode: '+31',
+    currencyCode: 'EUR',
+    currencySymbol: '€',
+    numberFormatLocale: 'nl-NL',
+    dateFormatLocale: 'nl-NL'
+  },
+  {
+    code: 'en-ie',
+    urlPrefix: '/en-ie',
+    lang: 'en',
+    country: 'IE',
+    htmlLang: 'en-IE',
+    name: 'English (Ireland)',
+    nativeName: 'English (IE)',
+    languageName: 'English',
+    countryName: 'Ireland',
+    dir: 'ltr',
+    isRtl: false,
+    flagEmoji: '🇮🇪',
+    dialCode: '+353',
+    currencyCode: 'EUR',
+    currencySymbol: '€',
+    numberFormatLocale: 'en-IE',
+    dateFormatLocale: 'en-IE'
+  },
+  {
+    code: 'ko-kr',
+    urlPrefix: '/ko-kr',
+    lang: 'ko',
+    country: 'KR',
+    htmlLang: 'ko-KR',
+    name: '한국어 (대한민국)',
+    nativeName: '한국어',
+    languageName: '한국어',
+    countryName: '대한민국',
+    dir: 'ltr',
+    isRtl: false,
+    flagEmoji: '🇰🇷',
+    dialCode: '+82',
+    currencyCode: 'KRW',
+    currencySymbol: '₩',
+    numberFormatLocale: 'ko-KR',
+    dateFormatLocale: 'ko-KR'
+  },
+  {
     code: 'ja-jp',
     urlPrefix: '/ja-jp',
     lang: 'ja',
@@ -297,11 +525,23 @@ export function detectBestLocale(options: {
     return 'en-in';
   }
   if (country === 'US') return 'en-us';
+  if (country === 'GB') return 'en-gb';
   if (country === 'CA') {
     if (langHeader.includes('fr')) return 'fr-ca';
     return 'en-ca';
   }
   if (country === 'AU') return 'en-au';
+  if (country === 'NZ') return 'en-nz';
+  if (country === 'SG') return 'en-sg';
+  if (country === 'PH') return 'en-ph';
+  if (country === 'AE') return 'en-ae';
+  if (country === 'DE') return 'de-de';
+  if (country === 'FR') return 'fr-fr';
+  if (country === 'ES') return 'es-es';
+  if (country === 'IT') return 'it-it';
+  if (country === 'NL') return 'nl-nl';
+  if (country === 'IE') return 'en-ie';
+  if (country === 'KR') return 'ko-kr';
   if (country === 'JP') return 'ja-jp';
   if (country === 'SA') return 'ar-sa';
   if (country === 'KW') return 'ar-kw';
@@ -313,6 +553,18 @@ export function detectBestLocale(options: {
     if (langHeader.includes('hi')) return 'hi-in';
     return 'en-in';
   }
+  if (tz.includes('london')) return 'en-gb';
+  if (tz.includes('singapore')) return 'en-sg';
+  if (tz.includes('manila')) return 'en-ph';
+  if (tz.includes('auckland') || tz.includes('wellington')) return 'en-nz';
+  if (tz.includes('dubai')) return 'en-ae';
+  if (tz.includes('berlin')) return 'de-de';
+  if (tz.includes('paris')) return 'fr-fr';
+  if (tz.includes('madrid')) return 'es-es';
+  if (tz.includes('rome')) return 'it-it';
+  if (tz.includes('amsterdam')) return 'nl-nl';
+  if (tz.includes('dublin')) return 'en-ie';
+  if (tz.includes('seoul')) return 'ko-kr';
   if (tz.includes('riyadh')) return 'ar-sa';
   if (tz.includes('kuwait')) return 'ar-kw';
   if (tz.includes('bahrain')) return 'ar-bh';
@@ -326,9 +578,14 @@ export function detectBestLocale(options: {
 
   // 5. Accept-Language header / browserLanguage heuristics
   if (langHeader.startsWith('ja')) return 'ja-jp';
+  if (langHeader.startsWith('ko')) return 'ko-kr';
+  if (langHeader.startsWith('de')) return 'de-de';
+  if (langHeader.startsWith('es')) return 'es-es';
+  if (langHeader.startsWith('it')) return 'it-it';
+  if (langHeader.startsWith('nl')) return 'nl-nl';
   if (langHeader.startsWith('hi')) return 'hi-in';
   if (langHeader.startsWith('ar')) return 'ar-sa';
-  if (langHeader.startsWith('fr')) return 'fr-ca';
+  if (langHeader.startsWith('fr')) return 'fr-fr';
 
   // 6. Global Fallback (x-default)
   return X_DEFAULT_LOCALE;

@@ -83,24 +83,60 @@ function getLastModDate(filePath) {
   return new Date().toISOString().split('T')[0];
 }
 
+export const SITEMAP_LOCALES = [
+  { hreflang: 'x-default', prefix: '' },
+  { hreflang: 'en-US', prefix: 'en-us' },
+  { hreflang: 'en-GB', prefix: 'en-gb' },
+  { hreflang: 'en-CA', prefix: 'en-ca' },
+  { hreflang: 'en-AU', prefix: 'en-au' },
+  { hreflang: 'en-SG', prefix: 'en-sg' },
+  { hreflang: 'en-PH', prefix: 'en-ph' },
+  { hreflang: 'en-NZ', prefix: 'en-nz' },
+  { hreflang: 'en-AE', prefix: 'en-ae' },
+  { hreflang: 'de-DE', prefix: 'de-de' },
+  { hreflang: 'fr-FR', prefix: 'fr-fr' },
+  { hreflang: 'es-ES', prefix: 'es-es' },
+  { hreflang: 'it-IT', prefix: 'it-it' },
+  { hreflang: 'nl-NL', prefix: 'nl-nl' },
+  { hreflang: 'en-IE', prefix: 'en-ie' },
+  { hreflang: 'ja-JP', prefix: 'ja-jp' },
+  { hreflang: 'ko-KR', prefix: 'ko-kr' },
+  { hreflang: 'ar-SA', prefix: 'ar-sa' },
+  { hreflang: 'en-IN', prefix: 'en-in' },
+  { hreflang: 'hi-IN', prefix: 'hi-in' }
+];
+
 /**
- * Build canonical XML sitemap
+ * Build canonical XML sitemap with reciprocal international hreflang links
  */
 export function buildSitemapXml() {
   const lines = [
     '<?xml version="1.0" encoding="UTF-8"?>',
-    '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
+    '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"',
+    '        xmlns:xhtml="http://www.w3.org/1999/xhtml">'
   ];
 
   for (const route of CANONICAL_ROUTES) {
-    const pageUrl = route.path ? `${DOMAIN}/${route.path}` : `${DOMAIN}/`;
+    const canonicalUrl = route.path ? `${DOMAIN}/${route.path}` : `${DOMAIN}/`;
     const lastmod = getLastModDate(route.sourceFile);
 
     lines.push('  <url>');
-    lines.push(`    <loc>${pageUrl}</loc>`);
+    lines.push(`    <loc>${canonicalUrl}</loc>`);
     lines.push(`    <lastmod>${lastmod}</lastmod>`);
     lines.push(`    <changefreq>${route.changefreq}</changefreq>`);
     lines.push(`    <priority>${route.priority}</priority>`);
+
+    // Only add alternate language links for global general pages (not city-specific stubs)
+    const isLocalCityHub = route.path.startsWith('it-software-company-');
+    if (!isLocalCityHub) {
+      for (const loc of SITEMAP_LOCALES) {
+        const altUrl = loc.prefix
+          ? `${DOMAIN}/${loc.prefix}${route.path ? `/${route.path}` : '/'}`
+          : canonicalUrl;
+        lines.push(`    <xhtml:link rel="alternate" hreflang="${loc.hreflang}" href="${altUrl}" />`);
+      }
+    }
+
     lines.push('  </url>');
   }
 

@@ -119,7 +119,7 @@ export class ServiceDetailComponent implements OnInit, OnDestroy {
       "@context": "https://schema.org",
       "@type": "Service",
       "serviceType": data.title,
-      "inLanguage": "en-IN",
+      "inLanguage": currentLocale.htmlLang || "en",
       "provider": {
         "@type": "Organization",
         "name": "Yogteck Business Solution",
@@ -137,8 +137,17 @@ export class ServiceDetailComponent implements OnInit, OnDestroy {
         }
       },
       "areaServed": [
-        { "@type": "Country", "name": "India" },
-        { "@type": "City", "name": "Kanpur" }
+        { "@type": "Country", "name": "United States" },
+        { "@type": "Country", "name": "United Kingdom" },
+        { "@type": "Country", "name": "Canada" },
+        { "@type": "Country", "name": "Australia" },
+        { "@type": "Country", "name": "Germany" },
+        { "@type": "Country", "name": "Singapore" },
+        { "@type": "Country", "name": "Philippines" },
+        { "@type": "Country", "name": "United Arab Emirates" },
+        { "@type": "Country", "name": "Japan" },
+        { "@type": "Country", "name": "South Korea" },
+        { "@type": "Country", "name": "India" }
       ],
       "description": data.metaDescription
     };

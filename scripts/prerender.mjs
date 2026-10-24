@@ -502,6 +502,96 @@ const PAGES_DATA = [
     directAnswer: 'YogTeck delivers custom enterprise software platforms, wholesale billing solutions, and secure cloud web applications for businesses across the Mumbai metropolitan area.',
     type: 'WebPage',
     isNoindex: true
+  },
+
+  // ── International Regional Landing Pages ─────────────────────────────────
+  {
+    path: 'en-us',
+    title: 'Custom Software Development & Cloud SaaS Solutions USA | YogTeck',
+    description: 'YogTeck delivers enterprise software development, cloud ERP, custom SaaS applications, and dedicated engineering teams for US businesses.',
+    h1: 'Enterprise Software Engineering & Cloud Solutions in the USA',
+    directAnswer: 'YogTeck provides high-performance custom software development, cloud ERP platforms, and dedicated software engineering teams for businesses across the United States.',
+    type: 'WebSite'
+  },
+  {
+    path: 'en-gb',
+    title: 'Bespoke Software Development & Cloud Systems UK | YogTeck',
+    description: 'Bespoke software development, enterprise cloud platforms, and dedicated developer teams for UK businesses by YogTeck.',
+    h1: 'Bespoke Software Development & Enterprise Engineering UK',
+    directAnswer: 'YogTeck engineers bespoke enterprise software, modern web portals, and scalable cloud systems tailored for UK organizations.',
+    type: 'WebSite'
+  },
+  {
+    path: 'en-ca',
+    title: 'Custom Software Development & Cloud ERP Solutions Canada | YogTeck',
+    description: 'Full-cycle custom software development, cloud ERP, and web applications engineered by YogTeck for Canadian enterprises.',
+    h1: 'Custom Software Engineering & Cloud Platforms in Canada',
+    directAnswer: 'YogTeck delivers scalable cloud architectures, custom software development, and modern web applications for Canadian businesses.',
+    type: 'WebSite'
+  },
+  {
+    path: 'en-au',
+    title: 'Custom Software Development & Cloud ERP Australia | YogTeck',
+    description: 'Premier custom software development, cloud ERP architectures, and web application solutions for Australian businesses.',
+    h1: 'Custom Software Development & Digital Solutions in Australia',
+    directAnswer: 'YogTeck engineers reliable business management systems, custom software platforms, and high-speed web apps across Australia.',
+    type: 'WebSite'
+  },
+  {
+    path: 'en-sg',
+    title: 'Custom Software Development & Enterprise ERP Singapore | YogTeck',
+    description: 'Leading software development and cloud ERP solutions for enterprises in Singapore and Southeast Asia by YogTeck.',
+    h1: 'Custom Software & Enterprise Cloud ERP in Singapore',
+    directAnswer: 'YogTeck builds high-performance web platforms, enterprise ERP systems, and custom SaaS software for businesses in Singapore.',
+    type: 'WebSite'
+  },
+  {
+    path: 'en-ph',
+    title: 'Custom Software Development & Business Solutions Philippines | YogTeck',
+    description: 'Trusted custom software development, cloud business management, and web applications in the Philippines by YogTeck.',
+    h1: 'Custom Software Development & Cloud Systems Philippines',
+    directAnswer: 'YogTeck delivers dependable custom software engineering, business ERP suites, and modern web applications in the Philippines.',
+    type: 'WebSite'
+  },
+  {
+    path: 'de-de',
+    title: 'Individuelle Softwareentwicklung & Cloud-ERP Deutschland | YogTeck',
+    description: 'Maßgeschneiderte Unternehmenssoftware, Cloud-ERP-Systeme und moderne Webanwendungen für den deutschen Markt.',
+    h1: 'Individuelle Softwareentwicklung & Cloud-Lösungen in Deutschland',
+    directAnswer: 'YogTeck entwickelt maßgeschneiderte Unternehmenssoftware, Cloud-ERP-Plattformen und skalierbare Webanwendungen für deutsche Unternehmen.',
+    type: 'WebSite'
+  },
+  {
+    path: 'fr-fr',
+    title: 'Développement de Logiciels sur Mesure & Cloud ERP France | YogTeck',
+    description: 'Développement de logiciels sur mesure, plateformes ERP cloud et applications web haute performance par YogTeck pour la France.',
+    h1: 'Développement de Logiciels sur Mesure & Solutions Cloud en France',
+    directAnswer: 'YogTeck conçoit et développe des logiciels d’entreprise sur mesure, des systèmes ERP cloud et des applications web modernes pour les entreprises.',
+    type: 'WebSite'
+  },
+  {
+    path: 'ja-jp',
+    title: 'カスタムソフトウェア開発・クラウドERP開発 日本 | YogTeck',
+    description: '日本市場向けカスタムソフトウェア開発、クラウドERP導入、最新Webアプリケーション構築サービス。',
+    h1: '企業向けカスタムソフトウェア開発＆クラウドERPソリューション',
+    directAnswer: 'YogTeckは、製造業、小売業、IT企業向けに高品質なカスタムソフトウェア開発、クラウドERPプラットフォーム、高速Webソリューションを提供します。',
+    type: 'WebSite'
+  },
+  {
+    path: 'ko-kr',
+    title: '맞춤형 소프트웨어 개발 및 엔터프라이즈 클라우드 ERP 한국 | YogTeck',
+    description: '기업 맞춤형 소프트웨어 엔지니어링, 클라우드 ERP 시스템 구축 및 고성능 웹 애플리케이션 개발.',
+    h1: '기업용 맞춤형 소프트웨어 개발 및 클라우드 솔루션',
+    directAnswer: 'YogTeck은 기업의 비즈니스 효율을 극대화하는 맞춤형 소프트웨어와 고성능 클라우드 ERP 플랫폼을 제공합니다.',
+    type: 'WebSite'
+  },
+  {
+    path: 'en',
+    title: 'Global Custom Software Development & Enterprise Solutions | YogTeck',
+    description: 'Full-cycle custom software development, cloud ERP architectures, and dedicated engineering teams for international businesses.',
+    h1: 'Global Custom Software Development & Cloud Engineering',
+    directAnswer: 'YogTeck delivers full-cycle software engineering, cloud ERP architectures, and dedicated development teams for forward-thinking international clients.',
+    type: 'WebSite'
   }
 ];
 
@@ -578,10 +668,22 @@ function generateJsonLd(page) {
         telephone: '+91 8299209905',
         address: ORG_SCHEMA.address
       },
-      areaServed: {
-        '@type': 'AdministrativeArea',
-        name: page.path.includes('lucknow') ? 'Lucknow' : page.path.includes('raebareli') ? 'Raebareli' : 'India'
-      },
+      areaServed: page.path.includes('lucknow') ? [{ '@type': 'City', name: 'Lucknow' }] :
+                  page.path.includes('raebareli') ? [{ '@type': 'City', name: 'Raebareli' }] :
+                  page.path.includes('kanpur') ? [{ '@type': 'City', name: 'Kanpur' }] :
+                  [
+                    { '@type': 'Country', name: 'United States' },
+                    { '@type': 'Country', name: 'United Kingdom' },
+                    { '@type': 'Country', name: 'Canada' },
+                    { '@type': 'Country', name: 'Australia' },
+                    { '@type': 'Country', name: 'Germany' },
+                    { '@type': 'Country', name: 'Singapore' },
+                    { '@type': 'Country', name: 'Philippines' },
+                    { '@type': 'Country', name: 'United Arab Emirates' },
+                    { '@type': 'Country', name: 'Japan' },
+                    { '@type': 'Country', name: 'South Korea' },
+                    { '@type': 'Country', name: 'India' }
+                  ],
       hasOfferCatalog: {
         '@type': 'OfferCatalog',
         name: 'Software Services',
@@ -778,6 +880,44 @@ async function runPrerender() {
       html = html.replace('</head>', `  <link rel="canonical" href="${pageUrl}">\n</head>`);
     }
 
+    // Reciprocal hreflang tags for international search engines
+    let hreflangHtml = '';
+    if (!page.isNoindex && !page.path.startsWith('it-software-company-')) {
+      const HREFLANG_CONFIGS = [
+        { hreflang: 'x-default', prefix: '' },
+        { hreflang: 'en-US', prefix: 'en-us' },
+        { hreflang: 'en-GB', prefix: 'en-gb' },
+        { hreflang: 'en-CA', prefix: 'en-ca' },
+        { hreflang: 'en-AU', prefix: 'en-au' },
+        { hreflang: 'en-SG', prefix: 'en-sg' },
+        { hreflang: 'en-PH', prefix: 'en-ph' },
+        { hreflang: 'en-NZ', prefix: 'en-nz' },
+        { hreflang: 'en-AE', prefix: 'en-ae' },
+        { hreflang: 'de-DE', prefix: 'de-de' },
+        { hreflang: 'fr-FR', prefix: 'fr-fr' },
+        { hreflang: 'es-ES', prefix: 'es-es' },
+        { hreflang: 'it-IT', prefix: 'it-it' },
+        { hreflang: 'nl-NL', prefix: 'nl-nl' },
+        { hreflang: 'en-IE', prefix: 'en-ie' },
+        { hreflang: 'ja-JP', prefix: 'ja-jp' },
+        { hreflang: 'ko-KR', prefix: 'ko-kr' },
+        { hreflang: 'ar-SA', prefix: 'ar-sa' },
+        { hreflang: 'en-IN', prefix: 'en-in' },
+        { hreflang: 'hi-IN', prefix: 'hi-in' }
+      ];
+      const isCountryHome = HREFLANG_CONFIGS.some(c => c.prefix === page.path);
+      const basePath = isCountryHome ? '' : page.path;
+      hreflangHtml = HREFLANG_CONFIGS.map(c => {
+        let altUrl;
+        if (c.prefix) {
+          altUrl = `${DOMAIN}/${c.prefix}${basePath ? `/${basePath}/` : '/'}`;
+        } else {
+          altUrl = `${DOMAIN}${basePath ? `/${basePath}` : '/'}`;
+        }
+        return `  <link rel="alternate" hreflang="${c.hreflang}" href="${altUrl}">`;
+      }).join('\n');
+    }
+
     // Inject Meta Robots & Open Graph / Twitter Tags
     const ogImage = `${DOMAIN}/assets/images/og-image.jpg`;
     const metaTags = `
@@ -792,7 +932,7 @@ async function runPrerender() {
   <meta name="twitter:title" content="${page.title}">
   <meta name="twitter:description" content="${page.description}">
   <meta name="twitter:image" content="${ogImage}">
-  <script type="application/ld+json">
+${hreflangHtml ? `${hreflangHtml}\n` : ''}  <script type="application/ld+json">
 ${jsonLdContent}
   </script>
 </head>`;

@@ -10,6 +10,11 @@ import { arKwDictionary } from './ar-kw';
 import { arBhDictionary } from './ar-bh';
 import { enInDictionary } from './en-in';
 import { hiInDictionary } from './hi-in';
+import { enGbDictionary } from './en-gb';
+import { enSgDictionary } from './en-sg';
+import { enPhDictionary } from './en-ph';
+import { deDeDictionary } from './de-de';
+import { koKrDictionary } from './ko-kr';
 
 export type { LocaleDictionary } from './locale-strings.interface';
 
@@ -19,6 +24,11 @@ export const DICTIONARIES: Record<string, LocaleDictionary> = {
   'en-ca': enCaDictionary,
   'fr-ca': frCaDictionary,
   'en-au': enAuDictionary,
+  'en-gb': enGbDictionary,
+  'en-sg': enSgDictionary,
+  'en-ph': enPhDictionary,
+  'de-de': deDeDictionary,
+  'ko-kr': koKrDictionary,
   'ja-jp': jaJpDictionary,
   'ar-sa': arSaDictionary,
   'ar-kw': arKwDictionary,

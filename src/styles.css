@@ -71,7 +71,8 @@
 
   /* Layout */
   --container-max-width: 1280px;
-  --navbar-height: 76px;
+  --navbar-height: 98px;
+  --navbar-topbar-height: 34px;
   --mobile-bottom-bar-height: 68px;
 
   /* Fonts */
@@ -1420,3 +1421,10 @@ body.theme-light {
     scroll-behavior: auto !important;
   }
 }
+
+@media (max-width: 1040px) {
+  :root {
+    --navbar-height: 92px;
+  }
+}
+

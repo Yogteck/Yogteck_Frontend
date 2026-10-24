@@ -3,23 +3,131 @@
   top: 0;
   left: 0;
   right: 0;
-  height: var(--navbar-height);
   z-index: 1000;
-  background: rgba(5, 11, 26, 0.65);
+  background: rgba(5, 11, 26, 0.75);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
   transition: all var(--transition-normal);
+  display: flex;
+  flex-direction: column;
 }
 
 .navbar-header.is-scrolled {
-  background: rgba(5, 11, 26, 0.92);
+  background: rgba(5, 11, 26, 0.94);
   border-bottom-color: rgba(255, 154, 31, 0.2);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
 }
 
+/* 1. Top Mini Utility Bar (Half height: ~34px) */
+.navbar-top-utility-bar {
+  height: var(--navbar-topbar-height, 34px);
+  background: rgba(3, 7, 18, 0.72);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: 0.75rem;
+  display: flex;
+  align-items: center;
+  position: relative;
+  z-index: 1001;
+}
+
+.topbar-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 1440px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 20px;
+  padding-right: 20px;
+  gap: 12px;
+}
+
+.topbar-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.topbar-contact-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #94A3B8;
+  text-decoration: none;
+  font-size: 0.75rem;
+  font-weight: 500;
+  transition: color var(--transition-fast);
+  white-space: nowrap;
+}
+
+.topbar-contact-item:hover {
+  color: #FF9A1F;
+}
+
+.topbar-icon {
+  width: 13px;
+  height: 13px;
+  color: #FF9A1F;
+  flex-shrink: 0;
+}
+
+.topbar-divider {
+  width: 1px;
+  height: 14px;
+  background: rgba(255, 255, 255, 0.12);
+}
+
+/* Topbar compact language switcher and theme toggle */
+.navbar-top-utility-bar ::ng-deep .lang-switcher-btn {
+  padding: 2px 8px;
+  font-size: 11.5px;
+  height: 24px;
+  border-radius: 6px;
+  gap: 5px;
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.navbar-top-utility-bar ::ng-deep .lang-switcher-btn .flag-icon {
+  font-size: 12px;
+  line-height: 1;
+}
+
+.navbar-top-utility-bar ::ng-deep .lang-switcher-btn .chevron-icon {
+  width: 11px;
+  height: 11px;
+}
+
+.navbar-top-utility-bar .theme-segmented-toggle {
+  padding: 2px;
+  gap: 1px;
+}
+
+.navbar-top-utility-bar .theme-segment-btn {
+  padding: 2px 7px;
+  font-size: 0.6875rem;
+  gap: 3px;
+}
+
+.navbar-top-utility-bar .seg-icon {
+  width: 11px;
+  height: 11px;
+}
+
+/* 2. Main Navbar Bar */
 .navbar-container {
-  height: 100%;
+  height: calc(var(--navbar-height, 100px) - var(--navbar-topbar-height, 34px));
+  min-height: 58px;
   width: 100%;
   max-width: 1440px;
   margin-left: auto;
@@ -544,6 +652,61 @@ body.theme-light .ham-line {
   background: #0F172A;
 }
 
+.quote-text-mobile {
+  display: none;
+}
+
+.btn-quote-icon {
+  display: none;
+}
+
+/* Light mode overrides for top utility bar */
+:host-context([data-theme="light"]) .navbar-top-utility-bar,
+:host-context(body.theme-light) .navbar-top-utility-bar,
+[data-theme="light"] .navbar-top-utility-bar,
+body.theme-light .navbar-top-utility-bar {
+  background: #F8FAFC;
+  border-bottom-color: #E2E8F0;
+  color: #475569;
+}
+
+:host-context([data-theme="light"]) .topbar-contact-item,
+:host-context(body.theme-light) .topbar-contact-item,
+[data-theme="light"] .topbar-contact-item,
+body.theme-light .topbar-contact-item {
+  color: #475569;
+}
+
+:host-context([data-theme="light"]) .topbar-contact-item:hover,
+:host-context(body.theme-light) .topbar-contact-item:hover,
+[data-theme="light"] .topbar-contact-item:hover,
+body.theme-light .topbar-contact-item:hover {
+  color: #EA580C;
+}
+
+:host-context([data-theme="light"]) .topbar-icon,
+:host-context(body.theme-light) .topbar-icon,
+[data-theme="light"] .topbar-icon,
+body.theme-light .topbar-icon {
+  color: #EA580C;
+}
+
+:host-context([data-theme="light"]) .topbar-divider,
+:host-context(body.theme-light) .topbar-divider,
+[data-theme="light"] .topbar-divider,
+body.theme-light .topbar-divider {
+  background: #E2E8F0;
+}
+
+:host-context([data-theme="light"]) .navbar-top-utility-bar ::ng-deep .lang-switcher-btn,
+:host-context(body.theme-light) .navbar-top-utility-bar ::ng-deep .lang-switcher-btn,
+[data-theme="light"] .navbar-top-utility-bar ::ng-deep .lang-switcher-btn,
+body.theme-light .navbar-top-utility-bar ::ng-deep .lang-switcher-btn {
+  background: #FFFFFF;
+  border-color: #CBD5E1;
+  color: #0F172A;
+}
+
 /* Responsive Rules */
 @media (max-width: 1220px) {
   .nav-link {
@@ -568,10 +731,93 @@ body.theme-light .ham-line {
   .desktop-nav {
     display: none;
   }
+  .topbar-container {
+    padding-left: 12px;
+    padding-right: 12px;
+    gap: 8px;
+  }
+  .navbar-container {
+    padding-left: 12px;
+    padding-right: 12px;
+    min-height: 54px;
+  }
+  .d-none-mobile {
+    display: none !important;
+  }
   .quote-btn {
+    display: inline-flex !important;
+    padding: 5px 12px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    border-radius: var(--radius-sm);
+    gap: 5px;
+    background: rgba(255, 154, 31, 0.12);
+    border: 1px solid #FF9A1F;
+    color: #FF9A1F;
+    box-shadow: 0 0 12px rgba(255, 154, 31, 0.2);
+  }
+  .quote-text-desktop {
+    display: none;
+  }
+  .quote-text-mobile {
+    display: inline;
+  }
+  .btn-quote-icon {
+    display: inline-block;
+    width: 13px;
+    height: 13px;
+  }
+  .quote-btn .btn-arrow {
     display: none;
   }
   .hamburger-btn {
     display: flex;
+    width: 36px;
+    height: 36px;
+    padding: 7px;
+  }
+  .brand-slogan {
+    display: none;
+  }
+  .brand-name {
+    font-size: 1.15rem;
+  }
+  .logo-mark {
+    width: 34px;
+    height: 34px;
+  }
+}
+
+@media (max-width: 480px) {
+  .topbar-container {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+  .navbar-container {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+  .topbar-contact-item {
+    font-size: 0.6875rem;
+  }
+  .email-text {
+    max-width: 140px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .navbar-top-utility-bar ::ng-deep .lang-switcher-btn {
+    padding: 2px 6px;
+    font-size: 10.5px;
+    max-width: 110px;
+  }
+  .navbar-top-utility-bar ::ng-deep .locale-label {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .quote-btn {
+    padding: 4px 9px;
+    font-size: 0.72rem;
   }
 }

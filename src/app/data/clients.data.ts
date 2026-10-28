@@ -28,12 +28,12 @@ export const CLIENTS_DATA: ClientItem[] = [
     description: 'Scalable e-commerce and health wellness platform serving verified healthcare products pan-India.'
   },
   {
-    id: 'business-web-solutions',
-    name: 'Business Web Solutions',
-    shortName: 'Business Web Solutions',
-    category: 'IT & Digital Consulting',
-    initials: 'BWS',
+    id: 'techno-racks',
+    name: 'Techno Racks Storage Systems',
+    shortName: 'Techno Racks',
+    category: 'Industrial Storage & Mezzanines',
+    initials: 'TR',
     accentColor: '#10B981',
-    description: 'Digital consulting agency partnering on cloud architecture, client portals, and performance optimization.'
+    description: 'B2B digital catalog and industrial racking quotation portal engineered for national commercial buyers.'
   }
 ];

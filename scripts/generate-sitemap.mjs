@@ -28,11 +28,20 @@ export const CANONICAL_ROUTES = [
   { path: 'services/website-development', sourceFile: 'src/app/data/seo-content.data.ts', priority: '0.9', changefreq: 'monthly' },
   { path: 'services/mobile-app-development', sourceFile: 'src/app/data/seo-content.data.ts', priority: '0.9', changefreq: 'monthly' },
   { path: 'services/custom-software-development', sourceFile: 'src/app/data/seo-content.data.ts', priority: '0.9', changefreq: 'monthly' },
+  { path: 'services/erp-software', sourceFile: 'src/app/data/seo-content.data.ts', priority: '0.9', changefreq: 'monthly' },
+  { path: 'services/inventory-software', sourceFile: 'src/app/data/seo-content.data.ts', priority: '0.9', changefreq: 'monthly' },
   { path: 'services/billing-software', sourceFile: 'src/app/data/seo-content.data.ts', priority: '0.9', changefreq: 'monthly' },
+  { path: 'services/mlm-software', sourceFile: 'src/app/data/seo-content.data.ts', priority: '0.9', changefreq: 'monthly' },
+  { path: 'services/ai-software-development', sourceFile: 'src/app/data/seo-content.data.ts', priority: '0.9', changefreq: 'monthly' },
   { path: 'services/ecommerce-development', sourceFile: 'src/app/data/seo-content.data.ts', priority: '0.9', changefreq: 'monthly' },
   { path: 'services/seo-digital-growth', sourceFile: 'src/app/data/seo-content.data.ts', priority: '0.9', changefreq: 'monthly' },
   { path: 'services/business-software', sourceFile: 'src/app/data/seo-content.data.ts', priority: '0.8', changefreq: 'monthly' },
   { path: 'services/real-estate-plotting-software', sourceFile: 'src/app/data/seo-content.data.ts', priority: '0.9', changefreq: 'monthly' },
+
+  // Engineering & Growth Blog Posts (Task 3)
+  { path: 'blog/website-development-cost-in-kanpur', sourceFile: 'src/app/data/blog.data.ts', priority: '0.8', changefreq: 'monthly' },
+  { path: 'blog/top-it-companies-in-kanpur', sourceFile: 'src/app/data/blog.data.ts', priority: '0.8', changefreq: 'monthly' },
+  { path: 'blog/inventory-management-software-lucknow', sourceFile: 'src/app/data/blog.data.ts', priority: '0.8', changefreq: 'monthly' },
 
   // Product Suites
   { path: 'products/erp-software', sourceFile: 'src/app/data/extended-seo.data.ts', priority: '0.9', changefreq: 'monthly' },
@@ -49,12 +58,22 @@ export const CANONICAL_ROUTES = [
   { path: 'clients', sourceFile: 'src/app/components/clients-page/clients-page.component.ts', priority: '0.8', changefreq: 'monthly' },
   { path: 'clients/mmr-constructions', sourceFile: 'src/app/data/extended-seo.data.ts', priority: '0.8', changefreq: 'monthly' },
   { path: 'clients/yogkart-healthcare', sourceFile: 'src/app/data/extended-seo.data.ts', priority: '0.8', changefreq: 'monthly' },
-  { path: 'clients/business-web-solutions', sourceFile: 'src/app/data/extended-seo.data.ts', priority: '0.8', changefreq: 'monthly' },
+  { path: 'clients/techno-racks', sourceFile: 'src/app/data/extended-seo.data.ts', priority: '0.8', changefreq: 'monthly' },
 
-  // Indexable Regional Office / Service Hubs
+  // Service Areas Directory
+  { path: 'service-areas', sourceFile: 'src/app/components/service-areas/service-areas.component.ts', priority: '0.8', changefreq: 'monthly' },
+
+  // Specialized Industry & Service Solutions (Passes Indexing Gate: >=800 words, >=5 FAQs, no placeholders)
+  { path: 'solutions/erp-for-manufacturers', sourceFile: 'src/app/data/solutions.data.ts', priority: '0.9', changefreq: 'monthly' },
+  { path: 'solutions/inventory-software-for-traders', sourceFile: 'src/app/data/solutions.data.ts', priority: '0.9', changefreq: 'monthly' },
+  { path: 'solutions/billing-software-for-retail', sourceFile: 'src/app/data/solutions.data.ts', priority: '0.9', changefreq: 'monthly' },
+  { path: 'solutions/erp-for-pharma-distributors', sourceFile: 'src/app/data/solutions.data.ts', priority: '0.9', changefreq: 'monthly' },
+
+  // Indexable Regional Office / Service Hubs (Task 3 Indexing Gate: No [OWNER]/[VERIFY], >=800 words, >=5 FAQs, <40% overlap)
   { path: 'it-software-company-kanpur', sourceFile: 'src/app/components/kanpur-location/kanpur-location.component.ts', priority: '0.9', changefreq: 'monthly' },
   { path: 'it-software-company-lucknow', sourceFile: 'src/app/components/lucknow-location/lucknow-location.component.ts', priority: '0.8', changefreq: 'monthly' },
-  { path: 'it-software-company-raebareli', sourceFile: 'src/app/components/raebareli-location/raebareli-location.component.ts', priority: '0.8', changefreq: 'monthly' }
+  { path: 'it-software-company-uttar-pradesh', sourceFile: 'src/app/data/extended-seo.data.ts', priority: '0.9', changefreq: 'monthly' }
+  // Draft city and state pages containing [VERIFY: ...] (Jaipur, Indore, Ahmedabad, Chandigarh, Bangalore, Rajasthan, Gujarat, MP, Pune, Mumbai, Delhi NCR, Raebareli) fail the indexing gate and are excluded from the sitemap until verified.
 ];
 
 /**
@@ -83,37 +102,13 @@ function getLastModDate(filePath) {
   return new Date().toISOString().split('T')[0];
 }
 
-export const SITEMAP_LOCALES = [
-  { hreflang: 'x-default', prefix: '' },
-  { hreflang: 'en-US', prefix: 'en-us' },
-  { hreflang: 'en-GB', prefix: 'en-gb' },
-  { hreflang: 'en-CA', prefix: 'en-ca' },
-  { hreflang: 'en-AU', prefix: 'en-au' },
-  { hreflang: 'en-SG', prefix: 'en-sg' },
-  { hreflang: 'en-PH', prefix: 'en-ph' },
-  { hreflang: 'en-NZ', prefix: 'en-nz' },
-  { hreflang: 'en-AE', prefix: 'en-ae' },
-  { hreflang: 'de-DE', prefix: 'de-de' },
-  { hreflang: 'fr-FR', prefix: 'fr-fr' },
-  { hreflang: 'es-ES', prefix: 'es-es' },
-  { hreflang: 'it-IT', prefix: 'it-it' },
-  { hreflang: 'nl-NL', prefix: 'nl-nl' },
-  { hreflang: 'en-IE', prefix: 'en-ie' },
-  { hreflang: 'ja-JP', prefix: 'ja-jp' },
-  { hreflang: 'ko-KR', prefix: 'ko-kr' },
-  { hreflang: 'ar-SA', prefix: 'ar-sa' },
-  { hreflang: 'en-IN', prefix: 'en-in' },
-  { hreflang: 'hi-IN', prefix: 'hi-in' }
-];
-
 /**
- * Build canonical XML sitemap with reciprocal international hreflang links
+ * Build canonical XML sitemap with ONLY canonical non-prefixed URLs (Task 1)
  */
 export function buildSitemapXml() {
   const lines = [
     '<?xml version="1.0" encoding="UTF-8"?>',
-    '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"',
-    '        xmlns:xhtml="http://www.w3.org/1999/xhtml">'
+    '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
   ];
 
   for (const route of CANONICAL_ROUTES) {
@@ -125,18 +120,6 @@ export function buildSitemapXml() {
     lines.push(`    <lastmod>${lastmod}</lastmod>`);
     lines.push(`    <changefreq>${route.changefreq}</changefreq>`);
     lines.push(`    <priority>${route.priority}</priority>`);
-
-    // Only add alternate language links for global general pages (not city-specific stubs)
-    const isLocalCityHub = route.path.startsWith('it-software-company-');
-    if (!isLocalCityHub) {
-      for (const loc of SITEMAP_LOCALES) {
-        const altUrl = loc.prefix
-          ? `${DOMAIN}/${loc.prefix}${route.path ? `/${route.path}` : '/'}`
-          : canonicalUrl;
-        lines.push(`    <xhtml:link rel="alternate" hreflang="${loc.hreflang}" href="${altUrl}" />`);
-      }
-    }
-
     lines.push('  </url>');
   }
 
@@ -146,12 +129,20 @@ export function buildSitemapXml() {
   return lines.join('\n');
 }
 
-// Generate to public/sitemap.xml
+// Generate to public/sitemap.xml and dist/bizracks-angular/browser/sitemap.xml
 const publicDir = path.join(projectRoot, 'public');
 if (!fs.existsSync(publicDir)) {
   fs.mkdirSync(publicDir, { recursive: true });
 }
 
+const sitemapContent = buildSitemapXml();
 const sitemapPath = path.join(publicDir, 'sitemap.xml');
-fs.writeFileSync(sitemapPath, buildSitemapXml(), 'utf8');
+fs.writeFileSync(sitemapPath, sitemapContent, 'utf8');
 console.log(`[sitemap] Successfully generated canonical sitemap (${CANONICAL_ROUTES.length} URLs): ${sitemapPath}`);
+
+const distDir = path.join(projectRoot, 'dist', 'bizracks-angular', 'browser');
+if (fs.existsSync(distDir)) {
+  const distSitemap = path.join(distDir, 'sitemap.xml');
+  fs.writeFileSync(distSitemap, sitemapContent, 'utf8');
+  console.log(`[sitemap] Copied sitemap to dist: ${distSitemap}`);
+}

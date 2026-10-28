@@ -31,7 +31,7 @@ YogTeck develops enterprise software, web portals, mobile apps, and business aut
   - URL: https://yogteck.com/services/real-estate-plotting-software
 
 ## Products
-- **Cloud ERP Software**: Comprehensive multi-warehouse inventory control, production Bill of Materials (BOM), automated GST e-invoicing, and staff payroll system.
+- **Cloud ERP Software**: Comprehensive multi-warehouse inventory control, production Bill of Materials (BOM), GST-ready commercial invoicing, and staff payroll system.
   - URL: https://yogteck.com/products/erp-software
 - **Multi-Tenant SaaS Platform**: High-availability SaaS foundation available both as a hosted service and as a full white-label deployment for agency owners and software entrepreneurs.
   - URL: https://yogteck.com/products/saas-platform
@@ -50,8 +50,8 @@ YogTeck develops enterprise software, web portals, mobile apps, and business aut
   - URL: https://yogteck.com/clients/mmr-constructions
 - **Yogkart Healthcare**: Ayurvedic healthcare e-commerce platform with multi-category inventory, WhatsApp order alerts, and automated courier shipping sync.
   - URL: https://yogteck.com/clients/yogkart-healthcare
-- **Business Web Solutions**: B2B multi-tenant business directory and lead generation portal with verified seller catalogs.
-  - URL: https://yogteck.com/clients/business-web-solutions
+- **Techno Racks**: Industrial storage racking systems manufacturer portal with B2B technical catalogs and direct RFQ quotation engine.
+  - URL: https://yogteck.com/clients/techno-racks
 
 ## Key Company Pages
 - **About YogTeck**: https://yogteck.com/about

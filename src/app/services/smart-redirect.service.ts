@@ -15,12 +15,33 @@ export interface RedirectMapping {
 export class SmartRedirectService {
   private readonly validRoutePaths: string[] = [
     '/',
+    '/about',
+    '/contact',
+    '/blog',
+    '/clients',
+    '/clients/mmr-constructions',
+    '/clients/yogkart-healthcare',
+    '/clients/business-web-solutions',
+    '/clients/techno-racks',
+    '/tools',
+    '/tools/whatsapp-marketing-tool',
+    '/tools/gst-billing-software',
+    '/tools/cloud-erp',
+    '/privacy-policy',
+    '/terms-of-service',
     '/admin',
     '/admin/login',
     '/admin/dashboard',
     '/it-software-company-kanpur',
     '/it-software-company-lucknow',
     '/it-software-company-raebareli',
+    '/it-software-company-uttar-pradesh',
+    '/it-software-company-faridabad',
+    '/it-software-company-noida',
+    '/it-software-company-delhi',
+    '/it-software-company-gurugram',
+    '/it-software-company-pune',
+    '/it-software-company-mumbai',
     '/services/website-development',
     '/services/custom-software-development',
     '/services/mobile-app-development',
@@ -28,7 +49,14 @@ export class SmartRedirectService {
     '/services/billing-software',
     '/services/ecommerce-development',
     '/services/seo-digital-growth',
-    '/services/business-software'
+    '/services/real-estate-plotting-software',
+    '/services/business-software',
+    '/services/inventory-software',
+    '/services/mlm-software',
+    '/services/ai-software-development',
+    '/products/erp-software',
+    '/products/saas-platform',
+    '/products/whatsapp-marketing-tool'
   ];
 
   private readonly validRoutes: RedirectMapping[] = [
@@ -44,19 +72,27 @@ export class SmartRedirectService {
     { slug: 'digital-marketing-seo', target: '/services/seo-digital-growth', keywords: ['marketing', 'seo'] },
     { slug: 'business-software', target: '/services/business-software', keywords: ['crm', 'helpdesk', 'pipeline', 'sales', 'service'] },
     { slug: 'sales-service-solutions', target: '/services/business-software', keywords: ['sales', 'service'] },
+    { slug: 'inventory-software', target: '/services/inventory-software', keywords: ['inventory', 'stock', 'warehouse'] },
+    { slug: 'mlm-software', target: '/services/mlm-software', keywords: ['mlm', 'network marketing', 'binary plan'] },
+    { slug: 'ai-software-development', target: '/services/ai-software-development', keywords: ['ai', 'artificial intelligence', 'chatbot', 'llm'] },
     { slug: 'it-software-company-kanpur', target: '/it-software-company-kanpur', keywords: ['kanpur', 'kanpur nagar', 'uttar pradesh'] },
     { slug: 'kanpur', target: '/it-software-company-kanpur', keywords: ['kanpur'] },
     { slug: 'it-software-company-lucknow', target: '/it-software-company-lucknow', keywords: ['lucknow'] },
     { slug: 'lucknow', target: '/it-software-company-lucknow', keywords: ['lucknow'] },
     { slug: 'it-software-company-raebareli', target: '/it-software-company-raebareli', keywords: ['raebareli'] },
     { slug: 'raebareli', target: '/it-software-company-raebareli', keywords: ['raebareli'] },
-    { slug: 'marketplaces', target: '/#marketplaces', keywords: ['marketplace', 'amazon', 'flipkart', 'meesho', 'walmart'] },
-    { slug: 'growth-journey', target: '/#growth-journey', keywords: ['growth', 'journey', 'scale', 'transformation'] },
-    { slug: 'projects', target: '/#projects', keywords: ['project', 'projects', 'portfolio', 'case', 'studies', 'work'] },
-    { slug: 'clients', target: '/#clients', keywords: ['client', 'clients', 'customers', 'partners', 'trusted'] },
-    { slug: 'about', target: '/#about', keywords: ['about', 'why', 'company', 'team', 'experience'] },
-    { slug: 'contact', target: '/#contact', keywords: ['contact', 'quote', 'enquiry', 'phone', 'whatsapp', 'email'] }
+    { slug: 'it-software-company-uttar-pradesh', target: '/it-software-company-uttar-pradesh', keywords: ['uttar pradesh', 'up software'] },
+    { slug: 'it-software-company-faridabad', target: '/it-software-company-faridabad', keywords: ['faridabad'] },
+    { slug: 'it-software-company-delhi', target: '/it-software-company-delhi', keywords: ['delhi', 'delhi ncr'] },
+    { slug: 'it-software-company-noida', target: '/it-software-company-noida', keywords: ['noida'] },
+    { slug: 'it-software-company-gurugram', target: '/it-software-company-gurugram', keywords: ['gurugram', 'gurgaon'] },
+    { slug: 'about', target: '/about', keywords: ['about', 'why', 'company', 'team', 'experience'] },
+    { slug: 'contact', target: '/contact', keywords: ['contact', 'quote', 'enquiry', 'phone', 'whatsapp', 'email'] },
+    { slug: 'clients', target: '/clients', keywords: ['client', 'clients', 'customers', 'partners', 'trusted'] },
+    { slug: 'tools', target: '/tools', keywords: ['tool', 'tools', 'utilities'] },
+    { slug: 'blog', target: '/blog', keywords: ['blog', 'articles', 'guides', 'insights'] }
   ];
+
 
   private logCache: Set<string> = new Set();
 
@@ -64,7 +100,7 @@ export class SmartRedirectService {
 
   public isKnownRoute(path: string): boolean {
     const clean = path.split('?')[0].split('#')[0].replace(/\/$/, '') || '/';
-    if (this.validRoutePaths.includes(clean)) {
+    if (this.validRoutePaths.includes(clean) || clean.startsWith('/blog/')) {
       return true;
     }
 
@@ -72,11 +108,12 @@ export class SmartRedirectService {
     if (segments.length > 0 && isValidLocale(segments[0])) {
       segments.shift();
       const relative = '/' + segments.join('/');
-      return this.validRoutePaths.includes(relative) || relative === '/' || relative === '/404' || relative === '/erp-kaihatsu';
+      return this.validRoutePaths.includes(relative) || relative === '/' || relative === '/404' || relative === '/erp-kaihatsu' || relative.startsWith('/blog/');
     }
 
     return false;
   }
+
 
   public handleUnknownUrl(url: string): void {
     if (this.isKnownRoute(url)) {

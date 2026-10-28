@@ -1,25 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { ActivatedRoute, RouterModule, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { SeoService } from '../../services/seo.service';
 import { BreadcrumbsComponent, BreadcrumbItem } from '../breadcrumbs/breadcrumbs.component';
+import { FaqSectionComponent } from '../faq-section/faq-section.component';
 import { CONTACT_CONFIG } from '../../data/contact.config';
+import { BLOG_POSTS, BlogPost } from '../../data/blog.data';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { MobileDrawerComponent } from '../mobile-drawer/mobile-drawer.component';
 import { FooterComponent } from '../footer/footer.component';
 import { MobileActionBarComponent } from '../mobile-action-bar/mobile-action-bar.component';
 import { FloatingWhatsappComponent } from '../floating-whatsapp/floating-whatsapp.component';
 import { QuoteModalComponent } from '../quote-modal/quote-modal.component';
-
-export interface BlogPostCard {
-  id: string;
-  title: string;
-  category: string;
-  summary: string;
-  readTime: string;
-  date: string;
-  slug: string;
-}
 
 @Component({
   selector: 'app-blog-page',
@@ -28,6 +21,7 @@ export interface BlogPostCard {
     CommonModule,
     RouterModule,
     BreadcrumbsComponent,
+    FaqSectionComponent,
     NavbarComponent,
     MobileDrawerComponent,
     FooterComponent,
@@ -38,48 +32,71 @@ export interface BlogPostCard {
   templateUrl: './blog-page.component.html',
   styleUrl: './blog-page.component.css'
 })
-export class BlogPageComponent implements OnInit {
+export class BlogPageComponent implements OnInit, OnDestroy {
   contact = CONTACT_CONFIG;
-  breadcrumbItems: BreadcrumbItem[] = [
-    { label: 'Home', url: '/' },
-    { label: 'Blog' }
-  ];
   isDrawerOpen = false;
   isQuoteModalOpen = false;
 
-  articles: BlogPostCard[] = [
-    {
-      id: 'custom-software-vs-saas',
-      title: 'Custom Software vs. SaaS: Which Fits Your Growing Business Best?',
-      category: 'Software Architecture',
-      summary: 'Explore when it makes financial and operational sense to build a custom software asset versus subscribing to a ready-made SaaS tool.',
-      readTime: '6 min read',
-      date: 'October 2026',
-      slug: 'custom-software-vs-saas'
-    },
-    {
-      id: 'fast-gst-billing-guide',
-      title: 'How to Implement 10-Second GST Invoicing & WhatsApp Receipts in Retail',
-      category: 'Billing & POS',
-      summary: 'Eliminate counter queues during rush hours: best practices for pairing barcode scanners, thermal POS printers, and instant WhatsApp PDF receipts.',
-      readTime: '5 min read',
-      date: 'October 2026',
-      slug: 'fast-gst-billing-guide'
-    },
-    {
-      id: 'local-seo-guide-up',
-      title: 'Local SEO Strategy for Uttar Pradesh: Ranking in Kanpur & Lucknow on Google Maps',
-      category: 'Digital Growth',
-      summary: 'A step-by-step breakdown of Google Business Profile verification, NAP consistency, local citation signals, and capturing inbound buyer searches.',
-      readTime: '7 min read',
-      date: 'October 2026',
-      slug: 'local-seo-guide-up'
-    }
-  ];
+  // View Mode: 'list' | 'detail'
+  viewMode: 'list' | 'detail' = 'list';
+  currentPost: BlogPost | null = null;
+  relatedPostItems: BlogPost[] = [];
 
-  constructor(private seoService: SeoService) {}
+  // List View State
+  allPosts: BlogPost[] = BLOG_POSTS;
+  filteredPosts: BlogPost[] = BLOG_POSTS;
+  categories: string[] = ['All', 'Web Development', 'Software Architecture', 'ERP & Billing'];
+  cities: string[] = ['All', 'Kanpur', 'Lucknow', 'Uttar Pradesh'];
+  selectedCategory = 'All';
+  selectedCity = 'All';
+
+  // Breadcrumbs
+  breadcrumbItems: BreadcrumbItem[] = [];
+
+  private routeSub?: Subscription;
+
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private seoService: SeoService
+  ) {}
 
   ngOnInit(): void {
+    this.routeSub = this.route.paramMap.subscribe(params => {
+      const slug = params.get('slug');
+
+      if (slug) {
+        const post = this.allPosts.find(p => p.slug === slug);
+        if (post) {
+          this.viewMode = 'detail';
+          this.currentPost = post;
+          this.setupDetailView(post);
+        } else {
+          this.router.navigate(['/blog']);
+        }
+      } else {
+        this.viewMode = 'list';
+        this.currentPost = null;
+        this.setupListView();
+      }
+
+      if (typeof window !== 'undefined') {
+        window.scrollTo({ top: 0, behavior: 'instant' });
+      }
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.routeSub?.unsubscribe();
+  }
+
+  private setupListView(): void {
+    this.breadcrumbItems = [
+      { label: 'Home', url: '/' },
+      { label: 'Blog' }
+    ];
+    this.applyFilters();
+
     const canonicalUrl = 'https://yogteck.com/blog';
 
     const breadcrumbSchema = {
@@ -105,29 +122,130 @@ export class BlogPageComponent implements OnInit {
       canonicalUrl: canonicalUrl,
       jsonLdSchemas: [breadcrumbSchema, blogSchema]
     });
+  }
 
-    if (typeof window !== 'undefined') {
-      window.scrollTo({ top: 0, behavior: 'instant' });
+  private setupDetailView(post: BlogPost): void {
+    const canonicalUrl = `https://yogteck.com/blog/${post.slug}`;
+
+    this.breadcrumbItems = [
+      { label: 'Home', url: '/' },
+      { label: 'Blog', url: '/blog' },
+      { label: post.title }
+    ];
+
+    // Find related posts
+    this.relatedPostItems = this.allPosts.filter(p =>
+      post.relatedPosts.includes(p.slug) || (p.category === post.category && p.slug !== post.slug)
+    ).slice(0, 3);
+
+    const schemas: any[] = [
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://yogteck.com/" },
+          { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://yogteck.com/blog" },
+          { "@type": "ListItem", "position": 3, "name": post.title, "item": canonicalUrl }
+        ]
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": post.h1,
+        "description": post.metaDescription,
+        "image": `https://yogteck.com${post.image}`,
+        "datePublished": post.date,
+        "dateModified": post.updated || post.date,
+        "author": {
+          "@type": "Person",
+          "name": post.author,
+          "jobTitle": post.authorRole
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "YogTeck Business Solution",
+          "url": "https://yogteck.com",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://yogteck.com/assets/images/logo.png"
+          }
+        },
+        "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": canonicalUrl
+        }
+      }
+    ];
+
+    if (post.faq && post.faq.length > 0) {
+      schemas.push({
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": post.faq.map(f => ({
+          "@type": "Question",
+          "name": f.question,
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": f.answer
+          }
+        }))
+      });
+    }
+
+    this.seoService.setCanonicalPageSeo({
+      title: post.metaTitle,
+      description: post.metaDescription,
+      canonicalUrl: canonicalUrl,
+      jsonLdSchemas: schemas
+    });
+  }
+
+  filterByCategory(cat: string): void {
+    this.selectedCategory = cat;
+    this.applyFilters();
+  }
+
+  filterByCity(city: string): void {
+    this.selectedCity = city;
+    this.applyFilters();
+  }
+
+  private applyFilters(): void {
+    this.filteredPosts = this.allPosts.filter(p => {
+      const matchCat = this.selectedCategory === 'All' || p.category === this.selectedCategory;
+      const matchCity = this.selectedCity === 'All' || p.city === this.selectedCity;
+      return matchCat && matchCity;
+    });
+  }
+
+  scrollToSection(sectionId: string): void {
+    if (typeof document !== 'undefined') {
+      const el = document.getElementById(sectionId);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
     }
   }
 
   openDrawer(): void {
     this.isDrawerOpen = true;
-    document.body.style.overflow = 'hidden';
+    if (typeof document !== 'undefined') {
+      document.body.style.overflow = 'hidden';
+    }
   }
 
   closeDrawer(): void {
     this.isDrawerOpen = false;
-    document.body.style.overflow = '';
+    if (typeof document !== 'undefined') {
+      document.body.style.overflow = '';
+    }
   }
 
   openQuoteModal(): void {
     this.isQuoteModalOpen = true;
-    document.body.style.overflow = 'hidden';
   }
 
   closeQuoteModal(): void {
     this.isQuoteModalOpen = false;
-    document.body.style.overflow = '';
   }
 }

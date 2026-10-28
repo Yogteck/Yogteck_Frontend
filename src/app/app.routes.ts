@@ -12,6 +12,8 @@ import { KanpurLocationComponent } from './components/kanpur-location/kanpur-loc
 import { LucknowLocationComponent } from './components/lucknow-location/lucknow-location.component';
 import { RaebareliLocationComponent } from './components/raebareli-location/raebareli-location.component';
 import { CityPageComponent } from './components/city-page/city-page.component';
+import { ServiceAreasComponent } from './components/service-areas/service-areas.component';
+import { SolutionPageComponent } from './components/solution-page/solution-page.component';
 import { AdminLoginComponent } from './components/admin-login/admin-login.component';
 import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
@@ -34,7 +36,10 @@ export const routes: Routes = [
   { path: 'services/custom-software-development', component: ServiceDetailComponent },
   { path: 'services/mobile-app-development', component: ServiceDetailComponent },
   { path: 'services/erp-software', component: ServiceDetailComponent },
+  { path: 'services/inventory-software', component: ServiceDetailComponent },
   { path: 'services/billing-software', component: ServiceDetailComponent },
+  { path: 'services/mlm-software', component: ServiceDetailComponent },
+  { path: 'services/ai-software-development', component: ServiceDetailComponent },
   { path: 'services/ecommerce-development', component: ServiceDetailComponent },
   { path: 'services/seo-digital-growth', component: ServiceDetailComponent },
   { path: 'services/real-estate-plotting-software', component: ServiceDetailComponent },
@@ -46,20 +51,39 @@ export const routes: Routes = [
   { path: 'products/saas-platform', component: ProductDetailComponent },
   { path: 'products/whatsapp-marketing-tool', component: ProductDetailComponent },
 
-  // Location Hubs (Kanpur HQ + Service Areas)
+  // Directory & Location Hubs (Kanpur HQ + Service Areas)
+  { path: 'service-areas', component: ServiceAreasComponent },
   { path: 'it-software-company-kanpur', component: KanpurLocationComponent },
   { path: 'it-software-company-lucknow', component: LucknowLocationComponent },
   { path: 'it-software-company-raebareli', component: RaebareliLocationComponent },
+  { path: 'it-software-company-uttar-pradesh', component: CityPageComponent },
+  { path: 'it-software-company-rajasthan', component: CityPageComponent },
+  { path: 'it-software-company-gujarat', component: CityPageComponent },
+  { path: 'it-software-company-madhya-pradesh', component: CityPageComponent },
+  { path: 'it-software-company-jaipur', component: CityPageComponent },
+  { path: 'it-software-company-indore', component: CityPageComponent },
+  { path: 'it-software-company-ahmedabad', component: CityPageComponent },
+  { path: 'it-software-company-chandigarh', component: CityPageComponent },
+  { path: 'it-software-company-bangalore', component: CityPageComponent },
+  { path: 'it-software-company-faridabad', component: CityPageComponent },
   { path: 'it-software-company-noida', component: CityPageComponent },
   { path: 'it-software-company-delhi', component: CityPageComponent },
   { path: 'it-software-company-gurugram', component: CityPageComponent },
   { path: 'it-software-company-pune', component: CityPageComponent },
   { path: 'it-software-company-mumbai', component: CityPageComponent },
 
+  // Industry + Service Long-Tail Solutions
+  { path: 'solutions/:slug', component: SolutionPageComponent },
+  { path: 'solutions/erp-for-manufacturers', component: SolutionPageComponent },
+  { path: 'solutions/inventory-software-for-traders', component: SolutionPageComponent },
+  { path: 'solutions/billing-software-for-retail', component: SolutionPageComponent },
+  { path: 'solutions/erp-for-pharma-distributors', component: SolutionPageComponent },
+
   // Legal & Informational Pages
   { path: 'privacy-policy', component: LegalPageComponent },
   { path: 'terms-of-service', component: LegalPageComponent },
   { path: 'blog', component: BlogPageComponent },
+  { path: 'blog/:slug', component: BlogPageComponent },
 
   // 2. Admin Authentication & Dashboard
   { path: 'admin', redirectTo: 'admin/login', pathMatch: 'full' },

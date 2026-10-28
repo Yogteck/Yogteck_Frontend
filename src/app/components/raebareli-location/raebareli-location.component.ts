@@ -110,6 +110,7 @@ export class RaebareliLocationComponent implements OnInit {
       title: data.metaTitle,
       description: data.metaDescription,
       canonicalUrl: canonicalUrl,
+      robots: 'noindex, nofollow',
       jsonLdSchemas: [breadcrumbSchema, serviceSchema, faqSchema]
     });
 

@@ -1,655 +1,226 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://yogteck.com/</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://yogteck.com/" />
-    <xhtml:link rel="alternate" hreflang="en-US" href="https://yogteck.com/en-us/" />
-    <xhtml:link rel="alternate" hreflang="en-GB" href="https://yogteck.com/en-gb/" />
-    <xhtml:link rel="alternate" hreflang="en-CA" href="https://yogteck.com/en-ca/" />
-    <xhtml:link rel="alternate" hreflang="en-AU" href="https://yogteck.com/en-au/" />
-    <xhtml:link rel="alternate" hreflang="en-SG" href="https://yogteck.com/en-sg/" />
-    <xhtml:link rel="alternate" hreflang="en-PH" href="https://yogteck.com/en-ph/" />
-    <xhtml:link rel="alternate" hreflang="en-NZ" href="https://yogteck.com/en-nz/" />
-    <xhtml:link rel="alternate" hreflang="en-AE" href="https://yogteck.com/en-ae/" />
-    <xhtml:link rel="alternate" hreflang="de-DE" href="https://yogteck.com/de-de/" />
-    <xhtml:link rel="alternate" hreflang="fr-FR" href="https://yogteck.com/fr-fr/" />
-    <xhtml:link rel="alternate" hreflang="es-ES" href="https://yogteck.com/es-es/" />
-    <xhtml:link rel="alternate" hreflang="it-IT" href="https://yogteck.com/it-it/" />
-    <xhtml:link rel="alternate" hreflang="nl-NL" href="https://yogteck.com/nl-nl/" />
-    <xhtml:link rel="alternate" hreflang="en-IE" href="https://yogteck.com/en-ie/" />
-    <xhtml:link rel="alternate" hreflang="ja-JP" href="https://yogteck.com/ja-jp/" />
-    <xhtml:link rel="alternate" hreflang="ko-KR" href="https://yogteck.com/ko-kr/" />
-    <xhtml:link rel="alternate" hreflang="ar-SA" href="https://yogteck.com/ar-sa/" />
-    <xhtml:link rel="alternate" hreflang="en-IN" href="https://yogteck.com/en-in/" />
-    <xhtml:link rel="alternate" hreflang="hi-IN" href="https://yogteck.com/hi-in/" />
   </url>
   <url>
     <loc>https://yogteck.com/about</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://yogteck.com/about" />
-    <xhtml:link rel="alternate" hreflang="en-US" href="https://yogteck.com/en-us/about" />
-    <xhtml:link rel="alternate" hreflang="en-GB" href="https://yogteck.com/en-gb/about" />
-    <xhtml:link rel="alternate" hreflang="en-CA" href="https://yogteck.com/en-ca/about" />
-    <xhtml:link rel="alternate" hreflang="en-AU" href="https://yogteck.com/en-au/about" />
-    <xhtml:link rel="alternate" hreflang="en-SG" href="https://yogteck.com/en-sg/about" />
-    <xhtml:link rel="alternate" hreflang="en-PH" href="https://yogteck.com/en-ph/about" />
-    <xhtml:link rel="alternate" hreflang="en-NZ" href="https://yogteck.com/en-nz/about" />
-    <xhtml:link rel="alternate" hreflang="en-AE" href="https://yogteck.com/en-ae/about" />
-    <xhtml:link rel="alternate" hreflang="de-DE" href="https://yogteck.com/de-de/about" />
-    <xhtml:link rel="alternate" hreflang="fr-FR" href="https://yogteck.com/fr-fr/about" />
-    <xhtml:link rel="alternate" hreflang="es-ES" href="https://yogteck.com/es-es/about" />
-    <xhtml:link rel="alternate" hreflang="it-IT" href="https://yogteck.com/it-it/about" />
-    <xhtml:link rel="alternate" hreflang="nl-NL" href="https://yogteck.com/nl-nl/about" />
-    <xhtml:link rel="alternate" hreflang="en-IE" href="https://yogteck.com/en-ie/about" />
-    <xhtml:link rel="alternate" hreflang="ja-JP" href="https://yogteck.com/ja-jp/about" />
-    <xhtml:link rel="alternate" hreflang="ko-KR" href="https://yogteck.com/ko-kr/about" />
-    <xhtml:link rel="alternate" hreflang="ar-SA" href="https://yogteck.com/ar-sa/about" />
-    <xhtml:link rel="alternate" hreflang="en-IN" href="https://yogteck.com/en-in/about" />
-    <xhtml:link rel="alternate" hreflang="hi-IN" href="https://yogteck.com/hi-in/about" />
   </url>
   <url>
     <loc>https://yogteck.com/contact</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://yogteck.com/contact" />
-    <xhtml:link rel="alternate" hreflang="en-US" href="https://yogteck.com/en-us/contact" />
-    <xhtml:link rel="alternate" hreflang="en-GB" href="https://yogteck.com/en-gb/contact" />
-    <xhtml:link rel="alternate" hreflang="en-CA" href="https://yogteck.com/en-ca/contact" />
-    <xhtml:link rel="alternate" hreflang="en-AU" href="https://yogteck.com/en-au/contact" />
-    <xhtml:link rel="alternate" hreflang="en-SG" href="https://yogteck.com/en-sg/contact" />
-    <xhtml:link rel="alternate" hreflang="en-PH" href="https://yogteck.com/en-ph/contact" />
-    <xhtml:link rel="alternate" hreflang="en-NZ" href="https://yogteck.com/en-nz/contact" />
-    <xhtml:link rel="alternate" hreflang="en-AE" href="https://yogteck.com/en-ae/contact" />
-    <xhtml:link rel="alternate" hreflang="de-DE" href="https://yogteck.com/de-de/contact" />
-    <xhtml:link rel="alternate" hreflang="fr-FR" href="https://yogteck.com/fr-fr/contact" />
-    <xhtml:link rel="alternate" hreflang="es-ES" href="https://yogteck.com/es-es/contact" />
-    <xhtml:link rel="alternate" hreflang="it-IT" href="https://yogteck.com/it-it/contact" />
-    <xhtml:link rel="alternate" hreflang="nl-NL" href="https://yogteck.com/nl-nl/contact" />
-    <xhtml:link rel="alternate" hreflang="en-IE" href="https://yogteck.com/en-ie/contact" />
-    <xhtml:link rel="alternate" hreflang="ja-JP" href="https://yogteck.com/ja-jp/contact" />
-    <xhtml:link rel="alternate" hreflang="ko-KR" href="https://yogteck.com/ko-kr/contact" />
-    <xhtml:link rel="alternate" hreflang="ar-SA" href="https://yogteck.com/ar-sa/contact" />
-    <xhtml:link rel="alternate" hreflang="en-IN" href="https://yogteck.com/en-in/contact" />
-    <xhtml:link rel="alternate" hreflang="hi-IN" href="https://yogteck.com/hi-in/contact" />
   </url>
   <url>
     <loc>https://yogteck.com/blog</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://yogteck.com/blog" />
-    <xhtml:link rel="alternate" hreflang="en-US" href="https://yogteck.com/en-us/blog" />
-    <xhtml:link rel="alternate" hreflang="en-GB" href="https://yogteck.com/en-gb/blog" />
-    <xhtml:link rel="alternate" hreflang="en-CA" href="https://yogteck.com/en-ca/blog" />
-    <xhtml:link rel="alternate" hreflang="en-AU" href="https://yogteck.com/en-au/blog" />
-    <xhtml:link rel="alternate" hreflang="en-SG" href="https://yogteck.com/en-sg/blog" />
-    <xhtml:link rel="alternate" hreflang="en-PH" href="https://yogteck.com/en-ph/blog" />
-    <xhtml:link rel="alternate" hreflang="en-NZ" href="https://yogteck.com/en-nz/blog" />
-    <xhtml:link rel="alternate" hreflang="en-AE" href="https://yogteck.com/en-ae/blog" />
-    <xhtml:link rel="alternate" hreflang="de-DE" href="https://yogteck.com/de-de/blog" />
-    <xhtml:link rel="alternate" hreflang="fr-FR" href="https://yogteck.com/fr-fr/blog" />
-    <xhtml:link rel="alternate" hreflang="es-ES" href="https://yogteck.com/es-es/blog" />
-    <xhtml:link rel="alternate" hreflang="it-IT" href="https://yogteck.com/it-it/blog" />
-    <xhtml:link rel="alternate" hreflang="nl-NL" href="https://yogteck.com/nl-nl/blog" />
-    <xhtml:link rel="alternate" hreflang="en-IE" href="https://yogteck.com/en-ie/blog" />
-    <xhtml:link rel="alternate" hreflang="ja-JP" href="https://yogteck.com/ja-jp/blog" />
-    <xhtml:link rel="alternate" hreflang="ko-KR" href="https://yogteck.com/ko-kr/blog" />
-    <xhtml:link rel="alternate" hreflang="ar-SA" href="https://yogteck.com/ar-sa/blog" />
-    <xhtml:link rel="alternate" hreflang="en-IN" href="https://yogteck.com/en-in/blog" />
-    <xhtml:link rel="alternate" hreflang="hi-IN" href="https://yogteck.com/hi-in/blog" />
   </url>
   <url>
     <loc>https://yogteck.com/privacy-policy</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://yogteck.com/privacy-policy" />
-    <xhtml:link rel="alternate" hreflang="en-US" href="https://yogteck.com/en-us/privacy-policy" />
-    <xhtml:link rel="alternate" hreflang="en-GB" href="https://yogteck.com/en-gb/privacy-policy" />
-    <xhtml:link rel="alternate" hreflang="en-CA" href="https://yogteck.com/en-ca/privacy-policy" />
-    <xhtml:link rel="alternate" hreflang="en-AU" href="https://yogteck.com/en-au/privacy-policy" />
-    <xhtml:link rel="alternate" hreflang="en-SG" href="https://yogteck.com/en-sg/privacy-policy" />
-    <xhtml:link rel="alternate" hreflang="en-PH" href="https://yogteck.com/en-ph/privacy-policy" />
-    <xhtml:link rel="alternate" hreflang="en-NZ" href="https://yogteck.com/en-nz/privacy-policy" />
-    <xhtml:link rel="alternate" hreflang="en-AE" href="https://yogteck.com/en-ae/privacy-policy" />
-    <xhtml:link rel="alternate" hreflang="de-DE" href="https://yogteck.com/de-de/privacy-policy" />
-    <xhtml:link rel="alternate" hreflang="fr-FR" href="https://yogteck.com/fr-fr/privacy-policy" />
-    <xhtml:link rel="alternate" hreflang="es-ES" href="https://yogteck.com/es-es/privacy-policy" />
-    <xhtml:link rel="alternate" hreflang="it-IT" href="https://yogteck.com/it-it/privacy-policy" />
-    <xhtml:link rel="alternate" hreflang="nl-NL" href="https://yogteck.com/nl-nl/privacy-policy" />
-    <xhtml:link rel="alternate" hreflang="en-IE" href="https://yogteck.com/en-ie/privacy-policy" />
-    <xhtml:link rel="alternate" hreflang="ja-JP" href="https://yogteck.com/ja-jp/privacy-policy" />
-    <xhtml:link rel="alternate" hreflang="ko-KR" href="https://yogteck.com/ko-kr/privacy-policy" />
-    <xhtml:link rel="alternate" hreflang="ar-SA" href="https://yogteck.com/ar-sa/privacy-policy" />
-    <xhtml:link rel="alternate" hreflang="en-IN" href="https://yogteck.com/en-in/privacy-policy" />
-    <xhtml:link rel="alternate" hreflang="hi-IN" href="https://yogteck.com/hi-in/privacy-policy" />
   </url>
   <url>
     <loc>https://yogteck.com/terms-of-service</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://yogteck.com/terms-of-service" />
-    <xhtml:link rel="alternate" hreflang="en-US" href="https://yogteck.com/en-us/terms-of-service" />
-    <xhtml:link rel="alternate" hreflang="en-GB" href="https://yogteck.com/en-gb/terms-of-service" />
-    <xhtml:link rel="alternate" hreflang="en-CA" href="https://yogteck.com/en-ca/terms-of-service" />
-    <xhtml:link rel="alternate" hreflang="en-AU" href="https://yogteck.com/en-au/terms-of-service" />
-    <xhtml:link rel="alternate" hreflang="en-SG" href="https://yogteck.com/en-sg/terms-of-service" />
-    <xhtml:link rel="alternate" hreflang="en-PH" href="https://yogteck.com/en-ph/terms-of-service" />
-    <xhtml:link rel="alternate" hreflang="en-NZ" href="https://yogteck.com/en-nz/terms-of-service" />
-    <xhtml:link rel="alternate" hreflang="en-AE" href="https://yogteck.com/en-ae/terms-of-service" />
-    <xhtml:link rel="alternate" hreflang="de-DE" href="https://yogteck.com/de-de/terms-of-service" />
-    <xhtml:link rel="alternate" hreflang="fr-FR" href="https://yogteck.com/fr-fr/terms-of-service" />
-    <xhtml:link rel="alternate" hreflang="es-ES" href="https://yogteck.com/es-es/terms-of-service" />
-    <xhtml:link rel="alternate" hreflang="it-IT" href="https://yogteck.com/it-it/terms-of-service" />
-    <xhtml:link rel="alternate" hreflang="nl-NL" href="https://yogteck.com/nl-nl/terms-of-service" />
-    <xhtml:link rel="alternate" hreflang="en-IE" href="https://yogteck.com/en-ie/terms-of-service" />
-    <xhtml:link rel="alternate" hreflang="ja-JP" href="https://yogteck.com/ja-jp/terms-of-service" />
-    <xhtml:link rel="alternate" hreflang="ko-KR" href="https://yogteck.com/ko-kr/terms-of-service" />
-    <xhtml:link rel="alternate" hreflang="ar-SA" href="https://yogteck.com/ar-sa/terms-of-service" />
-    <xhtml:link rel="alternate" hreflang="en-IN" href="https://yogteck.com/en-in/terms-of-service" />
-    <xhtml:link rel="alternate" hreflang="hi-IN" href="https://yogteck.com/hi-in/terms-of-service" />
   </url>
   <url>
     <loc>https://yogteck.com/services/website-development</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://yogteck.com/services/website-development" />
-    <xhtml:link rel="alternate" hreflang="en-US" href="https://yogteck.com/en-us/services/website-development" />
-    <xhtml:link rel="alternate" hreflang="en-GB" href="https://yogteck.com/en-gb/services/website-development" />
-    <xhtml:link rel="alternate" hreflang="en-CA" href="https://yogteck.com/en-ca/services/website-development" />
-    <xhtml:link rel="alternate" hreflang="en-AU" href="https://yogteck.com/en-au/services/website-development" />
-    <xhtml:link rel="alternate" hreflang="en-SG" href="https://yogteck.com/en-sg/services/website-development" />
-    <xhtml:link rel="alternate" hreflang="en-PH" href="https://yogteck.com/en-ph/services/website-development" />
-    <xhtml:link rel="alternate" hreflang="en-NZ" href="https://yogteck.com/en-nz/services/website-development" />
-    <xhtml:link rel="alternate" hreflang="en-AE" href="https://yogteck.com/en-ae/services/website-development" />
-    <xhtml:link rel="alternate" hreflang="de-DE" href="https://yogteck.com/de-de/services/website-development" />
-    <xhtml:link rel="alternate" hreflang="fr-FR" href="https://yogteck.com/fr-fr/services/website-development" />
-    <xhtml:link rel="alternate" hreflang="es-ES" href="https://yogteck.com/es-es/services/website-development" />
-    <xhtml:link rel="alternate" hreflang="it-IT" href="https://yogteck.com/it-it/services/website-development" />
-    <xhtml:link rel="alternate" hreflang="nl-NL" href="https://yogteck.com/nl-nl/services/website-development" />
-    <xhtml:link rel="alternate" hreflang="en-IE" href="https://yogteck.com/en-ie/services/website-development" />
-    <xhtml:link rel="alternate" hreflang="ja-JP" href="https://yogteck.com/ja-jp/services/website-development" />
-    <xhtml:link rel="alternate" hreflang="ko-KR" href="https://yogteck.com/ko-kr/services/website-development" />
-    <xhtml:link rel="alternate" hreflang="ar-SA" href="https://yogteck.com/ar-sa/services/website-development" />
-    <xhtml:link rel="alternate" hreflang="en-IN" href="https://yogteck.com/en-in/services/website-development" />
-    <xhtml:link rel="alternate" hreflang="hi-IN" href="https://yogteck.com/hi-in/services/website-development" />
   </url>
   <url>
     <loc>https://yogteck.com/services/mobile-app-development</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://yogteck.com/services/mobile-app-development" />
-    <xhtml:link rel="alternate" hreflang="en-US" href="https://yogteck.com/en-us/services/mobile-app-development" />
-    <xhtml:link rel="alternate" hreflang="en-GB" href="https://yogteck.com/en-gb/services/mobile-app-development" />
-    <xhtml:link rel="alternate" hreflang="en-CA" href="https://yogteck.com/en-ca/services/mobile-app-development" />
-    <xhtml:link rel="alternate" hreflang="en-AU" href="https://yogteck.com/en-au/services/mobile-app-development" />
-    <xhtml:link rel="alternate" hreflang="en-SG" href="https://yogteck.com/en-sg/services/mobile-app-development" />
-    <xhtml:link rel="alternate" hreflang="en-PH" href="https://yogteck.com/en-ph/services/mobile-app-development" />
-    <xhtml:link rel="alternate" hreflang="en-NZ" href="https://yogteck.com/en-nz/services/mobile-app-development" />
-    <xhtml:link rel="alternate" hreflang="en-AE" href="https://yogteck.com/en-ae/services/mobile-app-development" />
-    <xhtml:link rel="alternate" hreflang="de-DE" href="https://yogteck.com/de-de/services/mobile-app-development" />
-    <xhtml:link rel="alternate" hreflang="fr-FR" href="https://yogteck.com/fr-fr/services/mobile-app-development" />
-    <xhtml:link rel="alternate" hreflang="es-ES" href="https://yogteck.com/es-es/services/mobile-app-development" />
-    <xhtml:link rel="alternate" hreflang="it-IT" href="https://yogteck.com/it-it/services/mobile-app-development" />
-    <xhtml:link rel="alternate" hreflang="nl-NL" href="https://yogteck.com/nl-nl/services/mobile-app-development" />
-    <xhtml:link rel="alternate" hreflang="en-IE" href="https://yogteck.com/en-ie/services/mobile-app-development" />
-    <xhtml:link rel="alternate" hreflang="ja-JP" href="https://yogteck.com/ja-jp/services/mobile-app-development" />
-    <xhtml:link rel="alternate" hreflang="ko-KR" href="https://yogteck.com/ko-kr/services/mobile-app-development" />
-    <xhtml:link rel="alternate" hreflang="ar-SA" href="https://yogteck.com/ar-sa/services/mobile-app-development" />
-    <xhtml:link rel="alternate" hreflang="en-IN" href="https://yogteck.com/en-in/services/mobile-app-development" />
-    <xhtml:link rel="alternate" hreflang="hi-IN" href="https://yogteck.com/hi-in/services/mobile-app-development" />
   </url>
   <url>
     <loc>https://yogteck.com/services/custom-software-development</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://yogteck.com/services/custom-software-development" />
-    <xhtml:link rel="alternate" hreflang="en-US" href="https://yogteck.com/en-us/services/custom-software-development" />
-    <xhtml:link rel="alternate" hreflang="en-GB" href="https://yogteck.com/en-gb/services/custom-software-development" />
-    <xhtml:link rel="alternate" hreflang="en-CA" href="https://yogteck.com/en-ca/services/custom-software-development" />
-    <xhtml:link rel="alternate" hreflang="en-AU" href="https://yogteck.com/en-au/services/custom-software-development" />
-    <xhtml:link rel="alternate" hreflang="en-SG" href="https://yogteck.com/en-sg/services/custom-software-development" />
-    <xhtml:link rel="alternate" hreflang="en-PH" href="https://yogteck.com/en-ph/services/custom-software-development" />
-    <xhtml:link rel="alternate" hreflang="en-NZ" href="https://yogteck.com/en-nz/services/custom-software-development" />
-    <xhtml:link rel="alternate" hreflang="en-AE" href="https://yogteck.com/en-ae/services/custom-software-development" />
-    <xhtml:link rel="alternate" hreflang="de-DE" href="https://yogteck.com/de-de/services/custom-software-development" />
-    <xhtml:link rel="alternate" hreflang="fr-FR" href="https://yogteck.com/fr-fr/services/custom-software-development" />
-    <xhtml:link rel="alternate" hreflang="es-ES" href="https://yogteck.com/es-es/services/custom-software-development" />
-    <xhtml:link rel="alternate" hreflang="it-IT" href="https://yogteck.com/it-it/services/custom-software-development" />
-    <xhtml:link rel="alternate" hreflang="nl-NL" href="https://yogteck.com/nl-nl/services/custom-software-development" />
-    <xhtml:link rel="alternate" hreflang="en-IE" href="https://yogteck.com/en-ie/services/custom-software-development" />
-    <xhtml:link rel="alternate" hreflang="ja-JP" href="https://yogteck.com/ja-jp/services/custom-software-development" />
-    <xhtml:link rel="alternate" hreflang="ko-KR" href="https://yogteck.com/ko-kr/services/custom-software-development" />
-    <xhtml:link rel="alternate" hreflang="ar-SA" href="https://yogteck.com/ar-sa/services/custom-software-development" />
-    <xhtml:link rel="alternate" hreflang="en-IN" href="https://yogteck.com/en-in/services/custom-software-development" />
-    <xhtml:link rel="alternate" hreflang="hi-IN" href="https://yogteck.com/hi-in/services/custom-software-development" />
+  </url>
+  <url>
+    <loc>https://yogteck.com/services/erp-software</loc>
+    <lastmod>2026-10-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://yogteck.com/services/inventory-software</loc>
+    <lastmod>2026-10-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
   </url>
   <url>
     <loc>https://yogteck.com/services/billing-software</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://yogteck.com/services/billing-software" />
-    <xhtml:link rel="alternate" hreflang="en-US" href="https://yogteck.com/en-us/services/billing-software" />
-    <xhtml:link rel="alternate" hreflang="en-GB" href="https://yogteck.com/en-gb/services/billing-software" />
-    <xhtml:link rel="alternate" hreflang="en-CA" href="https://yogteck.com/en-ca/services/billing-software" />
-    <xhtml:link rel="alternate" hreflang="en-AU" href="https://yogteck.com/en-au/services/billing-software" />
-    <xhtml:link rel="alternate" hreflang="en-SG" href="https://yogteck.com/en-sg/services/billing-software" />
-    <xhtml:link rel="alternate" hreflang="en-PH" href="https://yogteck.com/en-ph/services/billing-software" />
-    <xhtml:link rel="alternate" hreflang="en-NZ" href="https://yogteck.com/en-nz/services/billing-software" />
-    <xhtml:link rel="alternate" hreflang="en-AE" href="https://yogteck.com/en-ae/services/billing-software" />
-    <xhtml:link rel="alternate" hreflang="de-DE" href="https://yogteck.com/de-de/services/billing-software" />
-    <xhtml:link rel="alternate" hreflang="fr-FR" href="https://yogteck.com/fr-fr/services/billing-software" />
-    <xhtml:link rel="alternate" hreflang="es-ES" href="https://yogteck.com/es-es/services/billing-software" />
-    <xhtml:link rel="alternate" hreflang="it-IT" href="https://yogteck.com/it-it/services/billing-software" />
-    <xhtml:link rel="alternate" hreflang="nl-NL" href="https://yogteck.com/nl-nl/services/billing-software" />
-    <xhtml:link rel="alternate" hreflang="en-IE" href="https://yogteck.com/en-ie/services/billing-software" />
-    <xhtml:link rel="alternate" hreflang="ja-JP" href="https://yogteck.com/ja-jp/services/billing-software" />
-    <xhtml:link rel="alternate" hreflang="ko-KR" href="https://yogteck.com/ko-kr/services/billing-software" />
-    <xhtml:link rel="alternate" hreflang="ar-SA" href="https://yogteck.com/ar-sa/services/billing-software" />
-    <xhtml:link rel="alternate" hreflang="en-IN" href="https://yogteck.com/en-in/services/billing-software" />
-    <xhtml:link rel="alternate" hreflang="hi-IN" href="https://yogteck.com/hi-in/services/billing-software" />
+  </url>
+  <url>
+    <loc>https://yogteck.com/services/mlm-software</loc>
+    <lastmod>2026-10-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://yogteck.com/services/ai-software-development</loc>
+    <lastmod>2026-10-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
   </url>
   <url>
     <loc>https://yogteck.com/services/ecommerce-development</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://yogteck.com/services/ecommerce-development" />
-    <xhtml:link rel="alternate" hreflang="en-US" href="https://yogteck.com/en-us/services/ecommerce-development" />
-    <xhtml:link rel="alternate" hreflang="en-GB" href="https://yogteck.com/en-gb/services/ecommerce-development" />
-    <xhtml:link rel="alternate" hreflang="en-CA" href="https://yogteck.com/en-ca/services/ecommerce-development" />
-    <xhtml:link rel="alternate" hreflang="en-AU" href="https://yogteck.com/en-au/services/ecommerce-development" />
-    <xhtml:link rel="alternate" hreflang="en-SG" href="https://yogteck.com/en-sg/services/ecommerce-development" />
-    <xhtml:link rel="alternate" hreflang="en-PH" href="https://yogteck.com/en-ph/services/ecommerce-development" />
-    <xhtml:link rel="alternate" hreflang="en-NZ" href="https://yogteck.com/en-nz/services/ecommerce-development" />
-    <xhtml:link rel="alternate" hreflang="en-AE" href="https://yogteck.com/en-ae/services/ecommerce-development" />
-    <xhtml:link rel="alternate" hreflang="de-DE" href="https://yogteck.com/de-de/services/ecommerce-development" />
-    <xhtml:link rel="alternate" hreflang="fr-FR" href="https://yogteck.com/fr-fr/services/ecommerce-development" />
-    <xhtml:link rel="alternate" hreflang="es-ES" href="https://yogteck.com/es-es/services/ecommerce-development" />
-    <xhtml:link rel="alternate" hreflang="it-IT" href="https://yogteck.com/it-it/services/ecommerce-development" />
-    <xhtml:link rel="alternate" hreflang="nl-NL" href="https://yogteck.com/nl-nl/services/ecommerce-development" />
-    <xhtml:link rel="alternate" hreflang="en-IE" href="https://yogteck.com/en-ie/services/ecommerce-development" />
-    <xhtml:link rel="alternate" hreflang="ja-JP" href="https://yogteck.com/ja-jp/services/ecommerce-development" />
-    <xhtml:link rel="alternate" hreflang="ko-KR" href="https://yogteck.com/ko-kr/services/ecommerce-development" />
-    <xhtml:link rel="alternate" hreflang="ar-SA" href="https://yogteck.com/ar-sa/services/ecommerce-development" />
-    <xhtml:link rel="alternate" hreflang="en-IN" href="https://yogteck.com/en-in/services/ecommerce-development" />
-    <xhtml:link rel="alternate" hreflang="hi-IN" href="https://yogteck.com/hi-in/services/ecommerce-development" />
   </url>
   <url>
     <loc>https://yogteck.com/services/seo-digital-growth</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://yogteck.com/services/seo-digital-growth" />
-    <xhtml:link rel="alternate" hreflang="en-US" href="https://yogteck.com/en-us/services/seo-digital-growth" />
-    <xhtml:link rel="alternate" hreflang="en-GB" href="https://yogteck.com/en-gb/services/seo-digital-growth" />
-    <xhtml:link rel="alternate" hreflang="en-CA" href="https://yogteck.com/en-ca/services/seo-digital-growth" />
-    <xhtml:link rel="alternate" hreflang="en-AU" href="https://yogteck.com/en-au/services/seo-digital-growth" />
-    <xhtml:link rel="alternate" hreflang="en-SG" href="https://yogteck.com/en-sg/services/seo-digital-growth" />
-    <xhtml:link rel="alternate" hreflang="en-PH" href="https://yogteck.com/en-ph/services/seo-digital-growth" />
-    <xhtml:link rel="alternate" hreflang="en-NZ" href="https://yogteck.com/en-nz/services/seo-digital-growth" />
-    <xhtml:link rel="alternate" hreflang="en-AE" href="https://yogteck.com/en-ae/services/seo-digital-growth" />
-    <xhtml:link rel="alternate" hreflang="de-DE" href="https://yogteck.com/de-de/services/seo-digital-growth" />
-    <xhtml:link rel="alternate" hreflang="fr-FR" href="https://yogteck.com/fr-fr/services/seo-digital-growth" />
-    <xhtml:link rel="alternate" hreflang="es-ES" href="https://yogteck.com/es-es/services/seo-digital-growth" />
-    <xhtml:link rel="alternate" hreflang="it-IT" href="https://yogteck.com/it-it/services/seo-digital-growth" />
-    <xhtml:link rel="alternate" hreflang="nl-NL" href="https://yogteck.com/nl-nl/services/seo-digital-growth" />
-    <xhtml:link rel="alternate" hreflang="en-IE" href="https://yogteck.com/en-ie/services/seo-digital-growth" />
-    <xhtml:link rel="alternate" hreflang="ja-JP" href="https://yogteck.com/ja-jp/services/seo-digital-growth" />
-    <xhtml:link rel="alternate" hreflang="ko-KR" href="https://yogteck.com/ko-kr/services/seo-digital-growth" />
-    <xhtml:link rel="alternate" hreflang="ar-SA" href="https://yogteck.com/ar-sa/services/seo-digital-growth" />
-    <xhtml:link rel="alternate" hreflang="en-IN" href="https://yogteck.com/en-in/services/seo-digital-growth" />
-    <xhtml:link rel="alternate" hreflang="hi-IN" href="https://yogteck.com/hi-in/services/seo-digital-growth" />
   </url>
   <url>
     <loc>https://yogteck.com/services/business-software</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://yogteck.com/services/business-software" />
-    <xhtml:link rel="alternate" hreflang="en-US" href="https://yogteck.com/en-us/services/business-software" />
-    <xhtml:link rel="alternate" hreflang="en-GB" href="https://yogteck.com/en-gb/services/business-software" />
-    <xhtml:link rel="alternate" hreflang="en-CA" href="https://yogteck.com/en-ca/services/business-software" />
-    <xhtml:link rel="alternate" hreflang="en-AU" href="https://yogteck.com/en-au/services/business-software" />
-    <xhtml:link rel="alternate" hreflang="en-SG" href="https://yogteck.com/en-sg/services/business-software" />
-    <xhtml:link rel="alternate" hreflang="en-PH" href="https://yogteck.com/en-ph/services/business-software" />
-    <xhtml:link rel="alternate" hreflang="en-NZ" href="https://yogteck.com/en-nz/services/business-software" />
-    <xhtml:link rel="alternate" hreflang="en-AE" href="https://yogteck.com/en-ae/services/business-software" />
-    <xhtml:link rel="alternate" hreflang="de-DE" href="https://yogteck.com/de-de/services/business-software" />
-    <xhtml:link rel="alternate" hreflang="fr-FR" href="https://yogteck.com/fr-fr/services/business-software" />
-    <xhtml:link rel="alternate" hreflang="es-ES" href="https://yogteck.com/es-es/services/business-software" />
-    <xhtml:link rel="alternate" hreflang="it-IT" href="https://yogteck.com/it-it/services/business-software" />
-    <xhtml:link rel="alternate" hreflang="nl-NL" href="https://yogteck.com/nl-nl/services/business-software" />
-    <xhtml:link rel="alternate" hreflang="en-IE" href="https://yogteck.com/en-ie/services/business-software" />
-    <xhtml:link rel="alternate" hreflang="ja-JP" href="https://yogteck.com/ja-jp/services/business-software" />
-    <xhtml:link rel="alternate" hreflang="ko-KR" href="https://yogteck.com/ko-kr/services/business-software" />
-    <xhtml:link rel="alternate" hreflang="ar-SA" href="https://yogteck.com/ar-sa/services/business-software" />
-    <xhtml:link rel="alternate" hreflang="en-IN" href="https://yogteck.com/en-in/services/business-software" />
-    <xhtml:link rel="alternate" hreflang="hi-IN" href="https://yogteck.com/hi-in/services/business-software" />
   </url>
   <url>
     <loc>https://yogteck.com/services/real-estate-plotting-software</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://yogteck.com/services/real-estate-plotting-software" />
-    <xhtml:link rel="alternate" hreflang="en-US" href="https://yogteck.com/en-us/services/real-estate-plotting-software" />
-    <xhtml:link rel="alternate" hreflang="en-GB" href="https://yogteck.com/en-gb/services/real-estate-plotting-software" />
-    <xhtml:link rel="alternate" hreflang="en-CA" href="https://yogteck.com/en-ca/services/real-estate-plotting-software" />
-    <xhtml:link rel="alternate" hreflang="en-AU" href="https://yogteck.com/en-au/services/real-estate-plotting-software" />
-    <xhtml:link rel="alternate" hreflang="en-SG" href="https://yogteck.com/en-sg/services/real-estate-plotting-software" />
-    <xhtml:link rel="alternate" hreflang="en-PH" href="https://yogteck.com/en-ph/services/real-estate-plotting-software" />
-    <xhtml:link rel="alternate" hreflang="en-NZ" href="https://yogteck.com/en-nz/services/real-estate-plotting-software" />
-    <xhtml:link rel="alternate" hreflang="en-AE" href="https://yogteck.com/en-ae/services/real-estate-plotting-software" />
-    <xhtml:link rel="alternate" hreflang="de-DE" href="https://yogteck.com/de-de/services/real-estate-plotting-software" />
-    <xhtml:link rel="alternate" hreflang="fr-FR" href="https://yogteck.com/fr-fr/services/real-estate-plotting-software" />
-    <xhtml:link rel="alternate" hreflang="es-ES" href="https://yogteck.com/es-es/services/real-estate-plotting-software" />
-    <xhtml:link rel="alternate" hreflang="it-IT" href="https://yogteck.com/it-it/services/real-estate-plotting-software" />
-    <xhtml:link rel="alternate" hreflang="nl-NL" href="https://yogteck.com/nl-nl/services/real-estate-plotting-software" />
-    <xhtml:link rel="alternate" hreflang="en-IE" href="https://yogteck.com/en-ie/services/real-estate-plotting-software" />
-    <xhtml:link rel="alternate" hreflang="ja-JP" href="https://yogteck.com/ja-jp/services/real-estate-plotting-software" />
-    <xhtml:link rel="alternate" hreflang="ko-KR" href="https://yogteck.com/ko-kr/services/real-estate-plotting-software" />
-    <xhtml:link rel="alternate" hreflang="ar-SA" href="https://yogteck.com/ar-sa/services/real-estate-plotting-software" />
-    <xhtml:link rel="alternate" hreflang="en-IN" href="https://yogteck.com/en-in/services/real-estate-plotting-software" />
-    <xhtml:link rel="alternate" hreflang="hi-IN" href="https://yogteck.com/hi-in/services/real-estate-plotting-software" />
+  </url>
+  <url>
+    <loc>https://yogteck.com/blog/website-development-cost-in-kanpur</loc>
+    <lastmod>2026-10-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://yogteck.com/blog/top-it-companies-in-kanpur</loc>
+    <lastmod>2026-10-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://yogteck.com/blog/inventory-management-software-lucknow</loc>
+    <lastmod>2026-10-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://yogteck.com/products/erp-software</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://yogteck.com/products/erp-software" />
-    <xhtml:link rel="alternate" hreflang="en-US" href="https://yogteck.com/en-us/products/erp-software" />
-    <xhtml:link rel="alternate" hreflang="en-GB" href="https://yogteck.com/en-gb/products/erp-software" />
-    <xhtml:link rel="alternate" hreflang="en-CA" href="https://yogteck.com/en-ca/products/erp-software" />
-    <xhtml:link rel="alternate" hreflang="en-AU" href="https://yogteck.com/en-au/products/erp-software" />
-    <xhtml:link rel="alternate" hreflang="en-SG" href="https://yogteck.com/en-sg/products/erp-software" />
-    <xhtml:link rel="alternate" hreflang="en-PH" href="https://yogteck.com/en-ph/products/erp-software" />
-    <xhtml:link rel="alternate" hreflang="en-NZ" href="https://yogteck.com/en-nz/products/erp-software" />
-    <xhtml:link rel="alternate" hreflang="en-AE" href="https://yogteck.com/en-ae/products/erp-software" />
-    <xhtml:link rel="alternate" hreflang="de-DE" href="https://yogteck.com/de-de/products/erp-software" />
-    <xhtml:link rel="alternate" hreflang="fr-FR" href="https://yogteck.com/fr-fr/products/erp-software" />
-    <xhtml:link rel="alternate" hreflang="es-ES" href="https://yogteck.com/es-es/products/erp-software" />
-    <xhtml:link rel="alternate" hreflang="it-IT" href="https://yogteck.com/it-it/products/erp-software" />
-    <xhtml:link rel="alternate" hreflang="nl-NL" href="https://yogteck.com/nl-nl/products/erp-software" />
-    <xhtml:link rel="alternate" hreflang="en-IE" href="https://yogteck.com/en-ie/products/erp-software" />
-    <xhtml:link rel="alternate" hreflang="ja-JP" href="https://yogteck.com/ja-jp/products/erp-software" />
-    <xhtml:link rel="alternate" hreflang="ko-KR" href="https://yogteck.com/ko-kr/products/erp-software" />
-    <xhtml:link rel="alternate" hreflang="ar-SA" href="https://yogteck.com/ar-sa/products/erp-software" />
-    <xhtml:link rel="alternate" hreflang="en-IN" href="https://yogteck.com/en-in/products/erp-software" />
-    <xhtml:link rel="alternate" hreflang="hi-IN" href="https://yogteck.com/hi-in/products/erp-software" />
   </url>
   <url>
     <loc>https://yogteck.com/products/saas-platform</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://yogteck.com/products/saas-platform" />
-    <xhtml:link rel="alternate" hreflang="en-US" href="https://yogteck.com/en-us/products/saas-platform" />
-    <xhtml:link rel="alternate" hreflang="en-GB" href="https://yogteck.com/en-gb/products/saas-platform" />
-    <xhtml:link rel="alternate" hreflang="en-CA" href="https://yogteck.com/en-ca/products/saas-platform" />
-    <xhtml:link rel="alternate" hreflang="en-AU" href="https://yogteck.com/en-au/products/saas-platform" />
-    <xhtml:link rel="alternate" hreflang="en-SG" href="https://yogteck.com/en-sg/products/saas-platform" />
-    <xhtml:link rel="alternate" hreflang="en-PH" href="https://yogteck.com/en-ph/products/saas-platform" />
-    <xhtml:link rel="alternate" hreflang="en-NZ" href="https://yogteck.com/en-nz/products/saas-platform" />
-    <xhtml:link rel="alternate" hreflang="en-AE" href="https://yogteck.com/en-ae/products/saas-platform" />
-    <xhtml:link rel="alternate" hreflang="de-DE" href="https://yogteck.com/de-de/products/saas-platform" />
-    <xhtml:link rel="alternate" hreflang="fr-FR" href="https://yogteck.com/fr-fr/products/saas-platform" />
-    <xhtml:link rel="alternate" hreflang="es-ES" href="https://yogteck.com/es-es/products/saas-platform" />
-    <xhtml:link rel="alternate" hreflang="it-IT" href="https://yogteck.com/it-it/products/saas-platform" />
-    <xhtml:link rel="alternate" hreflang="nl-NL" href="https://yogteck.com/nl-nl/products/saas-platform" />
-    <xhtml:link rel="alternate" hreflang="en-IE" href="https://yogteck.com/en-ie/products/saas-platform" />
-    <xhtml:link rel="alternate" hreflang="ja-JP" href="https://yogteck.com/ja-jp/products/saas-platform" />
-    <xhtml:link rel="alternate" hreflang="ko-KR" href="https://yogteck.com/ko-kr/products/saas-platform" />
-    <xhtml:link rel="alternate" hreflang="ar-SA" href="https://yogteck.com/ar-sa/products/saas-platform" />
-    <xhtml:link rel="alternate" hreflang="en-IN" href="https://yogteck.com/en-in/products/saas-platform" />
-    <xhtml:link rel="alternate" hreflang="hi-IN" href="https://yogteck.com/hi-in/products/saas-platform" />
   </url>
   <url>
     <loc>https://yogteck.com/products/whatsapp-marketing-tool</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://yogteck.com/products/whatsapp-marketing-tool" />
-    <xhtml:link rel="alternate" hreflang="en-US" href="https://yogteck.com/en-us/products/whatsapp-marketing-tool" />
-    <xhtml:link rel="alternate" hreflang="en-GB" href="https://yogteck.com/en-gb/products/whatsapp-marketing-tool" />
-    <xhtml:link rel="alternate" hreflang="en-CA" href="https://yogteck.com/en-ca/products/whatsapp-marketing-tool" />
-    <xhtml:link rel="alternate" hreflang="en-AU" href="https://yogteck.com/en-au/products/whatsapp-marketing-tool" />
-    <xhtml:link rel="alternate" hreflang="en-SG" href="https://yogteck.com/en-sg/products/whatsapp-marketing-tool" />
-    <xhtml:link rel="alternate" hreflang="en-PH" href="https://yogteck.com/en-ph/products/whatsapp-marketing-tool" />
-    <xhtml:link rel="alternate" hreflang="en-NZ" href="https://yogteck.com/en-nz/products/whatsapp-marketing-tool" />
-    <xhtml:link rel="alternate" hreflang="en-AE" href="https://yogteck.com/en-ae/products/whatsapp-marketing-tool" />
-    <xhtml:link rel="alternate" hreflang="de-DE" href="https://yogteck.com/de-de/products/whatsapp-marketing-tool" />
-    <xhtml:link rel="alternate" hreflang="fr-FR" href="https://yogteck.com/fr-fr/products/whatsapp-marketing-tool" />
-    <xhtml:link rel="alternate" hreflang="es-ES" href="https://yogteck.com/es-es/products/whatsapp-marketing-tool" />
-    <xhtml:link rel="alternate" hreflang="it-IT" href="https://yogteck.com/it-it/products/whatsapp-marketing-tool" />
-    <xhtml:link rel="alternate" hreflang="nl-NL" href="https://yogteck.com/nl-nl/products/whatsapp-marketing-tool" />
-    <xhtml:link rel="alternate" hreflang="en-IE" href="https://yogteck.com/en-ie/products/whatsapp-marketing-tool" />
-    <xhtml:link rel="alternate" hreflang="ja-JP" href="https://yogteck.com/ja-jp/products/whatsapp-marketing-tool" />
-    <xhtml:link rel="alternate" hreflang="ko-KR" href="https://yogteck.com/ko-kr/products/whatsapp-marketing-tool" />
-    <xhtml:link rel="alternate" hreflang="ar-SA" href="https://yogteck.com/ar-sa/products/whatsapp-marketing-tool" />
-    <xhtml:link rel="alternate" hreflang="en-IN" href="https://yogteck.com/en-in/products/whatsapp-marketing-tool" />
-    <xhtml:link rel="alternate" hreflang="hi-IN" href="https://yogteck.com/hi-in/products/whatsapp-marketing-tool" />
   </url>
   <url>
     <loc>https://yogteck.com/tools</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://yogteck.com/tools" />
-    <xhtml:link rel="alternate" hreflang="en-US" href="https://yogteck.com/en-us/tools" />
-    <xhtml:link rel="alternate" hreflang="en-GB" href="https://yogteck.com/en-gb/tools" />
-    <xhtml:link rel="alternate" hreflang="en-CA" href="https://yogteck.com/en-ca/tools" />
-    <xhtml:link rel="alternate" hreflang="en-AU" href="https://yogteck.com/en-au/tools" />
-    <xhtml:link rel="alternate" hreflang="en-SG" href="https://yogteck.com/en-sg/tools" />
-    <xhtml:link rel="alternate" hreflang="en-PH" href="https://yogteck.com/en-ph/tools" />
-    <xhtml:link rel="alternate" hreflang="en-NZ" href="https://yogteck.com/en-nz/tools" />
-    <xhtml:link rel="alternate" hreflang="en-AE" href="https://yogteck.com/en-ae/tools" />
-    <xhtml:link rel="alternate" hreflang="de-DE" href="https://yogteck.com/de-de/tools" />
-    <xhtml:link rel="alternate" hreflang="fr-FR" href="https://yogteck.com/fr-fr/tools" />
-    <xhtml:link rel="alternate" hreflang="es-ES" href="https://yogteck.com/es-es/tools" />
-    <xhtml:link rel="alternate" hreflang="it-IT" href="https://yogteck.com/it-it/tools" />
-    <xhtml:link rel="alternate" hreflang="nl-NL" href="https://yogteck.com/nl-nl/tools" />
-    <xhtml:link rel="alternate" hreflang="en-IE" href="https://yogteck.com/en-ie/tools" />
-    <xhtml:link rel="alternate" hreflang="ja-JP" href="https://yogteck.com/ja-jp/tools" />
-    <xhtml:link rel="alternate" hreflang="ko-KR" href="https://yogteck.com/ko-kr/tools" />
-    <xhtml:link rel="alternate" hreflang="ar-SA" href="https://yogteck.com/ar-sa/tools" />
-    <xhtml:link rel="alternate" hreflang="en-IN" href="https://yogteck.com/en-in/tools" />
-    <xhtml:link rel="alternate" hreflang="hi-IN" href="https://yogteck.com/hi-in/tools" />
   </url>
   <url>
     <loc>https://yogteck.com/tools/whatsapp-marketing-tool</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://yogteck.com/tools/whatsapp-marketing-tool" />
-    <xhtml:link rel="alternate" hreflang="en-US" href="https://yogteck.com/en-us/tools/whatsapp-marketing-tool" />
-    <xhtml:link rel="alternate" hreflang="en-GB" href="https://yogteck.com/en-gb/tools/whatsapp-marketing-tool" />
-    <xhtml:link rel="alternate" hreflang="en-CA" href="https://yogteck.com/en-ca/tools/whatsapp-marketing-tool" />
-    <xhtml:link rel="alternate" hreflang="en-AU" href="https://yogteck.com/en-au/tools/whatsapp-marketing-tool" />
-    <xhtml:link rel="alternate" hreflang="en-SG" href="https://yogteck.com/en-sg/tools/whatsapp-marketing-tool" />
-    <xhtml:link rel="alternate" hreflang="en-PH" href="https://yogteck.com/en-ph/tools/whatsapp-marketing-tool" />
-    <xhtml:link rel="alternate" hreflang="en-NZ" href="https://yogteck.com/en-nz/tools/whatsapp-marketing-tool" />
-    <xhtml:link rel="alternate" hreflang="en-AE" href="https://yogteck.com/en-ae/tools/whatsapp-marketing-tool" />
-    <xhtml:link rel="alternate" hreflang="de-DE" href="https://yogteck.com/de-de/tools/whatsapp-marketing-tool" />
-    <xhtml:link rel="alternate" hreflang="fr-FR" href="https://yogteck.com/fr-fr/tools/whatsapp-marketing-tool" />
-    <xhtml:link rel="alternate" hreflang="es-ES" href="https://yogteck.com/es-es/tools/whatsapp-marketing-tool" />
-    <xhtml:link rel="alternate" hreflang="it-IT" href="https://yogteck.com/it-it/tools/whatsapp-marketing-tool" />
-    <xhtml:link rel="alternate" hreflang="nl-NL" href="https://yogteck.com/nl-nl/tools/whatsapp-marketing-tool" />
-    <xhtml:link rel="alternate" hreflang="en-IE" href="https://yogteck.com/en-ie/tools/whatsapp-marketing-tool" />
-    <xhtml:link rel="alternate" hreflang="ja-JP" href="https://yogteck.com/ja-jp/tools/whatsapp-marketing-tool" />
-    <xhtml:link rel="alternate" hreflang="ko-KR" href="https://yogteck.com/ko-kr/tools/whatsapp-marketing-tool" />
-    <xhtml:link rel="alternate" hreflang="ar-SA" href="https://yogteck.com/ar-sa/tools/whatsapp-marketing-tool" />
-    <xhtml:link rel="alternate" hreflang="en-IN" href="https://yogteck.com/en-in/tools/whatsapp-marketing-tool" />
-    <xhtml:link rel="alternate" hreflang="hi-IN" href="https://yogteck.com/hi-in/tools/whatsapp-marketing-tool" />
   </url>
   <url>
     <loc>https://yogteck.com/tools/gst-billing-software</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://yogteck.com/tools/gst-billing-software" />
-    <xhtml:link rel="alternate" hreflang="en-US" href="https://yogteck.com/en-us/tools/gst-billing-software" />
-    <xhtml:link rel="alternate" hreflang="en-GB" href="https://yogteck.com/en-gb/tools/gst-billing-software" />
-    <xhtml:link rel="alternate" hreflang="en-CA" href="https://yogteck.com/en-ca/tools/gst-billing-software" />
-    <xhtml:link rel="alternate" hreflang="en-AU" href="https://yogteck.com/en-au/tools/gst-billing-software" />
-    <xhtml:link rel="alternate" hreflang="en-SG" href="https://yogteck.com/en-sg/tools/gst-billing-software" />
-    <xhtml:link rel="alternate" hreflang="en-PH" href="https://yogteck.com/en-ph/tools/gst-billing-software" />
-    <xhtml:link rel="alternate" hreflang="en-NZ" href="https://yogteck.com/en-nz/tools/gst-billing-software" />
-    <xhtml:link rel="alternate" hreflang="en-AE" href="https://yogteck.com/en-ae/tools/gst-billing-software" />
-    <xhtml:link rel="alternate" hreflang="de-DE" href="https://yogteck.com/de-de/tools/gst-billing-software" />
-    <xhtml:link rel="alternate" hreflang="fr-FR" href="https://yogteck.com/fr-fr/tools/gst-billing-software" />
-    <xhtml:link rel="alternate" hreflang="es-ES" href="https://yogteck.com/es-es/tools/gst-billing-software" />
-    <xhtml:link rel="alternate" hreflang="it-IT" href="https://yogteck.com/it-it/tools/gst-billing-software" />
-    <xhtml:link rel="alternate" hreflang="nl-NL" href="https://yogteck.com/nl-nl/tools/gst-billing-software" />
-    <xhtml:link rel="alternate" hreflang="en-IE" href="https://yogteck.com/en-ie/tools/gst-billing-software" />
-    <xhtml:link rel="alternate" hreflang="ja-JP" href="https://yogteck.com/ja-jp/tools/gst-billing-software" />
-    <xhtml:link rel="alternate" hreflang="ko-KR" href="https://yogteck.com/ko-kr/tools/gst-billing-software" />
-    <xhtml:link rel="alternate" hreflang="ar-SA" href="https://yogteck.com/ar-sa/tools/gst-billing-software" />
-    <xhtml:link rel="alternate" hreflang="en-IN" href="https://yogteck.com/en-in/tools/gst-billing-software" />
-    <xhtml:link rel="alternate" hreflang="hi-IN" href="https://yogteck.com/hi-in/tools/gst-billing-software" />
   </url>
   <url>
     <loc>https://yogteck.com/tools/cloud-erp</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://yogteck.com/tools/cloud-erp" />
-    <xhtml:link rel="alternate" hreflang="en-US" href="https://yogteck.com/en-us/tools/cloud-erp" />
-    <xhtml:link rel="alternate" hreflang="en-GB" href="https://yogteck.com/en-gb/tools/cloud-erp" />
-    <xhtml:link rel="alternate" hreflang="en-CA" href="https://yogteck.com/en-ca/tools/cloud-erp" />
-    <xhtml:link rel="alternate" hreflang="en-AU" href="https://yogteck.com/en-au/tools/cloud-erp" />
-    <xhtml:link rel="alternate" hreflang="en-SG" href="https://yogteck.com/en-sg/tools/cloud-erp" />
-    <xhtml:link rel="alternate" hreflang="en-PH" href="https://yogteck.com/en-ph/tools/cloud-erp" />
-    <xhtml:link rel="alternate" hreflang="en-NZ" href="https://yogteck.com/en-nz/tools/cloud-erp" />
-    <xhtml:link rel="alternate" hreflang="en-AE" href="https://yogteck.com/en-ae/tools/cloud-erp" />
-    <xhtml:link rel="alternate" hreflang="de-DE" href="https://yogteck.com/de-de/tools/cloud-erp" />
-    <xhtml:link rel="alternate" hreflang="fr-FR" href="https://yogteck.com/fr-fr/tools/cloud-erp" />
-    <xhtml:link rel="alternate" hreflang="es-ES" href="https://yogteck.com/es-es/tools/cloud-erp" />
-    <xhtml:link rel="alternate" hreflang="it-IT" href="https://yogteck.com/it-it/tools/cloud-erp" />
-    <xhtml:link rel="alternate" hreflang="nl-NL" href="https://yogteck.com/nl-nl/tools/cloud-erp" />
-    <xhtml:link rel="alternate" hreflang="en-IE" href="https://yogteck.com/en-ie/tools/cloud-erp" />
-    <xhtml:link rel="alternate" hreflang="ja-JP" href="https://yogteck.com/ja-jp/tools/cloud-erp" />
-    <xhtml:link rel="alternate" hreflang="ko-KR" href="https://yogteck.com/ko-kr/tools/cloud-erp" />
-    <xhtml:link rel="alternate" hreflang="ar-SA" href="https://yogteck.com/ar-sa/tools/cloud-erp" />
-    <xhtml:link rel="alternate" hreflang="en-IN" href="https://yogteck.com/en-in/tools/cloud-erp" />
-    <xhtml:link rel="alternate" hreflang="hi-IN" href="https://yogteck.com/hi-in/tools/cloud-erp" />
   </url>
   <url>
     <loc>https://yogteck.com/clients</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://yogteck.com/clients" />
-    <xhtml:link rel="alternate" hreflang="en-US" href="https://yogteck.com/en-us/clients" />
-    <xhtml:link rel="alternate" hreflang="en-GB" href="https://yogteck.com/en-gb/clients" />
-    <xhtml:link rel="alternate" hreflang="en-CA" href="https://yogteck.com/en-ca/clients" />
-    <xhtml:link rel="alternate" hreflang="en-AU" href="https://yogteck.com/en-au/clients" />
-    <xhtml:link rel="alternate" hreflang="en-SG" href="https://yogteck.com/en-sg/clients" />
-    <xhtml:link rel="alternate" hreflang="en-PH" href="https://yogteck.com/en-ph/clients" />
-    <xhtml:link rel="alternate" hreflang="en-NZ" href="https://yogteck.com/en-nz/clients" />
-    <xhtml:link rel="alternate" hreflang="en-AE" href="https://yogteck.com/en-ae/clients" />
-    <xhtml:link rel="alternate" hreflang="de-DE" href="https://yogteck.com/de-de/clients" />
-    <xhtml:link rel="alternate" hreflang="fr-FR" href="https://yogteck.com/fr-fr/clients" />
-    <xhtml:link rel="alternate" hreflang="es-ES" href="https://yogteck.com/es-es/clients" />
-    <xhtml:link rel="alternate" hreflang="it-IT" href="https://yogteck.com/it-it/clients" />
-    <xhtml:link rel="alternate" hreflang="nl-NL" href="https://yogteck.com/nl-nl/clients" />
-    <xhtml:link rel="alternate" hreflang="en-IE" href="https://yogteck.com/en-ie/clients" />
-    <xhtml:link rel="alternate" hreflang="ja-JP" href="https://yogteck.com/ja-jp/clients" />
-    <xhtml:link rel="alternate" hreflang="ko-KR" href="https://yogteck.com/ko-kr/clients" />
-    <xhtml:link rel="alternate" hreflang="ar-SA" href="https://yogteck.com/ar-sa/clients" />
-    <xhtml:link rel="alternate" hreflang="en-IN" href="https://yogteck.com/en-in/clients" />
-    <xhtml:link rel="alternate" hreflang="hi-IN" href="https://yogteck.com/hi-in/clients" />
   </url>
   <url>
     <loc>https://yogteck.com/clients/mmr-constructions</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://yogteck.com/clients/mmr-constructions" />
-    <xhtml:link rel="alternate" hreflang="en-US" href="https://yogteck.com/en-us/clients/mmr-constructions" />
-    <xhtml:link rel="alternate" hreflang="en-GB" href="https://yogteck.com/en-gb/clients/mmr-constructions" />
-    <xhtml:link rel="alternate" hreflang="en-CA" href="https://yogteck.com/en-ca/clients/mmr-constructions" />
-    <xhtml:link rel="alternate" hreflang="en-AU" href="https://yogteck.com/en-au/clients/mmr-constructions" />
-    <xhtml:link rel="alternate" hreflang="en-SG" href="https://yogteck.com/en-sg/clients/mmr-constructions" />
-    <xhtml:link rel="alternate" hreflang="en-PH" href="https://yogteck.com/en-ph/clients/mmr-constructions" />
-    <xhtml:link rel="alternate" hreflang="en-NZ" href="https://yogteck.com/en-nz/clients/mmr-constructions" />
-    <xhtml:link rel="alternate" hreflang="en-AE" href="https://yogteck.com/en-ae/clients/mmr-constructions" />
-    <xhtml:link rel="alternate" hreflang="de-DE" href="https://yogteck.com/de-de/clients/mmr-constructions" />
-    <xhtml:link rel="alternate" hreflang="fr-FR" href="https://yogteck.com/fr-fr/clients/mmr-constructions" />
-    <xhtml:link rel="alternate" hreflang="es-ES" href="https://yogteck.com/es-es/clients/mmr-constructions" />
-    <xhtml:link rel="alternate" hreflang="it-IT" href="https://yogteck.com/it-it/clients/mmr-constructions" />
-    <xhtml:link rel="alternate" hreflang="nl-NL" href="https://yogteck.com/nl-nl/clients/mmr-constructions" />
-    <xhtml:link rel="alternate" hreflang="en-IE" href="https://yogteck.com/en-ie/clients/mmr-constructions" />
-    <xhtml:link rel="alternate" hreflang="ja-JP" href="https://yogteck.com/ja-jp/clients/mmr-constructions" />
-    <xhtml:link rel="alternate" hreflang="ko-KR" href="https://yogteck.com/ko-kr/clients/mmr-constructions" />
-    <xhtml:link rel="alternate" hreflang="ar-SA" href="https://yogteck.com/ar-sa/clients/mmr-constructions" />
-    <xhtml:link rel="alternate" hreflang="en-IN" href="https://yogteck.com/en-in/clients/mmr-constructions" />
-    <xhtml:link rel="alternate" hreflang="hi-IN" href="https://yogteck.com/hi-in/clients/mmr-constructions" />
   </url>
   <url>
     <loc>https://yogteck.com/clients/yogkart-healthcare</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://yogteck.com/clients/yogkart-healthcare" />
-    <xhtml:link rel="alternate" hreflang="en-US" href="https://yogteck.com/en-us/clients/yogkart-healthcare" />
-    <xhtml:link rel="alternate" hreflang="en-GB" href="https://yogteck.com/en-gb/clients/yogkart-healthcare" />
-    <xhtml:link rel="alternate" hreflang="en-CA" href="https://yogteck.com/en-ca/clients/yogkart-healthcare" />
-    <xhtml:link rel="alternate" hreflang="en-AU" href="https://yogteck.com/en-au/clients/yogkart-healthcare" />
-    <xhtml:link rel="alternate" hreflang="en-SG" href="https://yogteck.com/en-sg/clients/yogkart-healthcare" />
-    <xhtml:link rel="alternate" hreflang="en-PH" href="https://yogteck.com/en-ph/clients/yogkart-healthcare" />
-    <xhtml:link rel="alternate" hreflang="en-NZ" href="https://yogteck.com/en-nz/clients/yogkart-healthcare" />
-    <xhtml:link rel="alternate" hreflang="en-AE" href="https://yogteck.com/en-ae/clients/yogkart-healthcare" />
-    <xhtml:link rel="alternate" hreflang="de-DE" href="https://yogteck.com/de-de/clients/yogkart-healthcare" />
-    <xhtml:link rel="alternate" hreflang="fr-FR" href="https://yogteck.com/fr-fr/clients/yogkart-healthcare" />
-    <xhtml:link rel="alternate" hreflang="es-ES" href="https://yogteck.com/es-es/clients/yogkart-healthcare" />
-    <xhtml:link rel="alternate" hreflang="it-IT" href="https://yogteck.com/it-it/clients/yogkart-healthcare" />
-    <xhtml:link rel="alternate" hreflang="nl-NL" href="https://yogteck.com/nl-nl/clients/yogkart-healthcare" />
-    <xhtml:link rel="alternate" hreflang="en-IE" href="https://yogteck.com/en-ie/clients/yogkart-healthcare" />
-    <xhtml:link rel="alternate" hreflang="ja-JP" href="https://yogteck.com/ja-jp/clients/yogkart-healthcare" />
-    <xhtml:link rel="alternate" hreflang="ko-KR" href="https://yogteck.com/ko-kr/clients/yogkart-healthcare" />
-    <xhtml:link rel="alternate" hreflang="ar-SA" href="https://yogteck.com/ar-sa/clients/yogkart-healthcare" />
-    <xhtml:link rel="alternate" hreflang="en-IN" href="https://yogteck.com/en-in/clients/yogkart-healthcare" />
-    <xhtml:link rel="alternate" hreflang="hi-IN" href="https://yogteck.com/hi-in/clients/yogkart-healthcare" />
   </url>
   <url>
-    <loc>https://yogteck.com/clients/business-web-solutions</loc>
+    <loc>https://yogteck.com/clients/techno-racks</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://yogteck.com/clients/business-web-solutions" />
-    <xhtml:link rel="alternate" hreflang="en-US" href="https://yogteck.com/en-us/clients/business-web-solutions" />
-    <xhtml:link rel="alternate" hreflang="en-GB" href="https://yogteck.com/en-gb/clients/business-web-solutions" />
-    <xhtml:link rel="alternate" hreflang="en-CA" href="https://yogteck.com/en-ca/clients/business-web-solutions" />
-    <xhtml:link rel="alternate" hreflang="en-AU" href="https://yogteck.com/en-au/clients/business-web-solutions" />
-    <xhtml:link rel="alternate" hreflang="en-SG" href="https://yogteck.com/en-sg/clients/business-web-solutions" />
-    <xhtml:link rel="alternate" hreflang="en-PH" href="https://yogteck.com/en-ph/clients/business-web-solutions" />
-    <xhtml:link rel="alternate" hreflang="en-NZ" href="https://yogteck.com/en-nz/clients/business-web-solutions" />
-    <xhtml:link rel="alternate" hreflang="en-AE" href="https://yogteck.com/en-ae/clients/business-web-solutions" />
-    <xhtml:link rel="alternate" hreflang="de-DE" href="https://yogteck.com/de-de/clients/business-web-solutions" />
-    <xhtml:link rel="alternate" hreflang="fr-FR" href="https://yogteck.com/fr-fr/clients/business-web-solutions" />
-    <xhtml:link rel="alternate" hreflang="es-ES" href="https://yogteck.com/es-es/clients/business-web-solutions" />
-    <xhtml:link rel="alternate" hreflang="it-IT" href="https://yogteck.com/it-it/clients/business-web-solutions" />
-    <xhtml:link rel="alternate" hreflang="nl-NL" href="https://yogteck.com/nl-nl/clients/business-web-solutions" />
-    <xhtml:link rel="alternate" hreflang="en-IE" href="https://yogteck.com/en-ie/clients/business-web-solutions" />
-    <xhtml:link rel="alternate" hreflang="ja-JP" href="https://yogteck.com/ja-jp/clients/business-web-solutions" />
-    <xhtml:link rel="alternate" hreflang="ko-KR" href="https://yogteck.com/ko-kr/clients/business-web-solutions" />
-    <xhtml:link rel="alternate" hreflang="ar-SA" href="https://yogteck.com/ar-sa/clients/business-web-solutions" />
-    <xhtml:link rel="alternate" hreflang="en-IN" href="https://yogteck.com/en-in/clients/business-web-solutions" />
-    <xhtml:link rel="alternate" hreflang="hi-IN" href="https://yogteck.com/hi-in/clients/business-web-solutions" />
+  </url>
+  <url>
+    <loc>https://yogteck.com/service-areas</loc>
+    <lastmod>2026-10-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://yogteck.com/solutions/erp-for-manufacturers</loc>
+    <lastmod>2026-10-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://yogteck.com/solutions/inventory-software-for-traders</loc>
+    <lastmod>2026-10-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://yogteck.com/solutions/billing-software-for-retail</loc>
+    <lastmod>2026-10-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://yogteck.com/solutions/erp-for-pharma-distributors</loc>
+    <lastmod>2026-10-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
   </url>
   <url>
     <loc>https://yogteck.com/it-software-company-kanpur</loc>
@@ -664,9 +235,9 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://yogteck.com/it-software-company-raebareli</loc>
+    <loc>https://yogteck.com/it-software-company-uttar-pradesh</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.9</priority>
   </url>
 </urlset>

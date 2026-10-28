@@ -11,4 +11,14 @@ import { CONTACT_CONFIG } from '../../data/contact.config';
 })
 export class FloatingWhatsappComponent {
   contact = CONTACT_CONFIG;
+
+  trackWhatsAppClick(): void {
+    if (typeof window !== 'undefined' && (window as any).gtag) {
+      (window as any).gtag('event', 'whatsapp_click', {
+        event_category: 'lead_channel',
+        event_label: 'Floating WhatsApp Button'
+      });
+    }
+  }
 }
+

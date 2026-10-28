@@ -20,7 +20,7 @@ export const enInDictionary: LocaleDictionary = {
     badge: 'Your Growth Partner in India',
     titleLine2Highlight: 'Grow with',
     subcopy: 'Yogteck Business Solution is an IT & software company in Kanpur delivering custom software, modern websites, ERP, e-commerce, and digital business solutions across India.',
-    trustExp: '5+ Years Industry Experience',
+    trustExp: 'Professional Engineering Standards',
     trustHosting: 'Free Domain & Cloud Hosting*',
     trustSupport: '100% Dedicated Support'
   },

@@ -185,10 +185,19 @@ export class QuoteModalComponent implements OnInit, OnChanges {
       }
 
       this.submitSuccess = true;
+      if (typeof window !== 'undefined' && (window as any).gtag) {
+        (window as any).gtag('event', 'generate_lead', {
+          event_category: 'engagement',
+          event_label: 'Modal Quote Submission',
+          service_type: payload.serviceType,
+          value: 1
+        });
+      }
       form.resetForm({
         serviceType: this.defaultServiceTitle || 'Website Development'
       });
       this.generateCaptcha();
+
     } catch (err) {
       console.error('Modal Quote submission error:', err);
       this.submitError = err instanceof Error ? err.message : dict.inquiry.errorMessage;

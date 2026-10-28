@@ -2,6 +2,7 @@ import { Injectable, Inject } from '@angular/core';
 import { Title, Meta } from '@angular/platform-browser';
 import { DOCUMENT } from '@angular/common';
 import { SUPPORTED_LOCALES, X_DEFAULT_LOCALE, LocaleConfig } from '../data/locales.config';
+import { CONTACT_CONFIG } from '../data/contact.config';
 
 export interface LocalizedSeoConfig {
   title: string;
@@ -9,6 +10,7 @@ export interface LocalizedSeoConfig {
   keywords?: string;
   localeCode: string;
   pathWithoutLocale?: string; // e.g. '', 'services/erp-software', 'it-software-company-kanpur'
+
   ogImage?: string;
   ogType?: string;
   robots?: string;
@@ -37,12 +39,20 @@ export class SeoService {
     private titleService: Title,
     private metaService: Meta,
     @Inject(DOCUMENT) private doc: Document
-  ) {}
+  ) {
+    if (this.doc && this.doc.documentElement) {
+      this.doc.documentElement.setAttribute('lang', 'en-IN');
+    }
+  }
 
   /**
    * Sets top-level canonical SEO with self-referencing URL, OpenGraph, Twitter, and JSON-LD
    */
   public setCanonicalPageSeo(config: CanonicalSeoConfig): void {
+    if (this.doc && this.doc.documentElement) {
+      this.doc.documentElement.setAttribute('lang', 'en-IN');
+    }
+
     this.titleService.setTitle(config.title);
     this.metaService.updateTag({ name: 'description', content: config.description });
     this.metaService.updateTag({
@@ -71,6 +81,9 @@ export class SeoService {
     // Self-referencing Canonical URL
     this.updateCanonicalUrl(config.canonicalUrl);
 
+    // Remove any untranslated alternate hreflang tags
+    this.updateHreflangTags('');
+
     // Injected JSON-LD
     if (config.jsonLdSchemas && config.jsonLdSchemas.length > 0) {
       this.injectJsonLd(config.jsonLdSchemas);
@@ -78,30 +91,33 @@ export class SeoService {
   }
 
   /**
-   * Updates complete page SEO: title, description, robots, OpenGraph, Twitter, canonical, reciprocal hreflangs, and JSON-LD schemas
+   * Sets locale-prefixed page SEO:
+   * Keep functional for users, but marks with noindex, follow and canonical pointing to the matching non-prefixed URL
    */
   public setLocalizedPageSeo(config: LocalizedSeoConfig): void {
-    const currentLocale = SUPPORTED_LOCALES.find(l => l.code === config.localeCode) || SUPPORTED_LOCALES[0];
-    const subpath = config.pathWithoutLocale ? `/${config.pathWithoutLocale}` : '';
-    const cleanSubpath = subpath.endsWith('/') ? subpath : (subpath ? `${subpath}/` : '/');
-    const pageCanonicalUrl = `${this.defaultDomain}/${currentLocale.code}${cleanSubpath === '/' ? '/' : cleanSubpath}`;
+    if (this.doc && this.doc.documentElement) {
+      this.doc.documentElement.setAttribute('lang', 'en-IN');
+    }
 
-    // 1. Localized Title & Meta Description
+    const currentLocale = SUPPORTED_LOCALES.find(l => l.code === config.localeCode) || SUPPORTED_LOCALES[0];
+    const subpath = (config.pathWithoutLocale || '').replace(/^\//, '').replace(/\/$/, '');
+    // Matching non-prefixed canonical URL (Task 1 requirement)
+    const matchingNonPrefixedCanonical = subpath ? `${this.defaultDomain}/${subpath}` : `${this.defaultDomain}/`;
+
+    // 1. Title & Meta Description
     this.titleService.setTitle(config.title);
     this.metaService.updateTag({ name: 'description', content: config.description });
-    if (config.keywords) {
-      this.metaService.updateTag({ name: 'keywords', content: config.keywords });
-    }
+    // Locale-prefixed pages MUST be noindex, follow
     this.metaService.updateTag({
       name: 'robots',
-      content: config.robots || 'index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1'
+      content: 'noindex, follow'
     });
     this.metaService.updateTag({ name: 'author', content: 'Yogteck Business Solution' });
 
     // 2. Open Graph & Twitter Tags
     this.metaService.updateTag({ property: 'og:title', content: config.title });
     this.metaService.updateTag({ property: 'og:description', content: config.description });
-    this.metaService.updateTag({ property: 'og:url', content: pageCanonicalUrl });
+    this.metaService.updateTag({ property: 'og:url', content: matchingNonPrefixedCanonical });
     this.metaService.updateTag({ property: 'og:type', content: config.ogType || 'website' });
     this.metaService.updateTag({ property: 'og:site_name', content: this.defaultSiteName });
     this.metaService.updateTag({ property: 'og:locale', content: currentLocale.htmlLang.replace('-', '_') });
@@ -109,24 +125,16 @@ export class SeoService {
     this.metaService.updateTag({ property: 'og:image:width', content: '1200' });
     this.metaService.updateTag({ property: 'og:image:height', content: '630' });
 
-    // OG Alternate Locales
-    SUPPORTED_LOCALES.filter(l => l.code !== currentLocale.code).forEach(altLocale => {
-      this.metaService.updateTag({
-        property: 'og:locale:alternate',
-        content: altLocale.htmlLang.replace('-', '_')
-      });
-    });
-
     this.metaService.updateTag({ name: 'twitter:card', content: 'summary_large_image' });
     this.metaService.updateTag({ name: 'twitter:title', content: config.title });
     this.metaService.updateTag({ name: 'twitter:description', content: config.description });
     this.metaService.updateTag({ name: 'twitter:image', content: config.ogImage || this.defaultOgImage });
 
-    // 3. Self-referencing Canonical URL
-    this.updateCanonicalUrl(pageCanonicalUrl);
+    // 3. Canonical URL points to matching non-prefixed URL
+    this.updateCanonicalUrl(matchingNonPrefixedCanonical);
 
-    // 4. Reciprocal hreflang tags for ALL supported locales + x-default
-    this.updateHreflangTags(cleanSubpath);
+    // 4. Remove all hreflang tags (no untranslated hreflangs)
+    this.updateHreflangTags('');
 
     // 5. Injected JSON-LD Structured Data
     if (config.jsonLdSchemas && config.jsonLdSchemas.length > 0) {
@@ -192,30 +200,13 @@ export class SeoService {
   }
 
   /**
-   * Generates and injects reciprocal hreflang links for ALL locales and x-default
+   * Cleans up hreflang tags since no real translated multi-language content exists.
+   * As approved in Phase 4 Task 1, no hreflang links are output until genuine translations exist.
    */
-  public updateHreflangTags(cleanSubpath: string): void {
+  public updateHreflangTags(cleanSubpath?: string): void {
     // Remove existing hreflang link tags
     const existingHreflangs = this.doc.head.querySelectorAll('link[rel="alternate"][hreflang]');
     existingHreflangs.forEach(el => el.remove());
-
-    const pathSuffix = cleanSubpath === '/' ? '/' : (cleanSubpath.endsWith('/') ? cleanSubpath : `${cleanSubpath}/`);
-
-    // Add reciprocal tag for every locale
-    SUPPORTED_LOCALES.forEach(locale => {
-      const link: HTMLLinkElement = this.doc.createElement('link');
-      link.setAttribute('rel', 'alternate');
-      link.setAttribute('hreflang', locale.htmlLang);
-      link.setAttribute('href', `${this.defaultDomain}/${locale.code}${pathSuffix}`);
-      this.doc.head.appendChild(link);
-    });
-
-    // Add x-default pointing to /en/
-    const xDefaultLink: HTMLLinkElement = this.doc.createElement('link');
-    xDefaultLink.setAttribute('rel', 'alternate');
-    xDefaultLink.setAttribute('hreflang', 'x-default');
-    xDefaultLink.setAttribute('href', `${this.defaultDomain}/${X_DEFAULT_LOCALE}${pathSuffix}`);
-    this.doc.head.appendChild(xDefaultLink);
   }
 
   /**
@@ -289,7 +280,7 @@ export class SeoService {
         "areaServed": localeConfig.country,
         "availableLanguage": [localeConfig.languageName, "English"]
       },
-      "sameAs": []
+      "sameAs": Object.values(CONTACT_CONFIG.socialLinks || {}).filter(Boolean)
     };
 
     // 3. LocalBusiness / ProfessionalService for Kanpur headquarters
@@ -303,6 +294,7 @@ export class SeoService {
       "telephone": "+91-8299209905",
       "email": "yogteck@gmail.com",
       "priceRange": "$$",
+      "areaServed": ["Kanpur", "Lucknow", "Uttar Pradesh", "Delhi NCR", "Rajasthan", "Gujarat", "Madhya Pradesh", "Chandigarh", "Maharashtra", "Karnataka"],
       "inLanguage": localeConfig.htmlLang,
       "description": pageDescription,
       "address": {

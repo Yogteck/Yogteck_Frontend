@@ -18,45 +18,173 @@
       <app-breadcrumbs [items]="breadcrumbItems"></app-breadcrumbs>
 
       <div class="city-hero-content">
-        <span class="city-badge">SERVICE DELIVERY AREA</span>
+        <span class="city-badge">REMOTE SERVICE DELIVERY AREA</span>
         <h1 class="city-title">{{ cityData.h1 }}</h1>
 
-        <!-- Visible Marker if owner content is needed (with noindex) -->
-        <div *ngIf="cityData.needsOwnerContent" class="owner-marker-box">
-          <span class="marker-tag">PENDING OWNER INPUT (NOINDEX APPLIED)</span>
-          <p class="marker-msg">[OWNER: city-specific content needed — genuine local industries, specific commercial case studies, and localized client references needed before public indexing].</p>
+        <!-- Visible Marker if owner/verify content is needed (with noindex) -->
+        <div *ngIf="cityData.needsOwnerContent || !isIndexablePage" class="owner-marker-box">
+          <span class="marker-tag">VERIFICATION IN PROGRESS (NOINDEX APPLIED)</span>
+          <p class="marker-msg">We serve {{ cityData.city }} clients remotely from our Kanpur office. Specific regional case studies and verification markers are undergoing review before search engine indexing.</p>
         </div>
 
-        <!-- Answer-first intro -->
+        <!-- Direct Answer Intro -->
         <p class="city-direct-answer">
           {{ cityData.heroAnswer }}
         </p>
 
-        <!-- Service area note -->
+        <!-- Service Area & Remote Delivery Mandate -->
         <div class="service-area-notice">
-          <strong>Service Area Notice:</strong> YogTeck Business Solution serves clients in {{ cityData.city }} via cloud architecture, remote collaboration, and dedicated account management. Our registered physical office and development center is located at 302/2, Mangla Vihar 2, New PAC Line, Kanpur Nagar, UP 208015.
+          <strong>Service Delivery Notice:</strong> We serve {{ cityData.city }} clients remotely from our Kanpur office. Our registered physical development office and corporate headquarters is located exclusively at 302/2, Mangla Vihar 2, New PAC Line, Kanpur Nagar, UP 208015. We do not operate local branch offices or staff outside Kanpur.
         </div>
 
+        <!-- Section 1: What We Build for Local Businesses -->
+        <div class="city-section-card" *ngIf="cityData.whatWeBuild && cityData.whatWeBuild.length > 0">
+          <h2 class="context-heading">What We Build for Businesses in {{ cityData.city }}</h2>
+          <p class="section-sub">Engineered specifically for regional manufacturing, wholesale distribution, and commercial trade.</p>
+          <div class="what-we-build-grid">
+            @for (item of cityData.whatWeBuild; track item.title) {
+              <div class="wwb-card">
+                <h3 class="wwb-title">{{ item.title }}</h3>
+                <p class="wwb-desc">{{ item.desc }}</p>
+              </div>
+            }
+          </div>
+        </div>
+
+        <!-- Section 2: Regional Context & Industries Typically Found in this City -->
         <div class="city-context-card">
-          <h2 class="context-heading">{{ cityData.city }} Regional Business Landscape</h2>
+          <h2 class="context-heading">{{ cityData.city }} Commercial Ecosystem & Operating Environment</h2>
           <p>{{ cityData.cityContext }}</p>
         </div>
 
-        <div class="local-industries-grid">
-          @for (ind of cityData.localIndustries; track ind.industry) {
-            <div class="ind-card">
-              <h3 class="ind-title">{{ ind.industry }}</h3>
-              <p class="ind-desc">{{ ind.description }}</p>
-            </div>
-          }
+        <div class="city-section-card">
+          <h2 class="context-heading">Industries Typically Found in {{ cityData.city }}</h2>
+          <p class="section-sub">Digital workflow automation, cloud ERP, and compliance systems tailored to key commercial sectors.</p>
+          <div class="local-industries-grid">
+            @for (ind of cityData.localIndustries; track ind.industry) {
+              <div class="ind-card">
+                <h3 class="ind-title">{{ ind.industry }}</h3>
+                <p class="ind-desc">{{ ind.description }}</p>
+              </div>
+            }
+          </div>
         </div>
 
+        <!-- Section 3: How Remote Delivery Works from Kanpur -->
+        <div class="city-section-card remote-delivery-card">
+          <h2 class="context-heading">How Remote Software Delivery Works from Our Kanpur Office</h2>
+          <p class="section-sub">We serve {{ cityData.city }} clients remotely from our Kanpur office with structured milestones, secure staging sandboxes, and full source code ownership.</p>
+          
+          <div class="remote-process-grid">
+            <div class="process-card">
+              <div class="process-step-num">01</div>
+              <h3 class="process-title">Virtual Discovery & Architecture Spec</h3>
+              <p class="process-desc">Deep-dive video workshops with our lead software architects. We map your workflows, Bill of Materials, or accounting rules into a complete Software Requirements Specification (SRS) before code is written.</p>
+            </div>
+
+            <div class="process-card">
+              <div class="process-step-num">02</div>
+              <h3 class="process-title">Milestone Sprints & Cloud Staging</h3>
+              <p class="process-desc">Weekly sprint reviews on private cloud staging servers. You test each module (inventory sync, billing counter, client portal) interactively on desktop and mobile before production sign-off.</p>
+            </div>
+
+            <div class="process-card">
+              <div class="process-step-num">03</div>
+              <h3 class="process-title">Zero-Data-Loss Migration & Testing</h3>
+              <p class="process-desc">Structured migration of historical item masters, customer credit ledgers, and vendor accounts from Tally, Busy, or legacy Excel sheets, verified side-by-side with your finance team.</p>
+            </div>
+
+            <div class="process-card">
+              <div class="process-step-num">04</div>
+              <h3 class="process-title">Video Staff Onboarding & 100% IP Transfer</h3>
+              <p class="process-desc">Hands-on recorded video training for your counter operators and warehouse teams. Full production source code, database access keys, and cloud server credentials handed over with zero lock-in.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section 4: Hub-and-Spoke Navigation -->
+        <!-- State Hub -> Spoke Cities -->
+        <div class="hub-spoke-card" *ngIf="cityData.regionType === 'state-hub' && cityData.spokeCities && cityData.spokeCities.length > 0">
+          <h2 class="context-heading">Commercial Hubs & Cities in {{ cityData.city }}</h2>
+          <p class="section-sub">Explore localized software engineering capabilities for commercial centers in this state.</p>
+          <div class="spoke-links-grid">
+            @for (spoke of cityData.spokeCities; track spoke.slug) {
+              <a [routerLink]="['/' + spoke.slug]" class="spoke-link-pill">
+                <span class="spoke-name">{{ spoke.name }} Software Services</span>
+                <span class="spoke-arrow">&rarr;</span>
+              </a>
+            }
+          </div>
+        </div>
+
+        <!-- City -> Parent Hub, Kanpur HQ, and 3 Relevant Services -->
+        <div class="hub-spoke-card" *ngIf="cityData.regionType === 'city'">
+          <h2 class="context-heading">Regional Network & Headquarters Connections</h2>
+          <p class="section-sub">Direct architecture links connecting {{ cityData.city }} with our central engineering hub.</p>
+          
+          <div class="network-links-grid">
+            <!-- Parent Hub link -->
+            <a *ngIf="cityData.parentHubSlug" [routerLink]="['/' + cityData.parentHubSlug]" class="network-card">
+              <span class="network-tag">REGIONAL STATE HUB</span>
+              <span class="network-title">{{ cityData.parentHubName || 'State Region' }} Overview</span>
+              <span class="network-hint">Explore state-wide commercial IT infrastructure &rarr;</span>
+            </a>
+
+            <!-- Central Kanpur HQ link -->
+            <a routerLink="/it-software-company-kanpur" class="network-card hq-card">
+              <span class="network-tag hq-tag">CENTRAL DEVELOPMENT HQ</span>
+              <span class="network-title">Kanpur Registered Office</span>
+              <span class="network-hint">302/2, Mangla Vihar 2, New PAC Line, Kanpur Nagar &rarr;</span>
+            </a>
+
+            <!-- All Service Areas link -->
+            <a routerLink="/service-areas" class="network-card">
+              <span class="network-tag">ALL REGIONS</span>
+              <span class="network-title">Service Areas Directory</span>
+              <span class="network-hint">View all North and West India remote delivery zones &rarr;</span>
+            </a>
+          </div>
+
+          <!-- 3 Relevant Services -->
+          <div class="relevant-services-section" *ngIf="cityData.relevantServices && cityData.relevantServices.length > 0">
+            <h3 class="relevant-services-title">Relevant Technology Services for {{ cityData.city }}</h3>
+            <div class="services-links-pills">
+              @for (srv of cityData.relevantServices; track srv.slug) {
+                <a [routerLink]="['/' + srv.slug]" class="srv-pill">{{ srv.name }}</a>
+              }
+            </div>
+          </div>
+        </div>
+
+        <!-- Standard Capabilities & Internal Links fallback -->
+        <div class="regional-capabilities-box" *ngIf="!cityData.relevantServices || cityData.relevantServices.length === 0">
+          <h2 class="context-heading">Core Software & Technology Services</h2>
+          <div class="services-links-pills">
+            <a routerLink="/services/website-development" class="srv-pill">Website Development</a>
+            <a routerLink="/services/custom-software-development" class="srv-pill">Custom Software</a>
+            <a routerLink="/services/erp-software" class="srv-pill">Cloud ERP Systems</a>
+            <a routerLink="/services/inventory-software" class="srv-pill">Inventory Software</a>
+            <a routerLink="/services/billing-software" class="srv-pill">GST Billing Software</a>
+            <a routerLink="/services/ecommerce-development" class="srv-pill">E-Commerce Stores</a>
+          </div>
+        </div>
+
+        <!-- Section 5: FAQs (AEO/GEO Optimized) -->
+        <div class="city-faqs-wrapper" *ngIf="cityData.faqs && cityData.faqs.length > 0">
+          <app-faq-section
+            [title]="'Frequently Asked Questions About IT & Software for ' + cityData.city"
+            [subtitle]="'Factual answers for businesses in ' + cityData.city + ' seeking dependable software and web engineering partners.'"
+            [faqs]="cityData.faqs">
+          </app-faq-section>
+        </div>
+
+        <!-- Section 6: CTA Card -->
         <div class="city-cta-card">
           <h2 class="cta-heading">Consult on Your {{ cityData.city }} Project</h2>
-          <p class="cta-sub">Call our technical office or schedule an initial online discovery session.</p>
+          <p class="cta-sub">We serve {{ cityData.city }} clients remotely from our Kanpur office. Contact our lead software architects today.</p>
           <div class="cta-buttons">
             <button type="button" (click)="openQuoteModal()" class="btn btn-primary-orange">
-              <span>Request Consultation</span>
+              <span>Request Architecture Consultation</span>
             </button>
             <a [href]="contact.whatsappLink" target="_blank" rel="noopener noreferrer" class="btn btn-secondary-dark">
               <span>Message on WhatsApp</span>

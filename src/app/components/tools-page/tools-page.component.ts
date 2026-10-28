@@ -57,11 +57,11 @@ export const TOOLS_LIST: ToolItem[] = [
     slug: 'cloud-erp',
     title: 'Cloud ERP Software Platform',
     metaTitle: 'ERP Software | YogTeck Business Solution',
-    metaDescription: 'YogTeck Cloud ERP unifies inventory management, multi-warehouse stock, GST e-invoicing, production BOM, and staff payroll into one secure real-time web platform.',
+    metaDescription: 'YogTeck Cloud ERP unifies inventory management, multi-warehouse stock, GST-ready invoicing, production BOM, and staff payroll into one secure real-time web platform.',
     h1: 'Cloud ERP Software Platform',
     badge: 'Enterprise Platform',
-    summary: 'Centralized enterprise resource planning software unifying real-time multi-warehouse stock, production Bill of Materials (BOM), automated GST e-way billing, and payroll.',
-    features: ['Multi-Warehouse Inventory', 'Production & Bill of Materials', 'Automated GST E-Way Bills', 'HR & Biometric Payroll'],
+    summary: 'Centralized enterprise resource planning software unifying real-time multi-warehouse stock, production Bill of Materials (BOM), GST-compliant invoicing, and payroll.',
+    features: ['Multi-Warehouse Inventory', 'Production & Bill of Materials', 'GST-Compliant Commercial Invoicing', 'HR & Biometric Payroll'],
     productSlug: 'erp-software'
   }
 ];

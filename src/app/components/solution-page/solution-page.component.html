@@ -1,0 +1,173 @@
+<!-- Navbar -->
+<app-navbar
+  (openQuote)="openQuoteModal()"
+  (toggleDrawer)="openDrawer()">
+</app-navbar>
+
+<!-- Mobile Drawer -->
+<app-mobile-drawer
+  [isOpen]="isDrawerOpen"
+  (closeDrawer)="closeDrawer()"
+  (openQuote)="openQuoteModal()">
+</app-mobile-drawer>
+
+<main class="solution-main" *ngIf="solution">
+  <section class="solution-hero-section">
+    <div class="container">
+      <app-breadcrumbs [items]="breadcrumbItems"></app-breadcrumbs>
+
+      <div class="solution-content">
+        <span class="solution-badge">{{ solution.badge }}</span>
+        <h1 class="solution-title">{{ solution.h1 }}</h1>
+
+        <!-- Visible Gate Marker if noindex -->
+        <div *ngIf="!isIndexablePage" class="owner-marker-box">
+          <span class="marker-tag">VERIFICATION IN PROGRESS (NOINDEX)</span>
+          <p class="marker-msg">This specialized solution is currently undergoing content review before public indexing.</p>
+        </div>
+
+        <!-- Answer-First Executive Summary -->
+        <p class="solution-direct-answer">
+          {{ solution.heroAnswer }}
+        </p>
+
+        <!-- Remote Delivery Mandate -->
+        <div class="service-notice-box">
+          <strong>Service Notice:</strong> We engineer and deploy this solution remotely from our Kanpur software headquarters (Registered Office: 302/2, Mangla Vihar 2, New PAC Line, Kanpur Nagar, UP 208015). We do not claim local branch offices or staff outside Kanpur.
+        </div>
+
+        <!-- In-Depth Overview -->
+        <div class="solution-card">
+          <h2 class="section-heading">Operational Challenges & Architectural Overview</h2>
+          <p class="overview-text">{{ solution.overview }}</p>
+        </div>
+
+        <!-- Key Capabilities -->
+        <div class="solution-card">
+          <h2 class="section-heading">Core Engineering Capabilities & Modules</h2>
+          <p class="section-subtitle">Comprehensive functional modules engineered for operational resilience and compliance.</p>
+          
+          <div class="capabilities-grid">
+            @for (cap of solution.keyCapabilities; track cap.title) {
+              <div class="cap-card">
+                <h3 class="cap-title">{{ cap.title }}</h3>
+                <p class="cap-desc">{{ cap.description }}</p>
+                <div class="arch-detail" *ngIf="cap.architectureDetails">
+                  <span class="arch-tag">TECHNICAL SPEC:</span>
+                  <span>{{ cap.architectureDetails }}</span>
+                </div>
+              </div>
+            }
+          </div>
+        </div>
+
+        <!-- 4-Stage Workflow -->
+        <div class="solution-card workflow-card">
+          <h2 class="section-heading">End-to-End Operational Workflow</h2>
+          <p class="section-subtitle">How data, materials, and transactions flow through the software pipeline.</p>
+          
+          <div class="workflow-grid">
+            @for (wf of solution.workflowStages; track wf.stage) {
+              <div class="wf-item">
+                <div class="wf-stage-num">{{ wf.stage }}</div>
+                <h3 class="wf-title">{{ wf.title }}</h3>
+                <p class="wf-details">{{ wf.details }}</p>
+              </div>
+            }
+          </div>
+        </div>
+
+        <!-- Short City Section ('we serve' language only, no fake clients) -->
+        <div class="solution-card cities-served-card">
+          <h2 class="section-heading">{{ solution.citiesServedSection.title }}</h2>
+          <p class="cities-served-text">{{ solution.citiesServedSection.description }}</p>
+          
+          <div class="served-cities-chips">
+            <span class="chip-label">COMMERCIAL REGIONS SERVED REMOTELY:</span>
+            <div class="chips-container">
+              @for (cityName of solution.citiesServedSection.citiesList; track cityName) {
+                <span class="city-chip">{{ cityName }}</span>
+              }
+            </div>
+          </div>
+        </div>
+
+        <!-- Technical Architecture Specifications -->
+        <div class="solution-card">
+          <h2 class="section-heading">Technical Specifications & Data Security</h2>
+          <div class="specs-table-wrapper">
+            <table class="specs-table">
+              <tbody>
+                @for (spec of solution.technicalSpecs; track spec.label) {
+                  <tr>
+                    <td class="spec-label">{{ spec.label }}</td>
+                    <td class="spec-value">{{ spec.value }}</td>
+                  </tr>
+                }
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Verified Real Projects Note (Techno Racks, MMR Construction, Yogkart only) -->
+        <div class="verified-project-box" *ngIf="solution.verifiedCaseNote">
+          <div class="verified-tag">VERIFIED CLIENT REFERENCE</div>
+          <p class="verified-text">{{ solution.verifiedCaseNote }}</p>
+        </div>
+
+        <!-- Internal Links & Service Areas -->
+        <div class="internal-links-box">
+          <h2 class="section-heading">Explore Related Technology & Service Areas</h2>
+          <div class="pills-grid">
+            <a routerLink="/service-areas" class="nav-pill highlight-pill">View All Service Areas &rarr;</a>
+            <a routerLink="/it-software-company-kanpur" class="nav-pill">Kanpur Headquarters</a>
+            <a routerLink="/services/erp-software" class="nav-pill">Enterprise ERP Software</a>
+            <a routerLink="/services/billing-software" class="nav-pill">GST Billing Software</a>
+            <a routerLink="/services/inventory-software" class="nav-pill">Inventory Management</a>
+            <a routerLink="/services/custom-software-development" class="nav-pill">Custom Software</a>
+          </div>
+        </div>
+
+        <!-- FAQs -->
+        <div class="solution-faqs-wrapper" *ngIf="solution.faqs && solution.faqs.length > 0">
+          <app-faq-section
+            [title]="'Frequently Asked Questions About ' + solution.h1"
+            [subtitle]="'Technical and operational answers regarding capabilities, remote delivery, data migration, and source code ownership.'"
+            [faqs]="solution.faqs">
+          </app-faq-section>
+        </div>
+
+        <!-- CTA -->
+        <div class="solution-cta-card">
+          <h2 class="cta-title">Schedule an Architecture Review</h2>
+          <p class="cta-subtitle">Connect directly with our lead software engineers to discuss requirements, custom module workflows, and transparent milestone pricing.</p>
+          <div class="cta-actions">
+            <button type="button" (click)="openQuoteModal()" class="btn btn-primary-orange">
+              <span>Request Solution Proposal</span>
+            </button>
+            <a [href]="contact.whatsappLink" target="_blank" rel="noopener noreferrer" class="btn btn-secondary-dark">
+              <span>Message on WhatsApp</span>
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- Footer -->
+<app-footer></app-footer>
+
+<!-- Sticky Mobile Action Bar -->
+<app-mobile-action-bar></app-mobile-action-bar>
+
+<!-- Floating WhatsApp Button -->
+<app-floating-whatsapp></app-floating-whatsapp>
+
+<!-- Quote Modal -->
+<app-quote-modal
+  [isOpen]="isQuoteModalOpen"
+  [defaultServiceTitle]="solution?.h1 || 'Solution Inquiry'"
+  (closeModal)="closeQuoteModal()">
+</app-quote-modal>

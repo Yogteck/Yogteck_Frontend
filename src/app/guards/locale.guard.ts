@@ -39,6 +39,7 @@ export const localeValidationGuard: CanActivateFn = (route: ActivatedRouteSnapsh
     return true;
   }
 
-  // Not a valid locale -> fallback to x-default
-  return router.parseUrl(`/${X_DEFAULT_LOCALE}`);
+  // Not a valid locale segment -> let router fall through to remaining routes and global 404
+  return false;
 };
+

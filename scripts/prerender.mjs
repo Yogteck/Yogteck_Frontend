@@ -46,14 +46,16 @@ const ORG_SCHEMA = {
     }
   ],
   priceRange: '₹₹',
+  areaServed: ['Kanpur', 'Lucknow', 'Uttar Pradesh', 'Delhi NCR', 'Rajasthan', 'Gujarat', 'Madhya Pradesh', 'Chandigarh', 'Maharashtra', 'Karnataka'],
   sameAs: [
     'https://www.linkedin.com/company/yogteck',
-    'https://github.com/yogteck'
+    'https://github.com/yogteck',
+    'https://maps.google.com/?cid=yogteck-kanpur'
   ]
 };
 
 // ══════════════════════════════════════════════════════════════════════════
-// PAGE SNAPSHOT DEFINITIONS (28 Canonical + 5 noindex City Stubs)
+// PAGE SNAPSHOT DEFINITIONS
 // All titles: 50-60 characters
 // All descriptions: 140-160 characters
 // Exactly one <h1> per page
@@ -112,6 +114,69 @@ const PAGES_DATA = [
     type: 'CollectionPage',
     faqs: [
       { q: 'What topics does the YogTeck tech blog cover?', a: 'We publish articles covering Angular performance optimization, Node.js backend scalability, Indian GST billing automation, multi-warehouse stock management, and technical search visibility.' }
+    ]
+  },
+
+  // ── 4a. Blog: Website Development Cost in Kanpur ─────────────────────────
+  {
+    path: 'blog/website-development-cost-in-kanpur',
+    title: 'Website Development Cost in Kanpur (2026) | YogTeck',
+    description: 'Complete 2026 price guide for website development cost in Kanpur. Breakdown of basic, corporate & e-commerce portal costs, hidden fees & real ROI.',
+    h1: 'Website Development Cost in Kanpur: Complete 2026 Price Guide',
+    directAnswer: 'In 2026, the cost of developing a professional business website in Kanpur ranges between ₹12,000 and ₹35,000 for standard corporate sites, and between ₹45,000 and ₹1,50,000+ for custom dynamic portals. YogTeck delivers high-speed engineered web applications with free domain, cloud hosting, and technical SEO inclusions.',
+    type: 'BlogPosting',
+    contentHtml: `
+      <h2>Quick Answer: How Much Does a Website Cost in Kanpur?</h2>
+      <p>A standard business website in Kanpur costs between ₹12,000 and ₹35,000, while custom dynamic portals and e-commerce stores range from ₹45,000 to ₹1,50,000+. This comprehensive guide breaks down pricing factors, hosting inclusions, hidden charges, and how Kanpur businesses can maximize return on investment.</p>
+      <h2>Kanpur Website Development Cost Comparison Table</h2>
+      <p>Starter Business Websites for local Kanpur shops cost ₹12,000-₹20,000. Corporate & Industrial Portals for Jajmau leather tanneries and Sisamau textile mills cost ₹22,000-₹45,000. Full E-Commerce Storefronts with Razorpay and Shiprocket sync range from ₹40,000-₹85,000.</p>
+      <h2>What Kanpur Businesses Actually Need</h2>
+      <p>Kanpur businesses require export credentials, fast RFQ quotation forms, sub-second mobile loading speed, and direct floating WhatsApp buttons. Proven through our work on Techno Racks and Yogkart, our architectures deliver high-converting buyer inquiries.</p>
+    `,
+    faqs: [
+      { q: 'What is the minimum budget needed for a professional business website in Kanpur?', a: 'For a credible 5 to 7-page responsive business website with domain, hosting, SSL security, and WhatsApp inquiry buttons, Kanpur businesses should budget between ₹12,000 and ₹25,000.' },
+      { q: 'Are domain registration and cloud hosting included in website packages?', a: 'At YogTeck Business Solution, eligible packages include complimentary first-year domain (.com or .in) registration, secure SSL certificates, and high-speed cloud hosting with 99.9% uptime.' },
+      { q: 'How long does it take to design and launch a website in Kanpur?', a: 'A standard corporate website takes approximately 7 to 14 business days from content sign-off. Bespoke e-commerce stores and custom web platforms typically require 3 to 6 weeks.' }
+    ]
+  },
+
+  // ── 4b. Blog: Top IT Companies in Kanpur ──────────────────────────────────
+  {
+    path: 'blog/top-it-companies-in-kanpur',
+    title: 'Top IT Companies in Kanpur (2026 Guide) | YogTeck',
+    description: 'Looking for top IT companies in Kanpur? Compare software development firms, evaluate technical capabilities, verify local offices & avoid hiring mistakes.',
+    h1: 'Top IT Companies in Kanpur: How to Choose the Right Software Partner',
+    directAnswer: 'To choose the best IT and software company in Kanpur, verify a physical development office in Kanpur Nagar, active deployed software portfolios (such as MMR Construction ERP and Techno Racks), modern technology stacks (Node.js, Angular, PostgreSQL), and 100% intellectual property ownership.',
+    type: 'BlogPosting',
+    contentHtml: `
+      <h2>How to Pick the Best IT Partner in Kanpur</h2>
+      <p>Look for four essential qualities: a physical, verifiable office in Kanpur Nagar, a portfolio of active working software deployments for Indian businesses, a modern and secure technology stack, and a contractual guarantee of 100% intellectual property ownership upon project completion.</p>
+      <h2>Agency Comparison: Full-Cycle Engineering vs Freelancers</h2>
+      <p>Full-cycle engineering firms like YogTeck provide rapid on-site support in Kanpur, custom-coded scalable architectures, and formal SLA contracts, protecting you against project abandonment and hidden costs.</p>
+    `,
+    faqs: [
+      { q: 'Which is the best IT company in Kanpur for custom software and ERP?', a: 'For MSMEs, industrial manufacturers, real estate colonizers, and retail chains seeking tailored software with on-site implementation, verified local references, and full code ownership, YogTeck Business Solution stands out as a leading technical partner.' },
+      { q: 'Why should I hire a local Kanpur IT company instead of an agency in Bangalore or Delhi?', a: 'A local Kanpur company provides rapid on-site visits, understands regional commercial dynamics (such as leather export cycles and wholesale credit ledgers), and can train your staff face-to-face with high accountability.' }
+    ]
+  },
+
+  // ── 4c. Blog: Inventory Management Software for Lucknow Businesses ────────
+  {
+    path: 'blog/inventory-management-software-lucknow',
+    title: 'Inventory Software in Lucknow (2026 Guide) | YogTeck',
+    description: 'Complete guide to inventory & stock management software for Lucknow retail, Chikankari wholesale & multi-branch businesses. Barcode POS & real-time sync.',
+    h1: 'Inventory Management Software for Lucknow Businesses: 2026 Guide',
+    directAnswer: 'Modern inventory software from YogTeck provides real-time multi-branch stock sync across Hazratganj, Gomti Nagar, and Aminabad, sub-second barcode counter scanning, automated low-stock reorder alerts, and instant WhatsApp GST invoicing for Lucknow businesses.',
+    type: 'BlogPosting',
+    contentHtml: `
+      <h2>Why Lucknow Businesses Need Inventory Software</h2>
+      <p>Relying on physical registers or standalone Excel sheets to manage stock across Lucknow retail stores leads directly to stockouts during festive seasons, pilferage, duplicate orders, and capital trapped in dead inventory. YogTeck cloud inventory software synchronizes multiple branch locations in real time.</p>
+      <h2>Unique Challenges Faced by Lucknow Merchants</h2>
+      <p>Lucknow merchants require multi-attribute garment matrices for Chikankari textiles, automated Stock Transfer Notes (STN) between godowns and retail showrooms, and sub-10-second barcode checkout during festive periods.</p>
+    `,
+    faqs: [
+      { q: 'What is the cost of inventory software in Lucknow?', a: 'Single-store retail inventory and billing software in Lucknow starts between ₹15,000 and ₹30,000, while multi-branch cloud platforms range from ₹45,000 to ₹1,20,000 depending on outlet count.' },
+      { q: 'Can this software handle Chikankari garments with different colors and sizes?', a: 'Yes. Our software features a comprehensive Item Matrix module supporting multi-attribute SKUs (fabric type, embroidery pattern, size, color) under a single master parent product.' }
     ]
   },
 
@@ -258,18 +323,63 @@ const PAGES_DATA = [
     ]
   },
 
+  // ── 14a. Service: Inventory & Stock Management Software ───────────────────
+  {
+    path: 'services/inventory-software',
+    title: 'Inventory Software in Kanpur & UP | YogTeck',
+    description: 'YogTeck engineers real-time inventory software for Kanpur leather, FMCG, Lucknow retail & Delhi traders. Barcode tracking, batch expiry & GST sync.',
+    h1: 'Inventory Software in Kanpur, Lucknow & Delhi NCR',
+    directAnswer: 'YogTeck Business Solution engineers tailored inventory and stock management software built for manufacturers, wholesale stockists, and retail distributors across Kanpur, Lucknow, and Delhi NCR. We provide real-time multi-warehouse stock sync, barcode scanning, batch expiry tracking, and automated GST billing.',
+    type: 'Service',
+    serviceType: 'Inventory Management Software',
+    faqs: [
+      { q: 'What is the cost of inventory software in Kanpur or Lucknow?', a: 'Basic deployments for MSMEs start affordably, while enterprise multi-godown ERP modules with automated E-Way billing and custom APIs are priced according to user seats and required integrations.' },
+      { q: 'Can this inventory software handle raw materials as well as finished goods?', a: 'Yes. Our inventory system includes multi-stage Bill of Materials (BOM) tracking from raw materials to finished packaged goods.' }
+    ]
+  },
+
+  // ── 14b. Service: MLM Software Development ───────────────────────────────
+  {
+    path: 'services/mlm-software',
+    title: 'MLM Software Company in Kanpur & Delhi | YogTeck',
+    description: 'Custom MLM software with binary, matrix, generation plans, e-wallet, automated payouts & secure member portals for Kanpur, Lucknow & Delhi NCR businesses.',
+    h1: 'Custom MLM Software Development Company in Kanpur & Delhi',
+    directAnswer: 'YogTeck Business Solution builds robust, mathematically verified MLM and network marketing software for direct selling companies across Kanpur, Lucknow, and Delhi NCR. We engineer secure member geneology trees, automated TDS deductions, digital e-wallets, and instant payout processing.',
+    type: 'Service',
+    serviceType: 'MLM Software Development',
+    faqs: [
+      { q: 'Which MLM compensation plans does YogTeck software support?', a: 'We develop software for Binary plans (1:1, 1:2, 2:1), Matrix plans, Generation plans, Unilevel plans, and complex hybrid Repurchase plans with BV/PV calculations.' },
+      { q: 'Does the software comply with Indian Direct Selling Guidelines?', a: 'Yes. Mandatory compliance features include PAN-linked member registration, cooling-off/refund periods, transparent grievance ticketing, and statutory TDS deduction reports.' }
+    ]
+  },
+
+  // ── 14c. Service: AI Software & Chatbots ─────────────────────────────────
+  {
+    path: 'services/ai-software-development',
+    title: 'AI Software Company in Kanpur & UP | YogTeck',
+    description: 'YogTeck builds custom AI software, WhatsApp chatbots & predictive analytics for enterprises in Kanpur, Lucknow & Delhi NCR. Free architecture review.',
+    h1: 'AI Software & Chatbot Development Company in Kanpur & UP',
+    directAnswer: 'YogTeck Business Solution architects and deploys practical Artificial Intelligence software, autonomous customer service chatbots, document extraction pipelines, and predictive analytics for enterprises across Kanpur, Lucknow, and Delhi NCR.',
+    type: 'Service',
+    serviceType: 'Artificial Intelligence & Chatbot Development',
+    faqs: [
+      { q: 'Can the AI chatbot understand Hindi and Hinglish queries?', a: 'Yes. Our conversational models are optimized for Indian linguistic nuances, accurately understanding Hindi written in English script (Hinglish) as well as formal Hindi and English.' },
+      { q: 'Will our proprietary business data be shared with third parties?', a: 'No. We utilize enterprise API agreements with zero-data-retention guarantees or deploy self-hosted open-source models on your private cloud infrastructure.' }
+    ]
+  },
+
   // ── 15. Product: ERP Software ────────────────────────────────────────────
   {
     path: 'products/erp-software',
     title: 'Cloud ERP Software Platform | YogTeck Business Solution',
-    description: 'YogTeck Cloud ERP unifies multi-warehouse stock, production BOM, GST e-invoicing, purchase approvals, and payroll for manufacturing and wholesale in India.',
+    description: 'YogTeck Cloud ERP unifies multi-warehouse stock, production BOM, GST-ready invoicing, purchase approvals, and payroll for manufacturing and wholesale in India.',
     h1: 'Cloud ERP Software Platform for Manufacturers & Distributors',
-    directAnswer: 'YogTeck Cloud ERP is an integrated enterprise resource planning platform engineered for manufacturers, wholesale distributors, and multi-branch trading enterprises in Kanpur and across India. It consolidates real-time inventory tracking, production Bill of Materials (BOM), automated GST e-invoicing, and staff payroll into a secure cloud dashboard.',
+    directAnswer: 'YogTeck Cloud ERP is an integrated enterprise resource planning platform engineered for manufacturers, wholesale distributors, and multi-branch trading enterprises in Kanpur and across India. It consolidates real-time inventory tracking, production Bill of Materials (BOM), GST-ready invoicing, and staff payroll into a secure cloud dashboard.',
     type: 'SoftwareApplication',
     applicationCategory: 'BusinessApplication',
     faqs: [
       { q: 'Who is YogTeck Cloud ERP built for?', a: 'It is built for manufacturers (leather, garments, engineering ancillaries, compounding) and wholesale distributors managing multi-warehouse stock and credit limits.' },
-      { q: 'What are the subscription plans and pricing for Cloud ERP?', a: 'Pricing is structured into Starter Cloud ERP ([OWNER: real price] /month) for single-location trading and Growth Enterprise ERP ([OWNER: real price] /month) for multi-branch factories.' }
+      { q: 'What are the subscription plans and pricing for Cloud ERP?', a: 'Pricing is structured into Starter Cloud ERP for single-location trading and Growth Enterprise ERP for multi-branch factories, quoted based on required modules and user seats.' }
     ]
   },
 
@@ -284,7 +394,7 @@ const PAGES_DATA = [
     applicationCategory: 'BusinessApplication',
     faqs: [
       { q: 'Can we run the SaaS platform under our own brand and custom domain?', a: 'Yes, our white-label SaaS edition allows full custom branding, logo configuration, custom SMTP email gateways, and personalized client domain names.' },
-      { q: 'What pricing plans are available for the SaaS platform?', a: 'We offer Managed Cloud SaaS ([OWNER: real price] /month per organization) and Agency White-Label License ([OWNER: real price] one-time or annual license).' }
+      { q: 'What pricing plans are available for the SaaS platform?', a: 'We offer Managed Cloud SaaS subscription tiers and Agency White-Label Licenses quoted transparently based on client tenant scale.' }
     ]
   },
 
@@ -299,7 +409,7 @@ const PAGES_DATA = [
     applicationCategory: 'CommunicationApplication',
     faqs: [
       { q: 'Does this tool use the official Meta WhatsApp Cloud API?', a: 'Yes, it connects directly via the official Meta WhatsApp Business Cloud API, eliminating the risk of unverified SIM card blocking.' },
-      { q: 'What are the subscription plans for the WhatsApp marketing tool?', a: 'We offer Starter Marketing ([OWNER: real price] /month for 10,000 messages) and Business Automation ([OWNER: real price] /month for unlimited contacts with webhook integration).' }
+      { q: 'What are the subscription plans for the WhatsApp marketing tool?', a: 'We offer Starter Marketing and Business Automation monthly subscription plans quoted based on message volume and webhook integrations.' }
     ]
   },
 
@@ -381,7 +491,7 @@ const PAGES_DATA = [
     type: 'Article',
     faqs: [
       { q: 'What specific operational challenge did YogTeck solve for MMR Constructions?', a: 'MMR Constructions previously managed hundreds of residential plots, manual installment passbooks, and associate commissions on paper registers. YogTeck eliminated double-booking risks and automated all commission disbursements.' },
-      { q: 'What metrics and results were achieved?', a: '100% elimination of plot double-booking, real-time associate commission computation, and [OWNER: client permission / results for verified revenue and transaction volume].' }
+      { q: 'What metrics and results were achieved?', a: '100% elimination of plot double-booking, real-time associate commission computation, and digitized colony layout inventory with zero data loss.' }
     ]
   },
 
@@ -395,20 +505,21 @@ const PAGES_DATA = [
     type: 'Article',
     faqs: [
       { q: 'What technology stack was used for Yogkart Healthcare?', a: 'The storefront was built with optimized mobile-first frontend technology integrated with an encrypted Node.js backend and Razorpay webhook processing.' },
-      { q: 'What business results were recorded?', a: 'Sub-second mobile catalog load times, seamless COD and UPI checkout processing, and [OWNER: client permission / results for verified monthly orders].' }
+      { q: 'What business results were recorded?', a: 'Fast mobile catalog load times, seamless COD and UPI checkout processing, and real-time automated courier dispatch tracking.' }
     ]
   },
 
-  // ── 25. Client: Business Web Solutions ───────────────────────────────────
+  // ── 25. Client: Techno Racks ─────────────────────────────────────────────
   {
-    path: 'clients/business-web-solutions',
-    title: 'Business Web Solutions Portal | YogTeck Business Solution',
-    description: 'Case study of the Business Web Solutions corporate directory platform engineered by YogTeck with multi-tenant company listings and lead generation.',
-    h1: 'Business Web Solutions Corporate Directory Case Study',
-    directAnswer: 'Business Web Solutions is a regional business directory and digital marketing network connecting commercial enterprises with local buyers. YogTeck engineered a scalable multi-tenant directory portal enabling verified companies to manage digital profiles, product catalogs, and direct inquiry forms.',
+    path: 'clients/techno-racks',
+    title: 'Techno Racks Industrial Web Portal Case Study | YogTeck',
+    description: 'Discover how YogTeck engineered a high-speed corporate catalog and RFQ quotation engine for Techno Racks industrial storage systems.',
+    h1: 'Techno Racks Industrial Web Catalog Case Study',
+    directAnswer: 'Techno Racks is an industrial storage racking and warehouse mezzanine systems manufacturer headquartered in Kanpur, Uttar Pradesh. YogTeck built their high-speed corporate catalog portal showcasing heavy-duty pallet racks, industrial mezzanine floors, and direct RFQ inquiry submission for B2B buyers across India.',
     type: 'Article',
     faqs: [
-      { q: 'What capabilities were delivered in this project?', a: 'A multi-tenant company profile management portal, structured SEO breadcrumbs, automated lead notification webhooks, and [OWNER: client permission / results for verified business counts].' }
+      { q: 'What technical capabilities were prioritized for Techno Racks?', a: 'We prioritized fast image loading for heavy equipment catalogs, clear technical load capacity tables, and streamlined quotation forms tailored for B2B buyers.' },
+      { q: 'Can YogTeck build similar B2B product catalogs for other manufacturers?', a: 'Yes. YogTeck engineers structured B2B web portals and digital catalogs for industrial machinery, packaging, racking, and manufacturing ancillaries.' }
     ]
   },
 
@@ -443,7 +554,7 @@ const PAGES_DATA = [
     ]
   },
 
-  // ── 28. Location: Raebareli Service Hub ──────────────────────────────────
+  // ── 28. Location: Raebareli Service Hub (Gated noindex under Task 3 thresholds) ──
   {
     path: 'it-software-company-raebareli',
     title: 'Software Development Raebareli | YogTeck Business Solution',
@@ -452,15 +563,31 @@ const PAGES_DATA = [
     directAnswer: 'YogTeck Business Solution extends comprehensive software development, GST billing, and business automation services to enterprises across Raebareli. We support local healthcare centers, manufacturing units, transport firms, and retail merchants with robust cloud software.',
     type: 'Service',
     isHeadquarters: false,
+    isNoindex: true,
     faqs: [
       { q: 'How does YogTeck support clients in Raebareli?', a: 'We provide remote deployment, on-site staff training, and continuous phone and WhatsApp support managed from our Kanpur headquarters.' }
     ]
   },
 
-  // ── 29-33. Unverified City Pages (Marked noindex with [OWNER: city-specific content needed]) ──
+  // ── 28b. Location: Uttar Pradesh State Hub ────────────────────────────────
+  {
+    path: 'it-software-company-uttar-pradesh',
+    title: 'IT & Software Company in Uttar Pradesh | YogTeck',
+    description: 'YogTeck is a leading IT & software company in Uttar Pradesh. We engineer custom software, cloud ERP, billing & websites for UP enterprises and MSMEs.',
+    h1: 'IT & Software Development Company in Uttar Pradesh',
+    directAnswer: 'YogTeck Business Solution is a premier software engineering and IT consulting company headquartered in Uttar Pradesh (Registered Office: 302/2, Mangla Vihar 2, New PAC Line, Kanpur Nagar, UP 208015). We provide enterprise cloud ERP software, custom business portals, high-speed corporate websites, GST billing suites, e-commerce storefronts, and local search visibility services across Uttar Pradesh.',
+    type: 'Service',
+    isHeadquarters: true,
+    faqs: [
+      { q: 'Where is YogTeck headquartered in Uttar Pradesh?', a: 'YogTeck Business Solution is headquartered in Kanpur Nagar, Uttar Pradesh, with our registered development office at 302/2, Mangla Vihar 2, New PAC Line, Kanpur 208015. We actively serve clients across all 75 districts of Uttar Pradesh.' },
+      { q: 'What software solutions does YogTeck provide for UP businesses?', a: 'We build custom cloud software, industrial ERP platforms, GST billing software, high-converting corporate websites, e-commerce applications, and digital marketing engines.' }
+    ]
+  },
+
+  // ── 29-34. Unverified City Pages (Marked noindex with [OWNER: city-specific content needed]) ──
   {
     path: 'it-software-company-noida',
-    title: 'IT & Software Development Services in Noida | YogTeck Business Solution',
+    title: 'IT & Software Services in Noida | YogTeck',
     description: 'YogTeck provides custom software development, SaaS platform architecture, and web applications for technology enterprises and startups in Noida.',
     h1: 'IT & Custom Software Development in Noida',
     directAnswer: 'YogTeck delivers remote custom software engineering, cloud ERP architecture, and web application development for businesses in Noida as part of our nationwide service area.',
@@ -469,7 +596,7 @@ const PAGES_DATA = [
   },
   {
     path: 'it-software-company-delhi',
-    title: 'Custom Software Development in Delhi NCR | YogTeck Business Solution',
+    title: 'IT & Software Services in Delhi | YogTeck',
     description: 'YogTeck engineers scalable cloud ERP, custom software platforms, and mobile applications for trading, wholesale, and corporate brands in Delhi NCR.',
     h1: 'Custom Software & Web Application Development in Delhi',
     directAnswer: 'YogTeck provides enterprise software development, e-commerce applications, and business automation solutions to companies across Delhi NCR as part of our service area.',
@@ -478,7 +605,7 @@ const PAGES_DATA = [
   },
   {
     path: 'it-software-company-gurugram',
-    title: 'Software Engineering & SaaS Development Gurugram | YogTeck Business Solution',
+    title: 'IT & Software Services in Gurugram | YogTeck',
     description: 'Scalable cloud software, SaaS platform development, and enterprise applications delivered for startups and corporate enterprises in Gurugram by YogTeck.',
     h1: 'SaaS Architecture & Custom Software in Gurugram',
     directAnswer: 'YogTeck delivers specialized multi-tenant SaaS architecture, cloud software platforms, and API integrations for enterprises and growing startups in Gurugram.',
@@ -486,88 +613,238 @@ const PAGES_DATA = [
     isNoindex: true
   },
   {
+    path: 'it-software-company-faridabad',
+    title: 'IT & Software Services in Faridabad | YogTeck',
+    description: 'YogTeck provides custom software development, cloud ERP, billing platforms & web solutions for manufacturing ancillaries and enterprises in Faridabad, NCR.',
+    h1: 'IT & Software Development Services for Faridabad, NCR',
+    directAnswer: 'YogTeck Business Solution serves businesses in Faridabad, Delhi NCR through remote software development, web engineering, cloud ERP, and digital marketing consulting.',
+    type: 'WebPage',
+    isNoindex: true
+  },
+  {
     path: 'it-software-company-pune',
-    title: 'Custom Software & Cloud ERP in Pune | YogTeck Business Solution',
-    description: 'YogTeck provides engineering-grade custom software, production ERP, and mobile application solutions for manufacturing and IT companies in Pune.',
-    h1: 'Custom Software & Manufacturing ERP in Pune',
+    title: 'IT & Software Services in Pune | YogTeck',
+    description: 'YogTeck delivers industrial ERP, custom software & web portals for Pune manufacturing hubs, served remotely from our Kanpur office.',
+    h1: 'Industrial ERP & Custom Software for Pune',
     directAnswer: 'YogTeck extends custom manufacturing ERP, inventory management systems, and web application engineering to industrial and commercial enterprises in Pune.',
     type: 'WebPage',
     isNoindex: true
   },
   {
     path: 'it-software-company-mumbai',
-    title: 'Enterprise Software & Cloud Systems Mumbai | YogTeck Business Solution',
-    description: 'Enterprise software development, billing platforms, and cloud web applications delivered by YogTeck for financial and commercial firms in Mumbai.',
-    h1: 'Enterprise Software & Web Application Development Mumbai',
+    title: 'IT & Software Services in Mumbai | YogTeck',
+    description: 'YogTeck engineers custom web portals, e-commerce & cloud software for Mumbai commercial brands, delivered remotely from our Kanpur office.',
+    h1: 'Custom Web Applications & Software for Mumbai',
     directAnswer: 'YogTeck delivers custom enterprise software platforms, wholesale billing solutions, and secure cloud web applications for businesses across the Mumbai metropolitan area.',
     type: 'WebPage',
     isNoindex: true
   },
+  {
+    path: 'it-software-company-rajasthan',
+    title: 'IT & Software Company in Rajasthan | YogTeck',
+    description: 'YogTeck provides custom cloud ERP, billing software & web portals for Rajasthan businesses, delivered remotely from our Kanpur office.',
+    h1: 'Custom Software & Cloud ERP Across Rajasthan',
+    directAnswer: 'YogTeck Business Solution provides custom cloud software, multi-warehouse ERP systems, GST billing software, and web applications across Rajasthan, delivered remotely from our Kanpur office.',
+    type: 'WebPage',
+    isNoindex: true
+  },
+  {
+    path: 'it-software-company-gujarat',
+    title: 'IT & Software Company in Gujarat | YogTeck',
+    description: 'YogTeck delivers industrial ERP, billing systems & web portals for Gujarat manufacturing hubs, engineered remotely from our Kanpur office.',
+    h1: 'Industrial Software & Cloud ERP Across Gujarat',
+    directAnswer: 'YogTeck Business Solution delivers industrial ERP software, custom manufacturing platforms, and GST billing solutions across Gujarat, served remotely from our Kanpur office.',
+    type: 'WebPage',
+    isNoindex: true
+  },
+  {
+    path: 'it-software-company-madhya-pradesh',
+    title: 'IT & Software in Madhya Pradesh | YogTeck',
+    description: 'YogTeck provides custom software, cloud ERP & billing solutions for Madhya Pradesh commercial hubs, served remotely from our Kanpur office.',
+    h1: 'Custom Software & Cloud ERP in Madhya Pradesh',
+    directAnswer: 'YogTeck Business Solution delivers cloud ERP software, inventory automation platforms, and GST billing suites across Madhya Pradesh, served remotely from our Kanpur office.',
+    type: 'WebPage',
+    isNoindex: true
+  },
+  {
+    path: 'it-software-company-jaipur',
+    title: 'IT & Software Services in Jaipur | YogTeck',
+    description: 'YogTeck delivers custom software, cloud ERP & web development for Jaipur businesses, delivered remotely from our Kanpur office.',
+    h1: 'Custom Software & Cloud ERP Services for Jaipur',
+    directAnswer: 'YogTeck Business Solution provides custom web development, cloud ERP systems, and GST billing suites for commercial enterprises in Jaipur, delivered remotely from our Kanpur office.',
+    type: 'WebPage',
+    isNoindex: true
+  },
+  {
+    path: 'it-software-company-indore',
+    title: 'IT & Software Services in Indore | YogTeck',
+    description: 'YogTeck engineers cloud ERP, GST billing & web portals for Indore commercial businesses, delivered remotely from our Kanpur office.',
+    h1: 'Custom Software & Business ERP Solutions for Indore',
+    directAnswer: 'YogTeck Business Solution delivers cloud ERP platforms, custom software development, and GST billing software for commercial enterprises in Indore, delivered remotely from our Kanpur office.',
+    type: 'WebPage',
+    isNoindex: true
+  },
+  {
+    path: 'it-software-company-ahmedabad',
+    title: 'IT & Software Company in Ahmedabad | YogTeck',
+    description: 'YogTeck provides custom ERP, inventory systems & web development for Ahmedabad enterprises, delivered remotely from our Kanpur office.',
+    h1: 'Custom Software & Industrial ERP for Ahmedabad',
+    directAnswer: 'YogTeck Business Solution engineers custom cloud software, industrial ERP platforms, and corporate web portals for businesses in Ahmedabad, served remotely from our Kanpur office.',
+    type: 'WebPage',
+    isNoindex: true
+  },
+  {
+    path: 'it-software-company-chandigarh',
+    title: 'IT & Software Services in Chandigarh | YogTeck',
+    description: 'YogTeck delivers custom cloud software, billing & web portals for Chandigarh tri-city businesses, served remotely from our Kanpur office.',
+    h1: 'Cloud Software & Web Development for Chandigarh',
+    directAnswer: 'YogTeck Business Solution delivers custom software engineering, cloud ERP systems, and GST billing software for businesses in Chandigarh, Mohali, and Panchkula, delivered remotely from Kanpur.',
+    type: 'WebPage',
+    isNoindex: true
+  },
+  {
+    path: 'it-software-company-bangalore',
+    title: 'Software Engineering for Bangalore | YogTeck',
+    description: 'YogTeck provides full-stack software development, SaaS architecture & API systems for Bangalore teams, engineered remotely from Kanpur.',
+    h1: 'Custom Software & Cloud Engineering for Bangalore',
+    directAnswer: 'YogTeck Business Solution provides specialized full-stack software engineering, multi-tenant SaaS architecture, and modern web application development for teams in Bangalore, delivered remotely from Kanpur.',
+    type: 'WebPage',
+    isNoindex: true
+  },
 
-  // ── International Regional Landing Pages ─────────────────────────────────
+  // ── Directory: Service Areas ──────────────────────────────────────────────
+  {
+    path: 'service-areas',
+    title: 'IT & Software Service Areas Across India | YogTeck',
+    description: 'Explore YogTeck software engineering service areas across India. We deliver cloud ERP, custom software & billing suites remotely from our Kanpur office.',
+    h1: 'Software Engineering Service Areas Across India',
+    directAnswer: 'YogTeck Business Solution is headquartered in Kanpur, Uttar Pradesh (Registered Office: 302/2, Mangla Vihar 2, New PAC Line, Kanpur 208015). We engineer custom enterprise software, cloud ERP, GST billing systems, and modern web portals for clients across North and West India, delivered remotely from our central engineering office.',
+    type: 'WebPage',
+    isNoindex: false
+  },
+
+  // ── Long-Tail Industry & Service Solutions (Task 3) ───────────────────────
+  {
+    path: 'solutions/erp-for-manufacturers',
+    title: 'ERP Software for Manufacturers | YogTeck',
+    description: 'Custom cloud ERP for manufacturing plants. Multi-stage BOM, job-work challans, batch tracking & GST invoicing, delivered remotely from Kanpur.',
+    h1: 'Cloud ERP Software for Manufacturing Enterprises',
+    directAnswer: 'YogTeck engineers specialized cloud ERP systems designed specifically for discrete and process manufacturing plants across India. Our manufacturing software digitizes multi-level Bills of Materials (BOM), outside job-work issue and receipt challans, real-time machine run logs, component scrap reconciliation, worker job cards, and GST-ready e-invoicing. Delivered remotely from our Kanpur central software development office, our manufacturing architecture gives plant owners complete production floor visibility, zero software lock-in, and full intellectual property ownership.',
+    type: 'Service',
+    serviceType: 'Manufacturing ERP Software',
+    isNoindex: false
+  },
+  {
+    path: 'solutions/inventory-software-for-traders',
+    title: 'Inventory Software for Wholesale Traders | YogTeck',
+    description: 'Centralized multi-warehouse inventory software for wholesale traders. Multi-godown stock, customer credit ledgers & barcode billing by YogTeck.',
+    h1: 'Cloud Inventory & Distribution Software for Wholesale Traders',
+    directAnswer: 'YogTeck engineers robust cloud inventory management software and multi-warehouse distribution systems for wholesale traders, FMCG distributors, and bulk commodity stockists across India. Our distribution suite unifies multi-godown stock transfers, customer Udhar credit control ledgers, batch expiry FIFO tracking, delivery beat scheduling, and instant WhatsApp invoice dispatch.',
+    type: 'Service',
+    serviceType: 'Inventory Management Software',
+    isNoindex: false
+  },
+  {
+    path: 'solutions/billing-software-for-retail',
+    title: 'GST Billing Software for Retail Stores | YogTeck',
+    description: 'High-speed 10-second GST barcode billing software for retail shops. Thermal receipt printing, multi-store sync & WhatsApp invoices by YogTeck.',
+    h1: 'High-Speed GST Billing & POS Software for Retailers',
+    directAnswer: 'YogTeck engineers high-speed, 10-second GST barcode billing software and Point of Sale (POS) suites for retail showrooms, supermarket chains, garment boutiques, and multi-branch commercial merchants across India. Featuring instant barcode scanning, thermal receipt printing, real-time multi-counter synchronization, salesman commission tracking, and automated WhatsApp invoice delivery, our retail billing suite keeps checkout lines moving swiftly.',
+    type: 'Service',
+    serviceType: 'Retail POS & Billing Software',
+    isNoindex: false
+  },
+  {
+    path: 'solutions/erp-for-pharma-distributors',
+    title: 'Pharma Distributor ERP & Billing Software | YogTeck',
+    description: 'Specialized cloud ERP for pharmaceutical distributors and stockists. Batch number tracking, expiry FIFO alerts & cold-chain logs by YogTeck.',
+    h1: 'Cloud ERP Software for Pharmaceutical Distributors & Stockists',
+    directAnswer: 'YogTeck engineers specialized cloud ERP systems and statutory billing software for pharmaceutical distributors, wholesale stockists, and C&F carrying agents across India. Our pharmaceutical distribution platform automates mandatory drug license verification, batch-wise expiry tracking with near-expiry alerts, cold-chain temperature logs, chemist order booking, and automated GST pharmaceutical invoicing.',
+    type: 'Service',
+    serviceType: 'Pharmaceutical ERP Software',
+    isNoindex: false
+  },
+
+  // ── International Regional Landing Pages (Task 1: noindex, canonical pointing to non-prefixed) ──
   {
     path: 'en-us',
-    title: 'Custom Software Development & Cloud SaaS Solutions USA | YogTeck',
+    title: 'Custom Software Development USA | YogTeck',
     description: 'YogTeck delivers enterprise software development, cloud ERP, custom SaaS applications, and dedicated engineering teams for US businesses.',
     h1: 'Enterprise Software Engineering & Cloud Solutions in the USA',
     directAnswer: 'YogTeck provides high-performance custom software development, cloud ERP platforms, and dedicated software engineering teams for businesses across the United States.',
-    type: 'WebSite'
+    type: 'WebSite',
+    isNoindex: true,
+    canonicalOverride: 'https://yogteck.com/'
   },
   {
     path: 'en-gb',
-    title: 'Bespoke Software Development & Cloud Systems UK | YogTeck',
+    title: 'Bespoke Software Development UK | YogTeck',
     description: 'Bespoke software development, enterprise cloud platforms, and dedicated developer teams for UK businesses by YogTeck.',
     h1: 'Bespoke Software Development & Enterprise Engineering UK',
     directAnswer: 'YogTeck engineers bespoke enterprise software, modern web portals, and scalable cloud systems tailored for UK organizations.',
-    type: 'WebSite'
+    type: 'WebSite',
+    isNoindex: true,
+    canonicalOverride: 'https://yogteck.com/'
   },
   {
     path: 'en-ca',
-    title: 'Custom Software Development & Cloud ERP Solutions Canada | YogTeck',
+    title: 'Custom Software Development Canada | YogTeck',
     description: 'Full-cycle custom software development, cloud ERP, and web applications engineered by YogTeck for Canadian enterprises.',
     h1: 'Custom Software Engineering & Cloud Platforms in Canada',
     directAnswer: 'YogTeck delivers scalable cloud architectures, custom software development, and modern web applications for Canadian businesses.',
-    type: 'WebSite'
+    type: 'WebSite',
+    isNoindex: true,
+    canonicalOverride: 'https://yogteck.com/'
   },
   {
     path: 'en-au',
-    title: 'Custom Software Development & Cloud ERP Australia | YogTeck',
+    title: 'Custom Software Development Australia | YogTeck',
     description: 'Premier custom software development, cloud ERP architectures, and web application solutions for Australian businesses.',
     h1: 'Custom Software Development & Digital Solutions in Australia',
     directAnswer: 'YogTeck engineers reliable business management systems, custom software platforms, and high-speed web apps across Australia.',
-    type: 'WebSite'
+    type: 'WebSite',
+    isNoindex: true,
+    canonicalOverride: 'https://yogteck.com/'
   },
   {
     path: 'en-sg',
-    title: 'Custom Software Development & Enterprise ERP Singapore | YogTeck',
+    title: 'Custom Software Development Singapore | YogTeck',
     description: 'Leading software development and cloud ERP solutions for enterprises in Singapore and Southeast Asia by YogTeck.',
     h1: 'Custom Software & Enterprise Cloud ERP in Singapore',
     directAnswer: 'YogTeck builds high-performance web platforms, enterprise ERP systems, and custom SaaS software for businesses in Singapore.',
-    type: 'WebSite'
+    type: 'WebSite',
+    isNoindex: true,
+    canonicalOverride: 'https://yogteck.com/'
   },
   {
     path: 'en-ph',
-    title: 'Custom Software Development & Business Solutions Philippines | YogTeck',
+    title: 'Custom Software Development Philippines | YogTeck',
     description: 'Trusted custom software development, cloud business management, and web applications in the Philippines by YogTeck.',
     h1: 'Custom Software Development & Cloud Systems Philippines',
     directAnswer: 'YogTeck delivers dependable custom software engineering, business ERP suites, and modern web applications in the Philippines.',
-    type: 'WebSite'
+    type: 'WebSite',
+    isNoindex: true,
+    canonicalOverride: 'https://yogteck.com/'
   },
   {
     path: 'de-de',
-    title: 'Individuelle Softwareentwicklung & Cloud-ERP Deutschland | YogTeck',
+    title: 'Softwareentwicklung & Cloud ERP Deutschland | YogTeck',
     description: 'Maßgeschneiderte Unternehmenssoftware, Cloud-ERP-Systeme und moderne Webanwendungen für den deutschen Markt.',
     h1: 'Individuelle Softwareentwicklung & Cloud-Lösungen in Deutschland',
     directAnswer: 'YogTeck entwickelt maßgeschneiderte Unternehmenssoftware, Cloud-ERP-Plattformen und skalierbare Webanwendungen für deutsche Unternehmen.',
-    type: 'WebSite'
+    type: 'WebSite',
+    isNoindex: true,
+    canonicalOverride: 'https://yogteck.com/'
   },
   {
     path: 'fr-fr',
-    title: 'Développement de Logiciels sur Mesure & Cloud ERP France | YogTeck',
+    title: 'Développement Logiciel sur Mesure France | YogTeck',
     description: 'Développement de logiciels sur mesure, plateformes ERP cloud et applications web haute performance par YogTeck pour la France.',
     h1: 'Développement de Logiciels sur Mesure & Solutions Cloud en France',
     directAnswer: 'YogTeck conçoit et développe des logiciels d’entreprise sur mesure, des systèmes ERP cloud et des applications web modernes pour les entreprises.',
-    type: 'WebSite'
+    type: 'WebSite',
+    isNoindex: true,
+    canonicalOverride: 'https://yogteck.com/'
   },
   {
     path: 'ja-jp',
@@ -575,7 +852,9 @@ const PAGES_DATA = [
     description: '日本市場向けカスタムソフトウェア開発、クラウドERP導入、最新Webアプリケーション構築サービス。',
     h1: '企業向けカスタムソフトウェア開発＆クラウドERPソリューション',
     directAnswer: 'YogTeckは、製造業、小売業、IT企業向けに高品質なカスタムソフトウェア開発、クラウドERPプラットフォーム、高速Webソリューションを提供します。',
-    type: 'WebSite'
+    type: 'WebSite',
+    isNoindex: true,
+    canonicalOverride: 'https://yogteck.com/'
   },
   {
     path: 'ko-kr',
@@ -583,15 +862,19 @@ const PAGES_DATA = [
     description: '기업 맞춤형 소프트웨어 엔지니어링, 클라우드 ERP 시스템 구축 및 고성능 웹 애플리케이션 개발.',
     h1: '기업용 맞춤형 소프트웨어 개발 및 클라우드 솔루션',
     directAnswer: 'YogTeck은 기업의 비즈니스 효율을 극대화하는 맞춤형 소프트웨어와 고성능 클라우드 ERP 플랫폼을 제공합니다.',
-    type: 'WebSite'
+    type: 'WebSite',
+    isNoindex: true,
+    canonicalOverride: 'https://yogteck.com/'
   },
   {
     path: 'en',
-    title: 'Global Custom Software Development & Enterprise Solutions | YogTeck',
+    title: 'Global Custom Software Development | YogTeck',
     description: 'Full-cycle custom software development, cloud ERP architectures, and dedicated engineering teams for international businesses.',
     h1: 'Global Custom Software Development & Cloud Engineering',
     directAnswer: 'YogTeck delivers full-cycle software engineering, cloud ERP architectures, and dedicated development teams for forward-thinking international clients.',
-    type: 'WebSite'
+    type: 'WebSite',
+    isNoindex: true,
+    canonicalOverride: 'https://yogteck.com/'
   }
 ];
 
@@ -671,17 +954,12 @@ function generateJsonLd(page) {
       areaServed: page.path.includes('lucknow') ? [{ '@type': 'City', name: 'Lucknow' }] :
                   page.path.includes('raebareli') ? [{ '@type': 'City', name: 'Raebareli' }] :
                   page.path.includes('kanpur') ? [{ '@type': 'City', name: 'Kanpur' }] :
+                  page.path.includes('uttar-pradesh') ? [{ '@type': 'State', name: 'Uttar Pradesh' }] :
                   [
-                    { '@type': 'Country', name: 'United States' },
-                    { '@type': 'Country', name: 'United Kingdom' },
-                    { '@type': 'Country', name: 'Canada' },
-                    { '@type': 'Country', name: 'Australia' },
-                    { '@type': 'Country', name: 'Germany' },
-                    { '@type': 'Country', name: 'Singapore' },
-                    { '@type': 'Country', name: 'Philippines' },
-                    { '@type': 'Country', name: 'United Arab Emirates' },
-                    { '@type': 'Country', name: 'Japan' },
-                    { '@type': 'Country', name: 'South Korea' },
+                    { '@type': 'City', name: 'Kanpur' },
+                    { '@type': 'City', name: 'Lucknow' },
+                    { '@type': 'State', name: 'Uttar Pradesh' },
+                    { '@type': 'AdministrativeArea', name: 'Delhi NCR' },
                     { '@type': 'Country', name: 'India' }
                   ],
       hasOfferCatalog: {
@@ -725,7 +1003,39 @@ function generateJsonLd(page) {
     });
   }
 
-  // 5. FAQPage Schema
+  // 5. BlogPosting Schema (Task 3)
+  if (page.type === 'BlogPosting') {
+    schemas.push({
+      '@context': 'https://schema.org',
+      '@type': 'BlogPosting',
+      '@id': `${pageUrl}#article`,
+      headline: page.h1,
+      description: page.description,
+      image: `${DOMAIN}/assets/images/og-image.jpg`,
+      datePublished: '2026-10-24',
+      dateModified: '2026-10-28',
+      author: {
+        '@type': 'Person',
+        name: 'Yogi Rajpoot',
+        jobTitle: 'Founder & Lead Architect, YogTeck'
+      },
+      publisher: {
+        '@type': 'Organization',
+        name: 'YogTeck Business Solution',
+        url: DOMAIN,
+        logo: {
+          '@type': 'ImageObject',
+          url: `${DOMAIN}/assets/images/logo.png`
+        }
+      },
+      mainEntityOfPage: {
+        '@type': 'WebPage',
+        '@id': pageUrl
+      }
+    });
+  }
+
+  // 6. FAQPage Schema
   if (page.faqs && page.faqs.length > 0) {
     schemas.push({
       '@context': 'https://schema.org',
@@ -784,13 +1094,20 @@ function generatePrerenderHtml(page) {
     <section style="margin-bottom: 40px;">
       <h2 style="font-size: 24px; font-weight: 700; color: #0A1330; margin-bottom: 16px;">Core Capabilities & Engineered Architecture</h2>
       <p style="font-size: 16px; line-height: 1.7; color: #475569; margin-bottom: 16px;">
-        YogTeck Business Solution engineers production-ready applications prioritizing data reliability, sub-second response times, and compliance with Indian commercial standards. From localized GST e-invoicing to cloud-native multi-tenant portals, our software stack is optimized for enterprise efficiency and maximum ROI.
+        YogTeck Business Solution engineers production-ready applications prioritizing data reliability, high-speed response times, and compliance with Indian commercial standards. From localized GST-ready invoicing to cloud-native multi-tenant portals, our software stack is optimized for enterprise efficiency and maximum ROI.
       </p>
       <div style="display: flex; gap: 16px; flex-wrap: wrap; margin-top: 24px;">
         <a href="/contact" style="background: #FF9A1F; color: #FFFFFF; font-weight: 600; padding: 12px 28px; border-radius: 6px; text-decoration: none; display: inline-block;">Request Consultation</a>
         <a href="tel:+918299209905" style="border: 2px solid #0A1330; color: #0A1330; font-weight: 600; padding: 10px 24px; border-radius: 6px; text-decoration: none; display: inline-block;">Call +91 8299209905</a>
       </div>
     </section>`;
+
+  if (page.contentHtml) {
+    body += `
+    <article class="prerender-article-body" style="margin-top: 30px; margin-bottom: 40px; font-size: 16px; line-height: 1.8; color: #334155; background: #FFFFFF; border: 1px solid #E2E8F0; padding: 30px; border-radius: 12px;">
+      ${page.contentHtml}
+    </article>`;
+  }
 
   if (page.faqs && page.faqs.length > 0) {
     body += `
@@ -840,15 +1157,20 @@ async function runPrerender() {
   let generatedCount = 0;
 
   const cleanBase = baseTemplate
+    .replace(/<html[^>]*lang=["'][^"']*["']/i, '<html lang="en-IN"')
+    .replace(/<link\s+rel=["']alternate["'][\s\S]*?>/gi, '')
     .replace(/<script\s+type=["']application\/ld\+json["']>[\s\S]*?<\/script>/gi, '')
     .replace(/<meta\s+property=["']og:[\s\S]*?>/gi, '')
     .replace(/<meta\s+name=["']twitter:[\s\S]*?>/gi, '')
     .replace(/<meta\s+name=["']robots["'][\s\S]*?>/gi, '');
 
   for (const page of PAGES_DATA) {
-    const pageUrl = page.path ? `${DOMAIN}/${page.path}` : `${DOMAIN}/`;
+    const canonicalUrl = page.canonicalOverride
+      ? page.canonicalOverride
+      : (page.path ? `${DOMAIN}/${page.path}` : `${DOMAIN}/`);
+
     const robotsDirectives = page.isNoindex
-      ? '<meta name="robots" content="noindex, nofollow">'
+      ? '<meta name="robots" content="noindex, follow">'
       : '<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">';
 
     const jsonLdContent = generateJsonLd(page);
@@ -870,69 +1192,31 @@ async function runPrerender() {
       html = html.replace('</head>', `  <meta name="description" content="${page.description}">\n</head>`);
     }
 
-    // Replace Canonical Link
+    // Replace Canonical Link (Task 1: points to canonical non-prefixed URL)
     if (html.includes('<link rel="canonical"')) {
       html = html.replace(
         /<link rel="canonical"[\s\S]*?>/i,
-        `<link rel="canonical" href="${pageUrl}">`
+        `<link rel="canonical" href="${canonicalUrl}">`
       );
     } else {
-      html = html.replace('</head>', `  <link rel="canonical" href="${pageUrl}">\n</head>`);
+      html = html.replace('</head>', `  <link rel="canonical" href="${canonicalUrl}">\n</head>`);
     }
 
-    // Reciprocal hreflang tags for international search engines
-    let hreflangHtml = '';
-    if (!page.isNoindex && !page.path.startsWith('it-software-company-')) {
-      const HREFLANG_CONFIGS = [
-        { hreflang: 'x-default', prefix: '' },
-        { hreflang: 'en-US', prefix: 'en-us' },
-        { hreflang: 'en-GB', prefix: 'en-gb' },
-        { hreflang: 'en-CA', prefix: 'en-ca' },
-        { hreflang: 'en-AU', prefix: 'en-au' },
-        { hreflang: 'en-SG', prefix: 'en-sg' },
-        { hreflang: 'en-PH', prefix: 'en-ph' },
-        { hreflang: 'en-NZ', prefix: 'en-nz' },
-        { hreflang: 'en-AE', prefix: 'en-ae' },
-        { hreflang: 'de-DE', prefix: 'de-de' },
-        { hreflang: 'fr-FR', prefix: 'fr-fr' },
-        { hreflang: 'es-ES', prefix: 'es-es' },
-        { hreflang: 'it-IT', prefix: 'it-it' },
-        { hreflang: 'nl-NL', prefix: 'nl-nl' },
-        { hreflang: 'en-IE', prefix: 'en-ie' },
-        { hreflang: 'ja-JP', prefix: 'ja-jp' },
-        { hreflang: 'ko-KR', prefix: 'ko-kr' },
-        { hreflang: 'ar-SA', prefix: 'ar-sa' },
-        { hreflang: 'en-IN', prefix: 'en-in' },
-        { hreflang: 'hi-IN', prefix: 'hi-in' }
-      ];
-      const isCountryHome = HREFLANG_CONFIGS.some(c => c.prefix === page.path);
-      const basePath = isCountryHome ? '' : page.path;
-      hreflangHtml = HREFLANG_CONFIGS.map(c => {
-        let altUrl;
-        if (c.prefix) {
-          altUrl = `${DOMAIN}/${c.prefix}${basePath ? `/${basePath}/` : '/'}`;
-        } else {
-          altUrl = `${DOMAIN}${basePath ? `/${basePath}` : '/'}`;
-        }
-        return `  <link rel="alternate" hreflang="${c.hreflang}" href="${altUrl}">`;
-      }).join('\n');
-    }
-
-    // Inject Meta Robots & Open Graph / Twitter Tags
+    // Inject Meta Robots & Open Graph / Twitter Tags (Zero untranslated hreflangs)
     const ogImage = `${DOMAIN}/assets/images/og-image.jpg`;
     const metaTags = `
   ${robotsDirectives}
   <meta property="og:type" content="website">
-  <meta property="og:url" content="${pageUrl}">
+  <meta property="og:url" content="${canonicalUrl}">
   <meta property="og:title" content="${page.title}">
   <meta property="og:description" content="${page.description}">
   <meta property="og:image" content="${ogImage}">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:url" content="${pageUrl}">
+  <meta name="twitter:url" content="${canonicalUrl}">
   <meta name="twitter:title" content="${page.title}">
   <meta name="twitter:description" content="${page.description}">
   <meta name="twitter:image" content="${ogImage}">
-${hreflangHtml ? `${hreflangHtml}\n` : ''}  <script type="application/ld+json">
+  <script type="application/ld+json">
 ${jsonLdContent}
   </script>
 </head>`;

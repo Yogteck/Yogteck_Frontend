@@ -14,6 +14,13 @@ export interface ContactConfig {
   backendContactApi: string;
   // Controlled flag: append "[Lang: xx-XX | Country: XX | Page: URL]" to message field (default false)
   enableLocaleAnnotationInMessage: boolean;
+  socialLinks: {
+    googleBusinessProfile: string;
+    linkedin: string;
+    facebook: string;
+    instagram: string;
+    github?: string;
+  };
 }
 
 export interface DialCodeOption {
@@ -39,7 +46,7 @@ export const DIAL_CODE_OPTIONS: DialCodeOption[] = [
 export const CONTACT_CONFIG: ContactConfig = {
   phone: '+91 8299209905',
   phoneDisplay: '8299209905',
-  phoneTel: 'tel:8299209905',
+  phoneTel: 'tel:+918299209905',
   whatsappNumber: '918299209905',
   whatsappLink: 'https://wa.me/918299209905?text=Hello%20Yogteck,%20I%20am%20interested%20in%20taking%20my%20business%20online.',
   emailPrimary: 'yogteck@gmail.com',
@@ -50,5 +57,13 @@ export const CONTACT_CONFIG: ContactConfig = {
   pincode: '208015',
   tagline: 'Build • Grow • Succeed',
   backendContactApi: 'https://yogteck-backend.vercel.app/api/enquiries/contact',
-  enableLocaleAnnotationInMessage: false
+  enableLocaleAnnotationInMessage: false,
+  socialLinks: {
+    googleBusinessProfile: 'https://maps.google.com/?q=YogTeck+Business+Solution+Kanpur',
+    linkedin: 'https://www.linkedin.com/company/yogteck',
+    facebook: '',
+    instagram: '',
+    github: 'https://github.com/yogteck'
+  }
 };
+

@@ -12,46 +12,250 @@
 </app-mobile-drawer>
 
 <main class="blog-page-main">
-  
-  <section class="blog-hero-section">
+
+  <!-- ══════════════════════════════════════════════════════════════════════════
+       1. BLOG LIST VIEW (/blog)
+       ══════════════════════════════════════════════════════════════════════════ -->
+  <section class="blog-hero-section" *ngIf="viewMode === 'list'">
     <div class="container">
       <app-breadcrumbs [items]="breadcrumbItems"></app-breadcrumbs>
 
       <div class="section-center-header">
-        <span class="section-label">ENGINEERING &amp; DIGITAL GROWTH</span>
-        <h1 class="page-title">YogTeck Insights &amp; Knowledge Base</h1>
-        <!-- Direct answer intro -->
+        <span class="section-label">ENGINEERING &amp; DIGITAL GROWTH INSIGHTS</span>
+        <h1 class="page-title">YogTeck Knowledge Base &amp; Guides</h1>
         <p class="hero-direct-answer">
-          Welcome to the YogTeck engineering and business growth blog. We share practical, actionable frameworks on software architecture, GST billing automation, enterprise ERP selection, and ethical search engine optimization tailored for Indian enterprises, MSMEs, and technology startups.
+          Practical, actionable frameworks on website development costs, custom ERP architecture, GST billing automation, and local SEO for businesses in Kanpur, Lucknow, and North India.
         </p>
       </div>
 
+      <!-- Filter Controls -->
+      <div class="filters-container">
+        <div class="filter-group">
+          <span class="filter-label">Category:</span>
+          <div class="filter-pills">
+            @for (cat of categories; track cat) {
+              <button
+                type="button"
+                class="filter-pill"
+                [class.active]="selectedCategory === cat"
+                (click)="filterByCategory(cat)">
+                {{ cat }}
+              </button>
+            }
+          </div>
+        </div>
+
+        <div class="filter-group">
+          <span class="filter-label">City Focus:</span>
+          <div class="filter-pills">
+            @for (city of cities; track city) {
+              <button
+                type="button"
+                class="filter-pill"
+                [class.active]="selectedCity === city"
+                (click)="filterByCity(city)">
+                {{ city }}
+              </button>
+            }
+          </div>
+        </div>
+      </div>
+
       <!-- Articles Grid -->
-      <div class="articles-grid">
-        @for (art of articles; track art.id) {
+      <div class="articles-grid" *ngIf="filteredPosts.length > 0">
+        @for (art of filteredPosts; track art.id) {
           <article class="article-card">
             <div class="art-meta-row">
               <span class="art-category">{{ art.category }}</span>
-              <span class="art-date">{{ art.date }} • {{ art.readTime }}</span>
+              <span class="art-city-badge">{{ art.city }}</span>
             </div>
-            <h2 class="art-title">{{ art.title }}</h2>
+            <h2 class="art-title">
+              <a [routerLink]="['/blog', art.slug]" class="art-title-link">{{ art.title }}</a>
+            </h2>
             <p class="art-summary">{{ art.summary }}</p>
             <div class="art-footer">
-              <span class="art-read-link">Read Full Guide →</span>
+              <span class="art-date">{{ art.date }} • {{ art.readTime }}</span>
+              <a [routerLink]="['/blog', art.slug]" class="art-read-link">Read Full Guide →</a>
             </div>
           </article>
         }
       </div>
 
-      <!-- Note for regular publishing -->
+      <div class="empty-filter-state" *ngIf="filteredPosts.length === 0">
+        <p>No guides found matching the selected filters. <button (click)="filterByCategory('All'); filterByCity('All')" class="btn-link">Reset filters</button></p>
+      </div>
+
       <div class="blog-publishing-note">
         <p>
-          We publish 1–2 in-depth technical guides every month answering the real questions our manufacturing, healthcare, and retail clients ask during digital transitions.
+          We publish 2 in-depth guides every week addressing real technical, operational, and commercial questions faced by businesses across Kanpur, Lucknow, and Uttar Pradesh.
         </p>
       </div>
 
     </div>
   </section>
+
+  <!-- ══════════════════════════════════════════════════════════════════════════
+       2. BLOG POST DETAIL VIEW (/blog/:slug)
+       ══════════════════════════════════════════════════════════════════════════ -->
+  <article class="blog-detail-section" *ngIf="viewMode === 'detail' && currentPost">
+    <div class="container">
+      
+      <!-- Breadcrumb navigation -->
+      <app-breadcrumbs [items]="breadcrumbItems"></app-breadcrumbs>
+
+      <!-- Post Header -->
+      <header class="post-header">
+        <div class="post-meta-badges">
+          <span class="badge-category">{{ currentPost.category }}</span>
+          <span class="badge-city">{{ currentPost.city }} Focus</span>
+          <span class="badge-readtime">{{ currentPost.readTime }}</span>
+        </div>
+
+        <h1 class="post-main-h1">{{ currentPost.h1 }}</h1>
+
+        <div class="post-author-bar">
+          <div class="author-avatar">
+            <span>YR</span>
+          </div>
+          <div class="author-info">
+            <span class="author-name">{{ currentPost.author }}</span>
+            <span class="author-role">{{ currentPost.authorRole }}</span>
+          </div>
+          <div class="post-date-wrap">
+            <span class="post-pub-date">Published: {{ currentPost.date }}</span>
+            <span class="post-upd-date" *ngIf="currentPost.updated">• Updated: {{ currentPost.updated }}</span>
+          </div>
+        </div>
+
+        <!-- Direct Answer / Key Takeaway Box -->
+        <div class="post-direct-answer-card">
+          <div class="card-badge">KEY TAKEAWAY / QUICK ANSWER</div>
+          <p class="answer-text">{{ currentPost.summary }}</p>
+        </div>
+      </header>
+
+      <!-- Post Main Grid (Content + Sidebar) -->
+      <div class="post-layout-grid">
+        
+        <!-- Main Article Content -->
+        <div class="post-body-column">
+          
+          <!-- Table of Contents -->
+          <div class="toc-card" *ngIf="currentPost.tableOfContents && currentPost.tableOfContents.length > 0">
+            <h2 class="toc-heading">Table of Contents</h2>
+            <ol class="toc-list">
+              @for (item of currentPost.tableOfContents; track item.id) {
+                <li class="toc-item" [class.toc-level-3]="item.level === 3">
+                  <button type="button" (click)="scrollToSection(item.id)" class="toc-link">
+                    {{ item.title }}
+                  </button>
+                </li>
+              }
+            </ol>
+          </div>
+
+          <!-- HTML Article Body -->
+          <div class="article-prose" [innerHTML]="currentPost.contentHtml"></div>
+
+          <!-- Service CTA Box -->
+          <div class="service-cta-box" *ngIf="currentPost.targetServiceUrl">
+            <div class="cta-box-content">
+              <span class="cta-pill">RELATED EXPERTISE</span>
+              <h3 class="cta-box-title">Need Help with {{ currentPost.targetServiceTitle }}?</h3>
+              <p class="cta-box-desc">
+                YogTeck Business Solution provides end-to-end architecture, development, and on-site support for businesses across Kanpur, Lucknow, and Uttar Pradesh.
+              </p>
+              <div class="cta-box-actions">
+                <a [routerLink]="currentPost.targetServiceUrl" class="btn btn-primary-orange">
+                  <span>Explore {{ currentPost.targetServiceTitle }}</span>
+                </a>
+                <button type="button" (click)="openQuoteModal()" class="btn btn-secondary-dark">
+                  <span>Get Free Quotation</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- FAQs Section -->
+          <div class="post-faqs-wrapper" *ngIf="currentPost.faq && currentPost.faq.length > 0">
+            <app-faq-section
+              [title]="'Frequently Asked Questions'"
+              [subtitle]="'Direct answers regarding timelines, costs, and technology implementation.'"
+              [faqs]="currentPost.faq">
+            </app-faq-section>
+          </div>
+
+        </div>
+
+        <!-- Sidebar Column -->
+        <aside class="post-sidebar-column">
+          
+          <!-- Author Card -->
+          <div class="sidebar-card author-card">
+            <div class="author-avatar-lg">
+              <span>YR</span>
+            </div>
+            <h3 class="author-card-name">{{ currentPost.author }}</h3>
+            <p class="author-card-role">{{ currentPost.authorRole }}</p>
+            <p class="author-card-bio">
+              Software architect engineering cloud ERP systems, custom web applications, and digital transformation platforms for Indian enterprises.
+            </p>
+          </div>
+
+          <!-- Fast Quote Trigger Card -->
+          <div class="sidebar-card cta-sidebar-card">
+            <h3 class="side-cta-title">Plan Your Project</h3>
+            <p class="side-cta-desc">Speak directly with our senior development engineers in Kanpur.</p>
+            <button type="button" (click)="openQuoteModal()" class="btn btn-primary-orange btn-full">
+              <span>Request Consultation</span>
+            </button>
+            <a [href]="contact.whatsappLink" target="_blank" rel="noopener noreferrer" class="btn btn-outline-whatsapp btn-full">
+              <span>Chat on WhatsApp</span>
+            </a>
+          </div>
+
+          <!-- Regional Links Card -->
+          <div class="sidebar-card locations-card">
+            <h3 class="side-heading">Regional Support Hubs</h3>
+            <ul class="side-links-list">
+              <li><a routerLink="/it-software-company-kanpur">Kanpur Headquarters</a></li>
+              <li><a routerLink="/it-software-company-lucknow">Lucknow Solutions</a></li>
+              <li><a routerLink="/it-software-company-uttar-pradesh">Uttar Pradesh Hub</a></li>
+              <li><a routerLink="/it-software-company-raebareli">Raebareli Office</a></li>
+            </ul>
+          </div>
+
+        </aside>
+
+      </div>
+
+      <!-- Related Posts Section -->
+      <section class="related-posts-section" *ngIf="relatedPostItems.length > 0">
+        <div class="section-center-header">
+          <span class="section-label">CONTINUE READING</span>
+          <h2 class="section-heading">Related Engineering &amp; Business Guides</h2>
+        </div>
+        <div class="articles-grid">
+          @for (rel of relatedPostItems; track rel.id) {
+            <article class="article-card">
+              <div class="art-meta-row">
+                <span class="art-category">{{ rel.category }}</span>
+                <span class="art-city-badge">{{ rel.city }}</span>
+              </div>
+              <h3 class="art-title">
+                <a [routerLink]="['/blog', rel.slug]" class="art-title-link">{{ rel.title }}</a>
+              </h3>
+              <p class="art-summary">{{ rel.summary }}</p>
+              <div class="art-footer">
+                <a [routerLink]="['/blog', rel.slug]" class="art-read-link">Read Guide →</a>
+              </div>
+            </article>
+          }
+        </div>
+      </section>
+
+    </div>
+  </article>
 
 </main>
 
@@ -67,6 +271,6 @@
 <!-- Quote Modal -->
 <app-quote-modal
   [isOpen]="isQuoteModalOpen"
-  defaultServiceTitle="Blog Inquiry"
+  [defaultServiceTitle]="currentPost ? currentPost.title + ' Inquiry' : 'Blog Inquiry'"
   (closeModal)="closeQuoteModal()">
 </app-quote-modal>

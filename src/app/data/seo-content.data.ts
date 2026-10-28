@@ -99,7 +99,7 @@ export const SERVICES_SEO_DATA: Record<string, ServiceDetailData> = {
     features: [
       { title: 'Custom UI/UX Architecture', description: 'Every layout is tailored to your brand identity with intuitive user pathways that maximize enquiries.', icon: 'palette' },
       { title: 'Mobile-First Responsive Design', description: 'Flawless presentation and touch-friendly controls across smartphones, tablets, laptops, and desktops.', icon: 'smartphone' },
-      { title: 'Core Web Vitals & Speed Optimization', description: 'Sub-second page loads, asset minification, and clean code scoring 90+ on Google PageSpeed Insights.', icon: 'zap' },
+      { title: 'Core Web Vitals & Speed Optimization', description: 'Fast page loads, asset minification, and clean responsive code optimized for Google Core Web Vitals.', icon: 'zap' },
       { title: 'Built-in Technical SEO Foundation', description: 'Semantic HTML5 structure, schema markup, OpenGraph metadata, and clean URL routing.', icon: 'search' },
       { title: 'Domain & Cloud Hosting Included', description: 'Complimentary domain registration and secure high-speed cloud hosting with applicable packages.', icon: 'cloud' },
       { title: 'Lead Capture & WhatsApp Integration', description: 'Automated contact forms, direct WhatsApp floating widgets, and instant CRM notification triggers.', icon: 'message-circle' }
@@ -113,7 +113,7 @@ export const SERVICES_SEO_DATA: Record<string, ServiceDetailData> = {
     benefits: [
       { title: 'Higher Search Engine Visibility', desc: 'Rank higher for local and national buyer searches with clean semantic code and schema markup.' },
       { title: 'Increased Customer Inquiries', desc: 'Conversion-optimized layout with clear call-to-actions turns passive visitors into qualified leads.' },
-      { title: 'Zero Monthly Maintenance Headaches', desc: 'Robust architecture with 99.9% uptime, SSL security, and dependable technical support.' },
+      { title: 'Zero Monthly Maintenance Headaches', desc: 'Robust cloud architecture, SSL security, and dependable technical support.' },
       { title: '100% Code & Asset Ownership', desc: 'You retain full intellectual property rights, database access, and hosting credentials.' }
     ],
     faqs: [
@@ -348,7 +348,7 @@ export const SERVICES_SEO_DATA: Record<string, ServiceDetailData> = {
     solutionDesc: 'Our billing software is engineered for speed and simplicity. Create professional GST invoices in under 10 seconds, scan barcodes instantly, accept UPI payments, and monitor daily sales performance on your phone.',
     targetAudience: [
       { title: 'Retail Shops & Supermarkets', description: 'Rapid barcode billing, customer loyalty points, and cash drawer/thermal printer integration.' },
-      { title: 'Wholesalers & Distributors in Kanpur', description: 'Wholesale pricing tiers, customer credit limit alerts, payment ledger tracking, and GST e-invoicing.' },
+      { title: 'Wholesalers & Distributors in Kanpur', description: 'Wholesale pricing tiers, customer credit limit alerts, payment ledger tracking, and GST-ready billing.' },
       { title: 'Garment & Footwear Showrooms', description: 'Size/color/style matrix billing, barcode label generation, and dead-stock identification.' },
       { title: 'Hardware, Electrical & Sanitary Stores', description: 'Multi-unit conversion (pieces, meters, boxes), serial number tracking, and warranty cards.' }
     ],
@@ -407,7 +407,7 @@ export const SERVICES_SEO_DATA: Record<string, ServiceDetailData> = {
     problemTitle: 'Why Basic E-Commerce Templates Fail to Generate Sales',
     problemDesc: 'Many online stores suffer from high cart abandonment rates due to slow checkout pages, clunky mobile UX, lack of trust signals, and complex shipping calculations, resulting in high advertising spend with zero return.',
     solutionTitle: 'Engineered for High Conversion & Frictionless Buying',
-    solutionDesc: 'We build custom and headless e-commerce stores with sub-second page loads, one-click UPI checkout, dynamic coupon engines, automated courier dispatch (Shiprocket/Delhivery), and real-time inventory management.',
+    solutionDesc: 'We build custom and headless e-commerce stores with fast page loads, UPI checkout, coupon engines, courier dispatch integrations, and real-time inventory management.',
     targetAudience: [
       { title: 'Kanpur Manufacturers & Wholesalers', description: 'Direct-to-consumer (D2C) channels for leather products, footwear, apparel, and home furnishings.' },
       { title: 'Retail Brands & Showrooms', description: 'Expand beyond local footfall to sell products across all Indian pin codes.' },
@@ -630,6 +630,231 @@ export const SERVICES_SEO_DATA: Record<string, ServiceDetailData> = {
       { title: 'Billing Software', slug: 'billing-software', desc: 'POS and accounting software for business management.' },
       { title: 'Website Development', slug: 'website-development', desc: 'High-converting real estate developer corporate websites.' }
     ]
+  },
+
+  'inventory-software': {
+    slug: 'inventory-software',
+    id: 'inventory-software',
+    title: 'Inventory & Stock Management Software',
+    metaTitle: 'Inventory Software in Kanpur & UP | YogTeck',
+    metaDescription: 'YogTeck engineers real-time inventory software for Kanpur leather, FMCG, Lucknow retail & Delhi traders. Barcode tracking, batch expiry & GST sync.',
+    h1: 'Inventory Software in Kanpur, Lucknow & Delhi NCR',
+    tagline: 'Real-Time Multi-Warehouse Stock Tracking, Barcode Scanning & Batch Control',
+    badge: 'Enterprise Inventory Suite',
+    icon: 'box',
+    heroSummary: 'YogTeck Business Solution engineers tailored inventory and stock management software built for manufacturers, wholesale stockists, and retail distributors across Kanpur, Lucknow, and Delhi NCR. Proven through deployments like our material tracking engine for MMR Construction and wholesale catalog architecture for Yogkart, our software delivers complete visibility from raw material intake to final retail dispatch.',
+    problemTitle: 'Why Spreadsheets and Manual Registers Cause Stock Losses',
+    problemDesc: 'Growing businesses across Uttar Pradesh and Delhi NCR face daily stock leakage, discrepancy between godown records and sales counters, dead inventory pileups, and unexpected stockouts. Manual entry errors lead to misplaced orders, expired batches, and frustrated B2B customers.',
+    solutionTitle: 'Automated Stock Architecture with Instant Visibility',
+    solutionDesc: 'Our inventory software synchronizes every purchase, inter-warehouse transfer, sales challan, and returns ledger in real time. With instant barcode scanning, multi-tier pricing, minimum reorder alerts, and GST billing integration, business owners maintain tight control over working capital.',
+    targetAudience: [
+      { title: 'Kanpur Leather, Footwear & Garment Mills', description: 'Track raw hide procurement, cutting waste, shoe lasting batches, finished footwear carton packing, and export dispatch.' },
+      { title: 'FMCG & Wholesale Distributors', description: 'Manage distributor beat orders, FIFO batch expiry rotation, customer credit limits, and delivery vehicle dispatch challans.' },
+      { title: 'Lucknow Retail & Multi-Branch Chains', description: 'Centrally allocate merchandise across showroom branches in Hazratganj, Gomti Nagar, and Aminabad with real-time stock sync.' },
+      { title: 'Delhi NCR Traders & Industrial Suppliers', description: 'Trading firms needing automated Stock Transfer Notes (STN), supplier purchase orders, and GST-compliant sales billing.' }
+    ],
+    features: [
+      { title: 'Multi-Warehouse & Godown Stock Sync', description: 'Live stock balances across multiple warehouses, retail counters, and transit points with instant transfer reconciliation.', icon: 'layers' },
+      { title: 'Barcode & QR Code Scanning', description: 'Fast item check-in and checkout using handheld wireless barcode scanners, mobile cameras, and thermal sticker printing.', icon: 'maximize' },
+      { title: 'Batch Number & Expiry FIFO Tracking', description: 'Strict First-In-First-Out enforcement, batch-wise costing, and automated alerts 30-60 days before perishable expiry.', icon: 'clock' },
+      { title: 'Automated Low-Stock Reorder Triggers', description: 'Set minimum safety stock thresholds per item and godown to trigger automated purchase order drafts.', icon: 'bell' },
+      { title: 'Multi-Unit Packaging & Conversion', description: 'Seamlessly convert bulk packaging (cartons, kilograms, rolls) into loose pieces, boxes, and retail units during sales.', icon: 'package' },
+      { title: 'GST Billing & E-Way Bill Integration', description: 'Convert dispatched goods directly into compliant GST tax invoices and generate government E-Way bills with a single click.', icon: 'file-text' },
+      { title: 'Dead Stock & Shrinkage Analytics', description: 'Identify slow-moving capital, compare physical inventory audits against system tallies, and detect discrepancies.', icon: 'trending-down' }
+    ],
+    processSteps: [
+      { step: '01', title: 'Warehouse Workflow Audit', desc: 'We map your physical warehouse layout, SKU taxonomy, vendor receiving practices, and order dispatch bottlenecks.' },
+      { step: '02', title: 'Data Migration & SKU Clean-up', desc: 'Importing master item catalogs, opening stock balances, vendor price books, and barcode numbers from spreadsheets.' },
+      { step: '03', title: 'Hardware Pairing & Staff Training', desc: 'Configuring barcode label printers, handheld scanners, and training floor staff with intuitive Hindi/English interfaces.' },
+      { step: '04', title: 'Go-Live & SLA Support', desc: 'Launching cloud server deployment with daily automated database backups, role permissions, and on-call technical support.' }
+    ],
+    benefits: [
+      { title: 'Eliminate Stockout Losses', desc: 'Maintain optimal inventory levels with predictive low-stock warnings, ensuring sales orders never face fulfillment delays.' },
+      { title: 'Prevent Pilferage & Discrepancies', desc: 'Role-based access controls and mandatory barcode audits ensure complete accountability across every godown worker.' },
+      { title: 'Unlock Trapped Working Capital', desc: 'Spot obsolete and slow-moving SKUs early to run targeted promotions before capital remains trapped in warehouse racks.' },
+      { title: 'Rapid Counter Checkouts', desc: 'Barcode-driven scanning reduces counter waiting time during peak customer rush periods.' }
+    ],
+    faqs: [
+      {
+        question: 'What is the cost of inventory software in Kanpur or Lucknow?',
+        answer: 'Inventory software pricing from YogTeck depends on whether your business needs a single-warehouse setup or a multi-branch cloud platform. Basic deployments for MSMEs start affordably, while enterprise multi-godown ERP modules with automated E-Way billing and custom APIs are priced according to user seats and required integrations.'
+      },
+      {
+        question: 'Can this inventory software handle raw materials for manufacturing as well as finished goods?',
+        answer: 'Yes. Our inventory system includes multi-stage Bill of Materials (BOM) tracking. When raw materials (like leather, soles, or yarn) are issued to production, the system automatically deducts them and adds finished products into stock upon quality inspection.'
+      },
+      {
+        question: 'Does the system support barcode scanning with mobile phones?',
+        answer: 'Yes. Our responsive cloud application allows warehouse staff to use dedicated USB/Bluetooth barcode scanners or smartphone cameras to look up SKU details, perform physical stock counts, and verify dispatch orders.'
+      },
+      {
+        question: 'Can we track stock transfers between different cities like Kanpur and Delhi?',
+        answer: 'Yes. The software features an automated Stock Transfer Note (STN) mechanism. Stock dispatched from a Kanpur hub is flagged as in-transit until electronically verified and accepted into the Delhi or Lucknow warehouse ledger.'
+      },
+      {
+        question: 'Does the software generate GST-compliant bills and reports?',
+        answer: 'Yes. YogTeck inventory software generates GST-compliant sales invoices, purchase credit notes, and ledger reports formatted for standard Indian accounting workflows.'
+      },
+      {
+        question: 'How do you migrate existing stock data from Excel?',
+        answer: 'Our onboarding engineering team provides standardized Excel templates for item masters, opening quantities, unit costs, and barcode numbers. We validate the data, run test imports, and reconcile opening numbers before go-live.'
+      }
+    ],
+    relatedServices: [
+      { title: 'Cloud ERP Software', slug: 'erp-software', desc: 'Complete enterprise resource planning uniting inventory, accounts, and production.' },
+      { title: 'Billing Software', slug: 'billing-software', desc: 'High-speed retail POS with barcode scanning and instant WhatsApp receipts.' },
+      { title: 'Custom Software Development', slug: 'custom-software-development', desc: 'Tailored backend systems and custom B2B portals for Indian enterprises.' }
+    ]
+  },
+
+  'mlm-software': {
+    slug: 'mlm-software',
+    id: 'mlm-software',
+    title: 'MLM Software Development',
+    metaTitle: 'MLM Software Company in Kanpur & Delhi | YogTeck',
+    metaDescription: 'Custom MLM software with binary, matrix, generation plans, e-wallet, automated payouts & secure member portals for Kanpur, Lucknow & Delhi NCR businesses.',
+    h1: 'Custom MLM Software Development Company in Kanpur & Delhi',
+    tagline: 'High-Performance Network Marketing Platforms, Automated Payouts & Legal Compliance',
+    badge: 'High-Scale Network Platform',
+    icon: 'share-2',
+    heroSummary: 'YogTeck Business Solution builds robust, mathematically verified MLM and network marketing software for direct selling companies across Kanpur, Lucknow, Uttar Pradesh, and Delhi NCR. Engineering secure member geneology trees, automated TDS deductions, digital e-wallets, and instant payout processing, our platforms are engineered to handle thousands of concurrent transactions without calculation errors.',
+    problemTitle: 'Why Flawed MLM Scripts Ruin Direct Selling Businesses',
+    problemDesc: 'Many direct selling ventures fail because they buy cheap, pirated PHP scripts that miscalculate binary pair capping, duplicate commissions during heavy load, or get hacked due to vulnerable database structures. A single payout error destroys distributor trust and invites legal issues.',
+    solutionTitle: 'Mathematically Rigorous Architecture with Real-Time Payouts',
+    solutionDesc: 'YogTeck develops bespoke MLM platforms using enterprise-grade frameworks (Node.js, Angular, PostgreSQL) with atomic database transactions. We implement automated member verification, multi-plan logic, dynamic rank upgrades, encrypted e-wallets, and automated bank payout exports.',
+    targetAudience: [
+      { title: 'Direct Selling FMCG & Wellness Brands', description: 'Companies marketing health supplements, cosmetics, and organic products via multi-tier independent distributor networks.' },
+      { title: 'Product-Based Network Marketing Firms', description: 'Enterprises managing real product inventory, distributor repurchases, retail margins, and courier tracking.' },
+      { title: 'Crowdfunding & Affiliate Reward Programs', description: 'Ethical reward-sharing communities requiring transparent public ledgers and automated milestone incentives.' },
+      { title: 'New Direct Selling Startups in UP & Delhi', description: 'Founders looking for legally compliant software adhering to Indian Direct Selling Guidelines 2021.' }
+    ],
+    features: [
+      { title: 'Support for All Standard & Custom MLM Plans', description: 'Native support for Binary, Matrix, Generation, Unilevel, Board, Monoline, and hybrid repurchase compensation models.', icon: 'git-merge' },
+      { title: 'Interactive Downline Genealogy Tree', description: 'Visual interactive genealogy charts allowing distributors and admins to explore downline levels, node leg volumes, and rank status.', icon: 'users' },
+      { title: 'Multi-Tier E-Wallet & Commission Engine', description: 'Dedicated commission wallet, repurchase wallet, and reward wallet with automated closing schedules (daily, weekly, monthly).', icon: 'credit-card' },
+      { title: 'Statutory TDS & Admin Fee Deductions', description: 'Automated calculation of TDS with PAN verification, GST compliance on product kits, and configurable admin service charges.', icon: 'percent' },
+      { title: 'Instant Member KYC & Document Verification', description: 'Self-service KYC upload (Aadhaar, PAN, Bank Passbook) with administrative approval workflows and fraud prevention checks.', icon: 'shield-check' },
+      { title: 'E-Pin Management & Online Payment Gateway', description: 'Generate, transfer, and redeem secure digital E-Pins or let members join instantly via integrated UPI and razorpay gateways.', icon: 'key' },
+      { title: 'Repurchase E-Commerce Store Integration', description: 'Integrated product catalog with shopping cart, Business Volume (BV) / Point Value (PV) calculation, and doorstep delivery tracking.', icon: 'shopping-bag' }
+    ],
+    processSteps: [
+      { step: '01', title: 'Mathematical Plan Verification', desc: 'Our software architects stress-test your business plan on spreadsheet models to verify payout sustainability and capping ratios.' },
+      { step: '02', title: 'System Architecture & Database Design', desc: 'Designing normalized database schemas that prevent race conditions, duplicate payouts, and downline node locking issues.' },
+      { step: '03', title: 'Portal Customization & Testing', desc: 'Developing distributor mobile portals, administrative control dashboards, and running automated regression calculations.' },
+      { step: '04', title: 'Deployment & Server Hardening', desc: 'Deploying onto dedicated cloud servers with SSL encryption, DDoS mitigation, daily database mirrors, and 24/7 uptime monitoring.' }
+    ],
+    benefits: [
+      { title: '100% Mathematical Calculation Accuracy', desc: 'Atomic transaction processing guarantees every pair match, spillover bonus, and commission calculation is mathematically accurate.' },
+      { title: 'Distributor Trust & Mobile Accessibility', desc: 'Fast, responsive mobile portals allow network associates to monitor team sales, wallet balances, and referrals in real time.' },
+      { title: 'Strict Direct Selling Guideline Compliance', desc: 'Built-in 30-day return mechanisms, transparent product pricing, and verified KYC modules ensure full legal conformity.' },
+      { title: 'Scales to Millions of Nodes', desc: 'Engineered for high-volume network growth without server slowdowns during weekend payout calculations and promotional launches.' }
+    ],
+    faqs: [
+      {
+        question: 'Which MLM compensation plans does YogTeck software support?',
+        answer: 'We develop software for Binary plans (1:1, 1:2, 2:1), Matrix plans (3x3, 4x4, 5x5), Generation plans, Unilevel plans, Crowdfunding/Donation models, and complex hybrid Repurchase plans with BV/PV calculations.'
+      },
+      {
+        question: 'Does the software comply with Indian Direct Selling Guidelines?',
+        answer: 'Yes. Our software incorporates mandatory compliance features including PAN-linked member registration, cooling-off/refund periods, transparent grievance ticketing, GST-compliant product invoices, and statutory TDS deduction reports.'
+      },
+      {
+        question: 'Can distributors access their account on mobile phones?',
+        answer: 'Yes. We provide modern, responsive Progressive Web Apps (PWA) and mobile dashboards that load quickly even on 3G/4G connections, allowing associates to track downline activity, check wallet balances, and share referral links.'
+      },
+      {
+        question: 'How are commissions and payouts disbursed to members?',
+        answer: 'Commissions are credited to members e-wallets based on your configured closing cycle (daily, weekly, or monthly). Admins can export bulk NEFT/IMPS payout files for bank upload or connect automated payout APIs.'
+      },
+      {
+        question: 'What is the cost of custom MLM software development with YogTeck?',
+        answer: 'Costs depend on plan complexity, whether you require integrated e-commerce for product repurchases, and the depth of the admin reporting tools. We offer transparent project-based quotations with full source code ownership options.'
+      },
+      {
+        question: 'Do you provide source code and server deployment?',
+        answer: 'Yes. Unlike SaaS MLM providers who charge recurring per-user fees and hold your database hostage, YogTeck provides transparent licensing with optional complete source code ownership and deployment on your private servers.'
+      }
+    ],
+    relatedServices: [
+      { title: 'E-Commerce Website Development', slug: 'ecommerce-development', desc: 'High-converting online shopping platforms with courier and payment sync.' },
+      { title: 'Custom Software Development', slug: 'custom-software-development', desc: 'Bespoke operational backends and database systems.' },
+      { title: 'Mobile App Development', slug: 'mobile-app-development', desc: 'Native Android and iOS mobile applications for business networks.' }
+    ]
+  },
+
+  'ai-software-development': {
+    slug: 'ai-software-development',
+    id: 'ai-software-development',
+    title: 'AI Software & Chatbot Development',
+    metaTitle: 'AI Software Company in Kanpur & UP | YogTeck',
+    metaDescription: 'YogTeck builds custom AI software, WhatsApp chatbots & predictive analytics for enterprises in Kanpur, Lucknow & Delhi NCR. Free architecture review.',
+    h1: 'AI Software & Chatbot Development Company in Kanpur & UP',
+    tagline: 'Practical AI Agents, Generative Chatbots, Document Automation & Predictive Insights',
+    badge: 'Next-Gen Intelligence',
+    icon: 'cpu',
+    heroSummary: 'YogTeck Business Solution architects and deploys practical Artificial Intelligence software, autonomous customer service chatbots, document extraction pipelines, and predictive analytics for enterprises across Kanpur, Lucknow, and Delhi NCR. Rather than generic hype, we build pragmatic AI tools that automate repetitive labor, qualify sales leads 24/7, and extract operational insights from unstructured enterprise data.',
+    problemTitle: 'Why Off-the-Shelf AI Fails Indian Business Realities',
+    problemDesc: 'Generic AI tools fail when confronted with regional commercial workflows, Hindi-English conversational mixing (Hinglish), physical paper invoices, and fragmented legacy databases. Businesses waste money on shiny subscriptions that do not integrate into core billing or CRM software.',
+    solutionTitle: 'Tailored AI Engineering Embedded in Core Operations',
+    solutionDesc: 'We develop purpose-built AI applications utilizing cutting-edge Large Language Models (LLMs), Optical Character Recognition (OCR), and machine learning pipelines securely integrated into your proprietary databases. Your business data remains private, secure, and compliant.',
+    targetAudience: [
+      { title: 'Customer Support & Sales Organizations', description: 'Deploy 24/7 multilingual WhatsApp and web chatbots that answer product queries, book appointments, and capture high-intent leads.' },
+      { title: 'Industrial Manufacturers & Logistics Firms', description: 'Implement computer vision for defect inspection, automated invoice OCR extraction, and predictive inventory replenishment.' },
+      { title: 'Real Estate & Infrastructure Developers', description: 'Automate customer inquiry routing, generate instant personalized WhatsApp brochures, and track buyer sentiment.' },
+      { title: 'Healthcare & Diagnostic Chains', description: 'Patient intake automation, automated appointment reminder calls, and conversational report interpretation assistants.' }
+    ],
+    features: [
+      { title: 'Custom Multilingual WhatsApp & Web Chatbots', description: 'Intelligent AI conversational agents trained on your product manuals that communicate naturally in English and Hinglish.', icon: 'message-square' },
+      { title: 'Automated Document OCR & Invoice Parsing', description: 'Extract vendor names, line items, tax numbers, and totals from scanned physical invoices and push directly into ERP systems.', icon: 'file-text' },
+      { title: 'Predictive Sales & Demand Forecasting', description: 'Machine learning algorithms that analyze historical sales velocity, seasonal spikes, and market trends to optimize procurement.', icon: 'trending-up' },
+      { title: 'Internal Enterprise Knowledge Base Search', description: 'Private conversational search engines allowing employees to query company policies, SOPs, and engineering blueprints securely.', icon: 'search' },
+      { title: 'Automated Lead Qualification & CRM Scoring', description: 'AI agents that engage website visitors, score intent based on responses, and instantly alert sales managers via SMS and WhatsApp.', icon: 'user-check' },
+      { title: 'Voice AI & Automated Tele-Calling Bots', description: 'Interactive voice response bots that handle routine customer follow-ups, payment reminder calls, and service feedback surveys.', icon: 'mic' },
+      { title: 'Private & Secure On-Premises LLM Hosting', description: 'Deploy open-source LLMs (Llama, Mistral) on dedicated private cloud servers ensuring proprietary enterprise data never leaks.', icon: 'lock' }
+    ],
+    processSteps: [
+      { step: '01', title: 'Feasibility Assessment & Data Audit', desc: 'We examine your existing customer inquiries, documentation, and operational databases to pinpoint high-ROI AI use cases.' },
+      { step: '02', title: 'Proof-of-Concept & Model Tuning', desc: 'Developing a functional prototype using retrieval-augmented generation (RAG) and fine-tuning models on your internal data.' },
+      { step: '03', title: 'API Integration & Security Review', desc: 'Connecting the AI pipeline into your WhatsApp Business API, website, and ERP system with strict guardrails and data privacy.' },
+      { step: '04', title: 'Deployment & Continuous Evaluation', desc: 'Deploying with real-time monitoring of response latency, answer hallucination rate, and user feedback ratings.' }
+    ],
+    benefits: [
+      { title: '24/7 Instant Customer Engagement', desc: 'Never lose a lead outside office hours: AI chatbots respond to inquiries within 3 seconds, day and night.' },
+      { title: '70% Reduction in Document Processing Time', desc: 'Automate invoice data entry, loan paperwork, or supplier challan parsing without tedious manual retyping.' },
+      { title: 'Zero Data Privacy Risk', desc: 'Your confidential commercial documents and client communications are processed through private, isolated cloud containers.' },
+      { title: 'Substantial Operational Cost Savings', desc: 'Empower existing support and administrative staff to accomplish 3x more work without proportional payroll expansion.' }
+    ],
+    faqs: [
+      {
+        question: 'What is the difference between ChatGPT and a custom AI solution from YogTeck?',
+        answer: 'While public ChatGPT is a general tool that knows nothing about your specific business, our custom AI solutions are securely fine-tuned on your actual product catalog, pricing matrices, and business rules, and are connected directly to your WhatsApp and internal database.'
+      },
+      {
+        question: 'Can the AI chatbot understand Hindi and Hinglish queries?',
+        answer: 'Yes. Our conversational models are optimized for Indian linguistic nuances, accurately understanding Hindi written in English script (Hinglish) as well as formal Devanagari Hindi and English.'
+      },
+      {
+        question: 'Will our proprietary business data be shared with third parties or AI training models?',
+        answer: 'No. We utilize enterprise API agreements with zero-data-retention guarantees or deploy self-hosted open-source models (such as Llama or Mistral) on your private cloud infrastructure so your confidential records remain strictly private.'
+      },
+      {
+        question: 'How does an AI document extractor work with scanned paper invoices?',
+        answer: 'When a paper invoice photo or PDF is received via WhatsApp or uploaded to your portal, our OCR and vision models identify vendor GST numbers, line items, quantities, and totals, cross-checking them against your database before posting.'
+      },
+      {
+        question: 'What is the cost of AI software or chatbot development in Kanpur?',
+        answer: 'Costs vary depending on whether you need a smart WhatsApp lead chatbot, an internal knowledge base search tool, or a complex predictive machine learning model. YogTeck offers fixed-cost proof-of-concept projects to demonstrate tangible ROI quickly.'
+      },
+      {
+        question: 'How long does it take to deploy an AI chatbot for our business?',
+        answer: 'A customized WhatsApp or website chatbot trained on your company FAQs and catalogs can be deployed in as little as 10 to 14 days, with full ERP integration taking an additional 2 to 3 weeks.'
+      }
+    ],
+    relatedServices: [
+      { title: 'Custom Software Development', slug: 'custom-software-development', desc: 'Bespoke business platforms and automated operational systems.' },
+      { title: 'Cloud ERP Software', slug: 'erp-software', desc: 'Enterprise management platforms with automated business logic.' },
+      { title: 'Website Development', slug: 'website-development', desc: 'Conversion-optimized business web applications.' }
+    ]
   }
 };
 
@@ -724,7 +949,7 @@ export const LOCATIONS_SEO_DATA: Record<string, LocationDetailData> = {
     ],
     whyYogteckForCity: [
       { title: 'Regional Proximity & Dedicated Account Management', desc: 'Located nearby in Uttar Pradesh, our technical leadership provides rapid remote and on-site support for Lucknow clients.' },
-      { title: 'Modern Cloud Architecture & Enterprise Security', desc: 'Zero-lag cloud infrastructure, end-to-end data encryption, and 99.9% uptime reliability.' },
+      { title: 'Modern Cloud Architecture & Enterprise Security', desc: 'Cloud infrastructure, end-to-end data encryption, and dependable platform reliability.' },
       { title: 'Proven Track Record Across Diverse Sectors', desc: 'Delivering results for real estate leaders, healthcare platforms, and commercial distributors across UP.' }
     ],
     faqs: [
@@ -759,7 +984,7 @@ export const LOCATIONS_SEO_DATA: Record<string, LocationDetailData> = {
       { title: 'Fast Counter Billing for Retail & Wholesale Hubs', desc: 'Retailers in Raebareli markets require easy-to-use billing software that simplifies GST compliance without technical complexity.' }
     ],
     keyServices: [
-      { title: 'Industrial ERP & Manufacturing Software', slug: 'erp-software', desc: 'Production BOM, stock tracking, job work issue, and GST e-invoicing.' },
+      { title: 'Industrial ERP & Manufacturing Software', slug: 'erp-software', desc: 'Production BOM, stock tracking, job work issue, and GST-ready invoices.' },
       { title: 'GST Billing & POS Software for Raebareli', slug: 'billing-software', desc: 'Fast retail & wholesale billing with barcode scanning and WhatsApp receipts.' },
       { title: 'Custom Web Development', slug: 'website-development', desc: 'Corporate websites, industrial product catalogs, and quotation request portals.' },
       { title: 'Custom Software & Client Portals', slug: 'custom-software-development', desc: 'Automate business workflows, order processing, and supplier coordination.' },

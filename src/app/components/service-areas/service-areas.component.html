@@ -1,0 +1,154 @@
+<!-- Navbar -->
+<app-navbar
+  (openQuote)="openQuoteModal()"
+  (toggleDrawer)="openDrawer()">
+</app-navbar>
+
+<!-- Mobile Drawer -->
+<app-mobile-drawer
+  [isOpen]="isDrawerOpen"
+  (closeDrawer)="closeDrawer()"
+  (openQuote)="openQuoteModal()">
+</app-mobile-drawer>
+
+<main class="service-areas-main">
+  <section class="service-areas-hero">
+    <div class="container">
+      <app-breadcrumbs [items]="breadcrumbItems"></app-breadcrumbs>
+
+      <div class="service-areas-header">
+        <span class="region-badge">PAN-INDIA DELIVERY DIRECTORY</span>
+        <h1 class="service-areas-title">Software Engineering Service Areas Across India</h1>
+        <p class="service-areas-intro">
+          YogTeck Business Solution is headquartered in Kanpur, Uttar Pradesh. We engineer custom enterprise software, cloud ERP, GST billing systems, and modern web portals for clients across North and West India, delivered remotely from our central engineering office.
+        </p>
+
+        <!-- Service notice -->
+        <div class="service-delivery-notice">
+          <strong>Transparency Notice:</strong> Our registered office and software development lab is situated exclusively at <strong>302/2, Mangla Vihar 2, New PAC Line, Kanpur Nagar, UP 208015</strong>. In accordance with our indexing gate, regions and cities undergoing local fact verification are displayed as "Coming Soon" with search engine indexing held back until verified.
+        </div>
+      </div>
+
+      <!-- Regions Directory Grid -->
+      <div class="regions-grid">
+        @for (region of regions; track region.name) {
+          <div class="region-card">
+            <div class="region-card-header">
+              <h2 class="region-name">{{ region.name }}</h2>
+              <span class="region-type-tag">Remote Delivery Zone</span>
+            </div>
+            <p class="region-desc">{{ region.description }}</p>
+
+            <!-- State Hub Link if present -->
+            <div class="state-hub-wrapper" *ngIf="region.stateHub">
+              <div class="location-item state-hub-item">
+                <div class="location-info">
+                  <span class="hub-label">STATE HUB</span>
+                  <span class="location-name">{{ region.stateHub.name }}</span>
+                </div>
+                <div class="location-action">
+                  @if (isPagePassesGate(region.stateHub.cityKey)) {
+                    <a [routerLink]="['/' + region.stateHub.slug]" class="active-location-link">
+                      <span>View Hub</span> &rarr;
+                    </a>
+                  } @else {
+                    <span class="coming-soon-pill">Coming Soon</span>
+                  }
+                </div>
+              </div>
+            </div>
+
+            <!-- Spoke Cities List -->
+            <div class="cities-list">
+              <h3 class="cities-heading">Commercial Centers & Cities</h3>
+              @for (city of region.cities; track city.slug) {
+                <div class="location-item" [class.hq-location]="city.isHeadquarters">
+                  <div class="location-info">
+                    <span *ngIf="city.isHeadquarters" class="hq-badge">REGISTERED HQ</span>
+                    <span class="location-name">{{ city.name }}</span>
+                  </div>
+                  <div class="location-action">
+                    @if (isPagePassesGate(city.cityKey)) {
+                      <a [routerLink]="['/' + city.slug]" class="active-location-link">
+                        <span>Explore</span> &rarr;
+                      </a>
+                    } @else {
+                      <span class="coming-soon-pill">Coming Soon</span>
+                    }
+                  </div>
+                </div>
+              }
+            </div>
+          </div>
+        }
+      </div>
+
+      <!-- Remote Delivery Principles -->
+      <div class="remote-principles-card">
+        <h2 class="section-title">How YogTeck Delivers Software Remotely Across India</h2>
+        <div class="principles-grid">
+          <div class="principle-item">
+            <div class="principle-icon">01</div>
+            <h3 class="principle-title">Direct Lead Architect Contact</h3>
+            <p class="principle-desc">No junior sales reps or middlemen. You collaborate directly with senior full-stack software architects from your initial architecture review to live production deployment.</p>
+          </div>
+          <div class="principle-item">
+            <div class="principle-icon">02</div>
+            <h3 class="principle-title">Interactive Cloud Sandboxes</h3>
+            <p class="principle-desc">Every weekly sprint is deployed to an encrypted staging URL where your team tests counter billing, inventory transfers, and customer workflows hands-on.</p>
+          </div>
+          <div class="principle-item">
+            <div class="principle-icon">03</div>
+            <h3 class="principle-title">100% IP & Code Ownership</h3>
+            <p class="principle-desc">We deliver full production source code, PostgreSQL/MongoDB schemas, and server root credentials upon project completion with zero vendor lock-in.</p>
+          </div>
+          <div class="principle-item">
+            <div class="principle-icon">04</div>
+            <h3 class="principle-title">Milestone Payment Security</h3>
+            <p class="principle-desc">Payments are divided into transparent milestones tied to delivered modules (SRS approval, database schema, functional staging, and live production deployment).</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- FAQs -->
+      <div class="faqs-wrapper">
+        <app-faq-section
+          [title]="'Frequently Asked Questions About YogTeck Service Areas'"
+          [subtitle]="'Transparent facts regarding our physical location, remote software engineering delivery, and editorial verification gates.'"
+          [faqs]="faqs">
+        </app-faq-section>
+      </div>
+
+      <!-- CTA -->
+      <div class="service-areas-cta">
+        <h2 class="cta-title">Discuss Your Next Software Project</h2>
+        <p class="cta-subtitle">Connect with our engineering office in Kanpur to discuss cloud ERP, custom business portals, or high-speed web applications.</p>
+        <div class="cta-btn-group">
+          <button type="button" (click)="openQuoteModal()" class="btn btn-primary-orange">
+            <span>Request Technical Proposal</span>
+          </button>
+          <a [href]="contact.whatsappLink" target="_blank" rel="noopener noreferrer" class="btn btn-secondary-dark">
+            <span>Message Us on WhatsApp</span>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</main>
+
+<!-- Footer -->
+<app-footer></app-footer>
+
+<!-- Sticky Mobile Action Bar -->
+<app-mobile-action-bar></app-mobile-action-bar>
+
+<!-- Floating WhatsApp Button -->
+<app-floating-whatsapp></app-floating-whatsapp>
+
+<!-- Quote Modal -->
+<app-quote-modal
+  [isOpen]="isQuoteModalOpen"
+  defaultServiceTitle="Service Areas Consultation"
+  (closeModal)="closeQuoteModal()">
+</app-quote-modal>

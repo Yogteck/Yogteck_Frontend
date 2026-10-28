@@ -178,10 +178,19 @@ export class InquirySectionComponent implements OnInit {
       }
 
       this.submitSuccess = true;
+      if (typeof window !== 'undefined' && (window as any).gtag) {
+        (window as any).gtag('event', 'generate_lead', {
+          event_category: 'engagement',
+          event_label: 'Contact Section Inquiry',
+          service_type: payload.serviceType,
+          value: 1
+        });
+      }
       form.resetForm({
         serviceType: 'Website Development'
       });
       this.generateCaptcha();
+
     } catch (err) {
       console.error('Enquiry submission error:', err);
       this.submitError = err instanceof Error ? err.message : dict.inquiry.errorMessage;

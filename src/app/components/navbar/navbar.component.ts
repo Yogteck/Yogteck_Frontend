@@ -52,10 +52,20 @@ export class NavbarComponent {
     this.isProductsDropdownOpen = !this.isProductsDropdownOpen;
   }
 
+  trackPhoneClick(): void {
+    if (typeof window !== 'undefined' && (window as any).gtag) {
+      (window as any).gtag('event', 'phone_call_click', {
+        event_category: 'lead_channel',
+        event_label: 'Navbar Phone'
+      });
+    }
+  }
+
   closeDropdown(): void {
     this.isServicesDropdownOpen = false;
     this.isProductsDropdownOpen = false;
   }
+
 
   @HostListener('document:click', [])
   onDocumentClick(): void {

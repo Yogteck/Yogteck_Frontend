@@ -4,7 +4,8 @@ import { ActivatedRoute, RouterModule, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { SeoService } from '../../services/seo.service';
 import { BreadcrumbsComponent, BreadcrumbItem } from '../breadcrumbs/breadcrumbs.component';
-import { CITY_HUBS_DATA, CityHubData } from '../../data/extended-seo.data';
+import { FaqSectionComponent } from '../faq-section/faq-section.component';
+import { CITY_HUBS_DATA, CityHubData, isCityPageQualifiesForIndexing } from '../../data/extended-seo.data';
 import { CONTACT_CONFIG } from '../../data/contact.config';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { MobileDrawerComponent } from '../mobile-drawer/mobile-drawer.component';
@@ -20,6 +21,7 @@ import { QuoteModalComponent } from '../quote-modal/quote-modal.component';
     CommonModule,
     RouterModule,
     BreadcrumbsComponent,
+    FaqSectionComponent,
     NavbarComponent,
     MobileDrawerComponent,
     FooterComponent,
@@ -36,6 +38,7 @@ export class CityPageComponent implements OnInit, OnDestroy {
   contact = CONTACT_CONFIG;
   isDrawerOpen = false;
   isQuoteModalOpen = false;
+  isIndexablePage = false;
   private routeSub?: Subscription;
 
   constructor(
@@ -64,17 +67,36 @@ export class CityPageComponent implements OnInit, OnDestroy {
         { label: `${data.city} IT Services` }
       ];
 
-      const breadcrumbSchema = {
-        "@context": "https://schema.org",
-        "@type": "BreadcrumbList",
-        "itemListElement": [
-          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://yogteck.com/" },
-          { "@type": "ListItem", "position": 2, "name": `${data.city} IT Services`, "item": canonicalUrl }
-        ]
-      };
+      const schemas: any[] = [
+        {
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://yogteck.com/" },
+            { "@type": "ListItem", "position": 2, "name": `${data.city} IT Services`, "item": canonicalUrl }
+          ]
+        }
+      ];
 
-      // Set robots to noindex if city needs owner content
-      const robots = data.isIndexable
+      if (data.faqs && data.faqs.length > 0) {
+        schemas.push({
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          "mainEntity": data.faqs.map(faq => ({
+            "@type": "Question",
+            "name": faq.question,
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": faq.answer
+            }
+          }))
+        });
+      }
+
+      // Dynamic Technical SEO Indexing Gate (Task 2)
+      const gateResult = isCityPageQualifiesForIndexing(data);
+      this.isIndexablePage = gateResult.qualifies;
+      const robots = this.isIndexablePage
         ? 'index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1'
         : 'noindex, nofollow';
 
@@ -83,7 +105,7 @@ export class CityPageComponent implements OnInit, OnDestroy {
         description: data.metaDescription,
         canonicalUrl: canonicalUrl,
         robots: robots,
-        jsonLdSchemas: [breadcrumbSchema]
+        jsonLdSchemas: schemas
       });
 
       if (typeof window !== 'undefined') {

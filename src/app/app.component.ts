@@ -28,12 +28,28 @@ export class AppComponent implements OnInit {
       this.localeService.initLocaleFromUrl(window.location.pathname);
     }
 
-    // 2. React to navigation events to keep locale state synced
+    // 2. React to navigation events to keep locale state synced and track GA4 page views
     this.router.events.pipe(
       filter((e): e is NavigationEnd => e instanceof NavigationEnd)
     ).subscribe(event => {
-      this.localeService.initLocaleFromUrl(event.urlAfterRedirects || event.url);
+      const targetUrl = event.urlAfterRedirects || event.url;
+      this.localeService.initLocaleFromUrl(targetUrl);
+
+      // Track GA4 SPA virtual page view (single dispatch per navigation)
+      if (typeof window !== 'undefined' && (window as any).gtag) {
+        (window as any).gtag('set', {
+          page_path: targetUrl,
+          page_location: window.location.href,
+          page_title: typeof document !== 'undefined' ? document.title : ''
+        });
+        (window as any).gtag('event', 'page_view', {
+          page_title: typeof document !== 'undefined' ? document.title : '',
+          page_location: window.location.href,
+          page_path: targetUrl
+        });
+      }
     });
+
 
     // 3. Handle smart 404 redirection only if user lands on an unrecognized path
     if (typeof window !== 'undefined') {

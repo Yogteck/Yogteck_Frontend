@@ -796,7 +796,17 @@
             </div>
 
             <div class="form-group">
-              <label>Client Payment Received (प्राप्त भुगतान) <span class="required">*</span></label>
+              <div class="label-with-action">
+                <label>Client Payment Received (प्राप्त भुगतान) <span class="required">*</span></label>
+                <button 
+                  *ngIf="computedTaxableTotal > 0 && computedTaxableTotal !== newInvoiceData.amountPaid" 
+                  type="button" 
+                  class="btn-xs-calc" 
+                  (click)="setAmountPaidFromItems()"
+                >
+                  ⚡ Set from Parts: ₹{{ computedTaxableTotal }}
+                </button>
+              </div>
               <div class="input-with-symbol">
                 <span class="currency-symbol">₹</span>
                 <input 
@@ -807,7 +817,7 @@
                   min="0" 
                   step="1"
                   class="dash-input modern-input font-bold" 
-                  placeholder="e.g. 15000" 
+                  placeholder="e.g. 90000" 
                   required 
                 />
               </div>
@@ -836,8 +846,8 @@
             <div class="form-group">
               <label>Live Calculation (हिसाब)</label>
               <div class="calc-strip-box">
-                ₹ {{ newInvoiceData.projectCost || 0 }} (Cost) &minus; ₹ {{ newInvoiceData.amountPaid || 0 }} (Paid) = 
-                <span class="due-amt-red" style="margin-left: 6px;">₹ {{ computedBalanceDue }} Balance</span>
+                {{ formatINR(newInvoiceData.projectCost || 0) }} (Cost) &minus; {{ formatINR(newInvoiceData.amountPaid || 0) }} (Paid) = 
+                <span class="due-amt-red" style="margin-left: 6px;">{{ formatINR(computedBalanceDue) }} Due</span>
               </div>
             </div>
           </div>

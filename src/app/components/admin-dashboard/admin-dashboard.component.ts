@@ -417,17 +417,7 @@ export class AdminDashboardComponent implements OnInit {
   }
 
   onProjectCostChange(): void {
-    const cost = Number(this.newInvoiceData.projectCost) || 0;
-    if (this.newInvoiceData.items.length === 1) {
-      this.newInvoiceData.items[0].rate = cost;
-    }
-    if (this.newInvoiceData.status === 'Paid') {
-      this.newInvoiceData.amountPaid = cost;
-    } else if (this.newInvoiceData.status === 'Unpaid') {
-      this.newInvoiceData.amountPaid = 0;
-    } else {
-      this.onAmountPaidChange();
-    }
+    this.onAmountPaidChange();
   }
 
   onAmountPaidChange(): void {
@@ -449,17 +439,28 @@ export class AdminDashboardComponent implements OnInit {
     } else if (this.newInvoiceData.status === 'Unpaid') {
       this.newInvoiceData.amountPaid = 0;
     } else if (this.newInvoiceData.status === 'Partially Paid') {
-      if (this.newInvoiceData.amountPaid >= cost || this.newInvoiceData.amountPaid <= 0) {
+      const itemsSum = this.computedTaxableTotal;
+      if (itemsSum > 0 && itemsSum < cost) {
+        this.newInvoiceData.amountPaid = itemsSum;
+      } else if (this.newInvoiceData.amountPaid >= cost || this.newInvoiceData.amountPaid <= 0) {
         this.newInvoiceData.amountPaid = Math.round(cost / 2);
       }
     }
   }
 
+  setAmountPaidFromItems(): void {
+    const sum = this.computedTaxableTotal;
+    this.newInvoiceData.amountPaid = sum;
+    this.onAmountPaidChange();
+  }
+
   onItemRateChange(): void {
     const total = this.computedTaxableTotal;
-    this.newInvoiceData.projectCost = total;
+    if (!this.newInvoiceData.projectCost || this.newInvoiceData.projectCost === 5000) {
+      this.newInvoiceData.projectCost = total;
+    }
     if (this.newInvoiceData.status === 'Paid') {
-      this.newInvoiceData.amountPaid = total;
+      this.newInvoiceData.amountPaid = this.newInvoiceData.projectCost;
     } else {
       this.onAmountPaidChange();
     }

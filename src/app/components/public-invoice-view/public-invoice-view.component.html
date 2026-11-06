@@ -121,10 +121,13 @@
     <div *ngIf="invoice.balanceDue > 0 && company" class="payment-method-box">
       <h3>Direct Bank Transfer &amp; Instant UPI</h3>
       <div class="bank-grid">
-        <div><strong>Bank Name:</strong> {{ company.bankName }}</div>
-        <div><strong>Account No:</strong> {{ company.accountNo }}</div>
-        <div><strong>IFSC Code:</strong> {{ company.ifsc }}</div>
-        <div *ngIf="company.upiId"><strong>UPI ID:</strong> <span class="highlight-upi">{{ company.upiId }}</span></div>
+        <div><strong>Bank Name:</strong> {{ company.bankName || 'BANK OF INDIA' }}</div>
+        <div><strong>Account No:</strong> {{ company.accountNo || '731410110007057' }}</div>
+        <div><strong>IFSC Code:</strong> {{ company.ifsc || 'BKID0007336' }}</div>
+        <div><strong>UPI ID:</strong> <span class="highlight-upi">{{ company.upiId || 'vikas915150@ybl' }}</span></div>
+      </div>
+      <div class="no-cash-note" style="margin-top: 10px; color: #dc2626; font-weight: 700; font-size: 13px; background: #fef2f2; border: 1px solid #fecaca; padding: 6px 10px; border-radius: 6px;">
+        🚫 Note: No Cheque or Cash accepted. Only UPI or Net Banking allowed.
       </div>
     </div>
 

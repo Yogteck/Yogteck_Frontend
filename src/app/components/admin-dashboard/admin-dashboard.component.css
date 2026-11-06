@@ -1502,6 +1502,18 @@
 
 .b-l { font-weight: 600; width: 65px; display: inline-block; }
 
+.bank-policy-alert {
+  margin-top: 4px;
+  font-size: 8px;
+  font-weight: 800;
+  color: #b91c1c;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  padding: 2px 4px;
+  border-radius: 3px;
+  line-height: 1.25;
+}
+
 .bank-sub-right {
   width: 38%;
   padding: 4px;

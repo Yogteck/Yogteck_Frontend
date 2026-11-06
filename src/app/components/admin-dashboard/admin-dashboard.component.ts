@@ -59,9 +59,12 @@ export class AdminDashboardComponent implements OnInit {
   selectedInvoice: InvoiceRecord | null = null;
   isDownloadingPdf = false;
 
-  // 2. Create Invoice Modal
+  // 2. Create / Edit Invoice Modal
   createInvoiceModalOpen = false;
+  isEditingInvoice = false;
+  editingInvoiceNo = '';
   isSavingInvoice = false;
+  exportTargetInvoice: InvoiceRecord | null = null;
   newInvoiceData = {
     invoiceNo: '',
     clientId: '',
@@ -199,22 +202,91 @@ export class AdminDashboardComponent implements OnInit {
   async downloadPdf(invoiceNo: string): Promise<void> {
     this.isDownloadingPdf = true;
     try {
-      await this.invoiceService.downloadPdf(invoiceNo);
+      // 1. Try server-side generation first
+      const serverDownloaded = await this.invoiceService.downloadPdfFromServer(invoiceNo);
+      if (serverDownloaded) return;
+
+      // 2. Client-side PDF generation using html2pdf.js
+      const targetInv = this.allInvoices.find(i => i.invoiceNo === invoiceNo) || this.selectedInvoice;
+      if (!targetInv) {
+        alert('Invoice not found: ' + invoiceNo);
+        return;
+      }
+
+      this.exportTargetInvoice = targetInv;
+      await new Promise(r => setTimeout(r, 120));
+
+      const elem = document.getElementById('printable-invoice') || document.getElementById('export-pdf-invoice');
+      if (elem) {
+        const ok = await this.invoiceService.downloadPdfClientSide(elem, `${invoiceNo}.pdf`);
+        if (ok) return;
+      }
+
+      // 3. Fallback: Clean popup window for printing / saving as PDF
+      this.printCleanInvoiceWindow(targetInv);
     } catch (e: any) {
-      alert('Error downloading PDF: ' + (e.message || 'Please check backend server'));
+      alert('Error downloading PDF: ' + (e.message || 'Please check connection'));
     } finally {
+      this.exportTargetInvoice = null;
       this.isDownloadingPdf = false;
     }
   }
 
+  printCleanInvoiceWindow(inv: InvoiceRecord): void {
+    const elem = document.getElementById('printable-invoice') || document.getElementById('export-pdf-invoice');
+    if (!elem) {
+      window.print();
+      return;
+    }
+    const printWin = window.open('', '_blank', 'width=850,height=900');
+    if (!printWin) {
+      window.print();
+      return;
+    }
+    const styles = Array.from(document.querySelectorAll('style, link[rel="stylesheet"]'))
+      .map(el => el.outerHTML)
+      .join('\n');
+    printWin.document.write(`
+      <!DOCTYPE html>
+      <html>
+        <head>
+          <title>${inv.invoiceNo} - Tax Invoice</title>
+          ${styles}
+          <style>
+            body { margin: 0; padding: 16px; background: #fff !important; }
+            .invoice-paper { max-width: 100% !important; margin: 0 auto !important; box-shadow: none !important; }
+            @page { size: A4; margin: 6mm; }
+          </style>
+        </head>
+        <body>
+          ${elem.outerHTML}
+          <script>
+            window.onload = function() {
+              window.focus();
+              window.print();
+              setTimeout(function() { window.close(); }, 800);
+            };
+          </script>
+        </body>
+      </html>
+    `);
+    printWin.document.close();
+  }
+
   printInvoice(): void {
-    window.print();
+    if (this.selectedInvoice) {
+      this.printCleanInvoiceWindow(this.selectedInvoice);
+    } else {
+      window.print();
+    }
   }
 
   // ----------------------------------------------------
-  // CREATE INVOICE METHODS
+  // CREATE & EDIT INVOICE METHODS
   // ----------------------------------------------------
   async openCreateInvoiceModal(): Promise<void> {
+    this.isEditingInvoice = false;
+    this.editingInvoiceNo = '';
     this.errorMessage = '';
     const nextNoRes = await this.invoiceService.getNextInvoiceNo();
     const nextNo = nextNoRes.nextInvoiceNo || '';
@@ -249,8 +321,46 @@ export class AdminDashboardComponent implements OnInit {
     this.createInvoiceModalOpen = true;
   }
 
+  openEditInvoiceModal(inv: InvoiceRecord): void {
+    this.isEditingInvoice = true;
+    this.editingInvoiceNo = inv.invoiceNo;
+    this.errorMessage = '';
+
+    this.newInvoiceData = {
+      invoiceNo: inv.invoiceNo,
+      clientId: inv.clientId,
+      invoiceDate: inv.invoiceDate,
+      dueDate: inv.dueDate || '',
+      notes: inv.notes || '',
+      challanNo: inv.challanNo || '',
+      challanDate: inv.challanDate || '',
+      ewayBillNo: inv.ewayBillNo || '',
+      transport: inv.transport || '',
+      transportId: inv.transportId || '',
+      planName: inv.planName || '',
+      serviceStartDate: inv.serviceStartDate || '',
+      serviceExpiryDate: inv.serviceExpiryDate || '',
+      renewalDueDate: inv.renewalDueDate || '',
+      items: (inv.items && inv.items.length > 0) ? inv.items.map(item => ({
+        description: item.description,
+        hsnSac: item.hsnSac || '998314',
+        qty: item.qty || 1,
+        unit: item.unit || 'NOS',
+        rate: item.rate || 0,
+        taxPercent: item.taxPercent !== undefined ? item.taxPercent : 18
+      })) : [
+        { description: '', hsnSac: '998314', qty: 1, unit: 'NOS', rate: 0, taxPercent: 18 }
+      ]
+    };
+
+    this.viewInvoiceModalOpen = false;
+    this.createInvoiceModalOpen = true;
+  }
+
   closeCreateInvoiceModal(): void {
     this.createInvoiceModalOpen = false;
+    this.isEditingInvoice = false;
+    this.editingInvoiceNo = '';
   }
 
   addInvoiceItemRow(): void {
@@ -322,13 +432,27 @@ export class AdminDashboardComponent implements OnInit {
 
     this.isSavingInvoice = true;
     try {
-      const res = await this.invoiceService.createInvoice(this.newInvoiceData);
-      if (res.success && res.invoice) {
-        alert(`Invoice ${res.invoice.invoiceNo} created successfully!`);
-        this.closeCreateInvoiceModal();
-        await this.loadInvoices();
+      if (this.isEditingInvoice) {
+        const res = await this.invoiceService.updateInvoice(this.editingInvoiceNo, this.newInvoiceData);
+        if (res.success && res.invoice) {
+          alert(`Invoice ${this.editingInvoiceNo} updated successfully!`);
+          this.closeCreateInvoiceModal();
+          await this.loadInvoices();
+          if (this.selectedInvoice && this.selectedInvoice.invoiceNo === this.editingInvoiceNo) {
+            this.selectedInvoice = res.invoice;
+          }
+        } else {
+          alert(res.message || 'Failed to update invoice.');
+        }
       } else {
-        alert(res.message || 'Failed to create invoice.');
+        const res = await this.invoiceService.createInvoice(this.newInvoiceData);
+        if (res.success && res.invoice) {
+          alert(`Invoice ${res.invoice.invoiceNo} created successfully!`);
+          this.closeCreateInvoiceModal();
+          await this.loadInvoices();
+        } else {
+          alert(res.message || 'Failed to create invoice.');
+        }
       }
     } catch (e: any) {
       alert('Network error: ' + e.message);

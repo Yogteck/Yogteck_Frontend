@@ -143,10 +143,13 @@
             <button class="card-btn btn-view" (click)="openViewInvoice(inv)">
               👁️ View More
             </button>
+            <button class="card-btn btn-edit" (click)="openEditInvoiceModal(inv)">
+              ✏️ Edit
+            </button>
             <button *ngIf="inv.balanceDue > 0" class="card-btn btn-pay" (click)="openAddPaymentModal(inv)">
               💵 + Payment
             </button>
-            <button class="card-btn btn-pdf" (click)="downloadPdf(inv.invoiceNo)">
+            <button class="card-btn btn-pdf" [disabled]="isDownloadingPdf" (click)="downloadPdf(inv.invoiceNo)">
               📥 PDF
             </button>
           </div>
@@ -375,9 +378,17 @@
       <!-- Top Action Toolbar -->
       <div class="modal-header-actions no-print">
         <div class="actions-left">
-          <span class="modal-title">Invoice Preview: <strong>{{ selectedInvoice.invoiceNo }}</strong></span>
+          <span class="modal-title font-mono">{{ selectedInvoice.invoiceNo }}</span>
+          <span class="status-tag" [ngClass]="{
+            'tag-paid': selectedInvoice.status === 'Paid',
+            'tag-partially': selectedInvoice.status === 'Partially Paid',
+            'tag-unpaid': selectedInvoice.status === 'Unpaid'
+          }">{{ selectedInvoice.status }}</span>
         </div>
         <div class="actions-right">
+          <button class="action-btn-secondary" (click)="openEditInvoiceModal(selectedInvoice)">
+            ✏️ Edit Invoice
+          </button>
           <button class="action-btn-primary" [disabled]="isDownloadingPdf" (click)="downloadPdf(selectedInvoice.invoiceNo)">
             📥 {{ isDownloadingPdf ? 'Generating PDF...' : 'Download PDF' }}
           </button>
@@ -392,278 +403,288 @@
       </div>
 
       <!-- Scrollable Invoice Document -->
-      <div class="invoice-paper" id="printable-invoice">
-        
-        <!-- Header -->
-        <div class="inv-head-row">
-          <div class="inv-head-left">
-            <h1 class="inv-co-title">{{ companyMaster?.companyName || 'YOGTECK Business Solutions' }}</h1>
-            <div class="inv-co-ribbon">{{ companyMaster?.tagline || 'Websites & Complete Digital Solutions' }}</div>
-            <div class="inv-co-addr">
-              {{ companyMaster?.address }}<br>
-              Pincode: {{ companyMaster?.pincode }} &bull; State: {{ companyMaster?.state }} ({{ companyMaster?.stateCode }})
-            </div>
-          </div>
-          <div class="inv-head-right">
-            <div class="inv-logo-box">
-              <span class="yt-square-logo">YT</span>
-            </div>
-            <div class="inv-co-contact">
-              <div><strong>Tel :</strong> {{ companyMaster?.contact }}</div>
-              <div><strong>Web :</strong> www.yogteck.com</div>
-              <div><strong>Email :</strong> {{ companyMaster?.email }}</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Title Bar: PAN | TAX INVOICE | ORIGINAL FOR RECIPIENT -->
-        <div class="inv-bar">
-          <div class="bar-left">PAN : <strong>{{ companyMaster?.pan || 'AAHCY1234F' }}</strong></div>
-          <div class="bar-center">{{ companyMaster?.gstEnabled === 'No' ? 'INVOICE' : 'TAX INVOICE' }}</div>
-          <div class="bar-right">ORIGINAL FOR RECIPIENT</div>
-        </div>
-
-        <!-- 2 Column Details -->
-        <div class="inv-detail-box">
-          <div class="detail-col-left">
-            <div class="box-hdr">Customer Detail</div>
-            <div class="row-field"><span class="f-lbl">M/S</span> <span class="f-val"><strong>{{ selectedInvoice.client?.clientName }}</strong></span></div>
-            <div class="row-field"><span class="f-lbl">Address</span> <span class="f-val">{{ selectedInvoice.client?.address || 'Not specified' }}</span></div>
-            <div class="row-field"><span class="f-lbl">Phone</span> <span class="f-val">{{ selectedInvoice.client?.mobile || '-' }}</span></div>
-            <div class="row-field"><span class="f-lbl">GSTIN</span> <span class="f-val">{{ selectedInvoice.client?.gstin || 'URP (Unregistered)' }}</span></div>
-            <div class="row-field"><span class="f-lbl">Place of Supply</span> <span class="f-val">{{ selectedInvoice.client?.state }} ( {{ selectedInvoice.client?.stateCode }} )</span></div>
-          </div>
-          <div class="detail-col-right">
-            <table class="meta-meta-tbl">
-              <tr>
-                <td class="m-lbl">Invoice No.</td>
-                <td class="m-val"><strong>{{ selectedInvoice.invoiceNo }}</strong></td>
-                <td class="m-lbl">Invoice Date</td>
-                <td class="m-val">{{ selectedInvoice.invoiceDate }}</td>
-              </tr>
-              <tr *ngIf="selectedInvoice.planName">
-                <td class="m-lbl">Active Plan</td>
-                <td class="m-val" colspan="3"><strong>{{ selectedInvoice.planName }}</strong></td>
-              </tr>
-              <tr *ngIf="selectedInvoice.serviceStartDate">
-                <td class="m-lbl">Plan Start</td>
-                <td class="m-val">{{ selectedInvoice.serviceStartDate }}</td>
-                <td class="m-lbl">Plan Expiry</td>
-                <td class="m-val">{{ selectedInvoice.serviceExpiryDate || '-' }}</td>
-              </tr>
-              <tr *ngIf="selectedInvoice.challanNo">
-                <td class="m-lbl">Challan No</td>
-                <td class="m-val">{{ selectedInvoice.challanNo }}</td>
-                <td class="m-lbl">Challan Date</td>
-                <td class="m-val">{{ selectedInvoice.challanDate || '-' }}</td>
-              </tr>
-              <tr *ngIf="selectedInvoice.ewayBillNo">
-                <td class="m-lbl">E-Way Bill No.</td>
-                <td class="m-val" colspan="3">{{ selectedInvoice.ewayBillNo }}</td>
-              </tr>
-              <tr *ngIf="selectedInvoice.transport">
-                <td class="m-lbl">Transport</td>
-                <td class="m-val">{{ selectedInvoice.transport }}</td>
-                <td class="m-lbl">Transport ID</td>
-                <td class="m-val">{{ selectedInvoice.transportId || '-' }}</td>
-              </tr>
-              <tr>
-                <td class="m-lbl">Due Date</td>
-                <td class="m-val" colspan="3">{{ selectedInvoice.dueDate || 'Upon Receipt' }}</td>
-              </tr>
-            </table>
-          </div>
-        </div>
-
-        <!-- Items Table -->
-        <table class="inv-items-table">
-          <thead>
-            <tr>
-              <th style="width: 5%;">Sr. No.</th>
-              <th style="width: 40%;">Name of Product / Service</th>
-              <th style="width: 10%;">HSN / SAC</th>
-              <th style="width: 7%;">Qty</th>
-              <th style="width: 12%;">Rate</th>
-              <th style="width: 12%;">Taxable Value</th>
-              <th *ngIf="companyMaster?.gstEnabled !== 'No'" style="width: 7%;">Tax %</th>
-              <th *ngIf="companyMaster?.gstEnabled !== 'No'" style="width: 10%;">Tax Amt</th>
-              <th style="width: 14%;">Total</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let item of selectedInvoice.items; let i = index">
-              <td class="t-center">{{ i + 1 }}</td>
-              <td class="t-left"><strong>{{ item.description }}</strong></td>
-              <td class="t-center">{{ item.hsnSac || '-' }}</td>
-              <td class="t-center">{{ item.qty }} {{ item.unit || 'NOS' }}</td>
-              <td class="t-right">{{ formatINR(item.rate) }}</td>
-              <td class="t-right">{{ formatINR(item.taxableValue || (item.qty * item.rate)) }}</td>
-              <td *ngIf="companyMaster?.gstEnabled !== 'No'" class="t-center">{{ item.taxPercent }}%</td>
-              <td *ngIf="companyMaster?.gstEnabled !== 'No'" class="t-right">{{ formatINR(item.taxAmount || 0) }}</td>
-              <td class="t-right"><strong>{{ formatINR(item.lineTotal || 0) }}</strong></td>
-            </tr>
-            <tr class="inv-total-row">
-              <td colspan="5" class="t-right"><strong>Total</strong></td>
-              <td class="t-right"><strong>{{ formatINR(selectedInvoice.taxableTotal) }}</strong></td>
-              <td *ngIf="companyMaster?.gstEnabled !== 'No'"></td>
-              <td *ngIf="companyMaster?.gstEnabled !== 'No'" class="t-right"><strong>{{ formatINR(selectedInvoice.taxTotal) }}</strong></td>
-              <td class="t-right"><strong>{{ formatINR(selectedInvoice.grandTotal) }}</strong></td>
-            </tr>
-          </tbody>
-        </table>
-
-        <!-- Bottom Split -->
-        <div class="inv-split-footer">
-          <div class="inv-footer-left">
-            <div class="words-box">
-              <div class="words-hdr">Total in words</div>
-              <div class="words-val">INDIAN RUPEES ONLY</div>
-            </div>
-
-            <div class="bank-box-row">
-              <div class="bank-sub-left">
-                <div class="b-hdr">Bank Details</div>
-                <div><span class="b-l">Name:</span> <strong>{{ companyMaster?.bankName }}</strong></div>
-                <div><span class="b-l">Branch:</span> {{ companyMaster?.branch }}</div>
-                <div><span class="b-l">Acc. No:</span> <strong>{{ companyMaster?.accountNo }}</strong></div>
-                <div><span class="b-l">IFSC:</span> <strong>{{ companyMaster?.ifsc }}</strong></div>
-                <div *ngIf="companyMaster?.upiId"><span class="b-l">UPI ID:</span> <strong>{{ companyMaster?.upiId }}</strong></div>
-              </div>
-              <div class="bank-sub-right">
-                <div class="qr-mock-box">
-                  <div class="qr-label-txt">Scan to check balance</div>
-                  <div class="qr-link-hint">/invoice/view/{{ selectedInvoice.publicToken }}</div>
-                </div>
-              </div>
-            </div>
-
-            <div class="terms-box">
-              <div class="t-hdr">Terms and Conditions</div>
-              <div class="terms-content">{{ companyMaster?.terms }}</div>
-            </div>
-
-            <div class="customer-sig">Customer Signature</div>
-          </div>
-
-          <div class="inv-footer-right">
-            <table class="calc-sub-tbl">
-              <tr>
-                <td>Taxable Amount</td>
-                <td class="t-right">{{ formatINR(selectedInvoice.taxableTotal) }}</td>
-              </tr>
-              <tr *ngIf="companyMaster?.gstEnabled !== 'No'">
-                <td>Total Tax</td>
-                <td class="t-right">{{ formatINR(selectedInvoice.taxTotal) }}</td>
-              </tr>
-              <tr class="grand-tot-row">
-                <td>Total Amount After Tax</td>
-                <td class="t-right" style="font-size: 14px;"><strong>{{ formatINR(selectedInvoice.grandTotal) }}</strong></td>
-              </tr>
-            </table>
-
-            <div class="eoe-tag">(E &amp; O.E.)</div>
-
-            <!-- Payments Received Table -->
-            <div class="payments-box-sub">
-              <div class="p-hdr">
-                <span>Payments Received</span>
-                <span class="status-tag" [ngClass]="{
-                  'tag-paid': selectedInvoice.status === 'Paid',
-                  'tag-partially': selectedInvoice.status === 'Partially Paid',
-                  'tag-unpaid': selectedInvoice.status === 'Unpaid'
-                }">{{ selectedInvoice.status }}</span>
-              </div>
-
-              <div *ngIf="selectedInvoice.payments && selectedInvoice.payments.length > 0; else noPymts">
-                <table class="mini-pymt-tbl">
-                  <thead>
-                    <tr><th>Sr</th><th>Date</th><th>Mode</th><th>Amount</th></tr>
-                  </thead>
-                  <tbody>
-                    <tr *ngFor="let p of selectedInvoice.payments; let pIdx = index">
-                      <td>{{ pIdx + 1 }}</td>
-                      <td>{{ p.paymentDate }}</td>
-                      <td>{{ p.mode }}</td>
-                      <td class="t-right"><strong>{{ formatINR(p.amountPaid) }}</strong></td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-              <ng-template #noPymts>
-                <div class="no-pymt-msg">No payments recorded yet.</div>
-              </ng-template>
-
-              <div class="pymt-totals-row">
-                <span>Total Paid:</span>
-                <strong>{{ formatINR(selectedInvoice.totalPaid) }}</strong>
-              </div>
-              <div class="pymt-totals-row due-row">
-                <span>Balance Due:</span>
-                <strong class="highlight-due">{{ formatINR(selectedInvoice.balanceDue) }}</strong>
-              </div>
-            </div>
-
-            <!-- Signatory -->
-            <div class="signatory-sub">
-              <div class="cert-txt">Certified that the particulars given above are true and correct.</div>
-              <div class="for-co">For {{ companyMaster?.companyName }}</div>
-              <div class="slanted-comp-note">This is a computer generated invoice, no signature required.</div>
-              <div class="auth-line">Authorised Signatory</div>
-            </div>
-
-          </div>
-        </div>
-
-        <!-- SECTION 9: IMPORTANT NOTES / ज़रूरी सूचना (BILINGUAL) -->
-        <div class="inv-important-notes-box">
-          <div class="notes-bar-title">ज़रूरी सूचना / Important Notes</div>
-          <div class="notes-list-wrap">
-            
-            <div class="inv-note-row">
-              <div class="n-title">1) भुगतान और सर्विस रिन्यूअल / Payment &amp; Service Renewal</div>
-              <div class="n-hi">
-                यदि भुगतान या रिन्यूअल में देरी होती है, तो सर्विसेज़ की अवधि समाप्त (Expire) हो जाने के कारण आपका प्रोजेक्ट/वेबसाइट कभी भी बंद हो सकता है। इसलिए कृपया सर्विसेज़ को निर्बाध रूप से चालू रखने के लिए समय पर भुगतान या रिन्यूअल कर लें। देरी की स्थिति में किसी भी प्रकार के नुकसान या डेटा/सेवा बाधा के लिए कंपनी उत्तरदायी नहीं होगी।
-              </div>
-              <div class="n-en">
-                Delay in payment or renewal may cause your services to expire and your project/website to go offline at any time. Please make timely payments or renewals to ensure uninterrupted services. The company will not be held responsible for any loss or service interruption caused by delayed payment.
-              </div>
-            </div>
-
-            <div class="inv-note-row">
-              <div class="n-title">2) सब्सक्रिप्शन की जानकारी / Subscription &amp; Plan Details</div>
-              <div class="n-hi">
-                अपने सब्सक्रिप्शन से जुड़ी पूरी जानकारी देखने के लिए इस इनवॉइस पर दिए गए QR कोड को स्कैन करें। वहाँ आपको पूरा इनवॉइस दिखेगा, जिसमें आपके सभी प्लान, उनकी शुरुआत और समाप्ति की तिथियाँ (Expiry), भुगतान का इतिहास और बाकी रकम (Balance Due) सहित सभी संबंधित विवरण उपलब्ध होंगे।
-              </div>
-              <div class="n-en">
-                Scan the QR code on this invoice to view your full live invoice portal, active plan details, start and expiry dates, payment transaction history, and balance due.
-              </div>
-            </div>
-
-            <div class="inv-note-row">
-              <div class="n-title">3) क्लाइंट द्वारा उपलब्ध कराई जाने वाली सामग्री / Materials &amp; External Resources to be Provided by Client</div>
-              <div class="n-hi">
-                प्रोजेक्ट से जुड़ी सभी बाहरी (External) फाइलें, सेवाएँ और संसाधन क्लाइंट/पार्टी को ही उपलब्ध कराने होंगे। उदाहरण के लिए:<br>
-                &bull; पेमेंट गेटवे (Payment Gateway) का अकाउंट/क्रेडेंशियल्स क्लाइंट द्वारा उपलब्ध कराया जाएगा।<br>
-                &bull; प्रोजेक्ट से जुड़ी क्लाइंट की अपनी फाइलें, जैसे CAD ड्रॉइंग्स, लोगो, कंटेंट, फोटो और अन्य दस्तावेज़ (जैसे MMR Constructions के प्रोजेक्ट में उनकी CAD फाइलें) क्लाइंट को ही देनी होंगी।<br>
-                इन सामग्रियों के अभाव या देरी से होने वाली किसी भी बाधा या विलंब की ज़िम्मेदारी कंपनी की नहीं होगी।
-              </div>
-              <div class="n-en">
-                All external files, accounts, and resources required for the project (e.g. payment gateway credentials, CAD drawings, logo, content, photos) must be provided by the client; the company cannot be held responsible for any delay or delivery disruption arising from their absence.
-              </div>
-            </div>
-
-          </div>
-        </div>
-
-        <div class="inv-bottom-tag">Thank you for your business!</div>
-
-      </div>
+      <ng-container *ngTemplateOutlet="invoicePaperTpl; context: { inv: selectedInvoice, domId: 'printable-invoice' }"></ng-container>
 
     </div>
   </div>
 
+  <!-- Background PDF Exporter (Off-screen when downloading from cards) -->
+  <div *ngIf="exportTargetInvoice && !viewInvoiceModalOpen" style="position: fixed; left: -9999px; top: 0; width: 794px; background: #ffffff; z-index: -9999;">
+    <ng-container *ngTemplateOutlet="invoicePaperTpl; context: { inv: exportTargetInvoice, domId: 'export-pdf-invoice' }"></ng-container>
+  </div>
+
+  <!-- REUSABLE INVOICE PAPER TEMPLATE (GUJARAT FREIGHT TOOLS EXACT LAYOUT) -->
+  <ng-template #invoicePaperTpl let-inv="inv" let-domId="domId">
+    <div class="invoice-paper" [id]="domId">
+      
+      <!-- Header -->
+      <div class="inv-head-row">
+        <div class="inv-head-left">
+          <h1 class="inv-co-title">{{ companyMaster?.companyName || 'YOGTECK Business Solutions' }}</h1>
+          <div class="inv-co-ribbon">{{ companyMaster?.tagline || 'Websites & Complete Digital Solutions' }}</div>
+          <div class="inv-co-addr">
+            {{ companyMaster?.address }}<br>
+            Pincode: {{ companyMaster?.pincode }} &bull; State: {{ companyMaster?.state }} ({{ companyMaster?.stateCode }})
+          </div>
+        </div>
+        <div class="inv-head-right">
+          <div class="inv-logo-box">
+            <span class="yt-square-logo">YT</span>
+          </div>
+          <div class="inv-co-contact">
+            <div><strong>Tel :</strong> {{ companyMaster?.contact }}</div>
+            <div><strong>Web :</strong> www.yogteck.com</div>
+            <div><strong>Email :</strong> {{ companyMaster?.email }}</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Title Bar: PAN | TAX INVOICE | ORIGINAL FOR RECIPIENT -->
+      <div class="inv-bar">
+        <div class="bar-left">PAN : <strong>{{ companyMaster?.pan || 'AAHCY1234F' }}</strong></div>
+        <div class="bar-center">{{ companyMaster?.gstEnabled === 'No' ? 'INVOICE' : 'TAX INVOICE' }}</div>
+        <div class="bar-right">ORIGINAL FOR RECIPIENT</div>
+      </div>
+
+      <!-- 2 Column Details -->
+      <div class="inv-detail-box">
+        <div class="detail-col-left">
+          <div class="box-hdr">Customer Detail</div>
+          <div class="row-field"><span class="f-lbl">M/S</span> <span class="f-val"><strong>{{ inv.client?.clientName }}</strong></span></div>
+          <div class="row-field"><span class="f-lbl">Address</span> <span class="f-val">{{ inv.client?.address || 'Not specified' }}</span></div>
+          <div class="row-field"><span class="f-lbl">Phone</span> <span class="f-val">{{ inv.client?.mobile || '-' }}</span></div>
+          <div class="row-field"><span class="f-lbl">GSTIN</span> <span class="f-val">{{ inv.client?.gstin || 'URP (Unregistered)' }}</span></div>
+          <div class="row-field"><span class="f-lbl">Place of Supply</span> <span class="f-val">{{ inv.client?.state }} ( {{ inv.client?.stateCode }} )</span></div>
+        </div>
+        <div class="detail-col-right">
+          <table class="meta-meta-tbl">
+            <tr>
+              <td class="m-lbl">Invoice No.</td>
+              <td class="m-val"><strong>{{ inv.invoiceNo }}</strong></td>
+              <td class="m-lbl">Invoice Date</td>
+              <td class="m-val">{{ inv.invoiceDate }}</td>
+            </tr>
+            <tr *ngIf="inv.planName">
+              <td class="m-lbl">Active Plan</td>
+              <td class="m-val" colspan="3"><strong>{{ inv.planName }}</strong></td>
+            </tr>
+            <tr *ngIf="inv.serviceStartDate">
+              <td class="m-lbl">Plan Start</td>
+              <td class="m-val">{{ inv.serviceStartDate }}</td>
+              <td class="m-lbl">Plan Expiry</td>
+              <td class="m-val">{{ inv.serviceExpiryDate || '-' }}</td>
+            </tr>
+            <tr *ngIf="inv.challanNo">
+              <td class="m-lbl">Challan No</td>
+              <td class="m-val">{{ inv.challanNo }}</td>
+              <td class="m-lbl">Challan Date</td>
+              <td class="m-val">{{ inv.challanDate || '-' }}</td>
+            </tr>
+            <tr *ngIf="inv.ewayBillNo">
+              <td class="m-lbl">E-Way Bill No.</td>
+              <td class="m-val" colspan="3">{{ inv.ewayBillNo }}</td>
+            </tr>
+            <tr *ngIf="inv.transport">
+              <td class="m-lbl">Transport</td>
+              <td class="m-val">{{ inv.transport }}</td>
+              <td class="m-lbl">Transport ID</td>
+              <td class="m-val">{{ inv.transportId || '-' }}</td>
+            </tr>
+            <tr>
+              <td class="m-lbl">Due Date</td>
+              <td class="m-val" colspan="3">{{ inv.dueDate || 'Upon Receipt' }}</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+
+      <!-- Items Table -->
+      <table class="inv-items-table">
+        <thead>
+          <tr>
+            <th style="width: 5%;">Sr. No.</th>
+            <th style="width: 40%;">Name of Product / Service</th>
+            <th style="width: 10%;">HSN / SAC</th>
+            <th style="width: 7%;">Qty</th>
+            <th style="width: 12%;">Rate</th>
+            <th style="width: 12%;">Taxable Value</th>
+            <th *ngIf="companyMaster?.gstEnabled !== 'No'" style="width: 7%;">Tax %</th>
+            <th *ngIf="companyMaster?.gstEnabled !== 'No'" style="width: 10%;">Tax Amt</th>
+            <th style="width: 14%;">Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of inv.items; let i = index">
+            <td class="t-center">{{ i + 1 }}</td>
+            <td class="t-left"><strong>{{ item.description }}</strong></td>
+            <td class="t-center">{{ item.hsnSac || '-' }}</td>
+            <td class="t-center">{{ item.qty }} {{ item.unit || 'NOS' }}</td>
+            <td class="t-right">{{ formatINR(item.rate) }}</td>
+            <td class="t-right">{{ formatINR(item.taxableValue || (item.qty * item.rate)) }}</td>
+            <td *ngIf="companyMaster?.gstEnabled !== 'No'" class="t-center">{{ item.taxPercent }}%</td>
+            <td *ngIf="companyMaster?.gstEnabled !== 'No'" class="t-right">{{ formatINR(item.taxAmount || 0) }}</td>
+            <td class="t-right"><strong>{{ formatINR(item.lineTotal || 0) }}</strong></td>
+          </tr>
+          <tr class="inv-total-row">
+            <td colspan="5" class="t-right"><strong>Total</strong></td>
+            <td class="t-right"><strong>{{ formatINR(inv.taxableTotal) }}</strong></td>
+            <td *ngIf="companyMaster?.gstEnabled !== 'No'"></td>
+            <td *ngIf="companyMaster?.gstEnabled !== 'No'" class="t-right"><strong>{{ formatINR(inv.taxTotal) }}</strong></td>
+            <td class="t-right"><strong>{{ formatINR(inv.grandTotal) }}</strong></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Bottom Split -->
+      <div class="inv-split-footer">
+        <div class="inv-footer-left">
+          <div class="words-box">
+            <div class="words-hdr">Total in words</div>
+            <div class="words-val">INDIAN RUPEES ONLY</div>
+          </div>
+
+          <div class="bank-box-row">
+            <div class="bank-sub-left">
+              <div class="b-hdr">Bank Details</div>
+              <div><span class="b-l">Name:</span> <strong>{{ companyMaster?.bankName }}</strong></div>
+              <div><span class="b-l">Branch:</span> {{ companyMaster?.branch }}</div>
+              <div><span class="b-l">Acc. No:</span> <strong>{{ companyMaster?.accountNo }}</strong></div>
+              <div><span class="b-l">IFSC:</span> <strong>{{ companyMaster?.ifsc }}</strong></div>
+              <div *ngIf="companyMaster?.upiId"><span class="b-l">UPI ID:</span> <strong>{{ companyMaster?.upiId }}</strong></div>
+            </div>
+            <div class="bank-sub-right">
+              <div class="qr-mock-box">
+                <div class="qr-label-txt">Scan to check balance</div>
+                <div class="qr-link-hint">/invoice/view/{{ inv.publicToken }}</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="terms-box">
+            <div class="t-hdr">Terms and Conditions</div>
+            <div class="terms-content">{{ companyMaster?.terms }}</div>
+          </div>
+
+          <div class="customer-sig">Customer Signature</div>
+        </div>
+
+        <div class="inv-footer-right">
+          <table class="calc-sub-tbl">
+            <tr>
+              <td>Taxable Amount</td>
+              <td class="t-right">{{ formatINR(inv.taxableTotal) }}</td>
+            </tr>
+            <tr *ngIf="companyMaster?.gstEnabled !== 'No'">
+              <td>Total Tax</td>
+              <td class="t-right">{{ formatINR(inv.taxTotal) }}</td>
+            </tr>
+            <tr class="grand-tot-row">
+              <td>Total Amount After Tax</td>
+              <td class="t-right" style="font-size: 14px;"><strong>{{ formatINR(inv.grandTotal) }}</strong></td>
+            </tr>
+          </table>
+
+          <div class="eoe-tag">(E &amp; O.E.)</div>
+
+          <!-- Payments Received Table -->
+          <div class="payments-box-sub">
+            <div class="p-hdr">
+              <span>Payments Received</span>
+              <span class="status-tag" [ngClass]="{
+                'tag-paid': inv.status === 'Paid',
+                'tag-partially': inv.status === 'Partially Paid',
+                'tag-unpaid': inv.status === 'Unpaid'
+              }">{{ inv.status }}</span>
+            </div>
+
+            <div *ngIf="inv.payments && inv.payments.length > 0; else noPymts">
+              <table class="mini-pymt-tbl">
+                <thead>
+                  <tr><th>Sr</th><th>Date</th><th>Mode</th><th>Amount</th></tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let p of inv.payments; let pIdx = index">
+                    <td>{{ pIdx + 1 }}</td>
+                    <td>{{ p.paymentDate }}</td>
+                    <td>{{ p.mode }}</td>
+                    <td class="t-right"><strong>{{ formatINR(p.amountPaid) }}</strong></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <ng-template #noPymts>
+              <div class="no-pymt-msg">No payments recorded yet.</div>
+            </ng-template>
+
+            <div class="pymt-totals-row">
+              <span>Total Paid:</span>
+              <strong>{{ formatINR(inv.totalPaid) }}</strong>
+            </div>
+            <div class="pymt-totals-row due-row">
+              <span>Balance Due:</span>
+              <strong class="highlight-due">{{ formatINR(inv.balanceDue) }}</strong>
+            </div>
+          </div>
+
+          <!-- Signatory -->
+          <div class="signatory-sub">
+            <div class="cert-txt">Certified that the particulars given above are true and correct.</div>
+            <div class="for-co">For {{ companyMaster?.companyName }}</div>
+            <div class="slanted-comp-note">This is a computer generated invoice, no signature required.</div>
+            <div class="auth-line">Authorised Signatory</div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- SECTION 9: IMPORTANT NOTES / ज़रूरी सूचना (BILINGUAL) -->
+      <div class="inv-important-notes-box">
+        <div class="notes-bar-title">ज़रूरी सूचना / Important Notes</div>
+        <div class="notes-list-wrap">
+          
+          <div class="inv-note-row">
+            <div class="n-title">1) भुगतान और सर्विस रिन्यूअल / Payment &amp; Service Renewal</div>
+            <div class="n-hi">
+              यदि भुगतान या रिन्यूअल में देरी होती है, तो सर्विसेज़ की अवधि समाप्त (Expire) हो जाने के कारण आपका प्रोजेक्ट/वेबसाइट कभी भी बंद हो सकता है। इसलिए कृपया सर्विसेज़ को निर्बाध रूप से चालू रखने के लिए समय पर भुगतान या रिन्यूअल कर लें। देरी की स्थिति में किसी भी प्रकार के नुकसान या डेटा/सेवा बाधा के लिए कंपनी उत्तरदायी नहीं होगी।
+            </div>
+            <div class="n-en">
+              Delay in payment or renewal may cause your services to expire and your project/website to go offline at any time. Please make timely payments or renewals to ensure uninterrupted services. The company will not be held responsible for any loss or service interruption caused by delayed payment.
+            </div>
+          </div>
+
+          <div class="inv-note-row">
+            <div class="n-title">2) सब्सक्रिप्शन की जानकारी / Subscription &amp; Plan Details</div>
+            <div class="n-hi">
+              अपने सब्सक्रिप्शन से जुड़ी पूरी जानकारी देखने के लिए इस इनवॉइस पर दिए गए QR कोड को स्कैन करें। वहाँ आपको पूरा इनवॉइस दिखेगा, जिसमें आपके सभी प्लान, उनकी शुरुआत और समाप्ति की तिथियाँ (Expiry), भुगतान का इतिहास और बाकी रकम (Balance Due) सहित सभी संबंधित विवरण उपलब्ध होंगे।
+            </div>
+            <div class="n-en">
+              Scan the QR code on this invoice to view your full live invoice portal, active plan details, start and expiry dates, payment transaction history, and balance due.
+            </div>
+          </div>
+
+          <div class="inv-note-row">
+            <div class="n-title">3) क्लाइंट द्वारा उपलब्ध कराई जाने वाली सामग्री / Materials &amp; External Resources to be Provided by Client</div>
+            <div class="n-hi">
+              प्रोजेक्ट से जुड़ी सभी बाहरी (External) फाइलें, सेवाएँ और संसाधन क्लाइंट/पार्टी को ही उपलब्ध कराने होंगे। उदाहरण के लिए:<br>
+              &bull; पेमेंट गेटवे (Payment Gateway) का अकाउंट/क्रेडेंशियल्स क्लाइंट द्वारा उपलब्ध कराया जाएगा।<br>
+              &bull; प्रोजेक्ट से जुड़ी क्लाइंट की अपनी फाइलें, जैसे CAD ड्रॉइंग्स, लोगो, कंटेंट, फोटो और अन्य दस्तावेज़ (जैसे MMR Constructions के प्रोजेक्ट में उनकी CAD फाइलें) क्लाइंट को ही देनी होंगी।<br>
+              इन सामग्रियों के अभाव या देरी से होने वाली किसी भी बाधा या विलंब की ज़िम्मेदारी कंपनी की नहीं होगी।
+            </div>
+            <div class="n-en">
+              All external files, accounts, and resources required for the project (e.g. payment gateway credentials, CAD drawings, logo, content, photos) must be provided by the client; the company cannot be held responsible for any delay or delivery disruption arising from their absence.
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="inv-bottom-tag">Thank you for your business!</div>
+
+    </div>
+  </ng-template>
+
   <!-- ============================================================== -->
-  <!-- MODAL: CREATE INVOICE (MODERN REDESIGN)                         -->
+  <!-- MODAL: CREATE / EDIT INVOICE (MODERN REDESIGN)                  -->
   <!-- ============================================================== -->
   <div *ngIf="createInvoiceModalOpen" class="modal-overlay" (click)="closeCreateInvoiceModal()">
     <div class="modal-container create-invoice-dialog" (click)="$event.stopPropagation()">
@@ -671,10 +692,10 @@
       <!-- Top Header -->
       <div class="modal-header modern-header">
         <div class="header-title-box">
-          <div class="header-icon-badge">📄</div>
+          <div class="header-icon-badge">{{ isEditingInvoice ? '✏️' : '📄' }}</div>
           <div>
-            <h2>Create Tax Invoice</h2>
-            <p class="header-subtitle">Generate official GST invoice and subscription billing</p>
+            <h2>{{ isEditingInvoice ? 'Edit Tax Invoice' : 'Create Tax Invoice' }}</h2>
+            <p class="header-subtitle">{{ isEditingInvoice ? 'Update line items, rates, taxes and validity details' : 'Generate official GST invoice and subscription billing' }}</p>
           </div>
         </div>
         <button type="button" class="modal-close-btn" (click)="closeCreateInvoiceModal()" title="Close">✕</button>
@@ -971,8 +992,8 @@
             [disabled]="isSavingInvoice" 
             class="btn-generate-invoice"
           >
-            <span *ngIf="!isSavingInvoice">⚡ Generate &amp; Save Invoice</span>
-            <span *ngIf="isSavingInvoice">⏳ Generating Invoice...</span>
+            <span *ngIf="!isSavingInvoice">{{ isEditingInvoice ? '💾 Update Invoice' : '⚡ Generate &amp; Save Invoice' }}</span>
+            <span *ngIf="isSavingInvoice">{{ isEditingInvoice ? 'Saving Changes...' : '⏳ Generating Invoice...' }}</span>
           </button>
         </div>
       </div>

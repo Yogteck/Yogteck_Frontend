@@ -304,6 +304,28 @@ export class AdminInvoiceService {
     return { success: true, invoice: created, message: 'Invoice created successfully!' };
   }
 
+  public async updateInvoice(invoiceNo: string, invoiceData: any): Promise<{ success: boolean; invoice?: InvoiceRecord; message?: string }> {
+    try {
+      const res = await fetch(`${this.apiBaseUrl}/api/admin/invoices/${encodeURIComponent(invoiceNo)}`, {
+        method: 'PUT',
+        headers: this.getHeaders(),
+        body: JSON.stringify(invoiceData)
+      });
+      if (res.ok) {
+        const data = await res.json();
+        if (data.success && data.invoice) {
+          this.upsertInvoiceLocal(data.invoice);
+          return data;
+        }
+      }
+    } catch (e: any) {
+      console.warn('Backend updateInvoice network error, using local fallback:', e.message);
+    }
+
+    const updated = this.updateInvoiceLocal(invoiceNo, invoiceData);
+    return { success: true, invoice: updated, message: 'Invoice updated successfully!' };
+  }
+
   public async addPayment(invoiceNo: string, payment: { amountPaid: number; paymentDate: string; mode: string; note?: string }): Promise<{ success: boolean; message?: string; totalPaid?: number; balanceDue?: number; newStatus?: string }> {
     try {
       const res = await fetch(`${this.apiBaseUrl}/api/admin/invoices/${encodeURIComponent(invoiceNo)}/payments`, {
@@ -326,7 +348,7 @@ export class AdminInvoiceService {
     return { success: true, message: 'Payment recorded successfully!', ...updated };
   }
 
-  public async downloadPdf(invoiceNo: string): Promise<void> {
+  public async downloadPdfFromServer(invoiceNo: string): Promise<boolean> {
     const token = this.authService.getToken() || '';
     const url = `${this.apiBaseUrl}/api/admin/invoices/${encodeURIComponent(invoiceNo)}/pdf`;
 
@@ -336,21 +358,50 @@ export class AdminInvoiceService {
       });
 
       if (res.ok) {
-        const blob = await res.blob();
-        const downloadUrl = window.URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = downloadUrl;
-        a.download = `${invoiceNo}.pdf`;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        window.URL.revokeObjectURL(downloadUrl);
-        return;
+        const contentType = res.headers.get('content-type') || '';
+        if (contentType.includes('application/pdf')) {
+          const blob = await res.blob();
+          const downloadUrl = window.URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = downloadUrl;
+          a.download = `${invoiceNo}.pdf`;
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          window.URL.revokeObjectURL(downloadUrl);
+          return true;
+        }
       }
-    } catch (e) {}
+    } catch (e) {
+      console.warn('Server-side PDF generation failed or not available:', e);
+    }
+    return false;
+  }
 
-    // Fallback: Trigger browser print
-    window.print();
+  public async downloadPdfClientSide(element: HTMLElement, filename: string): Promise<boolean> {
+    try {
+      const html2pdfModule = await import('html2pdf.js');
+      const html2pdf = (html2pdfModule as any).default || html2pdfModule;
+      const opt = {
+        margin: [4, 4, 4, 4],
+        filename: filename.endsWith('.pdf') ? filename : `${filename}.pdf`,
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2, useCORS: true, logging: false },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+      };
+      await html2pdf().set(opt).from(element).save();
+      return true;
+    } catch (e) {
+      console.error('Client-side html2pdf error:', e);
+      return false;
+    }
+  }
+
+  public async downloadPdf(invoiceNo: string): Promise<void> {
+    // Attempt server side first
+    const ok = await this.downloadPdfFromServer(invoiceNo);
+    if (ok) return;
+    // Otherwise fallback will be coordinated by the component using the rendered DOM
   }
 
   public async getPublicInvoice(token: string): Promise<{ success: boolean; invoice?: any; company?: any; message?: string }> {
@@ -549,6 +600,75 @@ export class AdminInvoiceService {
 
     this.upsertInvoiceLocal(newInv);
     return newInv;
+  }
+
+  private updateInvoiceLocal(invoiceNo: string, invoiceData: any): InvoiceRecord {
+    const invoices = this.getInvoicesLocal();
+    const existing = invoices.find(i => i.invoiceNo === invoiceNo);
+    const clients = this.getClientsLocal();
+    const client = clients.find(c => c.clientId === invoiceData.clientId) || existing?.client || null;
+
+    const items: InvoiceItem[] = (invoiceData.items || []).map((it: any, idx: number) => {
+      const qty = Number(it.qty) || 1;
+      const rate = Number(it.rate) || 0;
+      const taxable = Math.round(qty * rate * 100) / 100;
+      const taxPercent = Number(it.taxPercent) || 0;
+      const taxAmount = Math.round(((taxable * taxPercent) / 100) * 100) / 100;
+      return {
+        srNo: idx + 1,
+        description: it.description,
+        hsnSac: it.hsnSac || '998314',
+        qty,
+        unit: it.unit || 'NOS',
+        rate,
+        taxableValue: taxable,
+        taxPercent,
+        taxAmount,
+        lineTotal: Math.round((taxable + taxAmount) * 100) / 100
+      };
+    });
+
+    const taxableTotal = items.reduce((s, i) => s + (i.taxableValue || 0), 0);
+    const taxTotal = items.reduce((s, i) => s + (i.taxAmount || 0), 0);
+    const grandTotal = Math.round((taxableTotal + taxTotal) * 100) / 100;
+
+    const existingPayments = existing?.payments || [];
+    const totalPaid = Math.round(existingPayments.reduce((s, p) => s + Number(p.amountPaid), 0) * 100) / 100;
+    const balanceDue = Math.max(0, Math.round((grandTotal - totalPaid) * 100) / 100);
+
+    let status: 'Unpaid' | 'Partially Paid' | 'Paid' = 'Unpaid';
+    if (balanceDue === 0 && grandTotal > 0) status = 'Paid';
+    else if (totalPaid > 0 && balanceDue > 0) status = 'Partially Paid';
+
+    const updatedInv: InvoiceRecord = {
+      invoiceNo,
+      clientId: invoiceData.clientId || existing?.clientId || '',
+      invoiceDate: invoiceData.invoiceDate || existing?.invoiceDate,
+      dueDate: invoiceData.dueDate || existing?.dueDate,
+      taxableTotal,
+      taxTotal,
+      grandTotal,
+      status,
+      publicToken: existing?.publicToken || 'yt_tok_' + Math.random().toString(36).substring(2),
+      notes: invoiceData.notes !== undefined ? invoiceData.notes : (existing?.notes || ''),
+      challanNo: invoiceData.challanNo !== undefined ? invoiceData.challanNo : (existing?.challanNo || ''),
+      challanDate: invoiceData.challanDate !== undefined ? invoiceData.challanDate : (existing?.challanDate || ''),
+      ewayBillNo: invoiceData.ewayBillNo !== undefined ? invoiceData.ewayBillNo : (existing?.ewayBillNo || ''),
+      transport: invoiceData.transport !== undefined ? invoiceData.transport : (existing?.transport || ''),
+      transportId: invoiceData.transportId !== undefined ? invoiceData.transportId : (existing?.transportId || ''),
+      planName: invoiceData.planName || existing?.planName || 'Annual Cloud & Maintenance Plan',
+      serviceStartDate: invoiceData.serviceStartDate || existing?.serviceStartDate || '',
+      serviceExpiryDate: invoiceData.serviceExpiryDate || existing?.serviceExpiryDate || '',
+      renewalDueDate: invoiceData.renewalDueDate || existing?.renewalDueDate || '',
+      totalPaid,
+      balanceDue,
+      client,
+      items,
+      payments: existingPayments
+    };
+
+    this.upsertInvoiceLocal(updatedInv);
+    return updatedInv;
   }
 
   private recordPaymentLocal(invoiceNo: string, payment: { amountPaid: number; paymentDate: string; mode: string; note?: string }): { totalPaid: number; balanceDue: number; newStatus: string } {

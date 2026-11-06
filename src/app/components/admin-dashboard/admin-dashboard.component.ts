@@ -72,6 +72,8 @@ export class AdminDashboardComponent implements OnInit {
     dueDate: new Date(Date.now() + 7 * 86400000).toISOString().slice(0, 10),
     paymentDate: new Date().toISOString().slice(0, 10),
     status: 'Paid' as 'Paid' | 'Unpaid' | 'Partially Paid',
+    projectCost: 5000,
+    amountPaid: 5000,
     notes: '',
     challanNo: '',
     challanDate: '',
@@ -300,6 +302,8 @@ export class AdminDashboardComponent implements OnInit {
       dueDate: new Date(Date.now() + 7 * 86400000).toISOString().slice(0, 10),
       paymentDate: new Date().toISOString().slice(0, 10),
       status: 'Paid',
+      projectCost: 5000,
+      amountPaid: 5000,
       notes: '',
       challanNo: '',
       challanDate: '',
@@ -330,13 +334,18 @@ export class AdminDashboardComponent implements OnInit {
     this.editingInvoiceNo = inv.invoiceNo;
     this.errorMessage = '';
 
+    const cost = Number(inv.grandTotal) || (inv.items && inv.items[0]?.rate) || 5000;
+    const paid = inv.totalPaid != null ? Number(inv.totalPaid) : (inv.status === 'Paid' ? cost : 0);
+
     this.newInvoiceData = {
       invoiceNo: inv.invoiceNo,
       clientId: inv.clientId,
       invoiceDate: inv.invoiceDate,
       dueDate: inv.dueDate || '',
       paymentDate: inv.paymentDate || inv.invoiceDate,
-      status: inv.status || 'Paid',
+      status: inv.status || (cost - paid === 0 ? 'Paid' : (paid > 0 ? 'Partially Paid' : 'Unpaid')),
+      projectCost: cost,
+      amountPaid: paid,
       notes: inv.notes || '',
       challanNo: inv.challanNo || '',
       challanDate: inv.challanDate || '',
@@ -355,7 +364,7 @@ export class AdminDashboardComponent implements OnInit {
         rate: item.rate || 0,
         taxPercent: 0
       })) : [
-        { description: '', paymentDate: new Date().toISOString().slice(0, 10), qty: 1, unit: 'NOS', rate: 0, taxPercent: 0 }
+        { description: '', paymentDate: new Date().toISOString().slice(0, 10), qty: 1, unit: 'NOS', rate: cost, taxPercent: 0 }
       ]
     };
 
@@ -398,7 +407,62 @@ export class AdminDashboardComponent implements OnInit {
   }
 
   get computedGrandTotal(): number {
-    return this.computedTaxableTotal;
+    return Number(this.newInvoiceData.projectCost) || this.computedTaxableTotal;
+  }
+
+  get computedBalanceDue(): number {
+    const cost = Number(this.newInvoiceData.projectCost) || 0;
+    const paid = Number(this.newInvoiceData.amountPaid) || 0;
+    return Math.max(0, Math.round((cost - paid) * 100) / 100);
+  }
+
+  onProjectCostChange(): void {
+    const cost = Number(this.newInvoiceData.projectCost) || 0;
+    if (this.newInvoiceData.items.length === 1) {
+      this.newInvoiceData.items[0].rate = cost;
+    }
+    if (this.newInvoiceData.status === 'Paid') {
+      this.newInvoiceData.amountPaid = cost;
+    } else if (this.newInvoiceData.status === 'Unpaid') {
+      this.newInvoiceData.amountPaid = 0;
+    } else {
+      this.onAmountPaidChange();
+    }
+  }
+
+  onAmountPaidChange(): void {
+    const cost = Number(this.newInvoiceData.projectCost) || 0;
+    const paid = Number(this.newInvoiceData.amountPaid) || 0;
+    if (paid >= cost && cost > 0) {
+      this.newInvoiceData.status = 'Paid';
+    } else if (paid <= 0) {
+      this.newInvoiceData.status = 'Unpaid';
+    } else {
+      this.newInvoiceData.status = 'Partially Paid';
+    }
+  }
+
+  onStatusChange(): void {
+    const cost = Number(this.newInvoiceData.projectCost) || 0;
+    if (this.newInvoiceData.status === 'Paid') {
+      this.newInvoiceData.amountPaid = cost;
+    } else if (this.newInvoiceData.status === 'Unpaid') {
+      this.newInvoiceData.amountPaid = 0;
+    } else if (this.newInvoiceData.status === 'Partially Paid') {
+      if (this.newInvoiceData.amountPaid >= cost || this.newInvoiceData.amountPaid <= 0) {
+        this.newInvoiceData.amountPaid = Math.round(cost / 2);
+      }
+    }
+  }
+
+  onItemRateChange(): void {
+    const total = this.computedTaxableTotal;
+    this.newInvoiceData.projectCost = total;
+    if (this.newInvoiceData.status === 'Paid') {
+      this.newInvoiceData.amountPaid = total;
+    } else {
+      this.onAmountPaidChange();
+    }
   }
 
   get selectedClient(): ClientRecord | null {
@@ -444,24 +508,28 @@ export class AdminDashboardComponent implements OnInit {
         alert('Please fill description for all service lines.');
         return;
       }
-      if (Number(item.rate) <= 0) {
-        alert('Rate must be greater than zero for all lines.');
+      if (Number(item.rate) <= 0 && Number(this.newInvoiceData.projectCost) <= 0) {
+        alert('Project cost or rate must be greater than zero.');
         return;
       }
     }
 
     this.isSavingInvoice = true;
     try {
-      const total = this.computedGrandTotal;
-      const isPaid = this.newInvoiceData.status === 'Paid';
+      const cost = Number(this.newInvoiceData.projectCost) || this.computedTaxableTotal;
+      const paid = Number(this.newInvoiceData.amountPaid) || 0;
+      const balance = Math.max(0, cost - paid);
+
       const invoicePayload = {
         ...this.newInvoiceData,
-        taxableTotal: total,
+        taxableTotal: cost,
         taxTotal: 0,
-        grandTotal: total,
-        totalPaid: isPaid ? total : 0,
-        balanceDue: isPaid ? 0 : total,
-        paymentDate: isPaid ? (this.newInvoiceData.paymentDate || this.newInvoiceData.invoiceDate) : ''
+        grandTotal: cost,
+        totalPaid: paid,
+        balanceDue: balance,
+        status: this.newInvoiceData.status,
+        amountPaid: paid,
+        paymentDate: paid > 0 ? (this.newInvoiceData.paymentDate || this.newInvoiceData.invoiceDate) : ''
       };
 
       if (this.isEditingInvoice) {

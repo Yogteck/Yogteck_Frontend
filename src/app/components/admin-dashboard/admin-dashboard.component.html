@@ -562,9 +562,17 @@
 
         <div class="inv-footer-right">
           <table class="calc-sub-tbl">
+            <tr>
+              <td>Project Cost / Total Amount</td>
+              <td class="t-right"><strong>{{ formatINR(inv.grandTotal) }}</strong></td>
+            </tr>
+            <tr>
+              <td>Amount Paid / Received</td>
+              <td class="t-right" style="color: #16a34a;"><strong>{{ formatINR(inv.totalPaid) }}</strong></td>
+            </tr>
             <tr class="grand-tot-row">
-              <td>Total Amount</td>
-              <td class="t-right" style="font-size: 14px;"><strong>{{ formatINR(inv.grandTotal) }}</strong></td>
+              <td style="color: #dc2626; font-weight: 800;">Balance Due (बकाया राशि)</td>
+              <td class="t-right" style="font-size: 14px; color: #dc2626; font-weight: 900;"><strong>{{ formatINR(inv.balanceDue) }}</strong></td>
             </tr>
           </table>
 
@@ -603,11 +611,11 @@
 
             <div class="pymt-totals-row">
               <span>Total Paid:</span>
-              <strong>{{ formatINR(inv.totalPaid) }}</strong>
+              <strong style="color: #16a34a;">{{ formatINR(inv.totalPaid) }}</strong>
             </div>
             <div class="pymt-totals-row due-row">
-              <span>Balance Due:</span>
-              <strong class="highlight-due">{{ formatINR(inv.balanceDue) }}</strong>
+              <span style="color: #dc2626; font-weight: 700;">Balance Due (बकाया):</span>
+              <strong class="highlight-due-red">{{ formatINR(inv.balanceDue) }}</strong>
             </div>
           </div>
 
@@ -652,7 +660,7 @@
             <div class="n-hi">
               प्रोजेक्ट से जुड़ी सभी बाहरी (External) फाइलें, सेवाएँ और संसाधन क्लाइंट/पार्टी को ही उपलब्ध कराने होंगे। उदाहरण के लिए:<br>
               &bull; पेमेंट गेटवे (Payment Gateway) का अकाउंट/क्रेडेंशियल्स क्लाइंट द्वारा उपलब्ध कराया जाएगा।<br>
-              &bull; प्रोजेक्ट से जुड़ी क्लाइंट की अपनी फाइलें, जैसे CAD ड्रॉइंग्स, लोगो, कंटेंट, फोटो और अन्य दस्तावेज़ (जैसे MMR Constructions के प्रोजेक्ट में उनकी CAD फाइलें) क्लाइंट को ही देनी होंगी।<br>
+              &bull; प्रोजेक्ट से जुड़ी क्लाइंट की अपनी फाइलें, जैसे लोगो, कंटेंट, फोटो, ड्रॉइंग्स और अन्य दस्तावेज़ क्लाइंट को ही देने होंगे।<br>
               इन सामग्रियों के अभाव या देरी से होने वाली किसी भी बाधा या विलंब की ज़िम्मेदारी कंपनी की नहीं होगी।
             </div>
             <div class="n-en">
@@ -734,8 +742,8 @@
             </div>
           </div>
 
-          <!-- Invoice & Payment Status Controls -->
-          <div class="form-grid-4">
+          <!-- Invoice Details 3 Columns -->
+          <div class="form-grid-3">
             <div class="form-group">
               <label>Invoice Number</label>
               <div class="readonly-input-wrap">
@@ -748,16 +756,97 @@
               <input type="date" [(ngModel)]="newInvoiceData.invoiceDate" name="invDate" class="dash-input modern-input" required />
             </div>
             <div class="form-group">
-              <label>Payment Status <span class="required">*</span></label>
-              <select [(ngModel)]="newInvoiceData.status" name="invStatus" class="dash-select modern-select font-bold">
-                <option value="Paid">✅ Paid</option>
-                <option value="Unpaid">⏳ Unpaid</option>
-                <option value="Partially Paid">⚡ Partially Paid</option>
+              <label>Payment Due Date</label>
+              <input type="date" [(ngModel)]="newInvoiceData.dueDate" name="dueDate" class="dash-input modern-input" />
+            </div>
+          </div>
+        </div>
+
+        <!-- SECTION 2: Project Cost, Client Payment & Balance Due Calculation -->
+        <div class="form-section-card billing-calc-card">
+          <div class="section-card-title flex-between">
+            <div class="title-with-badge">
+              <span class="step-num">2</span>
+              <span>Project Cost &amp; Payment Calculation</span>
+            </div>
+            <span class="status-pill-badge" [ngClass]="{
+              'pill-paid': newInvoiceData.status === 'Paid',
+              'pill-partially': newInvoiceData.status === 'Partially Paid',
+              'pill-unpaid': newInvoiceData.status === 'Unpaid'
+            }">{{ newInvoiceData.status }}</span>
+          </div>
+
+          <div class="form-grid-3">
+            <div class="form-group">
+              <label>Project Cost (कुल प्रोजेक्ट राशि) <span class="required">*</span></label>
+              <div class="input-with-symbol">
+                <span class="currency-symbol">₹</span>
+                <input 
+                  type="number" 
+                  [(ngModel)]="newInvoiceData.projectCost" 
+                  (input)="onProjectCostChange()" 
+                  name="projectCost" 
+                  min="0" 
+                  step="1"
+                  class="dash-input modern-input font-bold" 
+                  placeholder="e.g. 25000" 
+                  required 
+                />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Client Payment Received (प्राप्त भुगतान) <span class="required">*</span></label>
+              <div class="input-with-symbol">
+                <span class="currency-symbol">₹</span>
+                <input 
+                  type="number" 
+                  [(ngModel)]="newInvoiceData.amountPaid" 
+                  (input)="onAmountPaidChange()" 
+                  name="amountPaid" 
+                  min="0" 
+                  step="1"
+                  class="dash-input modern-input font-bold" 
+                  placeholder="e.g. 15000" 
+                  required 
+                />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Payment Status (भुगतान स्थिति) <span class="required">*</span></label>
+              <select 
+                [(ngModel)]="newInvoiceData.status" 
+                (ngModelChange)="onStatusChange()" 
+                name="invStatus" 
+                class="dash-select modern-select font-bold"
+              >
+                <option value="Paid">✅ Paid (पूर्ण भुगतान प्राप्त)</option>
+                <option value="Partially Paid">⚡ Partially Paid (आंशिक भुगतान)</option>
+                <option value="Unpaid">⏳ Unpaid (भुगतान बकाया)</option>
               </select>
             </div>
+          </div>
+
+          <div class="form-grid-2" style="margin-top: 10px;">
             <div class="form-group">
-              <label>Payment Date</label>
+              <label>Payment Received Date (भुगतान तारीख)</label>
               <input type="date" [(ngModel)]="newInvoiceData.paymentDate" name="invPaymentDate" class="dash-input modern-input" />
+            </div>
+            <div class="form-group">
+              <label>Live Calculation (हिसाब)</label>
+              <div class="calc-strip-box">
+                ₹ {{ newInvoiceData.projectCost || 0 }} (Cost) &minus; ₹ {{ newInvoiceData.amountPaid || 0 }} (Paid) = 
+                <span class="due-amt-red" style="margin-left: 6px;">₹ {{ computedBalanceDue }} Balance</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Prominent RED Balance Alert -->
+          <div class="live-balance-banner">
+            <div class="due-display-box">
+              <span class="due-lbl">Remaining Balance Due (बकाया राशि):</span>
+              <span class="due-amt-red">{{ formatINR(computedBalanceDue) }}</span>
             </div>
           </div>
         </div>
@@ -902,6 +991,7 @@
                     <input 
                       type="number" 
                       [(ngModel)]="item.rate" 
+                      (input)="onItemRateChange()"
                       [name]="'rate_' + idx" 
                       min="0" 
                       step="0.01" 
@@ -947,15 +1037,18 @@
       <div class="modal-sticky-footer">
         <div class="footer-totals-card">
           <div class="total-chunk">
-            <span class="chunk-label">Payment Status</span>
-            <span class="chunk-val font-bold" [style.color]="newInvoiceData.status === 'Paid' ? '#10b981' : '#f59e0b'">
-              {{ newInvoiceData.status }}
-            </span>
+            <span class="chunk-label">Project Cost</span>
+            <span class="chunk-val font-bold">{{ formatINR(newInvoiceData.projectCost || computedGrandTotal) }}</span>
+          </div>
+          <div class="total-divider"></div>
+          <div class="total-chunk">
+            <span class="chunk-label">Paid by Client</span>
+            <span class="chunk-val font-bold" style="color: #10b981;">{{ formatINR(newInvoiceData.amountPaid || 0) }}</span>
           </div>
           <div class="total-divider"></div>
           <div class="total-chunk grand-total-chunk">
-            <span class="chunk-label">Total Amount</span>
-            <span class="chunk-val-grand">{{ formatINR(computedGrandTotal) }}</span>
+            <span class="chunk-label">Balance Due (बकाया)</span>
+            <span class="chunk-val-grand due-amt-red">{{ formatINR(computedBalanceDue) }}</span>
           </div>
         </div>
 

@@ -289,6 +289,20 @@ export class AdminDashboardComponent implements OnInit {
     return this.computedTaxableTotal + this.computedTaxTotal;
   }
 
+  get selectedClient(): ClientRecord | null {
+    if (!this.newInvoiceData.clientId) return null;
+    return this.allClients.find(c => c.clientId === this.newInvoiceData.clientId) || null;
+  }
+
+  getItemTotal(item: any): number {
+    const qty = Number(item.qty) || 0;
+    const rate = Number(item.rate) || 0;
+    const taxPercent = Number(item.taxPercent) || 0;
+    const taxable = qty * rate;
+    const tax = (taxable * taxPercent) / 100;
+    return Math.round((taxable + tax) * 100) / 100;
+  }
+
   async submitCreateInvoice(): Promise<void> {
     if (!this.newInvoiceData.clientId) {
       alert('Please select or add a client.');

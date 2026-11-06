@@ -663,136 +663,320 @@
   </div>
 
   <!-- ============================================================== -->
-  <!-- MODAL: CREATE INVOICE                                          -->
+  <!-- MODAL: CREATE INVOICE (MODERN REDESIGN)                         -->
   <!-- ============================================================== -->
   <div *ngIf="createInvoiceModalOpen" class="modal-overlay" (click)="closeCreateInvoiceModal()">
-    <div class="modal-container" (click)="$event.stopPropagation()">
-      <div class="modal-header">
-        <h2>Create New Invoice</h2>
-        <button class="modal-close-btn" (click)="closeCreateInvoiceModal()">✖</button>
+    <div class="modal-container create-invoice-dialog" (click)="$event.stopPropagation()">
+      
+      <!-- Top Header -->
+      <div class="modal-header modern-header">
+        <div class="header-title-box">
+          <div class="header-icon-badge">📄</div>
+          <div>
+            <h2>Create Tax Invoice</h2>
+            <p class="header-subtitle">Generate official GST invoice and subscription billing</p>
+          </div>
+        </div>
+        <button type="button" class="modal-close-btn" (click)="closeCreateInvoiceModal()" title="Close">✕</button>
       </div>
 
-      <form (ngSubmit)="submitCreateInvoice()" class="modal-form">
-        <div class="form-grid">
-          <div class="form-group">
-            <label>Invoice Number</label>
-            <input type="text" [(ngModel)]="newInvoiceData.invoiceNo" name="invNo" class="dash-input" readonly />
+      <!-- Scrollable Form Body -->
+      <form (ngSubmit)="submitCreateInvoice()" class="modal-form-scrollable">
+        
+        <!-- SECTION 1: Client & Invoice Primary Info -->
+        <div class="form-section-card">
+          <div class="section-card-title">
+            <span class="step-num">1</span>
+            <span>Client &amp; Invoice Details</span>
           </div>
-          <div class="form-group">
-            <label>Select Client *</label>
-            <select [(ngModel)]="newInvoiceData.clientId" name="clientId" class="dash-select" required>
-              <option value="" disabled>-- Choose Client --</option>
-              <option *ngFor="let c of allClients" [value]="c.clientId">
-                {{ c.clientName }} ({{ c.state }}) - {{ c.mobile }}
-              </option>
-            </select>
+
+          <!-- Client Selection Row -->
+          <div class="client-selection-row">
+            <div class="form-group full-width">
+              <div class="label-with-action">
+                <label>Bill To Client <span class="required">*</span></label>
+                <button type="button" class="btn-text-action" (click)="openAddClientModal()">
+                  ➕ New Client
+                </button>
+              </div>
+              <select [(ngModel)]="newInvoiceData.clientId" name="clientId" class="dash-select modern-select" required>
+                <option value="" disabled>-- Select Client / Business --</option>
+                <option *ngFor="let c of allClients" [value]="c.clientId">
+                  {{ c.clientName }} ({{ c.state }}) - {{ c.mobile }}
+                </option>
+              </select>
+            </div>
           </div>
-          <div class="form-group">
-            <label>Invoice Date</label>
-            <input type="date" [(ngModel)]="newInvoiceData.invoiceDate" name="invDate" class="dash-input" required />
+
+          <!-- Selected Client Quick Information Pill -->
+          <div *ngIf="selectedClient" class="client-info-pill">
+            <div class="info-pill-item">
+              <span class="pill-label">Contact:</span>
+              <span class="pill-val">{{ selectedClient.contactPerson || 'N/A' }} ({{ selectedClient.mobile }})</span>
+            </div>
+            <div class="info-pill-item">
+              <span class="pill-label">GSTIN:</span>
+              <span class="pill-val font-mono">{{ selectedClient.gstin || 'Unregistered' }}</span>
+            </div>
+            <div class="info-pill-item">
+              <span class="pill-label">State Code:</span>
+              <span class="pill-val">{{ selectedClient.state }} ({{ selectedClient.stateCode || 'N/A' }})</span>
+            </div>
+            <div class="info-pill-item" *ngIf="selectedClient.address">
+              <span class="pill-label">Address:</span>
+              <span class="pill-val text-truncate">{{ selectedClient.address }}</span>
+            </div>
           </div>
-          <div class="form-group">
-            <label>Payment Due Date</label>
-            <input type="date" [(ngModel)]="newInvoiceData.dueDate" name="dueDate" class="dash-input" />
-          </div>
-          <div class="form-group">
-            <label>Plan / Subscription Name</label>
-            <input type="text" [(ngModel)]="newInvoiceData.planName" name="planName" placeholder="e.g. Annual Cloud ERP & Maintenance" class="dash-input" />
-          </div>
-          <div class="form-group">
-            <label>Service Start Date</label>
-            <input type="date" [(ngModel)]="newInvoiceData.serviceStartDate" name="serviceStartDate" class="dash-input" />
-          </div>
-          <div class="form-group">
-            <label>Service Expiry Date</label>
-            <input type="date" [(ngModel)]="newInvoiceData.serviceExpiryDate" name="serviceExpiryDate" class="dash-input" />
-          </div>
-          <div class="form-group">
-            <label>Renewal Due Date</label>
-            <input type="date" [(ngModel)]="newInvoiceData.renewalDueDate" name="renewalDueDate" class="dash-input" />
-          </div>
-          <div class="form-group">
-            <label>Challan No (Optional)</label>
-            <input type="text" [(ngModel)]="newInvoiceData.challanNo" name="challanNo" placeholder="e.g. 33" class="dash-input" />
-          </div>
-          <div class="form-group">
-            <label>Challan Date</label>
-            <input type="date" [(ngModel)]="newInvoiceData.challanDate" name="challanDate" class="dash-input" />
-          </div>
-          <div class="form-group">
-            <label>E-Way Bill No (Optional)</label>
-            <input type="text" [(ngModel)]="newInvoiceData.ewayBillNo" name="ewayBillNo" placeholder="78456378" class="dash-input" />
-          </div>
-          <div class="form-group">
-            <label>Transport Name &amp; ID</label>
-            <div class="flex-row">
-              <input type="text" [(ngModel)]="newInvoiceData.transport" name="transport" placeholder="Transporter" class="dash-input" />
-              <input type="text" [(ngModel)]="newInvoiceData.transportId" name="transportId" placeholder="ID" class="dash-input w-28" />
+
+          <!-- Invoice Details 3 Columns -->
+          <div class="form-grid-3">
+            <div class="form-group">
+              <label>Invoice Number</label>
+              <div class="readonly-input-wrap">
+                <span class="prefix-icon">🔒</span>
+                <input type="text" [(ngModel)]="newInvoiceData.invoiceNo" name="invNo" class="dash-input modern-input readonly-input" readonly />
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Invoice Date <span class="required">*</span></label>
+              <input type="date" [(ngModel)]="newInvoiceData.invoiceDate" name="invDate" class="dash-input modern-input" required />
+            </div>
+            <div class="form-group">
+              <label>Payment Due Date</label>
+              <input type="date" [(ngModel)]="newInvoiceData.dueDate" name="dueDate" class="dash-input modern-input" />
             </div>
           </div>
         </div>
 
-        <!-- Line Items Grid -->
-        <div class="line-items-header">
-          <h3>Services / Products</h3>
-          <button type="button" class="sm-btn btn-add" (click)="addInvoiceItemRow()">➕ Add Line Item</button>
+        <!-- SECTION 2: Subscription & Service Validity -->
+        <div class="form-section-card service-tenure-card">
+          <div class="section-card-title">
+            <span class="step-num">2</span>
+            <span>Subscription &amp; Service Tenure</span>
+            <span class="optional-badge">Included in Invoice &amp; QR Code</span>
+          </div>
+
+          <div class="form-group full-width">
+            <label>Plan / Service Name</label>
+            <input 
+              type="text" 
+              [(ngModel)]="newInvoiceData.planName" 
+              name="planName" 
+              placeholder="e.g. Annual Cloud ERP & Maintenance Plan" 
+              class="dash-input modern-input" 
+            />
+          </div>
+
+          <div class="form-grid-3">
+            <div class="form-group">
+              <label>Service Start Date</label>
+              <input type="date" [(ngModel)]="newInvoiceData.serviceStartDate" name="serviceStartDate" class="dash-input modern-input" />
+            </div>
+            <div class="form-group">
+              <label>Service Expiry Date</label>
+              <input type="date" [(ngModel)]="newInvoiceData.serviceExpiryDate" name="serviceExpiryDate" class="dash-input modern-input" />
+            </div>
+            <div class="form-group">
+              <label>Renewal Due Date</label>
+              <input type="date" [(ngModel)]="newInvoiceData.renewalDueDate" name="renewalDueDate" class="dash-input modern-input" />
+            </div>
+          </div>
         </div>
 
-        <div class="line-items-table-wrapper">
-          <table class="line-items-table">
-            <thead>
-              <tr>
-                <th style="width: 40%;">Description</th>
-                <th style="width: 14%;">HSN/SAC</th>
-                <th style="width: 10%;">Qty</th>
-                <th style="width: 10%;">Unit</th>
-                <th style="width: 14%;">Rate (₹)</th>
-                <th style="width: 10%;">Tax %</th>
-                <th style="width: 6%;"></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let item of newInvoiceData.items; let idx = index">
-                <td>
-                  <input type="text" [(ngModel)]="item.description" [name]="'desc_' + idx" placeholder="Service description..." class="dash-input sm" required />
-                </td>
-                <td>
-                  <input type="text" [(ngModel)]="item.hsnSac" [name]="'hsn_' + idx" placeholder="998314" class="dash-input sm" />
-                </td>
-                <td>
-                  <input type="number" [(ngModel)]="item.qty" [name]="'qty_' + idx" min="1" class="dash-input sm" />
-                </td>
-                <td>
-                  <input type="text" [(ngModel)]="item.unit" [name]="'unit_' + idx" placeholder="NOS" class="dash-input sm" />
-                </td>
-                <td>
-                  <input type="number" [(ngModel)]="item.rate" [name]="'rate_' + idx" min="0" step="0.01" class="dash-input sm" required />
-                </td>
-                <td>
-                  <input type="number" [(ngModel)]="item.taxPercent" [name]="'tax_' + idx" min="0" max="28" class="dash-input sm" />
-                </td>
-                <td>
-                  <button type="button" class="del-row-btn" (click)="removeInvoiceItemRow(idx)">🗑️</button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+        <!-- SECTION 3: Logistics & Transport Details (Collapsible Details) -->
+        <details class="collapsible-card">
+          <summary class="collapsible-summary">
+            <span class="summary-left">
+              <span class="summary-icon">🚚</span>
+              <span class="summary-title">Shipping &amp; Transport Details</span>
+              <span class="optional-pill">Optional</span>
+            </span>
+            <span class="summary-chevron">▼</span>
+          </summary>
+          <div class="collapsible-body">
+            <div class="form-grid-4">
+              <div class="form-group">
+                <label>Challan No</label>
+                <input type="text" [(ngModel)]="newInvoiceData.challanNo" name="challanNo" placeholder="e.g. CH-33" class="dash-input modern-input" />
+              </div>
+              <div class="form-group">
+                <label>Challan Date</label>
+                <input type="date" [(ngModel)]="newInvoiceData.challanDate" name="challanDate" class="dash-input modern-input" />
+              </div>
+              <div class="form-group">
+                <label>E-Way Bill No</label>
+                <input type="text" [(ngModel)]="newInvoiceData.ewayBillNo" name="ewayBillNo" placeholder="e.g. 78456378" class="dash-input modern-input" />
+              </div>
+              <div class="form-group">
+                <label>Transporter Name &amp; ID</label>
+                <div class="transport-inputs">
+                  <input type="text" [(ngModel)]="newInvoiceData.transport" name="transport" placeholder="Transporter" class="dash-input modern-input" />
+                  <input type="text" [(ngModel)]="newInvoiceData.transportId" name="transportId" placeholder="ID" class="dash-input modern-input w-28" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </details>
+
+        <!-- SECTION 4: Line Items (Products & Services) -->
+        <div class="form-section-card line-items-card">
+          <div class="section-card-title flex-between">
+            <div class="title-with-badge">
+              <span class="step-num">3</span>
+              <span>Services / Products</span>
+              <span class="items-count-badge">{{ newInvoiceData.items.length }} {{ newInvoiceData.items.length === 1 ? 'Item' : 'Items' }}</span>
+            </div>
+            <button type="button" class="btn-add-item" (click)="addInvoiceItemRow()">
+              ➕ Add Line Item
+            </button>
+          </div>
+
+          <div class="modern-table-wrapper">
+            <table class="modern-items-table">
+              <thead>
+                <tr>
+                  <th style="width: 32px;" class="text-center">#</th>
+                  <th style="min-width: 240px;">Description of Product / Service <span class="required">*</span></th>
+                  <th style="width: 95px;">HSN/SAC</th>
+                  <th style="width: 70px;">Qty</th>
+                  <th style="width: 75px;">Unit</th>
+                  <th style="width: 110px;">Rate (₹) <span class="required">*</span></th>
+                  <th style="width: 85px;">Tax %</th>
+                  <th style="width: 105px;" class="text-right">Total (₹)</th>
+                  <th style="width: 40px;" class="text-center"></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of newInvoiceData.items; let idx = index" class="item-row">
+                  <td class="text-center text-muted font-mono">{{ idx + 1 }}</td>
+                  <td>
+                    <input 
+                      type="text" 
+                      [(ngModel)]="item.description" 
+                      [name]="'desc_' + idx" 
+                      placeholder="e.g. Cloud Hosting & Server Management" 
+                      class="dash-input modern-input table-input" 
+                      required 
+                    />
+                  </td>
+                  <td>
+                    <input 
+                      type="text" 
+                      [(ngModel)]="item.hsnSac" 
+                      [name]="'hsn_' + idx" 
+                      placeholder="998314" 
+                      class="dash-input modern-input table-input text-center" 
+                    />
+                  </td>
+                  <td>
+                    <input 
+                      type="number" 
+                      [(ngModel)]="item.qty" 
+                      [name]="'qty_' + idx" 
+                      min="1" 
+                      class="dash-input modern-input table-input text-center" 
+                    />
+                  </td>
+                  <td>
+                    <input 
+                      type="text" 
+                      [(ngModel)]="item.unit" 
+                      [name]="'unit_' + idx" 
+                      placeholder="NOS" 
+                      class="dash-input modern-input table-input text-center" 
+                    />
+                  </td>
+                  <td>
+                    <input 
+                      type="number" 
+                      [(ngModel)]="item.rate" 
+                      [name]="'rate_' + idx" 
+                      min="0" 
+                      step="0.01" 
+                      class="dash-input modern-input table-input text-right font-medium" 
+                      required 
+                    />
+                  </td>
+                  <td>
+                    <select 
+                      [(ngModel)]="item.taxPercent" 
+                      [name]="'tax_' + idx" 
+                      class="dash-select modern-select table-select"
+                    >
+                      <option [value]="0">0%</option>
+                      <option [value]="5">5%</option>
+                      <option [value]="12">12%</option>
+                      <option [value]="18">18%</option>
+                      <option [value]="28">28%</option>
+                    </select>
+                  </td>
+                  <td class="text-right line-total-cell">
+                    {{ formatINR(getItemTotal(item)) }}
+                  </td>
+                  <td class="text-center">
+                    <button 
+                      type="button" 
+                      class="btn-row-del" 
+                      [disabled]="newInvoiceData.items.length <= 1"
+                      (click)="removeInvoiceItemRow(idx)" 
+                      title="Remove Row"
+                    >
+                      🗑️
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
 
-        <!-- Total Summary Bar -->
-        <div class="create-calc-summary">
-          <div>Taxable: <strong>{{ formatINR(computedTaxableTotal) }}</strong></div>
-          <div>Total Tax: <strong>{{ formatINR(computedTaxTotal) }}</strong></div>
-          <div class="grand-calc">Grand Total: <strong>{{ formatINR(computedGrandTotal) }}</strong></div>
+        <!-- Optional Notes / Remarks -->
+        <div class="form-group notes-group">
+          <label>Invoice Notes / Remarks (Optional)</label>
+          <input 
+            type="text" 
+            [(ngModel)]="newInvoiceData.notes" 
+            name="notes" 
+            placeholder="e.g. Payment due within 7 days. Thank you for your partnership!" 
+            class="dash-input modern-input" 
+          />
         </div>
 
-        <div class="modal-footer-actions">
-          <button type="button" class="action-btn-secondary" (click)="closeCreateInvoiceModal()">Cancel</button>
-          <button type="submit" [disabled]="isSavingInvoice" class="action-btn-primary">
-            {{ isSavingInvoice ? 'Generating Invoice...' : 'Generate Invoice' }}
+      </form>
+
+      <!-- STICKY FOOTER WITH REAL-TIME TOTALS & ACTIONS -->
+      <div class="modal-sticky-footer">
+        <div class="footer-totals-card">
+          <div class="total-chunk">
+            <span class="chunk-label">Taxable Amount</span>
+            <span class="chunk-val">{{ formatINR(computedTaxableTotal) }}</span>
+          </div>
+          <div class="total-divider"></div>
+          <div class="total-chunk">
+            <span class="chunk-label">GST / Tax Amount</span>
+            <span class="chunk-val">{{ formatINR(computedTaxTotal) }}</span>
+          </div>
+          <div class="total-divider"></div>
+          <div class="total-chunk grand-total-chunk">
+            <span class="chunk-label">Grand Total</span>
+            <span class="chunk-val-grand">{{ formatINR(computedGrandTotal) }}</span>
+          </div>
+        </div>
+
+        <div class="footer-btns">
+          <button type="button" class="btn-cancel" (click)="closeCreateInvoiceModal()">Cancel</button>
+          <button 
+            type="button" 
+            (click)="submitCreateInvoice()" 
+            [disabled]="isSavingInvoice" 
+            class="btn-generate-invoice"
+          >
+            <span *ngIf="!isSavingInvoice">⚡ Generate &amp; Save Invoice</span>
+            <span *ngIf="isSavingInvoice">⏳ Generating Invoice...</span>
           </button>
         </div>
-      </form>
+      </div>
+
     </div>
   </div>
 
@@ -801,20 +985,35 @@
   <!-- ============================================================== -->
   <div *ngIf="addPaymentModalOpen && paymentTargetInvoice" class="modal-overlay" (click)="closeAddPaymentModal()">
     <div class="modal-container sm-modal" (click)="$event.stopPropagation()">
-      <div class="modal-header">
-        <h2>Record Payment</h2>
-        <button class="modal-close-btn" (click)="closeAddPaymentModal()">✖</button>
+      <div class="modal-header modern-header">
+        <div class="header-title-box">
+          <div class="header-icon-badge">💳</div>
+          <div>
+            <h2>Record Payment</h2>
+            <p class="header-subtitle">Update payment status and remaining balance</p>
+          </div>
+        </div>
+        <button type="button" class="modal-close-btn" (click)="closeAddPaymentModal()">✕</button>
       </div>
 
       <form (ngSubmit)="submitAddPayment()" class="modal-form">
-        <div class="payment-target-info">
-          <div>Invoice: <strong>{{ paymentTargetInvoice.invoiceNo }}</strong></div>
-          <div>Grand Total: <strong>{{ formatINR(paymentTargetInvoice.grandTotal) }}</strong></div>
-          <div>Remaining Due: <strong class="highlight-due">{{ formatINR(paymentTargetInvoice.balanceDue) }}</strong></div>
+        <div class="payment-target-info-card">
+          <div class="target-row">
+            <span class="target-lbl">Invoice Number:</span>
+            <span class="target-val font-mono">{{ paymentTargetInvoice.invoiceNo }}</span>
+          </div>
+          <div class="target-row">
+            <span class="target-lbl">Grand Total:</span>
+            <span class="target-val">{{ formatINR(paymentTargetInvoice.grandTotal) }}</span>
+          </div>
+          <div class="target-row highlight-due-row">
+            <span class="target-lbl">Remaining Balance Due:</span>
+            <span class="target-val-due">{{ formatINR(paymentTargetInvoice.balanceDue) }}</span>
+          </div>
         </div>
 
         <div class="form-group">
-          <label>Amount to Pay (₹) *</label>
+          <label>Amount to Pay (₹) <span class="required">*</span></label>
           <input 
             type="number" 
             [(ngModel)]="newPaymentData.amountPaid" 
@@ -822,19 +1021,19 @@
             [max]="paymentTargetInvoice.balanceDue" 
             min="1" 
             step="0.01" 
-            class="dash-input" 
+            class="dash-input modern-input font-bold" 
             required 
           />
         </div>
 
         <div class="form-group">
-          <label>Payment Date *</label>
-          <input type="date" [(ngModel)]="newPaymentData.paymentDate" name="paymentDate" class="dash-input" required />
+          <label>Payment Date <span class="required">*</span></label>
+          <input type="date" [(ngModel)]="newPaymentData.paymentDate" name="paymentDate" class="dash-input modern-input" required />
         </div>
 
         <div class="form-group">
           <label>Payment Mode</label>
-          <select [(ngModel)]="newPaymentData.mode" name="mode" class="dash-select">
+          <select [(ngModel)]="newPaymentData.mode" name="mode" class="dash-select modern-select">
             <option value="UPI">UPI (Google Pay, PhonePe, Paytm)</option>
             <option value="Bank Transfer">Bank Transfer (NEFT / RTGS / IMPS)</option>
             <option value="Cash">Cash</option>
@@ -845,13 +1044,13 @@
 
         <div class="form-group">
           <label>Transaction UTR / Cheque No / Notes</label>
-          <input type="text" [(ngModel)]="newPaymentData.note" name="note" placeholder="e.g. UTR123987456" class="dash-input" />
+          <input type="text" [(ngModel)]="newPaymentData.note" name="note" placeholder="e.g. UTR123987456" class="dash-input modern-input" />
         </div>
 
         <div class="modal-footer-actions">
-          <button type="button" class="action-btn-secondary" (click)="closeAddPaymentModal()">Cancel</button>
-          <button type="submit" [disabled]="isSavingPayment" class="action-btn-success">
-            {{ isSavingPayment ? 'Recording...' : 'Confirm Payment' }}
+          <button type="button" class="btn-cancel" (click)="closeAddPaymentModal()">Cancel</button>
+          <button type="submit" [disabled]="isSavingPayment" class="btn-primary-action success-theme">
+            {{ isSavingPayment ? 'Recording...' : '✔ Confirm Payment' }}
           </button>
         </div>
       </form>
@@ -862,58 +1061,65 @@
   <!-- MODAL: ADD / EDIT CLIENT                                       -->
   <!-- ============================================================== -->
   <div *ngIf="clientModalOpen" class="modal-overlay" (click)="closeClientModal()">
-    <div class="modal-container sm-modal" (click)="$event.stopPropagation()">
-      <div class="modal-header">
-        <h2>{{ isEditingClient ? 'Edit Client' : 'Add New Client' }}</h2>
-        <button class="modal-close-btn" (click)="closeClientModal()">✖</button>
+    <div class="modal-container sm-modal client-modal" (click)="$event.stopPropagation()">
+      <div class="modal-header modern-header">
+        <div class="header-title-box">
+          <div class="header-icon-badge">👤</div>
+          <div>
+            <h2>{{ isEditingClient ? 'Edit Client Record' : 'Add New Client' }}</h2>
+            <p class="header-subtitle">Save client profile for instant invoicing and GST filing</p>
+          </div>
+        </div>
+        <button type="button" class="modal-close-btn" (click)="closeClientModal()">✕</button>
       </div>
 
       <form (ngSubmit)="submitClientForm()" class="modal-form">
         <div class="form-group">
-          <label>Client / Business Name *</label>
-          <input type="text" [(ngModel)]="clientFormData.clientName" name="cName" placeholder="e.g. MMR Constructions" class="dash-input" required />
+          <label>Client / Business Name <span class="required">*</span></label>
+          <input type="text" [(ngModel)]="clientFormData.clientName" name="cName" placeholder="e.g. MMR Constructions" class="dash-input modern-input" required />
         </div>
 
-        <div class="form-group">
-          <label>Contact Person</label>
-          <input type="text" [(ngModel)]="clientFormData.contactPerson" name="cPerson" placeholder="e.g. Rajesh Sharma" class="dash-input" />
-        </div>
-
-        <div class="form-group">
-          <label>Mobile Number (10 Digits)</label>
-          <input type="text" [(ngModel)]="clientFormData.mobile" name="cMobile" placeholder="9878789878" class="dash-input" />
+        <div class="form-grid-2">
+          <div class="form-group">
+            <label>Contact Person</label>
+            <input type="text" [(ngModel)]="clientFormData.contactPerson" name="cPerson" placeholder="e.g. Rajesh Sharma" class="dash-input modern-input" />
+          </div>
+          <div class="form-group">
+            <label>Mobile Number (10 Digits)</label>
+            <input type="text" [(ngModel)]="clientFormData.mobile" name="cMobile" placeholder="9878789878" class="dash-input modern-input" />
+          </div>
         </div>
 
         <div class="form-group">
           <label>Email Address</label>
-          <input type="email" [(ngModel)]="clientFormData.email" name="cEmail" placeholder="client@company.com" class="dash-input" />
+          <input type="email" [(ngModel)]="clientFormData.email" name="cEmail" placeholder="client@company.com" class="dash-input modern-input" />
         </div>
 
         <div class="form-group">
           <label>Address</label>
-          <textarea [(ngModel)]="clientFormData.address" name="cAddress" rows="2" class="dash-textarea"></textarea>
+          <textarea [(ngModel)]="clientFormData.address" name="cAddress" rows="2" placeholder="Full street / office address" class="dash-textarea modern-textarea"></textarea>
         </div>
 
-        <div class="form-grid">
+        <div class="form-grid-2">
           <div class="form-group">
             <label>State</label>
-            <input type="text" [(ngModel)]="clientFormData.state" name="cState" placeholder="Uttar Pradesh" class="dash-input" />
+            <input type="text" [(ngModel)]="clientFormData.state" name="cState" placeholder="Uttar Pradesh" class="dash-input modern-input" />
           </div>
           <div class="form-group">
             <label>State Code</label>
-            <input type="text" [(ngModel)]="clientFormData.stateCode" name="cCode" placeholder="09" class="dash-input" />
+            <input type="text" [(ngModel)]="clientFormData.stateCode" name="cCode" placeholder="09" class="dash-input modern-input" />
           </div>
         </div>
 
         <div class="form-group">
           <label>GSTIN (15 Alphanumeric)</label>
-          <input type="text" [(ngModel)]="clientFormData.gstin" name="cGstin" placeholder="09AABBA7890B1ZB" class="dash-input" />
+          <input type="text" [(ngModel)]="clientFormData.gstin" name="cGstin" placeholder="09AABBA7890B1ZB" class="dash-input modern-input" />
         </div>
 
         <div class="modal-footer-actions">
-          <button type="button" class="action-btn-secondary" (click)="closeClientModal()">Cancel</button>
-          <button type="submit" [disabled]="isSavingClient" class="action-btn-primary">
-            {{ isSavingClient ? 'Saving...' : 'Save Client' }}
+          <button type="button" class="btn-cancel" (click)="closeClientModal()">Cancel</button>
+          <button type="submit" [disabled]="isSavingClient" class="btn-primary-action">
+            {{ isSavingClient ? 'Saving Client...' : '💾 Save Client' }}
           </button>
         </div>
       </form>

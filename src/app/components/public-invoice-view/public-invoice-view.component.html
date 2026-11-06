@@ -42,7 +42,7 @@
       </div>
       <div class="info-block">
         <span class="lbl">Invoice Date</span>
-        <span class="val">{{ invoice.invoiceDate }}</span>
+        <span class="val">{{ formatDisplayDate(invoice.invoiceDate) }}</span>
       </div>
       <div class="info-block">
         <span class="lbl">Client / Recipient</span>
@@ -50,7 +50,7 @@
       </div>
       <div class="info-block">
         <span class="lbl">Payment Due Date</span>
-        <span class="val">{{ invoice.dueDate || 'Upon Receipt' }}</span>
+        <span class="val">{{ formatDisplayDate(invoice.dueDate) }}</span>
       </div>
     </div>
 
@@ -59,9 +59,9 @@
       <div class="sub-badge">📅 Active Subscription</div>
       <div class="sub-grid">
         <div><span class="sub-lbl">Plan Name:</span> <strong>{{ invoice.planName || 'Digital Solutions & Cloud Hosting' }}</strong></div>
-        <div><span class="sub-lbl">Start Date:</span> {{ invoice.serviceStartDate || invoice.invoiceDate }}</div>
-        <div><span class="sub-lbl">Expiry Date:</span> <strong class="exp-date">{{ invoice.serviceExpiryDate || 'Ongoing' }}</strong></div>
-        <div><span class="sub-lbl">Renewal Due:</span> {{ invoice.renewalDueDate || invoice.dueDate }}</div>
+        <div><span class="sub-lbl">Start Date:</span> {{ formatDisplayDate(invoice.serviceStartDate || invoice.invoiceDate) }}</div>
+        <div><span class="sub-lbl">Expiry Date:</span> <strong class="exp-date">{{ formatDisplayDate(invoice.serviceExpiryDate) }}</strong></div>
+        <div><span class="sub-lbl">Renewal Due:</span> {{ formatDisplayDate(invoice.renewalDueDate || invoice.dueDate) }}</div>
       </div>
     </div>
 
@@ -102,7 +102,7 @@
           <tr *ngFor="let p of invoice.payments; let idx = index">
             <td>{{ idx + 1 }}</td>
             <td class="font-mono">{{ p.paymentId || ('RCPT-' + (idx + 1)) }}</td>
-            <td>{{ p.paymentDate }}</td>
+            <td>{{ formatDisplayDate(p.paymentDate) }}</td>
             <td><span class="mode-badge">{{ p.mode || 'UPI' }}</span></td>
             <td class="amt-col"><strong>{{ formatINR(p.amountPaid) }}</strong></td>
             <td>{{ p.note || 'Confirmed' }}</td>
@@ -177,7 +177,7 @@
         🔒 <em>Security Notice: Personal contact numbers and street addresses are obscured for recipient data privacy.</em>
       </p>
       <p class="help-note">
-        Questions? Contact <strong>{{ company?.contact || '8299209905' }}</strong> or email <strong>{{ company?.email || 'support@yogtech.com' }}</strong>
+        Questions? Contact <strong>{{ company?.contact || '8299209905' }}</strong> or email <strong>{{ company?.email || 'support@yogteck.com' }}</strong>
       </p>
     </div>
 

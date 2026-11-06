@@ -1503,10 +1503,39 @@
 .b-l { font-weight: 600; width: 65px; display: inline-block; }
 
 .bank-sub-right {
-  width: 35%;
-  padding: 6px;
+  width: 38%;
+  padding: 4px;
   text-align: center;
-  border-left: 1px solid #e2e8f0;
+  border-left: 1px solid #000000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.qr-scanner-wrapper {
+  background: #ffffff;
+}
+
+.payment-qr-img {
+  width: 92px;
+  height: 92px;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto;
+  border: 1px solid #e2e8f0;
+  padding: 2px;
+  background: #ffffff;
+}
+
+.qr-pay-caption {
+  font-size: 8.5px;
+  font-weight: 800;
+  color: #0f172a;
+  margin-top: 3px;
+  text-align: center;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
 }
 
 .qr-mock-box {

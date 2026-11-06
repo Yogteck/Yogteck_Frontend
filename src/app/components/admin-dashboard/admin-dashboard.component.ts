@@ -70,6 +70,8 @@ export class AdminDashboardComponent implements OnInit {
     clientId: '',
     invoiceDate: new Date().toISOString().slice(0, 10),
     dueDate: new Date(Date.now() + 7 * 86400000).toISOString().slice(0, 10),
+    paymentDate: new Date().toISOString().slice(0, 10),
+    status: 'Paid' as 'Paid' | 'Unpaid' | 'Partially Paid',
     notes: '',
     challanNo: '',
     challanDate: '',
@@ -83,11 +85,11 @@ export class AdminDashboardComponent implements OnInit {
     items: [
       {
         description: 'Web Application & Cloud Software Development',
-        hsnSac: '998314',
+        paymentDate: new Date().toISOString().slice(0, 10),
         qty: 1,
         unit: 'NOS',
         rate: 5000,
-        taxPercent: 18
+        taxPercent: 0
       }
     ]
   };
@@ -296,6 +298,8 @@ export class AdminDashboardComponent implements OnInit {
       clientId: this.allClients.length > 0 ? this.allClients[0].clientId : '',
       invoiceDate: new Date().toISOString().slice(0, 10),
       dueDate: new Date(Date.now() + 7 * 86400000).toISOString().slice(0, 10),
+      paymentDate: new Date().toISOString().slice(0, 10),
+      status: 'Paid',
       notes: '',
       challanNo: '',
       challanDate: '',
@@ -309,11 +313,11 @@ export class AdminDashboardComponent implements OnInit {
       items: [
         {
           description: 'Web Application & Cloud Software Development',
-          hsnSac: '998314',
+          paymentDate: new Date().toISOString().slice(0, 10),
           qty: 1,
           unit: 'NOS',
           rate: 5000,
-          taxPercent: 18
+          taxPercent: 0
         }
       ]
     };
@@ -331,6 +335,8 @@ export class AdminDashboardComponent implements OnInit {
       clientId: inv.clientId,
       invoiceDate: inv.invoiceDate,
       dueDate: inv.dueDate || '',
+      paymentDate: inv.paymentDate || inv.invoiceDate,
+      status: inv.status || 'Paid',
       notes: inv.notes || '',
       challanNo: inv.challanNo || '',
       challanDate: inv.challanDate || '',
@@ -343,13 +349,13 @@ export class AdminDashboardComponent implements OnInit {
       renewalDueDate: inv.renewalDueDate || '',
       items: (inv.items && inv.items.length > 0) ? inv.items.map(item => ({
         description: item.description,
-        hsnSac: item.hsnSac || '998314',
+        paymentDate: item.paymentDate || inv.paymentDate || inv.invoiceDate,
         qty: item.qty || 1,
         unit: item.unit || 'NOS',
         rate: item.rate || 0,
-        taxPercent: item.taxPercent !== undefined ? item.taxPercent : 18
+        taxPercent: 0
       })) : [
-        { description: '', hsnSac: '998314', qty: 1, unit: 'NOS', rate: 0, taxPercent: 18 }
+        { description: '', paymentDate: new Date().toISOString().slice(0, 10), qty: 1, unit: 'NOS', rate: 0, taxPercent: 0 }
       ]
     };
 
@@ -366,11 +372,11 @@ export class AdminDashboardComponent implements OnInit {
   addInvoiceItemRow(): void {
     this.newInvoiceData.items.push({
       description: '',
-      hsnSac: '998314',
+      paymentDate: this.newInvoiceData.paymentDate || new Date().toISOString().slice(0, 10),
       qty: 1,
       unit: 'NOS',
       rate: 0,
-      taxPercent: 18
+      taxPercent: 0
     });
   }
 
@@ -388,15 +394,11 @@ export class AdminDashboardComponent implements OnInit {
   }
 
   get computedTaxTotal(): number {
-    return this.newInvoiceData.items.reduce((sum, item) => {
-      const lineTaxable = (Number(item.qty) || 0) * (Number(item.rate) || 0);
-      const tax = (lineTaxable * (Number(item.taxPercent) || 0)) / 100;
-      return sum + tax;
-    }, 0);
+    return 0; // Tax column removed
   }
 
   get computedGrandTotal(): number {
-    return this.computedTaxableTotal + this.computedTaxTotal;
+    return this.computedTaxableTotal;
   }
 
   get selectedClient(): ClientRecord | null {
@@ -407,10 +409,28 @@ export class AdminDashboardComponent implements OnInit {
   getItemTotal(item: any): number {
     const qty = Number(item.qty) || 0;
     const rate = Number(item.rate) || 0;
-    const taxPercent = Number(item.taxPercent) || 0;
-    const taxable = qty * rate;
-    const tax = (taxable * taxPercent) / 100;
-    return Math.round((taxable + tax) * 100) / 100;
+    return Math.round(qty * rate * 100) / 100;
+  }
+
+  formatDisplayDate(d: string | null | undefined): string {
+    if (!d) return '-';
+    const str = String(d).trim();
+    if (!str) return '-';
+    if (/^\d{2}\/\d{2}\/\d{4}$/.test(str)) return str;
+    if (/^\d{4}-\d{2}-\d{2}/.test(str)) {
+      const p = str.slice(0, 10).split('-');
+      return `${p[2]}/${p[1]}/${p[0]}`;
+    }
+    if (/^\d{2}-\d{2}-\d{4}$/.test(str)) {
+      const p = str.split('-');
+      return `${p[0]}/${p[1]}/${p[2]}`;
+    }
+    const dt = new Date(str);
+    if (isNaN(dt.getTime())) return str;
+    const dd = String(dt.getDate()).padStart(2, '0');
+    const mm = String(dt.getMonth() + 1).padStart(2, '0');
+    const yyyy = dt.getFullYear();
+    return `${dd}/${mm}/${yyyy}`;
   }
 
   async submitCreateInvoice(): Promise<void> {
@@ -432,8 +452,20 @@ export class AdminDashboardComponent implements OnInit {
 
     this.isSavingInvoice = true;
     try {
+      const total = this.computedGrandTotal;
+      const isPaid = this.newInvoiceData.status === 'Paid';
+      const invoicePayload = {
+        ...this.newInvoiceData,
+        taxableTotal: total,
+        taxTotal: 0,
+        grandTotal: total,
+        totalPaid: isPaid ? total : 0,
+        balanceDue: isPaid ? 0 : total,
+        paymentDate: isPaid ? (this.newInvoiceData.paymentDate || this.newInvoiceData.invoiceDate) : ''
+      };
+
       if (this.isEditingInvoice) {
-        const res = await this.invoiceService.updateInvoice(this.editingInvoiceNo, this.newInvoiceData);
+        const res = await this.invoiceService.updateInvoice(this.editingInvoiceNo, invoicePayload);
         if (res.success && res.invoice) {
           alert(`Invoice ${this.editingInvoiceNo} updated successfully!`);
           this.closeCreateInvoiceModal();
@@ -445,7 +477,7 @@ export class AdminDashboardComponent implements OnInit {
           alert(res.message || 'Failed to update invoice.');
         }
       } else {
-        const res = await this.invoiceService.createInvoice(this.newInvoiceData);
+        const res = await this.invoiceService.createInvoice(invoicePayload);
         if (res.success && res.invoice) {
           alert(`Invoice ${res.invoice.invoiceNo} created successfully!`);
           this.closeCreateInvoiceModal();

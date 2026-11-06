@@ -67,5 +67,26 @@ export class PublicInvoiceViewComponent implements OnInit {
     const formattedInt = otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ',') + lastThree;
     return `${isNegative ? '-' : ''}₹${formattedInt}.${decPart}`;
   }
+
+  formatDisplayDate(d: string | null | undefined): string {
+    if (!d) return '-';
+    const str = String(d).trim();
+    if (!str) return '-';
+    if (/^\d{2}\/\d{2}\/\d{4}$/.test(str)) return str;
+    if (/^\d{4}-\d{2}-\d{2}/.test(str)) {
+      const p = str.slice(0, 10).split('-');
+      return `${p[2]}/${p[1]}/${p[0]}`;
+    }
+    if (/^\d{2}-\d{2}-\d{4}$/.test(str)) {
+      const p = str.split('-');
+      return `${p[0]}/${p[1]}/${p[2]}`;
+    }
+    const dt = new Date(str);
+    if (isNaN(dt.getTime())) return str;
+    const dd = String(dt.getDate()).padStart(2, '0');
+    const mm = String(dt.getMonth() + 1).padStart(2, '0');
+    const yyyy = dt.getFullYear();
+    return `${dd}/${mm}/${yyyy}`;
+  }
 }
 

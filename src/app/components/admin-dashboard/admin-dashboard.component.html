@@ -103,7 +103,7 @@
           <div class="inv-card-header">
             <div>
               <span class="inv-badge-no">{{ inv.invoiceNo }}</span>
-              <span class="inv-date">{{ inv.invoiceDate }}</span>
+              <span class="inv-date">{{ formatDisplayDate(inv.invoiceDate) }}</span>
             </div>
             <span class="status-tag" [ngClass]="{
               'tag-paid': inv.status === 'Paid',
@@ -135,7 +135,7 @@
 
             <!-- Latest Payment Micro-Strip -->
             <div *ngIf="inv.latestPayment" class="recent-payment-chip">
-              ⚡ Latest: {{ formatINR(inv.latestPayment.amountPaid) }} on {{ inv.latestPayment.paymentDate }} ({{ inv.latestPayment.mode }})
+              ⚡ Latest: {{ formatINR(inv.latestPayment.amountPaid) }} on {{ formatDisplayDate(inv.latestPayment.paymentDate) }} ({{ inv.latestPayment.mode }})
             </div>
           </div>
 
@@ -462,7 +462,7 @@
               <td class="m-lbl">Invoice No.</td>
               <td class="m-val"><strong>{{ inv.invoiceNo }}</strong></td>
               <td class="m-lbl">Invoice Date</td>
-              <td class="m-val">{{ inv.invoiceDate }}</td>
+              <td class="m-val">{{ formatDisplayDate(inv.invoiceDate) }}</td>
             </tr>
             <tr *ngIf="inv.planName">
               <td class="m-lbl">Active Plan</td>
@@ -470,15 +470,15 @@
             </tr>
             <tr *ngIf="inv.serviceStartDate">
               <td class="m-lbl">Plan Start</td>
-              <td class="m-val">{{ inv.serviceStartDate }}</td>
+              <td class="m-val">{{ formatDisplayDate(inv.serviceStartDate) }}</td>
               <td class="m-lbl">Plan Expiry</td>
-              <td class="m-val">{{ inv.serviceExpiryDate || '-' }}</td>
+              <td class="m-val">{{ formatDisplayDate(inv.serviceExpiryDate) }}</td>
             </tr>
             <tr *ngIf="inv.challanNo">
               <td class="m-lbl">Challan No</td>
               <td class="m-val">{{ inv.challanNo }}</td>
               <td class="m-lbl">Challan Date</td>
-              <td class="m-val">{{ inv.challanDate || '-' }}</td>
+              <td class="m-val">{{ formatDisplayDate(inv.challanDate) }}</td>
             </tr>
             <tr *ngIf="inv.ewayBillNo">
               <td class="m-lbl">E-Way Bill No.</td>
@@ -492,45 +492,36 @@
             </tr>
             <tr>
               <td class="m-lbl">Due Date</td>
-              <td class="m-val" colspan="3">{{ inv.dueDate || 'Upon Receipt' }}</td>
+              <td class="m-val" colspan="3">{{ formatDisplayDate(inv.dueDate) }}</td>
             </tr>
           </table>
         </div>
       </div>
 
-      <!-- Items Table -->
+      <!-- Items Table (Without HSN/Tax; With Payment Date) -->
       <table class="inv-items-table">
         <thead>
           <tr>
-            <th style="width: 5%;">Sr. No.</th>
-            <th style="width: 40%;">Name of Product / Service</th>
-            <th style="width: 10%;">HSN / SAC</th>
-            <th style="width: 7%;">Qty</th>
+            <th style="width: 6%;">Sr. No.</th>
+            <th style="width: 44%;">Name of Product / Service</th>
+            <th style="width: 16%;">Payment Date</th>
+            <th style="width: 10%;">Qty</th>
             <th style="width: 12%;">Rate</th>
-            <th style="width: 12%;">Taxable Value</th>
-            <th *ngIf="companyMaster?.gstEnabled !== 'No'" style="width: 7%;">Tax %</th>
-            <th *ngIf="companyMaster?.gstEnabled !== 'No'" style="width: 10%;">Tax Amt</th>
-            <th style="width: 14%;">Total</th>
+            <th style="width: 12%;">Total</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let item of inv.items; let i = index">
             <td class="t-center">{{ i + 1 }}</td>
             <td class="t-left"><strong>{{ item.description }}</strong></td>
-            <td class="t-center">{{ item.hsnSac || '-' }}</td>
+            <td class="t-center">{{ formatDisplayDate(item.paymentDate || inv.paymentDate || inv.invoiceDate) }}</td>
             <td class="t-center">{{ item.qty }} {{ item.unit || 'NOS' }}</td>
             <td class="t-right">{{ formatINR(item.rate) }}</td>
-            <td class="t-right">{{ formatINR(item.taxableValue || (item.qty * item.rate)) }}</td>
-            <td *ngIf="companyMaster?.gstEnabled !== 'No'" class="t-center">{{ item.taxPercent }}%</td>
-            <td *ngIf="companyMaster?.gstEnabled !== 'No'" class="t-right">{{ formatINR(item.taxAmount || 0) }}</td>
-            <td class="t-right"><strong>{{ formatINR(item.lineTotal || 0) }}</strong></td>
+            <td class="t-right"><strong>{{ formatINR(item.lineTotal || (item.qty * item.rate)) }}</strong></td>
           </tr>
           <tr class="inv-total-row">
-            <td colspan="5" class="t-right"><strong>Total</strong></td>
-            <td class="t-right"><strong>{{ formatINR(inv.taxableTotal) }}</strong></td>
-            <td *ngIf="companyMaster?.gstEnabled !== 'No'"></td>
-            <td *ngIf="companyMaster?.gstEnabled !== 'No'" class="t-right"><strong>{{ formatINR(inv.taxTotal) }}</strong></td>
-            <td class="t-right"><strong>{{ formatINR(inv.grandTotal) }}</strong></td>
+            <td colspan="4" class="t-right"><strong>Total Amount</strong></td>
+            <td colspan="2" class="t-right"><strong>{{ formatINR(inv.grandTotal) }}</strong></td>
           </tr>
         </tbody>
       </table>
@@ -546,17 +537,15 @@
           <div class="bank-box-row">
             <div class="bank-sub-left">
               <div class="b-hdr">Bank Details</div>
-              <div><span class="b-l">Name:</span> <strong>{{ companyMaster?.bankName }}</strong></div>
-              <div><span class="b-l">Branch:</span> {{ companyMaster?.branch }}</div>
-              <div><span class="b-l">Acc. No:</span> <strong>{{ companyMaster?.accountNo }}</strong></div>
-              <div><span class="b-l">IFSC:</span> <strong>{{ companyMaster?.ifsc }}</strong></div>
+              <div><span class="b-l">Name:</span> <strong>{{ companyMaster?.bankName || 'BANK OF INDIA' }}</strong></div>
+              <div><span class="b-l">Branch:</span> {{ companyMaster?.branch || 'Kanpur' }}</div>
+              <div><span class="b-l">Acc. No:</span> <strong>{{ companyMaster?.accountNo || '731410110007057' }}</strong></div>
+              <div><span class="b-l">IFSC:</span> <strong>{{ companyMaster?.ifsc || 'BKID0007336' }}</strong></div>
               <div *ngIf="companyMaster?.upiId"><span class="b-l">UPI ID:</span> <strong>{{ companyMaster?.upiId }}</strong></div>
             </div>
-            <div class="bank-sub-right">
-              <div class="qr-mock-box">
-                <div class="qr-label-txt">Scan to check balance</div>
-                <div class="qr-link-hint">/invoice/view/{{ inv.publicToken }}</div>
-              </div>
+            <div class="bank-sub-right qr-scanner-wrapper">
+              <img src="/assets/payment-qr.jpg" alt="UPI Scanner" class="payment-qr-img" />
+              <div class="qr-pay-caption">Pay using UPI</div>
             </div>
           </div>
 
@@ -570,16 +559,8 @@
 
         <div class="inv-footer-right">
           <table class="calc-sub-tbl">
-            <tr>
-              <td>Taxable Amount</td>
-              <td class="t-right">{{ formatINR(inv.taxableTotal) }}</td>
-            </tr>
-            <tr *ngIf="companyMaster?.gstEnabled !== 'No'">
-              <td>Total Tax</td>
-              <td class="t-right">{{ formatINR(inv.taxTotal) }}</td>
-            </tr>
             <tr class="grand-tot-row">
-              <td>Total Amount After Tax</td>
+              <td>Total Amount</td>
               <td class="t-right" style="font-size: 14px;"><strong>{{ formatINR(inv.grandTotal) }}</strong></td>
             </tr>
           </table>
@@ -589,7 +570,7 @@
           <!-- Payments Received Table -->
           <div class="payments-box-sub">
             <div class="p-hdr">
-              <span>Payments Received</span>
+              <span>Payment Details</span>
               <span class="status-tag" [ngClass]="{
                 'tag-paid': inv.status === 'Paid',
                 'tag-partially': inv.status === 'Partially Paid',
@@ -605,7 +586,7 @@
                 <tbody>
                   <tr *ngFor="let p of inv.payments; let pIdx = index">
                     <td>{{ pIdx + 1 }}</td>
-                    <td>{{ p.paymentDate }}</td>
+                    <td>{{ formatDisplayDate(p.paymentDate) }}</td>
                     <td>{{ p.mode }}</td>
                     <td class="t-right"><strong>{{ formatINR(p.amountPaid) }}</strong></td>
                   </tr>
@@ -613,7 +594,8 @@
               </table>
             </div>
             <ng-template #noPymts>
-              <div class="no-pymt-msg">No payments recorded yet.</div>
+              <div class="no-pymt-msg" *ngIf="inv.status !== 'Paid'">No payments recorded yet.</div>
+              <div class="no-pymt-msg" *ngIf="inv.status === 'Paid'">Full Payment Recorded on {{ formatDisplayDate(inv.paymentDate || inv.invoiceDate) }}.</div>
             </ng-template>
 
             <div class="pymt-totals-row">
@@ -629,7 +611,7 @@
           <!-- Signatory -->
           <div class="signatory-sub">
             <div class="cert-txt">Certified that the particulars given above are true and correct.</div>
-            <div class="for-co">For {{ companyMaster?.companyName }}</div>
+            <div class="for-co">For {{ companyMaster?.companyName || 'YOGTECK Business Solutions' }}</div>
             <div class="slanted-comp-note">This is a computer generated invoice, no signature required.</div>
             <div class="auth-line">Authorised Signatory</div>
           </div>
@@ -749,8 +731,8 @@
             </div>
           </div>
 
-          <!-- Invoice Details 3 Columns -->
-          <div class="form-grid-3">
+          <!-- Invoice & Payment Status Controls -->
+          <div class="form-grid-4">
             <div class="form-group">
               <label>Invoice Number</label>
               <div class="readonly-input-wrap">
@@ -763,8 +745,16 @@
               <input type="date" [(ngModel)]="newInvoiceData.invoiceDate" name="invDate" class="dash-input modern-input" required />
             </div>
             <div class="form-group">
-              <label>Payment Due Date</label>
-              <input type="date" [(ngModel)]="newInvoiceData.dueDate" name="dueDate" class="dash-input modern-input" />
+              <label>Payment Status <span class="required">*</span></label>
+              <select [(ngModel)]="newInvoiceData.status" name="invStatus" class="dash-select modern-select font-bold">
+                <option value="Paid">✅ Paid</option>
+                <option value="Unpaid">⏳ Unpaid</option>
+                <option value="Partially Paid">⚡ Partially Paid</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Payment Date</label>
+              <input type="date" [(ngModel)]="newInvoiceData.paymentDate" name="invPaymentDate" class="dash-input modern-input" />
             </div>
           </div>
         </div>
@@ -857,13 +847,12 @@
               <thead>
                 <tr>
                   <th style="width: 32px;" class="text-center">#</th>
-                  <th style="min-width: 240px;">Description of Product / Service <span class="required">*</span></th>
-                  <th style="width: 95px;">HSN/SAC</th>
-                  <th style="width: 70px;">Qty</th>
-                  <th style="width: 75px;">Unit</th>
-                  <th style="width: 110px;">Rate (₹) <span class="required">*</span></th>
-                  <th style="width: 85px;">Tax %</th>
-                  <th style="width: 105px;" class="text-right">Total (₹)</th>
+                  <th style="min-width: 250px;">Description of Product / Service <span class="required">*</span></th>
+                  <th style="width: 140px;">Payment Date</th>
+                  <th style="width: 80px;">Qty</th>
+                  <th style="width: 80px;">Unit</th>
+                  <th style="width: 130px;">Rate (₹) <span class="required">*</span></th>
+                  <th style="width: 130px;" class="text-right">Total (₹)</th>
                   <th style="width: 40px;" class="text-center"></th>
                 </tr>
               </thead>
@@ -875,17 +864,16 @@
                       type="text" 
                       [(ngModel)]="item.description" 
                       [name]="'desc_' + idx" 
-                      placeholder="e.g. Cloud Hosting & Server Management" 
+                      placeholder="e.g. Web Application & Cloud Software Development" 
                       class="dash-input modern-input table-input" 
                       required 
                     />
                   </td>
                   <td>
                     <input 
-                      type="text" 
-                      [(ngModel)]="item.hsnSac" 
-                      [name]="'hsn_' + idx" 
-                      placeholder="998314" 
+                      type="date" 
+                      [(ngModel)]="item.paymentDate" 
+                      [name]="'paydate_' + idx" 
                       class="dash-input modern-input table-input text-center" 
                     />
                   </td>
@@ -917,19 +905,6 @@
                       class="dash-input modern-input table-input text-right font-medium" 
                       required 
                     />
-                  </td>
-                  <td>
-                    <select 
-                      [(ngModel)]="item.taxPercent" 
-                      [name]="'tax_' + idx" 
-                      class="dash-select modern-select table-select"
-                    >
-                      <option [value]="0">0%</option>
-                      <option [value]="5">5%</option>
-                      <option [value]="12">12%</option>
-                      <option [value]="18">18%</option>
-                      <option [value]="28">28%</option>
-                    </select>
                   </td>
                   <td class="text-right line-total-cell">
                     {{ formatINR(getItemTotal(item)) }}
@@ -969,17 +944,14 @@
       <div class="modal-sticky-footer">
         <div class="footer-totals-card">
           <div class="total-chunk">
-            <span class="chunk-label">Taxable Amount</span>
-            <span class="chunk-val">{{ formatINR(computedTaxableTotal) }}</span>
-          </div>
-          <div class="total-divider"></div>
-          <div class="total-chunk">
-            <span class="chunk-label">GST / Tax Amount</span>
-            <span class="chunk-val">{{ formatINR(computedTaxTotal) }}</span>
+            <span class="chunk-label">Payment Status</span>
+            <span class="chunk-val font-bold" [style.color]="newInvoiceData.status === 'Paid' ? '#10b981' : '#f59e0b'">
+              {{ newInvoiceData.status }}
+            </span>
           </div>
           <div class="total-divider"></div>
           <div class="total-chunk grand-total-chunk">
-            <span class="chunk-label">Grand Total</span>
+            <span class="chunk-label">Total Amount</span>
             <span class="chunk-val-grand">{{ formatINR(computedGrandTotal) }}</span>
           </div>
         </div>

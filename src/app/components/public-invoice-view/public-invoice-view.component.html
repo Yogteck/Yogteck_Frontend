@@ -1,0 +1,187 @@
+<div class="public-container">
+  
+  <!-- Loading State -->
+  <div *ngIf="isLoading" class="state-card loading-state">
+    <div class="spinner"></div>
+    <p>Loading invoice balance details...</p>
+  </div>
+
+  <!-- Error State -->
+  <div *ngIf="!isLoading && errorMessage" class="state-card error-state">
+    <div class="error-icon">⚠️</div>
+    <h2>Invoice Unavailable</h2>
+    <p>{{ errorMessage }}</p>
+    <a routerLink="/" class="home-btn">Return to Homepage</a>
+  </div>
+
+  <!-- Invoice Data View -->
+  <div *ngIf="!isLoading && !errorMessage && invoice" class="invoice-card">
+    
+    <!-- Header -->
+    <div class="card-header">
+      <div class="header-left">
+        <h1 class="company-name">{{ company?.companyName || 'YOGTECK Business Solutions' }}</h1>
+        <p class="company-sub">Digital Consultation & Verified Invoicing Portal</p>
+      </div>
+      <div class="header-right">
+        <span class="status-pill" [ngClass]="{
+          'status-paid': invoice.status === 'Paid',
+          'status-partially': invoice.status === 'Partially Paid',
+          'status-unpaid': invoice.status === 'Unpaid'
+        }">
+          {{ invoice.status }}
+        </span>
+      </div>
+    </div>
+
+    <!-- Invoice Key Info Box -->
+    <div class="info-grid">
+      <div class="info-block">
+        <span class="lbl">Invoice Number</span>
+        <span class="val inv-no">{{ invoice.invoiceNo }}</span>
+      </div>
+      <div class="info-block">
+        <span class="lbl">Invoice Date</span>
+        <span class="val">{{ invoice.invoiceDate }}</span>
+      </div>
+      <div class="info-block">
+        <span class="lbl">Client / Recipient</span>
+        <span class="val">{{ invoice.client?.clientName || 'Valued Client' }} ({{ invoice.client?.state || 'India' }})</span>
+      </div>
+      <div class="info-block">
+        <span class="lbl">Payment Due Date</span>
+        <span class="val">{{ invoice.dueDate || 'Upon Receipt' }}</span>
+      </div>
+    </div>
+
+    <!-- Active Subscription Plan & Expiry Details -->
+    <div *ngIf="invoice.planName || invoice.serviceStartDate" class="subscription-strip">
+      <div class="sub-badge">📅 Active Subscription</div>
+      <div class="sub-grid">
+        <div><span class="sub-lbl">Plan Name:</span> <strong>{{ invoice.planName || 'Digital Solutions & Cloud Hosting' }}</strong></div>
+        <div><span class="sub-lbl">Start Date:</span> {{ invoice.serviceStartDate || invoice.invoiceDate }}</div>
+        <div><span class="sub-lbl">Expiry Date:</span> <strong class="exp-date">{{ invoice.serviceExpiryDate || 'Ongoing' }}</strong></div>
+        <div><span class="sub-lbl">Renewal Due:</span> {{ invoice.renewalDueDate || invoice.dueDate }}</div>
+      </div>
+    </div>
+
+    <!-- Financial KPI Summary Cards -->
+    <div class="kpi-row">
+      <div class="kpi-card">
+        <span class="kpi-lbl">Total Invoice Amount</span>
+        <span class="kpi-amt">{{ formatINR(invoice.grandTotal) }}</span>
+      </div>
+      <div class="kpi-card kpi-paid">
+        <span class="kpi-lbl">Total Amount Paid</span>
+        <span class="kpi-amt">{{ formatINR(invoice.totalPaid) }}</span>
+      </div>
+      <div class="kpi-card" [ngClass]="invoice.balanceDue > 0 ? 'kpi-due' : 'kpi-settled'">
+        <span class="kpi-lbl">Balance Due</span>
+        <span class="kpi-amt">{{ formatINR(invoice.balanceDue) }}</span>
+      </div>
+    </div>
+
+    <!-- Payment History Table -->
+    <div class="section-title">
+      <h3>Payment History &amp; Receipts</h3>
+    </div>
+
+    <div *ngIf="invoice.payments && invoice.payments.length > 0; else noPayments" class="table-responsive">
+      <table class="receipt-table">
+        <thead>
+          <tr>
+            <th>Sr No</th>
+            <th>Receipt ID</th>
+            <th>Payment Date</th>
+            <th>Payment Mode</th>
+            <th>Amount Paid</th>
+            <th>Notes / UTR</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let p of invoice.payments; let idx = index">
+            <td>{{ idx + 1 }}</td>
+            <td class="font-mono">{{ p.paymentId || ('RCPT-' + (idx + 1)) }}</td>
+            <td>{{ p.paymentDate }}</td>
+            <td><span class="mode-badge">{{ p.mode || 'UPI' }}</span></td>
+            <td class="amt-col"><strong>{{ formatINR(p.amountPaid) }}</strong></td>
+            <td>{{ p.note || 'Confirmed' }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <ng-template #noPayments>
+      <div class="empty-payments-notice">
+        No payments recorded yet. Please settle the pending balance using the banking or UPI details below.
+      </div>
+    </ng-template>
+
+    <!-- Bank / UPI Payment Info Box -->
+    <div *ngIf="invoice.balanceDue > 0 && company" class="payment-method-box">
+      <h3>Direct Bank Transfer &amp; Instant UPI</h3>
+      <div class="bank-grid">
+        <div><strong>Bank Name:</strong> {{ company.bankName }}</div>
+        <div><strong>Account No:</strong> {{ company.accountNo }}</div>
+        <div><strong>IFSC Code:</strong> {{ company.ifsc }}</div>
+        <div *ngIf="company.upiId"><strong>UPI ID:</strong> <span class="highlight-upi">{{ company.upiId }}</span></div>
+      </div>
+    </div>
+
+    <!-- 9. Important Notes / ज़रूरी सूचना Section (Bilingual) -->
+    <div class="important-notes-card">
+      <div class="notes-header">
+        <h4>ज़रूरी सूचना / Important Notes</h4>
+      </div>
+      <div class="notes-body">
+        
+        <div class="note-item">
+          <h5>1) भुगतान और सर्विस रिन्यूअल / Payment &amp; Service Renewal</h5>
+          <p class="hi-text">
+            यदि भुगतान या रिन्यूअल में देरी होती है, तो सर्विसेज़ की अवधि समाप्त (Expire) हो जाने के कारण आपका प्रोजेक्ट/वेबसाइट कभी भी बंद हो सकता है। इसलिए कृपया सर्विसेज़ को निर्बाध रूप से चालू रखने के लिए समय पर भुगतान या रिन्यूअल कर लें। देरी की स्थिति में किसी भी प्रकार के नुकसान या डेटा/सेवा बाधा के लिए कंपनी उत्तरदायी नहीं होगी।
+          </p>
+          <p class="en-text">
+            Delay in payment or renewal may cause your services to expire and your project/website to go offline at any time. Please make timely payments or renewals to ensure uninterrupted services. The company will not be held responsible for any loss or service interruption caused by delayed payment.
+          </p>
+        </div>
+
+        <div class="note-item">
+          <h5>2) सब्सक्रिप्शन की जानकारी / Subscription &amp; Plan Details</h5>
+          <p class="hi-text">
+            अपने सब्सक्रिप्शन से जुड़ी पूरी जानकारी देखने के लिए इस इनवॉइस पर दिए गए QR कोड को स्कैन करें। वहाँ आपको पूरा इनवॉइस दिखेगा, जिसमें आपके सभी प्लान, उनकी शुरुआत और समाप्ति की तिथियाँ (Expiry), भुगतान का इतिहास और बाकी रकम (Balance Due) सहित सभी संबंधित विवरण उपलब्ध होंगे।
+          </p>
+          <p class="en-text">
+            Scan the QR code on this invoice to view your full live invoice portal, active plan details, start and expiry dates, payment transaction history, and balance due.
+          </p>
+        </div>
+
+        <div class="note-item">
+          <h5>3) क्लाइंट द्वारा उपलब्ध कराई जाने वाली सामग्री / Materials &amp; External Resources to be Provided by Client</h5>
+          <p class="hi-text">
+            प्रोजेक्ट से जुड़ी सभी बाहरी (External) फाइलें, सेवाएँ और संसाधन क्लाइंट/पार्टी को ही उपलब्ध कराने होंगे। उदाहरण के लिए:<br>
+            &bull; पेमेंट गेटवे (Payment Gateway) का अकाउंट/क्रेडेंशियल्स क्लाइंट द्वारा उपलब्ध कराया जाएगा।<br>
+            &bull; प्रोजेक्ट से जुड़ी क्लाइंट की अपनी फाइलें, जैसे CAD ड्रॉइंग्स, लोगो, कंटेंट, फोटो और अन्य दस्तावेज़ (जैसे MMR Constructions के प्रोजेक्ट में उनकी CAD फाइलें) क्लाइंट को ही देनी होंगी।<br>
+            इन सामग्रियों के अभाव या देरी से होने वाली किसी भी बाधा या विलंब की ज़िम्मेदारी कंपनी की नहीं होगी।
+          </p>
+          <p class="en-text">
+            All external files, accounts, and resources required for the project (e.g. payment gateway credentials, CAD drawings, logo, content, photos) must be provided by the client; the company cannot be held responsible for any delay or delivery disruption arising from their absence.
+          </p>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Security & Privacy Disclaimer -->
+    <div class="card-footer">
+      <p class="privacy-note">
+        🔒 <em>Security Notice: Personal contact numbers and street addresses are obscured for recipient data privacy.</em>
+      </p>
+      <p class="help-note">
+        Questions? Contact <strong>{{ company?.contact || '8299209905' }}</strong> or email <strong>{{ company?.email || 'support@yogtech.com' }}</strong>
+      </p>
+    </div>
+
+  </div>
+
+</div>
+

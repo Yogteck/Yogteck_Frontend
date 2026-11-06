@@ -1,314 +1,923 @@
-<div class="dashboard-wrapper">
+<div class="dashboard-shell">
   
-  <!-- 1. Top Navbar / Header -->
-  <header class="dashboard-navbar">
-    <div class="navbar-left">
-      <div class="brand-logo">
-        <span class="brand-yog">YOG</span><span class="brand-teck">TECK</span>
+  <!-- 1. Top Navbar -->
+  <header class="dash-header">
+    <div class="dash-brand">
+      <div class="brand-text">
+        <span class="logo-white">YOG</span><span class="logo-accent">TECK</span>
+        <span class="portal-badge">Admin Portal</span>
       </div>
-      <div class="navbar-divider"></div>
-      <div class="navbar-title">
-        <span class="title-main">Admin Dashboard</span>
-        <span class="title-sub">Inquiry &amp; Lead Management</span>
+      <div class="admin-pill">
+        <span class="pulse-dot"></span>
+        Logged in: <strong>{{ adminUsername }}</strong>
       </div>
     </div>
 
-    <div class="navbar-right">
-      <!-- Live Sync Badge -->
-      <div class="sync-badge" title="Data synchronized with Excel data source">
-        <span class="status-dot"></span>
-        <span class="status-text">Excel Synced</span>
-      </div>
-
-      <!-- Export to Excel Button -->
-      <button (click)="exportExcel()" class="btn-action btn-export" title="Download inquiries as Excel (.xlsx) file">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-          <polyline points="7 10 12 15 17 10"></polyline>
-          <line x1="12" y1="15" x2="12" y2="3"></line>
-        </svg>
-        <span>Export Excel</span>
+    <!-- Navigation Tabs -->
+    <nav class="nav-tabs">
+      <button class="tab-btn" [class.active]="activeTab === 'invoices'" (click)="activeTab = 'invoices'">
+        📄 Invoices ({{ allInvoices.length }})
       </button>
-
-      <!-- Refresh Button -->
-      <button (click)="loadInquiries()" class="btn-action btn-refresh" [disabled]="isLoading" title="Refresh inquiry data">
-        <svg [class.spin-icon]="isLoading" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <polyline points="23 4 23 10 17 10"></polyline>
-          <polyline points="1 20 1 14 7 14"></polyline>
-          <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
-        </svg>
-        <span>Refresh</span>
+      <button class="tab-btn" [class.active]="activeTab === 'clients'" (click)="activeTab = 'clients'">
+        👥 Clients Master ({{ allClients.length }})
       </button>
-
-      <!-- Logout Button -->
-      <button (click)="logout()" id="adminLogoutBtn" class="btn-action btn-logout" title="Sign out of Admin Dashboard">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
-          <polyline points="16 17 21 12 16 7"></polyline>
-          <line x1="21" y1="12" x2="9" y2="12"></line>
-        </svg>
-        <span>Logout</span>
+      <button class="tab-btn" [class.active]="activeTab === 'inquiries'" (click)="activeTab = 'inquiries'">
+        📥 Website Leads ({{ allInquiries.length }})
       </button>
-    </div>
+      <button class="tab-btn" [class.active]="activeTab === 'company'" (click)="activeTab = 'company'">
+        ⚙️ Company Master
+      </button>
+      <button class="logout-btn" (click)="logout()">
+        🚪 Logout
+      </button>
+    </nav>
   </header>
 
-  <!-- 2. Main Content Container -->
-  <main class="dashboard-main">
+  <main class="dash-main">
 
-    <!-- Summary KPI Cards -->
-    <section class="kpi-section">
-      <div class="kpi-card total-inquiries-card">
-        <div class="kpi-header">
-          <span class="kpi-label">TOTAL INQUIRIES</span>
-          <div class="kpi-icon-wrapper">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-              <polyline points="14 2 14 8 20 8"></polyline>
-              <line x1="16" y1="13" x2="8" y2="13"></line>
-              <line x1="16" y1="17" x2="8" y2="17"></line>
-              <polyline points="10 9 9 9 8 9"></polyline>
-            </svg>
-          </div>
+    <!-- ============================================================== -->
+    <!-- TAB 1: INVOICES -->
+    <!-- ============================================================== -->
+    <section *ngIf="activeTab === 'invoices'" class="tab-section">
+      
+      <!-- Financial Counters / KPIs -->
+      <div class="kpi-banner">
+        <div class="kpi-card">
+          <span class="kpi-title">Total Invoiced</span>
+          <span class="kpi-val">{{ formatINR(totalInvoiced) }}</span>
+          <span class="kpi-sub">{{ allInvoices.length }} Invoices generated</span>
         </div>
-        <div class="kpi-value" id="totalInquiriesCount">
-          {{ totalCount }}
+        <div class="kpi-card kpi-success">
+          <span class="kpi-title">Total Collected</span>
+          <span class="kpi-val">{{ formatINR(totalCollected) }}</span>
+          <span class="kpi-sub">Received across all accounts</span>
         </div>
-        <div class="kpi-footer">
-          <span *ngIf="!isFiltered" class="kpi-meta">All records loaded from Excel data source</span>
-          <span *ngIf="isFiltered" class="kpi-meta-highlight">Showing {{ filteredCount }} of {{ totalCount }} filtered inquiries</span>
+        <div class="kpi-card kpi-danger">
+          <span class="kpi-title">Outstanding Balance Due</span>
+          <span class="kpi-val">{{ formatINR(totalPendingDue) }}</span>
+          <span class="kpi-sub">Pending client collection</span>
         </div>
-      </div>
-    </section>
-
-    <!-- Error Alert if any -->
-    <div *ngIf="errorMessage" class="dashboard-alert error" role="alert">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <circle cx="12" cy="12" r="10"></circle>
-        <line x1="12" y1="8" x2="12" y2="12"></line>
-        <line x1="12" y1="16" x2="12.01" y2="16"></line>
-      </svg>
-      <span>{{ errorMessage }}</span>
-      <button (click)="loadInquiries()" class="btn-retry">Retry</button>
-    </div>
-
-    <!-- 3. Filter & Search Toolbar -->
-    <section class="toolbar-card">
-      <div class="toolbar-grid">
-
-        <!-- Search Box -->
-        <div class="search-box">
-          <label for="inquirySearchInput" class="toolbar-label">Search Inquiries</label>
-          <div class="search-input-wrapper">
-            <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <circle cx="11" cy="11" r="8"></circle>
-              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-            </svg>
-            <input
-              type="text"
-              id="inquirySearchInput"
-              [(ngModel)]="searchQuery"
-              (ngModelChange)="onSearchChange()"
-              placeholder="Search name, phone, email, company, requirement..."
-              class="toolbar-input"
-            />
-            <button
-              *ngIf="searchQuery"
-              (click)="searchQuery = ''; onSearchChange()"
-              class="btn-clear-search"
-              title="Clear search"
-            >
-              &times;
-            </button>
-          </div>
-        </div>
-
-        <!-- Dropdown Filter: Service -->
-        <div class="filter-box">
-          <label for="serviceFilterSelect" class="toolbar-label">Filter by Service</label>
-          <div class="select-wrapper">
-            <select
-              id="serviceFilterSelect"
-              [(ngModel)]="selectedService"
-              (ngModelChange)="onFilterChange()"
-              class="toolbar-select"
-            >
-              <option value="ALL">All Services</option>
-              <option *ngFor="let srv of serviceOptions" [value]="srv">
-                {{ srv }}
-              </option>
-            </select>
-            <svg class="select-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <polyline points="6 9 12 15 18 9"></polyline>
-            </svg>
-          </div>
-        </div>
-
-        <!-- Reset Filters Button -->
-        <div class="reset-box">
-          <label class="toolbar-label">&nbsp;</label>
-          <button
-            (click)="resetFilters()"
-            id="resetFiltersBtn"
-            class="btn-reset"
-            [disabled]="!isFiltered"
-            title="Reset all filters and search"
-          >
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <polyline points="1 4 1 10 7 10"></polyline>
-              <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path>
-            </svg>
-            <span>Reset Filters</span>
+        <div class="kpi-card kpi-actions-card">
+          <button class="action-btn-primary" (click)="openCreateInvoiceModal()">
+            ➕ Create New Invoice
+          </button>
+          <button class="action-btn-secondary" (click)="openAddClientModal()">
+            👤 Add New Client
           </button>
         </div>
-
       </div>
 
-      <!-- Active Filter Status Indicator -->
-      <div *ngIf="isFiltered" class="filter-status-bar">
-        <span class="status-badge">
-          Filtered: <strong>{{ filteredCount }}</strong> of {{ totalCount }} inquiries matching criteria
-        </span>
-        <button (click)="resetFilters()" class="clear-all-link">Clear all filters</button>
+      <!-- Search and Filter Bar -->
+      <div class="filter-strip">
+        <div class="search-box">
+          <span class="search-icon">🔍</span>
+          <input 
+            type="text" 
+            [(ngModel)]="invoiceSearchQuery" 
+            (input)="onInvoiceSearchChange()" 
+            placeholder="Search invoice number, client name, phone..." 
+            class="dash-input"
+          />
+        </div>
+
+        <div class="status-filters">
+          <button class="filter-pill" [class.active]="invoiceStatusFilter === 'ALL'" (click)="onInvoiceStatusFilterChange('ALL')">
+            All ({{ allInvoices.length }})
+          </button>
+          <button class="filter-pill pill-unpaid" [class.active]="invoiceStatusFilter === 'Unpaid'" (click)="onInvoiceStatusFilterChange('Unpaid')">
+            Unpaid
+          </button>
+          <button class="filter-pill pill-partially" [class.active]="invoiceStatusFilter === 'Partially Paid'" (click)="onInvoiceStatusFilterChange('Partially Paid')">
+            Partially Paid
+          </button>
+          <button class="filter-pill pill-paid" [class.active]="invoiceStatusFilter === 'Paid'" (click)="onInvoiceStatusFilterChange('Paid')">
+            Paid
+          </button>
+        </div>
       </div>
+
+      <!-- Invoices Cards Grid -->
+      <div *ngIf="filteredInvoices.length > 0; else noInvoicesFound" class="invoices-grid">
+        <div *ngFor="let inv of filteredInvoices" class="inv-card">
+          
+          <div class="inv-card-header">
+            <div>
+              <span class="inv-badge-no">{{ inv.invoiceNo }}</span>
+              <span class="inv-date">{{ inv.invoiceDate }}</span>
+            </div>
+            <span class="status-tag" [ngClass]="{
+              'tag-paid': inv.status === 'Paid',
+              'tag-partially': inv.status === 'Partially Paid',
+              'tag-unpaid': inv.status === 'Unpaid'
+            }">
+              {{ inv.status }}
+            </span>
+          </div>
+
+          <div class="inv-card-body">
+            <h3 class="client-title">{{ inv.client?.clientName || 'Client ' + inv.clientId }}</h3>
+            <div class="client-sub">{{ inv.client?.contactPerson || 'Contact' }} &bull; {{ inv.client?.mobile || 'No Phone' }}</div>
+            
+            <div class="amounts-summary">
+              <div class="amt-line">
+                <span>Grand Total:</span>
+                <strong>{{ formatINR(inv.grandTotal) }}</strong>
+              </div>
+              <div class="amt-line amt-paid">
+                <span>Total Paid:</span>
+                <strong>{{ formatINR(inv.totalPaid) }}</strong>
+              </div>
+              <div class="amt-line amt-due">
+                <span>Balance Due:</span>
+                <strong class="highlight-due">{{ formatINR(inv.balanceDue) }}</strong>
+              </div>
+            </div>
+
+            <!-- Latest Payment Micro-Strip -->
+            <div *ngIf="inv.latestPayment" class="recent-payment-chip">
+              ⚡ Latest: {{ formatINR(inv.latestPayment.amountPaid) }} on {{ inv.latestPayment.paymentDate }} ({{ inv.latestPayment.mode }})
+            </div>
+          </div>
+
+          <div class="inv-card-footer">
+            <button class="card-btn btn-view" (click)="openViewInvoice(inv)">
+              👁️ View More
+            </button>
+            <button *ngIf="inv.balanceDue > 0" class="card-btn btn-pay" (click)="openAddPaymentModal(inv)">
+              💵 + Payment
+            </button>
+            <button class="card-btn btn-pdf" (click)="downloadPdf(inv.invoiceNo)">
+              📥 PDF
+            </button>
+          </div>
+
+        </div>
+      </div>
+
+      <ng-template #noInvoicesFound>
+        <div class="empty-state">
+          <p>No invoices match your search or filter.</p>
+          <button class="action-btn-primary" (click)="openCreateInvoiceModal()">Create First Invoice</button>
+        </div>
+      </ng-template>
+
     </section>
 
-    <!-- 4. Inquiries Data Table Container -->
-    <section class="table-card">
-      
-      <!-- Table Header Bar -->
-      <div class="table-card-header">
-        <div class="table-title-area">
-          <h2 class="table-title">Inquiry Records</h2>
-          <span class="table-sort-badge" title="Inquiries are sorted newest first">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <line x1="12" y1="19" x2="12" y2="5"></line>
-              <polyline points="5 12 12 5 19 12"></polyline>
-            </svg>
-            Newest First (Descending)
-          </span>
+    <!-- ============================================================== -->
+    <!-- TAB 2: CLIENTS MASTER -->
+    <!-- ============================================================== -->
+    <section *ngIf="activeTab === 'clients'" class="tab-section">
+      <div class="section-toolbar">
+        <div class="search-box">
+          <input 
+            type="text" 
+            [(ngModel)]="clientSearchQuery" 
+            (input)="applyClientFilters()" 
+            placeholder="Search client name, contact person, mobile, GSTIN..." 
+            class="dash-input"
+          />
         </div>
-        <div class="table-count-tag">
-          Showing {{ filteredCount }} record{{ filteredCount === 1 ? '' : 's' }}
-        </div>
+        <button class="action-btn-primary" (click)="openAddClientModal()">
+          ➕ Add New Client
+        </button>
       </div>
 
-      <!-- Loading State -->
-      <div *ngIf="isLoading" class="table-state-box">
-        <div class="dashboard-spinner"></div>
-        <p class="state-text">Loading inquiries from Excel data source...</p>
-      </div>
-
-      <!-- Empty State: Total 0 Inquiries -->
-      <div *ngIf="!isLoading && totalCount === 0" class="table-state-box" id="emptyStateNoInquiries">
-        <div class="state-icon">📭</div>
-        <h3 class="state-title">No inquiries found.</h3>
-        <p class="state-desc">New website inquiries submitted by clients will automatically appear here.</p>
-      </div>
-
-      <!-- Empty State: Zero Results matching Filters -->
-      <div *ngIf="!isLoading && totalCount > 0 && filteredCount === 0" class="table-state-box" id="emptyStateNoFilterMatch">
-        <div class="state-icon">🔍</div>
-        <h3 class="state-title">No inquiries match the selected filters.</h3>
-        <p class="state-desc">Try clearing your search query or selecting a different service filter.</p>
-        <button (click)="resetFilters()" class="btn-reset-state">Reset Filters</button>
-      </div>
-
-      <!-- Data Table (Horizontally scrollable for all screen sizes) -->
-      <div *ngIf="!isLoading && filteredCount > 0" class="table-responsive">
-        <table class="inquiry-table" id="adminInquiryTable">
+      <div class="table-container">
+        <table class="dash-table">
           <thead>
             <tr>
-              <th class="col-sno text-center">#</th>
-              <th class="col-date">Date &amp; Time (IST)</th>
-              <th class="col-name">Customer Name</th>
-              <th class="col-company">Company / Business</th>
-              <th class="col-phone">Mobile / WhatsApp</th>
-              <th class="col-email">Email Address</th>
-              <th class="col-service">Required Service</th>
-              <th class="col-message">Requirements / Message</th>
-              <th class="col-ip">IP Address</th>
+              <th>Client ID</th>
+              <th>Client / Business Name</th>
+              <th>Contact Person</th>
+              <th>Mobile</th>
+              <th>Email</th>
+              <th>State (Code)</th>
+              <th>GSTIN</th>
+              <th>Action</th>
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let item of filteredInquiries; let idx = index" class="table-row">
-              
-              <!-- 1. Serial Number -->
-              <td class="col-sno text-center">
-                <span class="sno-badge">{{ item.sno || (filteredCount - idx) }}</span>
+            <tr *ngFor="let c of filteredClients">
+              <td><strong>{{ c.clientId }}</strong></td>
+              <td><strong>{{ c.clientName }}</strong></td>
+              <td>{{ c.contactPerson || '-' }}</td>
+              <td>{{ c.mobile || '-' }}</td>
+              <td>{{ c.email || '-' }}</td>
+              <td>{{ c.state }} ({{ c.stateCode }})</td>
+              <td><code>{{ c.gstin || 'Unregistered' }}</code></td>
+              <td>
+                <button class="sm-btn btn-edit" (click)="openEditClientModal(c)">✏️ Edit</button>
               </td>
-
-              <!-- 2. Date & Time -->
-              <td class="col-date">
-                <div class="date-cell">
-                  <span class="date-val">{{ item.date || 'N/A' }}</span>
-                  <span class="time-val">{{ item.time || '' }}</span>
-                </div>
-              </td>
-
-              <!-- 3. Customer Name -->
-              <td class="col-name">
-                <div class="name-cell">
-                  <span class="customer-name">{{ item.name }}</span>
-                </div>
-              </td>
-
-              <!-- 4. Company Name -->
-              <td class="col-company">
-                <span class="company-name" [class.empty-val]="!item.companyName">
-                  {{ item.companyName || '—' }}
-                </span>
-              </td>
-
-              <!-- 5. Mobile / WhatsApp -->
-              <td class="col-phone">
-                <div class="phone-cell">
-                  <a [href]="'tel:' + item.phone" class="phone-link" title="Click to call">
-                    {{ item.phone }}
-                  </a>
-                  <a 
-                    [href]="'https://wa.me/' + item.phone.replace('+', '').replace(' ', '')"
-                    target="_blank"
-                    rel="noopener"
-                    class="whatsapp-quick-btn"
-                    title="Chat on WhatsApp"
-                  >
-                    💬
-                  </a>
-                </div>
-              </td>
-
-              <!-- 6. Email Address -->
-              <td class="col-email">
-                <a [href]="'mailto:' + item.email" class="email-link" title="Send Email">
-                  {{ item.email }}
-                </a>
-              </td>
-
-              <!-- 7. Service Type -->
-              <td class="col-service">
-                <span class="service-tag">
-                  {{ item.serviceType }}
-                </span>
-              </td>
-
-              <!-- 8. Project Message -->
-              <td class="col-message">
-                <div class="message-content" [title]="item.message">
-                  {{ item.message }}
-                </div>
-              </td>
-
-              <!-- 9. IP Address -->
-              <td class="col-ip">
-                <span class="ip-code">{{ item.ip || '—' }}</span>
-              </td>
-
             </tr>
           </tbody>
         </table>
       </div>
+    </section>
 
+    <!-- ============================================================== -->
+    <!-- TAB 3: INQUIRIES (LEADS) -->
+    <!-- ============================================================== -->
+    <section *ngIf="activeTab === 'inquiries'" class="tab-section">
+      <div class="section-toolbar">
+        <div class="search-box">
+          <input 
+            type="text" 
+            [(ngModel)]="inquirySearchQuery" 
+            (input)="applyInquiryFilters()" 
+            placeholder="Search enquiry leads..." 
+            class="dash-input"
+          />
+        </div>
+        <select [(ngModel)]="selectedService" (change)="applyInquiryFilters()" class="dash-select">
+          <option value="ALL">All Services</option>
+          <option *ngFor="let svc of serviceOptions" [value]="svc">{{ svc }}</option>
+        </select>
+        <button class="action-btn-secondary" (click)="exportInquiriesExcel()">
+          📊 Export to Excel
+        </button>
+      </div>
+
+      <div class="table-container">
+        <table class="dash-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Date &amp; Time</th>
+              <th>Customer Name</th>
+              <th>Mobile</th>
+              <th>Email</th>
+              <th>Service Required</th>
+              <th>Message</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let lead of filteredInquiries">
+              <td>{{ lead.sno }}</td>
+              <td>{{ lead.date }}</td>
+              <td><strong>{{ lead.name }}</strong></td>
+              <td><a [href]="'tel:' + lead.phone">{{ lead.phone }}</a></td>
+              <td>{{ lead.email }}</td>
+              <td><span class="svc-tag">{{ lead.serviceType }}</span></td>
+              <td class="msg-cell">{{ lead.message }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ============================================================== -->
+    <!-- TAB 4: COMPANY MASTER SETTINGS -->
+    <!-- ============================================================== -->
+    <section *ngIf="activeTab === 'company'" class="tab-section">
+      <div class="company-card">
+        <h2>Company Master &amp; Invoice Settings</h2>
+        <p class="company-desc">Settings stored directly in <code>data/company_master.xlsx</code>. These reflect automatically on all generated invoices.</p>
+
+        <form (ngSubmit)="submitCompanyForm()" class="company-form">
+          <div class="form-grid">
+            <div class="form-group">
+              <label>Company Legal Name</label>
+              <input type="text" [(ngModel)]="companyForm.companyName" name="companyName" class="dash-input" required />
+            </div>
+            <div class="form-group">
+              <label>Tagline / Ribbon Title</label>
+              <input type="text" [(ngModel)]="companyForm.tagline" name="tagline" class="dash-input" />
+            </div>
+            <div class="form-group">
+              <label>Phone / WhatsApp</label>
+              <input type="text" [(ngModel)]="companyForm.contact" name="contact" class="dash-input" required />
+            </div>
+            <div class="form-group">
+              <label>Support Email</label>
+              <input type="email" [(ngModel)]="companyForm.email" name="email" class="dash-input" required />
+            </div>
+            <div class="form-group span-2">
+              <label>Registered Office Address</label>
+              <input type="text" [(ngModel)]="companyForm.address" name="address" class="dash-input" required />
+            </div>
+            <div class="form-group">
+              <label>Pincode</label>
+              <input type="text" [(ngModel)]="companyForm.pincode" name="pincode" class="dash-input" />
+            </div>
+            <div class="form-group">
+              <label>State &amp; State Code</label>
+              <div class="flex-row">
+                <input type="text" [(ngModel)]="companyForm.state" name="state" placeholder="State" class="dash-input" />
+                <input type="text" [(ngModel)]="companyForm.stateCode" name="stateCode" placeholder="09" class="dash-input w-24" />
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Company PAN</label>
+              <input type="text" [(ngModel)]="companyForm.pan" name="pan" class="dash-input" />
+            </div>
+            <div class="form-group">
+              <label>GSTIN</label>
+              <input type="text" [(ngModel)]="companyForm.gstin" name="gstin" class="dash-input" />
+            </div>
+            <div class="form-group">
+              <label>GST Enabled in Invoice?</label>
+              <select [(ngModel)]="companyForm.gstEnabled" name="gstEnabled" class="dash-select">
+                <option value="Yes">Yes (Tax Invoice with CGST/SGST/IGST)</option>
+                <option value="No">No (Standard Invoice without Tax Columns)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Logo Relative Path</label>
+              <input type="text" [(ngModel)]="companyForm.logoPath" name="logoPath" class="dash-input" />
+            </div>
+            <div class="form-group">
+              <label>Bank Name</label>
+              <input type="text" [(ngModel)]="companyForm.bankName" name="bankName" class="dash-input" />
+            </div>
+            <div class="form-group">
+              <label>Bank Branch</label>
+              <input type="text" [(ngModel)]="companyForm.branch" name="branch" class="dash-input" />
+            </div>
+            <div class="form-group">
+              <label>Account Number</label>
+              <input type="text" [(ngModel)]="companyForm.accountNo" name="accountNo" class="dash-input" />
+            </div>
+            <div class="form-group">
+              <label>IFSC Code</label>
+              <input type="text" [(ngModel)]="companyForm.ifsc" name="ifsc" class="dash-input" />
+            </div>
+            <div class="form-group">
+              <label>UPI ID (For Auto-QR)</label>
+              <input type="text" [(ngModel)]="companyForm.upiId" name="upiId" class="dash-input" />
+            </div>
+            <div class="form-group span-2">
+              <label>Terms and Conditions (Each line separate)</label>
+              <textarea [(ngModel)]="companyForm.terms" name="terms" rows="2" class="dash-textarea"></textarea>
+            </div>
+            <div class="form-group span-2">
+              <label>Important Notes / ज़रूरी सूचना (Bilingual Points)</label>
+              <textarea [(ngModel)]="companyForm.importantNotes" name="importantNotes" rows="4" class="dash-textarea"></textarea>
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" [disabled]="isSavingCompany" class="action-btn-primary">
+              💾 Save Company Master to Excel
+            </button>
+          </div>
+        </form>
+      </div>
     </section>
 
   </main>
+
+  <!-- ============================================================== -->
+  <!-- MODAL: VIEW INVOICE (Exact Gujarat Freight Tools Reproduction)  -->
+  <!-- ============================================================== -->
+  <div *ngIf="viewInvoiceModalOpen && selectedInvoice" class="modal-overlay" (click)="closeViewInvoice()">
+    <div class="modal-container invoice-modal-container" (click)="$event.stopPropagation()">
+      
+      <!-- Top Action Toolbar -->
+      <div class="modal-header-actions no-print">
+        <div class="actions-left">
+          <span class="modal-title">Invoice Preview: <strong>{{ selectedInvoice.invoiceNo }}</strong></span>
+        </div>
+        <div class="actions-right">
+          <button class="action-btn-primary" [disabled]="isDownloadingPdf" (click)="downloadPdf(selectedInvoice.invoiceNo)">
+            📥 {{ isDownloadingPdf ? 'Generating PDF...' : 'Download PDF' }}
+          </button>
+          <button class="action-btn-secondary" (click)="printInvoice()">
+            🖨️ Print
+          </button>
+          <button *ngIf="selectedInvoice.balanceDue > 0" class="action-btn-success" (click)="openAddPaymentModal(selectedInvoice)">
+            💵 + Add Payment
+          </button>
+          <button class="modal-close-btn" (click)="closeViewInvoice()">✖</button>
+        </div>
+      </div>
+
+      <!-- Scrollable Invoice Document -->
+      <div class="invoice-paper" id="printable-invoice">
+        
+        <!-- Header -->
+        <div class="inv-head-row">
+          <div class="inv-head-left">
+            <h1 class="inv-co-title">{{ companyMaster?.companyName || 'YOGTECK Business Solutions' }}</h1>
+            <div class="inv-co-ribbon">{{ companyMaster?.tagline || 'Websites & Complete Digital Solutions' }}</div>
+            <div class="inv-co-addr">
+              {{ companyMaster?.address }}<br>
+              Pincode: {{ companyMaster?.pincode }} &bull; State: {{ companyMaster?.state }} ({{ companyMaster?.stateCode }})
+            </div>
+          </div>
+          <div class="inv-head-right">
+            <div class="inv-logo-box">
+              <span class="yt-square-logo">YT</span>
+            </div>
+            <div class="inv-co-contact">
+              <div><strong>Tel :</strong> {{ companyMaster?.contact }}</div>
+              <div><strong>Web :</strong> www.yogteck.com</div>
+              <div><strong>Email :</strong> {{ companyMaster?.email }}</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Title Bar: PAN | TAX INVOICE | ORIGINAL FOR RECIPIENT -->
+        <div class="inv-bar">
+          <div class="bar-left">PAN : <strong>{{ companyMaster?.pan || 'AAHCY1234F' }}</strong></div>
+          <div class="bar-center">{{ companyMaster?.gstEnabled === 'No' ? 'INVOICE' : 'TAX INVOICE' }}</div>
+          <div class="bar-right">ORIGINAL FOR RECIPIENT</div>
+        </div>
+
+        <!-- 2 Column Details -->
+        <div class="inv-detail-box">
+          <div class="detail-col-left">
+            <div class="box-hdr">Customer Detail</div>
+            <div class="row-field"><span class="f-lbl">M/S</span> <span class="f-val"><strong>{{ selectedInvoice.client?.clientName }}</strong></span></div>
+            <div class="row-field"><span class="f-lbl">Address</span> <span class="f-val">{{ selectedInvoice.client?.address || 'Not specified' }}</span></div>
+            <div class="row-field"><span class="f-lbl">Phone</span> <span class="f-val">{{ selectedInvoice.client?.mobile || '-' }}</span></div>
+            <div class="row-field"><span class="f-lbl">GSTIN</span> <span class="f-val">{{ selectedInvoice.client?.gstin || 'URP (Unregistered)' }}</span></div>
+            <div class="row-field"><span class="f-lbl">Place of Supply</span> <span class="f-val">{{ selectedInvoice.client?.state }} ( {{ selectedInvoice.client?.stateCode }} )</span></div>
+          </div>
+          <div class="detail-col-right">
+            <table class="meta-meta-tbl">
+              <tr>
+                <td class="m-lbl">Invoice No.</td>
+                <td class="m-val"><strong>{{ selectedInvoice.invoiceNo }}</strong></td>
+                <td class="m-lbl">Invoice Date</td>
+                <td class="m-val">{{ selectedInvoice.invoiceDate }}</td>
+              </tr>
+              <tr *ngIf="selectedInvoice.planName">
+                <td class="m-lbl">Active Plan</td>
+                <td class="m-val" colspan="3"><strong>{{ selectedInvoice.planName }}</strong></td>
+              </tr>
+              <tr *ngIf="selectedInvoice.serviceStartDate">
+                <td class="m-lbl">Plan Start</td>
+                <td class="m-val">{{ selectedInvoice.serviceStartDate }}</td>
+                <td class="m-lbl">Plan Expiry</td>
+                <td class="m-val">{{ selectedInvoice.serviceExpiryDate || '-' }}</td>
+              </tr>
+              <tr *ngIf="selectedInvoice.challanNo">
+                <td class="m-lbl">Challan No</td>
+                <td class="m-val">{{ selectedInvoice.challanNo }}</td>
+                <td class="m-lbl">Challan Date</td>
+                <td class="m-val">{{ selectedInvoice.challanDate || '-' }}</td>
+              </tr>
+              <tr *ngIf="selectedInvoice.ewayBillNo">
+                <td class="m-lbl">E-Way Bill No.</td>
+                <td class="m-val" colspan="3">{{ selectedInvoice.ewayBillNo }}</td>
+              </tr>
+              <tr *ngIf="selectedInvoice.transport">
+                <td class="m-lbl">Transport</td>
+                <td class="m-val">{{ selectedInvoice.transport }}</td>
+                <td class="m-lbl">Transport ID</td>
+                <td class="m-val">{{ selectedInvoice.transportId || '-' }}</td>
+              </tr>
+              <tr>
+                <td class="m-lbl">Due Date</td>
+                <td class="m-val" colspan="3">{{ selectedInvoice.dueDate || 'Upon Receipt' }}</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+
+        <!-- Items Table -->
+        <table class="inv-items-table">
+          <thead>
+            <tr>
+              <th style="width: 5%;">Sr. No.</th>
+              <th style="width: 40%;">Name of Product / Service</th>
+              <th style="width: 10%;">HSN / SAC</th>
+              <th style="width: 7%;">Qty</th>
+              <th style="width: 12%;">Rate</th>
+              <th style="width: 12%;">Taxable Value</th>
+              <th *ngIf="companyMaster?.gstEnabled !== 'No'" style="width: 7%;">Tax %</th>
+              <th *ngIf="companyMaster?.gstEnabled !== 'No'" style="width: 10%;">Tax Amt</th>
+              <th style="width: 14%;">Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of selectedInvoice.items; let i = index">
+              <td class="t-center">{{ i + 1 }}</td>
+              <td class="t-left"><strong>{{ item.description }}</strong></td>
+              <td class="t-center">{{ item.hsnSac || '-' }}</td>
+              <td class="t-center">{{ item.qty }} {{ item.unit || 'NOS' }}</td>
+              <td class="t-right">{{ formatINR(item.rate) }}</td>
+              <td class="t-right">{{ formatINR(item.taxableValue || (item.qty * item.rate)) }}</td>
+              <td *ngIf="companyMaster?.gstEnabled !== 'No'" class="t-center">{{ item.taxPercent }}%</td>
+              <td *ngIf="companyMaster?.gstEnabled !== 'No'" class="t-right">{{ formatINR(item.taxAmount || 0) }}</td>
+              <td class="t-right"><strong>{{ formatINR(item.lineTotal || 0) }}</strong></td>
+            </tr>
+            <tr class="inv-total-row">
+              <td colspan="5" class="t-right"><strong>Total</strong></td>
+              <td class="t-right"><strong>{{ formatINR(selectedInvoice.taxableTotal) }}</strong></td>
+              <td *ngIf="companyMaster?.gstEnabled !== 'No'"></td>
+              <td *ngIf="companyMaster?.gstEnabled !== 'No'" class="t-right"><strong>{{ formatINR(selectedInvoice.taxTotal) }}</strong></td>
+              <td class="t-right"><strong>{{ formatINR(selectedInvoice.grandTotal) }}</strong></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- Bottom Split -->
+        <div class="inv-split-footer">
+          <div class="inv-footer-left">
+            <div class="words-box">
+              <div class="words-hdr">Total in words</div>
+              <div class="words-val">INDIAN RUPEES ONLY</div>
+            </div>
+
+            <div class="bank-box-row">
+              <div class="bank-sub-left">
+                <div class="b-hdr">Bank Details</div>
+                <div><span class="b-l">Name:</span> <strong>{{ companyMaster?.bankName }}</strong></div>
+                <div><span class="b-l">Branch:</span> {{ companyMaster?.branch }}</div>
+                <div><span class="b-l">Acc. No:</span> <strong>{{ companyMaster?.accountNo }}</strong></div>
+                <div><span class="b-l">IFSC:</span> <strong>{{ companyMaster?.ifsc }}</strong></div>
+                <div *ngIf="companyMaster?.upiId"><span class="b-l">UPI ID:</span> <strong>{{ companyMaster?.upiId }}</strong></div>
+              </div>
+              <div class="bank-sub-right">
+                <div class="qr-mock-box">
+                  <div class="qr-label-txt">Scan to check balance</div>
+                  <div class="qr-link-hint">/invoice/view/{{ selectedInvoice.publicToken }}</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="terms-box">
+              <div class="t-hdr">Terms and Conditions</div>
+              <div class="terms-content">{{ companyMaster?.terms }}</div>
+            </div>
+
+            <div class="customer-sig">Customer Signature</div>
+          </div>
+
+          <div class="inv-footer-right">
+            <table class="calc-sub-tbl">
+              <tr>
+                <td>Taxable Amount</td>
+                <td class="t-right">{{ formatINR(selectedInvoice.taxableTotal) }}</td>
+              </tr>
+              <tr *ngIf="companyMaster?.gstEnabled !== 'No'">
+                <td>Total Tax</td>
+                <td class="t-right">{{ formatINR(selectedInvoice.taxTotal) }}</td>
+              </tr>
+              <tr class="grand-tot-row">
+                <td>Total Amount After Tax</td>
+                <td class="t-right" style="font-size: 14px;"><strong>{{ formatINR(selectedInvoice.grandTotal) }}</strong></td>
+              </tr>
+            </table>
+
+            <div class="eoe-tag">(E &amp; O.E.)</div>
+
+            <!-- Payments Received Table -->
+            <div class="payments-box-sub">
+              <div class="p-hdr">
+                <span>Payments Received</span>
+                <span class="status-tag" [ngClass]="{
+                  'tag-paid': selectedInvoice.status === 'Paid',
+                  'tag-partially': selectedInvoice.status === 'Partially Paid',
+                  'tag-unpaid': selectedInvoice.status === 'Unpaid'
+                }">{{ selectedInvoice.status }}</span>
+              </div>
+
+              <div *ngIf="selectedInvoice.payments && selectedInvoice.payments.length > 0; else noPymts">
+                <table class="mini-pymt-tbl">
+                  <thead>
+                    <tr><th>Sr</th><th>Date</th><th>Mode</th><th>Amount</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let p of selectedInvoice.payments; let pIdx = index">
+                      <td>{{ pIdx + 1 }}</td>
+                      <td>{{ p.paymentDate }}</td>
+                      <td>{{ p.mode }}</td>
+                      <td class="t-right"><strong>{{ formatINR(p.amountPaid) }}</strong></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <ng-template #noPymts>
+                <div class="no-pymt-msg">No payments recorded yet.</div>
+              </ng-template>
+
+              <div class="pymt-totals-row">
+                <span>Total Paid:</span>
+                <strong>{{ formatINR(selectedInvoice.totalPaid) }}</strong>
+              </div>
+              <div class="pymt-totals-row due-row">
+                <span>Balance Due:</span>
+                <strong class="highlight-due">{{ formatINR(selectedInvoice.balanceDue) }}</strong>
+              </div>
+            </div>
+
+            <!-- Signatory -->
+            <div class="signatory-sub">
+              <div class="cert-txt">Certified that the particulars given above are true and correct.</div>
+              <div class="for-co">For {{ companyMaster?.companyName }}</div>
+              <div class="slanted-comp-note">This is a computer generated invoice, no signature required.</div>
+              <div class="auth-line">Authorised Signatory</div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- SECTION 9: IMPORTANT NOTES / ज़रूरी सूचना (BILINGUAL) -->
+        <div class="inv-important-notes-box">
+          <div class="notes-bar-title">ज़रूरी सूचना / Important Notes</div>
+          <div class="notes-list-wrap">
+            
+            <div class="inv-note-row">
+              <div class="n-title">1) भुगतान और सर्विस रिन्यूअल / Payment &amp; Service Renewal</div>
+              <div class="n-hi">
+                यदि भुगतान या रिन्यूअल में देरी होती है, तो सर्विसेज़ की अवधि समाप्त (Expire) हो जाने के कारण आपका प्रोजेक्ट/वेबसाइट कभी भी बंद हो सकता है। इसलिए कृपया सर्विसेज़ को निर्बाध रूप से चालू रखने के लिए समय पर भुगतान या रिन्यूअल कर लें। देरी की स्थिति में किसी भी प्रकार के नुकसान या डेटा/सेवा बाधा के लिए कंपनी उत्तरदायी नहीं होगी।
+              </div>
+              <div class="n-en">
+                Delay in payment or renewal may cause your services to expire and your project/website to go offline at any time. Please make timely payments or renewals to ensure uninterrupted services. The company will not be held responsible for any loss or service interruption caused by delayed payment.
+              </div>
+            </div>
+
+            <div class="inv-note-row">
+              <div class="n-title">2) सब्सक्रिप्शन की जानकारी / Subscription &amp; Plan Details</div>
+              <div class="n-hi">
+                अपने सब्सक्रिप्शन से जुड़ी पूरी जानकारी देखने के लिए इस इनवॉइस पर दिए गए QR कोड को स्कैन करें। वहाँ आपको पूरा इनवॉइस दिखेगा, जिसमें आपके सभी प्लान, उनकी शुरुआत और समाप्ति की तिथियाँ (Expiry), भुगतान का इतिहास और बाकी रकम (Balance Due) सहित सभी संबंधित विवरण उपलब्ध होंगे।
+              </div>
+              <div class="n-en">
+                Scan the QR code on this invoice to view your full live invoice portal, active plan details, start and expiry dates, payment transaction history, and balance due.
+              </div>
+            </div>
+
+            <div class="inv-note-row">
+              <div class="n-title">3) क्लाइंट द्वारा उपलब्ध कराई जाने वाली सामग्री / Materials &amp; External Resources to be Provided by Client</div>
+              <div class="n-hi">
+                प्रोजेक्ट से जुड़ी सभी बाहरी (External) फाइलें, सेवाएँ और संसाधन क्लाइंट/पार्टी को ही उपलब्ध कराने होंगे। उदाहरण के लिए:<br>
+                &bull; पेमेंट गेटवे (Payment Gateway) का अकाउंट/क्रेडेंशियल्स क्लाइंट द्वारा उपलब्ध कराया जाएगा।<br>
+                &bull; प्रोजेक्ट से जुड़ी क्लाइंट की अपनी फाइलें, जैसे CAD ड्रॉइंग्स, लोगो, कंटेंट, फोटो और अन्य दस्तावेज़ (जैसे MMR Constructions के प्रोजेक्ट में उनकी CAD फाइलें) क्लाइंट को ही देनी होंगी।<br>
+                इन सामग्रियों के अभाव या देरी से होने वाली किसी भी बाधा या विलंब की ज़िम्मेदारी कंपनी की नहीं होगी।
+              </div>
+              <div class="n-en">
+                All external files, accounts, and resources required for the project (e.g. payment gateway credentials, CAD drawings, logo, content, photos) must be provided by the client; the company cannot be held responsible for any delay or delivery disruption arising from their absence.
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="inv-bottom-tag">Thank you for your business!</div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============================================================== -->
+  <!-- MODAL: CREATE INVOICE                                          -->
+  <!-- ============================================================== -->
+  <div *ngIf="createInvoiceModalOpen" class="modal-overlay" (click)="closeCreateInvoiceModal()">
+    <div class="modal-container" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h2>Create New Invoice</h2>
+        <button class="modal-close-btn" (click)="closeCreateInvoiceModal()">✖</button>
+      </div>
+
+      <form (ngSubmit)="submitCreateInvoice()" class="modal-form">
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Invoice Number</label>
+            <input type="text" [(ngModel)]="newInvoiceData.invoiceNo" name="invNo" class="dash-input" readonly />
+          </div>
+          <div class="form-group">
+            <label>Select Client *</label>
+            <select [(ngModel)]="newInvoiceData.clientId" name="clientId" class="dash-select" required>
+              <option value="" disabled>-- Choose Client --</option>
+              <option *ngFor="let c of allClients" [value]="c.clientId">
+                {{ c.clientName }} ({{ c.state }}) - {{ c.mobile }}
+              </option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Invoice Date</label>
+            <input type="date" [(ngModel)]="newInvoiceData.invoiceDate" name="invDate" class="dash-input" required />
+          </div>
+          <div class="form-group">
+            <label>Payment Due Date</label>
+            <input type="date" [(ngModel)]="newInvoiceData.dueDate" name="dueDate" class="dash-input" />
+          </div>
+          <div class="form-group">
+            <label>Plan / Subscription Name</label>
+            <input type="text" [(ngModel)]="newInvoiceData.planName" name="planName" placeholder="e.g. Annual Cloud ERP & Maintenance" class="dash-input" />
+          </div>
+          <div class="form-group">
+            <label>Service Start Date</label>
+            <input type="date" [(ngModel)]="newInvoiceData.serviceStartDate" name="serviceStartDate" class="dash-input" />
+          </div>
+          <div class="form-group">
+            <label>Service Expiry Date</label>
+            <input type="date" [(ngModel)]="newInvoiceData.serviceExpiryDate" name="serviceExpiryDate" class="dash-input" />
+          </div>
+          <div class="form-group">
+            <label>Renewal Due Date</label>
+            <input type="date" [(ngModel)]="newInvoiceData.renewalDueDate" name="renewalDueDate" class="dash-input" />
+          </div>
+          <div class="form-group">
+            <label>Challan No (Optional)</label>
+            <input type="text" [(ngModel)]="newInvoiceData.challanNo" name="challanNo" placeholder="e.g. 33" class="dash-input" />
+          </div>
+          <div class="form-group">
+            <label>Challan Date</label>
+            <input type="date" [(ngModel)]="newInvoiceData.challanDate" name="challanDate" class="dash-input" />
+          </div>
+          <div class="form-group">
+            <label>E-Way Bill No (Optional)</label>
+            <input type="text" [(ngModel)]="newInvoiceData.ewayBillNo" name="ewayBillNo" placeholder="78456378" class="dash-input" />
+          </div>
+          <div class="form-group">
+            <label>Transport Name &amp; ID</label>
+            <div class="flex-row">
+              <input type="text" [(ngModel)]="newInvoiceData.transport" name="transport" placeholder="Transporter" class="dash-input" />
+              <input type="text" [(ngModel)]="newInvoiceData.transportId" name="transportId" placeholder="ID" class="dash-input w-28" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Line Items Grid -->
+        <div class="line-items-header">
+          <h3>Services / Products</h3>
+          <button type="button" class="sm-btn btn-add" (click)="addInvoiceItemRow()">➕ Add Line Item</button>
+        </div>
+
+        <div class="line-items-table-wrapper">
+          <table class="line-items-table">
+            <thead>
+              <tr>
+                <th style="width: 40%;">Description</th>
+                <th style="width: 14%;">HSN/SAC</th>
+                <th style="width: 10%;">Qty</th>
+                <th style="width: 10%;">Unit</th>
+                <th style="width: 14%;">Rate (₹)</th>
+                <th style="width: 10%;">Tax %</th>
+                <th style="width: 6%;"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of newInvoiceData.items; let idx = index">
+                <td>
+                  <input type="text" [(ngModel)]="item.description" [name]="'desc_' + idx" placeholder="Service description..." class="dash-input sm" required />
+                </td>
+                <td>
+                  <input type="text" [(ngModel)]="item.hsnSac" [name]="'hsn_' + idx" placeholder="998314" class="dash-input sm" />
+                </td>
+                <td>
+                  <input type="number" [(ngModel)]="item.qty" [name]="'qty_' + idx" min="1" class="dash-input sm" />
+                </td>
+                <td>
+                  <input type="text" [(ngModel)]="item.unit" [name]="'unit_' + idx" placeholder="NOS" class="dash-input sm" />
+                </td>
+                <td>
+                  <input type="number" [(ngModel)]="item.rate" [name]="'rate_' + idx" min="0" step="0.01" class="dash-input sm" required />
+                </td>
+                <td>
+                  <input type="number" [(ngModel)]="item.taxPercent" [name]="'tax_' + idx" min="0" max="28" class="dash-input sm" />
+                </td>
+                <td>
+                  <button type="button" class="del-row-btn" (click)="removeInvoiceItemRow(idx)">🗑️</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Total Summary Bar -->
+        <div class="create-calc-summary">
+          <div>Taxable: <strong>{{ formatINR(computedTaxableTotal) }}</strong></div>
+          <div>Total Tax: <strong>{{ formatINR(computedTaxTotal) }}</strong></div>
+          <div class="grand-calc">Grand Total: <strong>{{ formatINR(computedGrandTotal) }}</strong></div>
+        </div>
+
+        <div class="modal-footer-actions">
+          <button type="button" class="action-btn-secondary" (click)="closeCreateInvoiceModal()">Cancel</button>
+          <button type="submit" [disabled]="isSavingInvoice" class="action-btn-primary">
+            {{ isSavingInvoice ? 'Generating Invoice...' : 'Generate Invoice' }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ============================================================== -->
+  <!-- MODAL: ADD PAYMENT                                             -->
+  <!-- ============================================================== -->
+  <div *ngIf="addPaymentModalOpen && paymentTargetInvoice" class="modal-overlay" (click)="closeAddPaymentModal()">
+    <div class="modal-container sm-modal" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h2>Record Payment</h2>
+        <button class="modal-close-btn" (click)="closeAddPaymentModal()">✖</button>
+      </div>
+
+      <form (ngSubmit)="submitAddPayment()" class="modal-form">
+        <div class="payment-target-info">
+          <div>Invoice: <strong>{{ paymentTargetInvoice.invoiceNo }}</strong></div>
+          <div>Grand Total: <strong>{{ formatINR(paymentTargetInvoice.grandTotal) }}</strong></div>
+          <div>Remaining Due: <strong class="highlight-due">{{ formatINR(paymentTargetInvoice.balanceDue) }}</strong></div>
+        </div>
+
+        <div class="form-group">
+          <label>Amount to Pay (₹) *</label>
+          <input 
+            type="number" 
+            [(ngModel)]="newPaymentData.amountPaid" 
+            name="amountPaid" 
+            [max]="paymentTargetInvoice.balanceDue" 
+            min="1" 
+            step="0.01" 
+            class="dash-input" 
+            required 
+          />
+        </div>
+
+        <div class="form-group">
+          <label>Payment Date *</label>
+          <input type="date" [(ngModel)]="newPaymentData.paymentDate" name="paymentDate" class="dash-input" required />
+        </div>
+
+        <div class="form-group">
+          <label>Payment Mode</label>
+          <select [(ngModel)]="newPaymentData.mode" name="mode" class="dash-select">
+            <option value="UPI">UPI (Google Pay, PhonePe, Paytm)</option>
+            <option value="Bank Transfer">Bank Transfer (NEFT / RTGS / IMPS)</option>
+            <option value="Cash">Cash</option>
+            <option value="Cheque">Cheque</option>
+            <option value="Card">Debit / Credit Card</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Transaction UTR / Cheque No / Notes</label>
+          <input type="text" [(ngModel)]="newPaymentData.note" name="note" placeholder="e.g. UTR123987456" class="dash-input" />
+        </div>
+
+        <div class="modal-footer-actions">
+          <button type="button" class="action-btn-secondary" (click)="closeAddPaymentModal()">Cancel</button>
+          <button type="submit" [disabled]="isSavingPayment" class="action-btn-success">
+            {{ isSavingPayment ? 'Recording...' : 'Confirm Payment' }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ============================================================== -->
+  <!-- MODAL: ADD / EDIT CLIENT                                       -->
+  <!-- ============================================================== -->
+  <div *ngIf="clientModalOpen" class="modal-overlay" (click)="closeClientModal()">
+    <div class="modal-container sm-modal" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h2>{{ isEditingClient ? 'Edit Client' : 'Add New Client' }}</h2>
+        <button class="modal-close-btn" (click)="closeClientModal()">✖</button>
+      </div>
+
+      <form (ngSubmit)="submitClientForm()" class="modal-form">
+        <div class="form-group">
+          <label>Client / Business Name *</label>
+          <input type="text" [(ngModel)]="clientFormData.clientName" name="cName" placeholder="e.g. MMR Constructions" class="dash-input" required />
+        </div>
+
+        <div class="form-group">
+          <label>Contact Person</label>
+          <input type="text" [(ngModel)]="clientFormData.contactPerson" name="cPerson" placeholder="e.g. Rajesh Sharma" class="dash-input" />
+        </div>
+
+        <div class="form-group">
+          <label>Mobile Number (10 Digits)</label>
+          <input type="text" [(ngModel)]="clientFormData.mobile" name="cMobile" placeholder="9878789878" class="dash-input" />
+        </div>
+
+        <div class="form-group">
+          <label>Email Address</label>
+          <input type="email" [(ngModel)]="clientFormData.email" name="cEmail" placeholder="client@company.com" class="dash-input" />
+        </div>
+
+        <div class="form-group">
+          <label>Address</label>
+          <textarea [(ngModel)]="clientFormData.address" name="cAddress" rows="2" class="dash-textarea"></textarea>
+        </div>
+
+        <div class="form-grid">
+          <div class="form-group">
+            <label>State</label>
+            <input type="text" [(ngModel)]="clientFormData.state" name="cState" placeholder="Uttar Pradesh" class="dash-input" />
+          </div>
+          <div class="form-group">
+            <label>State Code</label>
+            <input type="text" [(ngModel)]="clientFormData.stateCode" name="cCode" placeholder="09" class="dash-input" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>GSTIN (15 Alphanumeric)</label>
+          <input type="text" [(ngModel)]="clientFormData.gstin" name="cGstin" placeholder="09AABBA7890B1ZB" class="dash-input" />
+        </div>
+
+        <div class="modal-footer-actions">
+          <button type="button" class="action-btn-secondary" (click)="closeClientModal()">Cancel</button>
+          <button type="submit" [disabled]="isSavingClient" class="action-btn-primary">
+            {{ isSavingClient ? 'Saving...' : 'Save Client' }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
 </div>

@@ -4,6 +4,14 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AdminAuthService } from '../../services/admin-auth.service';
 import { AdminInquiryService, InquiryRecord } from '../../services/admin-inquiry.service';
+import {
+  AdminInvoiceService,
+  CompanyMaster,
+  ClientRecord,
+  InvoiceRecord,
+  InvoiceItem,
+  PaymentRecord
+} from '../../services/admin-invoice.service';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -13,166 +21,561 @@ import { AdminInquiryService, InquiryRecord } from '../../services/admin-inquiry
   styleUrl: './admin-dashboard.component.css'
 })
 export class AdminDashboardComponent implements OnInit {
-  // All raw inquiries directly from Excel data source
-  allInquiries: InquiryRecord[] = [];
-  
-  // Filtered inquiries displayed in table (Always sorted descending)
-  filteredInquiries: InquiryRecord[] = [];
+  // Navigation Tabs: 'invoices' | 'clients' | 'inquiries' | 'company'
+  activeTab: 'invoices' | 'clients' | 'inquiries' | 'company' = 'invoices';
 
-  // Dynamic dropdown filter options extracted from actual data
-  serviceOptions: string[] = [];
-
-  // Filter States
-  searchQuery = '';
-  selectedService = 'ALL';
-
-  // Loading & Error States
-  isLoading = true;
-  errorMessage = '';
-  dataSource = 'excel';
   adminUsername = 'Yogtek';
+  isLoading = false;
+  statusMessage = '';
+  errorMessage = '';
+
+  // ---------------- Invoices State ----------------
+  allInvoices: InvoiceRecord[] = [];
+  filteredInvoices: InvoiceRecord[] = [];
+  invoiceSearchQuery = '';
+  invoiceStatusFilter: 'ALL' | 'Unpaid' | 'Partially Paid' | 'Paid' = 'ALL';
+
+  // ---------------- Clients State ----------------
+  allClients: ClientRecord[] = [];
+  filteredClients: ClientRecord[] = [];
+  clientSearchQuery = '';
+
+  // ---------------- Inquiries State ----------------
+  allInquiries: InquiryRecord[] = [];
+  filteredInquiries: InquiryRecord[] = [];
+  serviceOptions: string[] = [];
+  inquirySearchQuery = '';
+  selectedService = 'ALL';
+  dataSource = 'excel';
+
+  // ---------------- Company Master State ----------------
+  companyMaster: CompanyMaster | null = null;
+  companyForm: Partial<CompanyMaster> = {};
+  isSavingCompany = false;
+
+  // ---------------- Modals State ----------------
+  // 1. View Invoice Modal
+  viewInvoiceModalOpen = false;
+  selectedInvoice: InvoiceRecord | null = null;
+  isDownloadingPdf = false;
+
+  // 2. Create Invoice Modal
+  createInvoiceModalOpen = false;
+  isSavingInvoice = false;
+  newInvoiceData = {
+    invoiceNo: '',
+    clientId: '',
+    invoiceDate: new Date().toISOString().slice(0, 10),
+    dueDate: new Date(Date.now() + 7 * 86400000).toISOString().slice(0, 10),
+    notes: '',
+    challanNo: '',
+    challanDate: '',
+    ewayBillNo: '',
+    transport: '',
+    transportId: '',
+    planName: 'Annual Cloud & Maintenance Plan',
+    serviceStartDate: new Date().toISOString().slice(0, 10),
+    serviceExpiryDate: new Date(Date.now() + 365 * 86400000).toISOString().slice(0, 10),
+    renewalDueDate: new Date(Date.now() + 7 * 86400000).toISOString().slice(0, 10),
+    items: [
+      {
+        description: 'Web Application & Cloud Software Development',
+        hsnSac: '998314',
+        qty: 1,
+        unit: 'NOS',
+        rate: 5000,
+        taxPercent: 18
+      }
+    ]
+  };
+
+  // 3. Add Payment Modal
+  addPaymentModalOpen = false;
+  isSavingPayment = false;
+  paymentTargetInvoice: InvoiceRecord | null = null;
+  newPaymentData = {
+    amountPaid: 0,
+    paymentDate: new Date().toISOString().slice(0, 10),
+    mode: 'UPI',
+    note: ''
+  };
+
+  // 4. Add/Edit Client Modal
+  clientModalOpen = false;
+  isSavingClient = false;
+  isEditingClient = false;
+  clientFormData: Partial<ClientRecord> = {
+    clientId: '',
+    clientName: '',
+    contactPerson: '',
+    mobile: '',
+    email: '',
+    address: '',
+    state: 'Uttar Pradesh',
+    stateCode: '09',
+    gstin: ''
+  };
 
   constructor(
     private authService: AdminAuthService,
     private inquiryService: AdminInquiryService,
+    private invoiceService: AdminInvoiceService,
     private router: Router
   ) {}
 
   ngOnInit(): void {
     this.adminUsername = this.authService.getUsername();
-    this.loadInquiries();
+    this.loadAllData();
   }
 
-  async loadInquiries(): Promise<void> {
+  async loadAllData(): Promise<void> {
     this.isLoading = true;
     this.errorMessage = '';
 
     try {
-      const response = await this.inquiryService.fetchInquiries();
-
-      if (response.success) {
-        // Enforce Descending Order: newest inquiry first (by ISO timestamp or date or sno)
-        this.allInquiries = this.sortDescending(response.inquiries || []);
-        this.dataSource = response.source || 'excel';
-        this.extractFilterOptions();
-        this.applyFilters();
-      } else {
-        this.errorMessage = response.message || 'Failed to load inquiries from Excel.';
-        this.allInquiries = [];
-        this.filteredInquiries = [];
-      }
-    } catch (err) {
-      this.errorMessage = 'Network error: Unable to connect to inquiry server.';
-      this.allInquiries = [];
-      this.filteredInquiries = [];
+      await Promise.all([
+        this.loadInvoices(),
+        this.loadClients(),
+        this.loadInquiries(),
+        this.loadCompanyMaster()
+      ]);
+    } catch (err: any) {
+      this.errorMessage = err.message || 'Error loading dashboard data.';
     } finally {
       this.isLoading = false;
     }
   }
 
-  // Sort helper: Descending order (Newest/Latest inquiry first)
-  private sortDescending(records: InquiryRecord[]): InquiryRecord[] {
-    return [...records].sort((a, b) => {
-      // 1. Try ISO timestamp
-      if (a.timestamp && b.timestamp) {
-        const timeA = new Date(a.timestamp).getTime();
-        const timeB = new Date(b.timestamp).getTime();
-        if (!isNaN(timeA) && !isNaN(timeB)) {
-          return timeB - timeA;
-        }
+  // ----------------------------------------------------
+  // INVOICES METHODS
+  // ----------------------------------------------------
+  async loadInvoices(): Promise<void> {
+    try {
+      const res = await this.invoiceService.getInvoices();
+      if (res.success && res.invoices) {
+        this.allInvoices = res.invoices;
+        this.applyInvoiceFilters();
       }
-
-      // 2. Fallback to S.No descending
-      const snoA = Number(a.sno) || 0;
-      const snoB = Number(b.sno) || 0;
-      return snoB - snoA;
-    });
+    } catch (e: any) {
+      console.error('Failed to load invoices:', e);
+    }
   }
 
-  // Extract unique values from actual data for dropdown filters (No hardcoded values)
-  private extractFilterOptions(): void {
-    const rawServices = this.allInquiries
-      .map(item => item.serviceType?.trim())
-      .filter((val): val is string => Boolean(val));
+  applyInvoiceFilters(): void {
+    const q = (this.invoiceSearchQuery || '').trim().toLowerCase();
+    const st = this.invoiceStatusFilter;
 
-    // Unique sorted array of real values
-    this.serviceOptions = Array.from(new Set(rawServices)).sort();
-  }
-
-  // Apply Search + Dropdown Filters together immediately
-  applyFilters(): void {
-    const query = (this.searchQuery || '').trim().toLowerCase();
-    const serviceFilter = this.selectedService;
-
-    this.filteredInquiries = this.allInquiries.filter(item => {
-      // 1. Service Dropdown Filter
-      if (serviceFilter !== 'ALL' && item.serviceType !== serviceFilter) {
-        return false;
+    this.filteredInvoices = this.allInvoices.filter(inv => {
+      if (st !== 'ALL' && inv.status !== st) return false;
+      if (q) {
+        const no = (inv.invoiceNo || '').toLowerCase();
+        const client = (inv.client?.clientName || '').toLowerCase();
+        const phone = (inv.client?.mobile || '').toLowerCase();
+        return no.includes(q) || client.includes(q) || phone.includes(q);
       }
-
-      // 2. Text Search across key fields (Case-insensitive)
-      if (query) {
-        const name = (item.name || '').toLowerCase();
-        const company = (item.companyName || '').toLowerCase();
-        const phone = (item.phone || '').toLowerCase();
-        const email = (item.email || '').toLowerCase();
-        const service = (item.serviceType || '').toLowerCase();
-        const message = (item.message || '').toLowerCase();
-        const date = (item.date || '').toLowerCase();
-        const ip = (item.ip || '').toLowerCase();
-
-        const match =
-          name.includes(query) ||
-          company.includes(query) ||
-          phone.includes(query) ||
-          email.includes(query) ||
-          service.includes(query) ||
-          message.includes(query) ||
-          date.includes(query) ||
-          ip.includes(query);
-
-        if (!match) {
-          return false;
-        }
-      }
-
       return true;
     });
-
-    // Ensure filtered results also maintain descending order
-    this.filteredInquiries = this.sortDescending(this.filteredInquiries);
   }
 
-  onSearchChange(): void {
-    this.applyFilters();
+  onInvoiceSearchChange(): void {
+    this.applyInvoiceFilters();
   }
 
-  onFilterChange(): void {
-    this.applyFilters();
+  onInvoiceStatusFilterChange(status: 'ALL' | 'Unpaid' | 'Partially Paid' | 'Paid'): void {
+    this.invoiceStatusFilter = status;
+    this.applyInvoiceFilters();
   }
 
-  // Reset all filters back to default
-  resetFilters(): void {
-    this.searchQuery = '';
-    this.selectedService = 'ALL';
-    this.applyFilters();
+  openViewInvoice(inv: InvoiceRecord): void {
+    this.selectedInvoice = inv;
+    this.viewInvoiceModalOpen = true;
   }
 
-  get totalCount(): number {
-    return this.allInquiries.length;
+  closeViewInvoice(): void {
+    this.viewInvoiceModalOpen = false;
+    this.selectedInvoice = null;
   }
 
-  get filteredCount(): number {
-    return this.filteredInquiries.length;
+  async downloadPdf(invoiceNo: string): Promise<void> {
+    this.isDownloadingPdf = true;
+    try {
+      await this.invoiceService.downloadPdf(invoiceNo);
+    } catch (e: any) {
+      alert('Error downloading PDF: ' + (e.message || 'Please check backend server'));
+    } finally {
+      this.isDownloadingPdf = false;
+    }
   }
 
-  get isFiltered(): boolean {
-    return (this.searchQuery.trim() !== '') || (this.selectedService !== 'ALL');
+  printInvoice(): void {
+    window.print();
   }
 
-  exportExcel(): void {
-    const exportUrl = this.inquiryService.getExportExcelUrl();
-    window.open(exportUrl, '_blank');
+  // ----------------------------------------------------
+  // CREATE INVOICE METHODS
+  // ----------------------------------------------------
+  async openCreateInvoiceModal(): Promise<void> {
+    this.errorMessage = '';
+    const nextNoRes = await this.invoiceService.getNextInvoiceNo();
+    const nextNo = nextNoRes.nextInvoiceNo || '';
+
+    this.newInvoiceData = {
+      invoiceNo: nextNo,
+      clientId: this.allClients.length > 0 ? this.allClients[0].clientId : '',
+      invoiceDate: new Date().toISOString().slice(0, 10),
+      dueDate: new Date(Date.now() + 7 * 86400000).toISOString().slice(0, 10),
+      notes: '',
+      challanNo: '',
+      challanDate: '',
+      ewayBillNo: '',
+      transport: '',
+      transportId: '',
+      planName: 'Annual Cloud & Maintenance Plan',
+      serviceStartDate: new Date().toISOString().slice(0, 10),
+      serviceExpiryDate: new Date(Date.now() + 365 * 86400000).toISOString().slice(0, 10),
+      renewalDueDate: new Date(Date.now() + 7 * 86400000).toISOString().slice(0, 10),
+      items: [
+        {
+          description: 'Web Application & Cloud Software Development',
+          hsnSac: '998314',
+          qty: 1,
+          unit: 'NOS',
+          rate: 5000,
+          taxPercent: 18
+        }
+      ]
+    };
+
+    this.createInvoiceModalOpen = true;
+  }
+
+  closeCreateInvoiceModal(): void {
+    this.createInvoiceModalOpen = false;
+  }
+
+  addInvoiceItemRow(): void {
+    this.newInvoiceData.items.push({
+      description: '',
+      hsnSac: '998314',
+      qty: 1,
+      unit: 'NOS',
+      rate: 0,
+      taxPercent: 18
+    });
+  }
+
+  removeInvoiceItemRow(index: number): void {
+    if (this.newInvoiceData.items.length > 1) {
+      this.newInvoiceData.items.splice(index, 1);
+    }
+  }
+
+  get computedTaxableTotal(): number {
+    return this.newInvoiceData.items.reduce((sum, item) => {
+      const lineTaxable = (Number(item.qty) || 0) * (Number(item.rate) || 0);
+      return sum + lineTaxable;
+    }, 0);
+  }
+
+  get computedTaxTotal(): number {
+    return this.newInvoiceData.items.reduce((sum, item) => {
+      const lineTaxable = (Number(item.qty) || 0) * (Number(item.rate) || 0);
+      const tax = (lineTaxable * (Number(item.taxPercent) || 0)) / 100;
+      return sum + tax;
+    }, 0);
+  }
+
+  get computedGrandTotal(): number {
+    return this.computedTaxableTotal + this.computedTaxTotal;
+  }
+
+  async submitCreateInvoice(): Promise<void> {
+    if (!this.newInvoiceData.clientId) {
+      alert('Please select or add a client.');
+      return;
+    }
+
+    for (const item of this.newInvoiceData.items) {
+      if (!item.description.trim()) {
+        alert('Please fill description for all service lines.');
+        return;
+      }
+      if (Number(item.rate) <= 0) {
+        alert('Rate must be greater than zero for all lines.');
+        return;
+      }
+    }
+
+    this.isSavingInvoice = true;
+    try {
+      const res = await this.invoiceService.createInvoice(this.newInvoiceData);
+      if (res.success && res.invoice) {
+        alert(`Invoice ${res.invoice.invoiceNo} created successfully!`);
+        this.closeCreateInvoiceModal();
+        await this.loadInvoices();
+      } else {
+        alert(res.message || 'Failed to create invoice.');
+      }
+    } catch (e: any) {
+      alert('Network error: ' + e.message);
+    } finally {
+      this.isSavingInvoice = false;
+    }
+  }
+
+  // ----------------------------------------------------
+  // PAYMENT METHODS
+  // ----------------------------------------------------
+  openAddPaymentModal(inv: InvoiceRecord): void {
+    this.paymentTargetInvoice = inv;
+    this.newPaymentData = {
+      amountPaid: inv.balanceDue > 0 ? inv.balanceDue : 0,
+      paymentDate: new Date().toISOString().slice(0, 10),
+      mode: 'UPI',
+      note: ''
+    };
+    this.addPaymentModalOpen = true;
+  }
+
+  closeAddPaymentModal(): void {
+    this.addPaymentModalOpen = false;
+    this.paymentTargetInvoice = null;
+  }
+
+  async submitAddPayment(): Promise<void> {
+    if (!this.paymentTargetInvoice) return;
+
+    const amt = Number(this.newPaymentData.amountPaid);
+    if (amt <= 0) {
+      alert('Payment amount must be greater than zero.');
+      return;
+    }
+
+    if (amt > this.paymentTargetInvoice.balanceDue) {
+      alert(`Payment cannot exceed Balance Due of ${this.formatINR(this.paymentTargetInvoice.balanceDue)}.`);
+      return;
+    }
+
+    this.isSavingPayment = true;
+    try {
+      const res = await this.invoiceService.addPayment(this.paymentTargetInvoice.invoiceNo, this.newPaymentData);
+      if (res.success) {
+        alert(`Payment of ${this.formatINR(amt)} recorded! Balance Due: ${this.formatINR(res.balanceDue || 0)}`);
+        this.closeAddPaymentModal();
+        await this.loadInvoices();
+        if (this.selectedInvoice && this.selectedInvoice.invoiceNo === this.paymentTargetInvoice.invoiceNo) {
+          const updated = await this.invoiceService.getInvoice(this.selectedInvoice.invoiceNo);
+          if (updated.success && updated.invoice) {
+            this.selectedInvoice = updated.invoice;
+          }
+        }
+      } else {
+        alert(res.message || 'Failed to record payment.');
+      }
+    } catch (e: any) {
+      alert('Network error: ' + e.message);
+    } finally {
+      this.isSavingPayment = false;
+    }
+  }
+
+  // ----------------------------------------------------
+  // CLIENTS METHODS
+  // ----------------------------------------------------
+  async loadClients(): Promise<void> {
+    try {
+      const res = await this.invoiceService.getClients();
+      if (res.success && res.clients) {
+        this.allClients = res.clients;
+        this.applyClientFilters();
+      }
+    } catch (e: any) {
+      console.error('Failed to load clients:', e);
+    }
+  }
+
+  applyClientFilters(): void {
+    const q = (this.clientSearchQuery || '').trim().toLowerCase();
+    this.filteredClients = this.allClients.filter(c => {
+      if (!q) return true;
+      const name = (c.clientName || '').toLowerCase();
+      const person = (c.contactPerson || '').toLowerCase();
+      const phone = (c.mobile || '').toLowerCase();
+      const gst = (c.gstin || '').toLowerCase();
+      return name.includes(q) || person.includes(q) || phone.includes(q) || gst.includes(q);
+    });
+  }
+
+  openAddClientModal(): void {
+    this.isEditingClient = false;
+    this.clientFormData = {
+      clientId: '',
+      clientName: '',
+      contactPerson: '',
+      mobile: '',
+      email: '',
+      address: '',
+      state: 'Uttar Pradesh',
+      stateCode: '09',
+      gstin: ''
+    };
+    this.clientModalOpen = true;
+  }
+
+  openEditClientModal(client: ClientRecord): void {
+    this.isEditingClient = true;
+    this.clientFormData = { ...client };
+    this.clientModalOpen = true;
+  }
+
+  closeClientModal(): void {
+    this.clientModalOpen = false;
+  }
+
+  async submitClientForm(): Promise<void> {
+    if (!this.clientFormData.clientName?.trim()) {
+      alert('Client Name is required.');
+      return;
+    }
+
+    if (this.clientFormData.mobile) {
+      const cleaned = this.clientFormData.mobile.replace(/[^0-9]/g, '');
+      if (cleaned.length !== 10) {
+        alert('Mobile number must be exactly 10 digits.');
+        return;
+      }
+    }
+
+    if (this.clientFormData.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(this.clientFormData.email)) {
+      alert('Please enter a valid email address.');
+      return;
+    }
+
+    if (this.clientFormData.gstin && this.clientFormData.gstin.trim().length !== 15) {
+      alert('GSTIN must be 15 characters.');
+      return;
+    }
+
+    this.isSavingClient = true;
+    try {
+      const res = await this.invoiceService.saveClient(this.clientFormData);
+      if (res.success) {
+        alert('Client saved successfully!');
+        this.closeClientModal();
+        await this.loadClients();
+      } else {
+        alert(res.message || 'Failed to save client.');
+      }
+    } catch (e: any) {
+      alert('Error saving client: ' + e.message);
+    } finally {
+      this.isSavingClient = false;
+    }
+  }
+
+  // ----------------------------------------------------
+  // COMPANY MASTER METHODS
+  // ----------------------------------------------------
+  async loadCompanyMaster(): Promise<void> {
+    try {
+      const res = await this.invoiceService.getCompany();
+      if (res.success && res.company) {
+        this.companyMaster = res.company;
+        this.companyForm = { ...res.company };
+      }
+    } catch (e: any) {
+      console.error('Failed to load company master:', e);
+    }
+  }
+
+  async submitCompanyForm(): Promise<void> {
+    this.isSavingCompany = true;
+    try {
+      const res = await this.invoiceService.updateCompany(this.companyForm);
+      if (res.success && res.company) {
+        this.companyMaster = res.company;
+        alert('Company settings updated successfully in company_master.xlsx!');
+      } else {
+        alert(res.message || 'Failed to update company master.');
+      }
+    } catch (e: any) {
+      alert('Error updating company: ' + e.message);
+    } finally {
+      this.isSavingCompany = false;
+    }
+  }
+
+  // ----------------------------------------------------
+  // INQUIRIES METHODS
+  // ----------------------------------------------------
+  async loadInquiries(): Promise<void> {
+    try {
+      const res = await this.inquiryService.fetchInquiries();
+      if (res.success) {
+        this.allInquiries = res.inquiries || [];
+        this.dataSource = res.source || 'excel';
+        this.extractFilterOptions();
+        this.applyInquiryFilters();
+      }
+    } catch (e: any) {
+      console.error('Failed to load inquiries:', e);
+    }
+  }
+
+  private extractFilterOptions(): void {
+    const raw = this.allInquiries.map(i => i.serviceType?.trim()).filter((v): v is string => Boolean(v));
+    this.serviceOptions = Array.from(new Set(raw)).sort();
+  }
+
+  applyInquiryFilters(): void {
+    const q = (this.inquirySearchQuery || '').trim().toLowerCase();
+    const svc = this.selectedService;
+
+    this.filteredInquiries = this.allInquiries.filter(item => {
+      if (svc !== 'ALL' && item.serviceType !== svc) return false;
+      if (q) {
+        const name = (item.name || '').toLowerCase();
+        const comp = (item.companyName || '').toLowerCase();
+        const phone = (item.phone || '').toLowerCase();
+        const email = (item.email || '').toLowerCase();
+        return name.includes(q) || comp.includes(q) || phone.includes(q) || email.includes(q);
+      }
+      return true;
+    });
+  }
+
+  exportInquiriesExcel(): void {
+    window.open(this.inquiryService.getExportExcelUrl(), '_blank');
+  }
+
+  // ----------------------------------------------------
+  // KPI CALCULATIONS
+  // ----------------------------------------------------
+  get totalInvoiced(): number {
+    return this.allInvoices.reduce((sum, inv) => sum + (Number(inv.grandTotal) || 0), 0);
+  }
+
+  get totalCollected(): number {
+    return this.allInvoices.reduce((sum, inv) => sum + (Number(inv.totalPaid) || 0), 0);
+  }
+
+  get totalPendingDue(): number {
+    return this.allInvoices.reduce((sum, inv) => sum + (Number(inv.balanceDue) || 0), 0);
+  }
+
+  // Formatting Helper
+  formatINR(amount: number): string {
+    const num = Number(amount) || 0;
+    const isNegative = num < 0;
+    const absNum = Math.abs(num);
+    const [intPart, decPart] = absNum.toFixed(2).split('.');
+    let lastThree = intPart.slice(-3);
+    const otherNumbers = intPart.slice(0, -3);
+    if (otherNumbers !== '') {
+      lastThree = ',' + lastThree;
+    }
+    const formattedInt = otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ',') + lastThree;
+    return `${isNegative ? '-' : ''}₹${formattedInt}.${decPart}`;
   }
 
   logout(): void {

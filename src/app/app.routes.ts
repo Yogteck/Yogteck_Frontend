@@ -16,6 +16,7 @@ import { ServiceAreasComponent } from './components/service-areas/service-areas.
 import { SolutionPageComponent } from './components/solution-page/solution-page.component';
 import { AdminLoginComponent } from './components/admin-login/admin-login.component';
 import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
+import { PublicInvoiceViewComponent } from './components/public-invoice-view/public-invoice-view.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { adminAuthGuard } from './guards/admin-auth.guard';
 import { localeValidationGuard } from './guards/locale.guard';
@@ -89,6 +90,9 @@ export const routes: Routes = [
   { path: 'admin', redirectTo: 'admin/login', pathMatch: 'full' },
   { path: 'admin/login', component: AdminLoginComponent },
   { path: 'admin/dashboard', component: AdminDashboardComponent, canActivate: [adminAuthGuard] },
+
+  // Public Verified Invoice Portal (QR Code Link)
+  { path: 'invoice/view/:token', component: PublicInvoiceViewComponent },
 
   // 3. Localized Routes Tree (:locale prefix e.g. /en-us/, /ja-jp/, /ar-sa/, /en/)
   {

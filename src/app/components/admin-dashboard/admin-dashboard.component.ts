@@ -335,7 +335,11 @@ export class AdminDashboardComponent implements OnInit {
     this.errorMessage = '';
 
     const cost = Number(inv.grandTotal) || (inv.items && inv.items[0]?.rate) || 5000;
-    const paid = inv.totalPaid != null ? Number(inv.totalPaid) : (inv.status === 'Paid' ? cost : 0);
+    const paid = inv.totalPaid != null
+      ? Number(inv.totalPaid)
+      : (Array.isArray(inv.payments) && inv.payments.length > 0
+          ? inv.payments.reduce((s, p) => s + Number(p.amountPaid || 0), 0)
+          : (inv.status === 'Paid' ? cost : 0));
 
     this.newInvoiceData = {
       invoiceNo: inv.invoiceNo,
@@ -539,9 +543,8 @@ export class AdminDashboardComponent implements OnInit {
           alert(`Invoice ${this.editingInvoiceNo} updated successfully!`);
           this.closeCreateInvoiceModal();
           await this.loadInvoices();
-          if (this.selectedInvoice && this.selectedInvoice.invoiceNo === this.editingInvoiceNo) {
-            this.selectedInvoice = res.invoice;
-          }
+          this.selectedInvoice = res.invoice;
+          this.viewInvoiceModalOpen = true;
         } else {
           alert(res.message || 'Failed to update invoice.');
         }
@@ -551,6 +554,8 @@ export class AdminDashboardComponent implements OnInit {
           alert(`Invoice ${res.invoice.invoiceNo} created successfully!`);
           this.closeCreateInvoiceModal();
           await this.loadInvoices();
+          this.selectedInvoice = res.invoice;
+          this.viewInvoiceModalOpen = true;
         } else {
           alert(res.message || 'Failed to create invoice.');
         }
@@ -800,6 +805,11 @@ export class AdminDashboardComponent implements OnInit {
 
   get totalPendingDue(): number {
     return this.allInvoices.reduce((sum, inv) => sum + (Number(inv.balanceDue) || 0), 0);
+  }
+
+  getItemRowsTotal(inv: InvoiceRecord | null): number {
+    if (!inv || !Array.isArray(inv.items)) return 0;
+    return inv.items.reduce((s, it) => s + (Number(it.lineTotal) || ((Number(it.qty) || 1) * (Number(it.rate) || 0))), 0);
   }
 
   // Formatting Helper

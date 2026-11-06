@@ -521,7 +521,7 @@
           </tr>
           <tr class="inv-total-row">
             <td colspan="4" class="t-right"><strong>Total Amount</strong></td>
-            <td colspan="2" class="t-right"><strong>{{ formatINR(inv.grandTotal) }}</strong></td>
+            <td colspan="2" class="t-right"><strong>{{ formatINR(getItemRowsTotal(inv) || inv.grandTotal) }}</strong></td>
           </tr>
         </tbody>
       </table>

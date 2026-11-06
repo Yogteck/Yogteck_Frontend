@@ -569,9 +569,53 @@ export class AdminInvoiceService {
       };
     });
 
-    const taxableTotal = items.reduce((s, i) => s + (i.taxableValue || 0), 0);
-    const taxTotal = items.reduce((s, i) => s + (i.taxAmount || 0), 0);
-    const grandTotal = Math.round((taxableTotal + taxTotal) * 100) / 100;
+    const itemsTaxableSum = items.reduce((s, i) => s + (i.taxableValue || 0), 0);
+    const itemsTaxSum = items.reduce((s, i) => s + (i.taxAmount || 0), 0);
+    const itemsTotal = Math.round((itemsTaxableSum + itemsTaxSum) * 100) / 100;
+
+    const grandTotal = Number(invoiceData.projectCost != null ? invoiceData.projectCost : invoiceData.grandTotal) || itemsTotal;
+    const taxableTotal = grandTotal;
+    const taxTotal = 0;
+
+    let explicitPaid: number | null = null;
+    if (invoiceData.amountPaid !== undefined && invoiceData.amountPaid !== null && invoiceData.amountPaid !== '') {
+      explicitPaid = Number(invoiceData.amountPaid);
+    } else if (invoiceData.totalPaid !== undefined && invoiceData.totalPaid !== null && invoiceData.totalPaid !== '') {
+      explicitPaid = Number(invoiceData.totalPaid);
+    }
+
+    let payments: PaymentRecord[] = [];
+    if (explicitPaid !== null && explicitPaid > 0) {
+      if (items.length > 1 && Math.abs(itemsTotal - explicitPaid) < 0.01) {
+        payments = items.map((it, idx) => ({
+          paymentId: `PAY-${Date.now()}-${idx + 1}`,
+          invoiceNo: invoiceData.invoiceNo,
+          amountPaid: Number(it.lineTotal) || 0,
+          paymentDate: it.paymentDate || invoiceData.paymentDate || invoiceData.invoiceDate || new Date().toISOString().slice(0, 10),
+          mode: 'UPI',
+          note: `Part ${idx + 1}: ${it.description || 'Installment'}`
+        }));
+      } else {
+        payments = [{
+          paymentId: `PAY-${Date.now()}`,
+          invoiceNo: invoiceData.invoiceNo,
+          amountPaid: explicitPaid,
+          paymentDate: invoiceData.paymentDate || invoiceData.invoiceDate || new Date().toISOString().slice(0, 10),
+          mode: 'UPI',
+          note: 'Payment Received'
+        }];
+      }
+    }
+
+    const totalPaid = explicitPaid !== null ? explicitPaid : 0;
+    const balanceDue = Math.max(0, Math.round((grandTotal - totalPaid) * 100) / 100);
+
+    let status: 'Unpaid' | 'Partially Paid' | 'Paid' = invoiceData.status;
+    if (!status) {
+      if (balanceDue === 0 && grandTotal > 0) status = 'Paid';
+      else if (totalPaid > 0 && balanceDue > 0) status = 'Partially Paid';
+      else status = 'Unpaid';
+    }
 
     const newInv: InvoiceRecord = {
       invoiceNo: invoiceData.invoiceNo,
@@ -581,7 +625,7 @@ export class AdminInvoiceService {
       taxableTotal,
       taxTotal,
       grandTotal,
-      status: 'Unpaid',
+      status,
       publicToken: 'yt_tok_' + Math.random().toString(36).substring(2) + Date.now().toString(36),
       notes: invoiceData.notes || '',
       challanNo: invoiceData.challanNo || '',
@@ -593,11 +637,11 @@ export class AdminInvoiceService {
       serviceStartDate: invoiceData.serviceStartDate || invoiceData.invoiceDate,
       serviceExpiryDate: invoiceData.serviceExpiryDate || invoiceData.dueDate,
       renewalDueDate: invoiceData.renewalDueDate || invoiceData.dueDate,
-      totalPaid: 0,
-      balanceDue: grandTotal,
+      totalPaid,
+      balanceDue,
       client,
       items,
-      payments: []
+      payments
     };
 
     this.upsertInvoiceLocal(newInv);
@@ -626,21 +670,68 @@ export class AdminInvoiceService {
         taxableValue: taxable,
         taxPercent,
         taxAmount,
-        lineTotal: Math.round((taxable + taxAmount) * 100) / 100
+        lineTotal: Math.round((taxable + taxAmount) * 100) / 100,
+        paymentDate: it.paymentDate || invoiceData.paymentDate || invoiceData.invoiceDate
       };
     });
 
-    const taxableTotal = items.reduce((s, i) => s + (i.taxableValue || 0), 0);
-    const taxTotal = items.reduce((s, i) => s + (i.taxAmount || 0), 0);
-    const grandTotal = Math.round((taxableTotal + taxTotal) * 100) / 100;
+    const itemsTaxableSum = items.reduce((s, i) => s + (i.taxableValue || 0), 0);
+    const itemsTaxSum = items.reduce((s, i) => s + (i.taxAmount || 0), 0);
+    const itemsTotal = Math.round((itemsTaxableSum + itemsTaxSum) * 100) / 100;
 
-    const existingPayments = existing?.payments || [];
-    const totalPaid = Math.round(existingPayments.reduce((s, p) => s + Number(p.amountPaid), 0) * 100) / 100;
+    // Honor explicit projectCost / grandTotal from user
+    const grandTotal = Number(invoiceData.projectCost != null ? invoiceData.projectCost : invoiceData.grandTotal) || itemsTotal;
+    const taxableTotal = grandTotal;
+    const taxTotal = 0;
+
+    let explicitPaid: number | null = null;
+    if (invoiceData.amountPaid !== undefined && invoiceData.amountPaid !== null && invoiceData.amountPaid !== '') {
+      explicitPaid = Number(invoiceData.amountPaid);
+    } else if (invoiceData.totalPaid !== undefined && invoiceData.totalPaid !== null && invoiceData.totalPaid !== '') {
+      explicitPaid = Number(invoiceData.totalPaid);
+    }
+
+    let existingPayments: PaymentRecord[] = existing?.payments ? [...existing.payments] : [];
+
+    if (explicitPaid !== null) {
+      if (explicitPaid > 0) {
+        // If items sum equals explicit paid amount and there are multiple items, record each item as an installment part
+        if (items.length > 1 && Math.abs(itemsTotal - explicitPaid) < 0.01) {
+          existingPayments = items.map((it, idx) => ({
+            paymentId: `PAY-${Date.now()}-${idx + 1}`,
+            invoiceNo,
+            amountPaid: Number(it.lineTotal) || 0,
+            paymentDate: it.paymentDate || invoiceData.paymentDate || invoiceData.invoiceDate || new Date().toISOString().slice(0, 10),
+            mode: 'UPI',
+            note: `Part ${idx + 1}: ${it.description || 'Installment'}`
+          }));
+        } else {
+          existingPayments = [{
+            paymentId: `PAY-${Date.now()}`,
+            invoiceNo,
+            amountPaid: explicitPaid,
+            paymentDate: invoiceData.paymentDate || invoiceData.invoiceDate || new Date().toISOString().slice(0, 10),
+            mode: 'UPI',
+            note: 'Payment Received'
+          }];
+        }
+      } else {
+        existingPayments = [];
+      }
+    }
+
+    const totalPaid = explicitPaid !== null
+      ? explicitPaid
+      : Math.round(existingPayments.reduce((s, p) => s + Number(p.amountPaid), 0) * 100) / 100;
+
     const balanceDue = Math.max(0, Math.round((grandTotal - totalPaid) * 100) / 100);
 
-    let status: 'Unpaid' | 'Partially Paid' | 'Paid' = 'Unpaid';
-    if (balanceDue === 0 && grandTotal > 0) status = 'Paid';
-    else if (totalPaid > 0 && balanceDue > 0) status = 'Partially Paid';
+    let status: 'Unpaid' | 'Partially Paid' | 'Paid' = invoiceData.status;
+    if (!status) {
+      if (balanceDue === 0 && grandTotal > 0) status = 'Paid';
+      else if (totalPaid > 0 && balanceDue > 0) status = 'Partially Paid';
+      else status = 'Unpaid';
+    }
 
     const updatedInv: InvoiceRecord = {
       invoiceNo,

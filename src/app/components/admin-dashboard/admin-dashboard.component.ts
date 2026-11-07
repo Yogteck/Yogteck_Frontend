@@ -161,7 +161,12 @@ export class AdminDashboardComponent implements OnInit {
     try {
       const res = await this.invoiceService.getInvoices();
       if (res.success && res.invoices) {
-        this.allInvoices = res.invoices;
+        const seen = new Set<string>();
+        this.allInvoices = res.invoices.filter(i => {
+          if (!i || !i.invoiceNo || seen.has(i.invoiceNo) || i.invoiceNo === 'YOGTECK-2026-11-001') return false;
+          seen.add(i.invoiceNo);
+          return true;
+        });
         this.applyInvoiceFilters();
       }
     } catch (e: any) {
@@ -625,7 +630,12 @@ export class AdminDashboardComponent implements OnInit {
     try {
       const res = await this.invoiceService.getClients();
       if (res.success && res.clients) {
-        this.allClients = res.clients;
+        const seen = new Set<string>();
+        this.allClients = res.clients.filter(c => {
+          if (!c || !c.clientId || seen.has(c.clientId)) return false;
+          seen.add(c.clientId);
+          return true;
+        });
         this.applyClientFilters();
       }
     } catch (e: any) {

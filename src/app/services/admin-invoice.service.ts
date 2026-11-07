@@ -240,7 +240,18 @@ export class AdminInvoiceService {
 
   private readonly apiBaseUrl = this.getApiBaseUrl();
 
-  constructor(private authService: AdminAuthService) {}
+  constructor(private authService: AdminAuthService) {
+    this.runInitialDeduplicationAndCleanup();
+  }
+
+  private runInitialDeduplicationAndCleanup(): void {
+    if (typeof window === 'undefined') return;
+    try {
+      // Proactively clean up any stale legacy duplicate in localStorage on startup
+      this.getInvoicesLocal();
+      this.getClientsLocal();
+    } catch (e) {}
+  }
 
   private getApiBaseUrl(): string {
     const contactApi = CONTACT_CONFIG.backendContactApi || '';
@@ -309,14 +320,9 @@ export class AdminInvoiceService {
       if (res.ok) {
         const data = await res.json();
         if (data.success && Array.isArray(data.clients)) {
-          const localClients = this.getClientsLocal();
-          const merged = [...data.clients];
-          localClients.forEach(lc => {
-            const exists = merged.some(sc => sc.clientId === lc.clientId || sc.clientName.trim().toLowerCase() === lc.clientName.trim().toLowerCase());
-            if (!exists) merged.push(lc);
-          });
-          this.saveClientsLocal(merged);
-          return { success: true, clients: merged };
+          const cleaned = this.deduplicateClients(data.clients);
+          this.saveClientsLocal(cleaned);
+          return { success: true, clients: cleaned };
         }
       }
     } catch (e: any) {}
@@ -358,8 +364,9 @@ export class AdminInvoiceService {
       if (res.ok) {
         const data = await res.json();
         if (data.success && Array.isArray(data.invoices)) {
-          this.saveInvoicesLocal(data.invoices);
-          return { success: true, invoices: data.invoices };
+          const cleaned = this.deduplicateInvoices(data.invoices);
+          this.saveInvoicesLocal(cleaned);
+          return { success: true, invoices: cleaned };
         }
       }
     } catch (e: any) {
@@ -395,8 +402,10 @@ export class AdminInvoiceService {
   }
 
   public async getInvoice(invoiceNo: string): Promise<{ success: boolean; invoice?: InvoiceRecord; company?: CompanyMaster; message?: string }> {
+    // If requesting old legacy number, seamlessly alias/redirect to canonical YOGTECK-2026-1
+    const canonicalNo = invoiceNo === 'YOGTECK-2026-11-001' ? 'YOGTECK-2026-1' : invoiceNo;
     try {
-      const res = await fetch(`${this.apiBaseUrl}/api/admin/invoices/${encodeURIComponent(invoiceNo)}`, {
+      const res = await fetch(`${this.apiBaseUrl}/api/admin/invoices/${encodeURIComponent(canonicalNo)}`, {
         headers: this.getHeaders()
       });
       if (res.ok) {
@@ -405,7 +414,7 @@ export class AdminInvoiceService {
       }
     } catch (e: any) {}
 
-    const invoice = this.getInvoicesLocal().find(i => i.invoiceNo === invoiceNo);
+    const invoice = this.getInvoicesLocal().find(i => i.invoiceNo === canonicalNo);
     return { success: Boolean(invoice), invoice, company: this.getCompanyLocal() };
   }
 
@@ -584,22 +593,60 @@ export class AdminInvoiceService {
   }
 
   private getClientsLocal(): ClientRecord[] {
-    if (typeof window === 'undefined') return [this.DEFAULT_MMR_CLIENT];
+    if (typeof window === 'undefined') return [{ ...this.DEFAULT_MMR_CLIENT }];
     try {
       const raw = localStorage.getItem(this.CLIENTS_CACHE_KEY);
       if (raw) {
         const parsed = JSON.parse(raw);
         if (Array.isArray(parsed) && parsed.length > 0) {
-          return parsed.map(c => {
-            if (c.clientId === 'YT-CLI-001' && (c.contactPerson === 'Rajesh Sharma' || !c.contactPerson || c.clientName === 'MMR Constructions')) {
-              return { ...this.DEFAULT_MMR_CLIENT };
-            }
-            return c;
-          });
+          const cleaned = this.deduplicateClients(parsed);
+          this.saveClientsLocal(cleaned);
+          return cleaned;
         }
       }
     } catch (e) {}
-    return [{ ...this.DEFAULT_MMR_CLIENT }];
+    const initial = [{ ...this.DEFAULT_MMR_CLIENT }];
+    this.saveClientsLocal(initial);
+    return initial;
+  }
+
+  private deduplicateClients(list: ClientRecord[]): ClientRecord[] {
+    if (!Array.isArray(list) || list.length === 0) {
+      return [{ ...this.DEFAULT_MMR_CLIENT }];
+    }
+
+    // Unify MMR client
+    const normalized = list.map(c => {
+      if (!c) return null;
+      if (
+        c.clientId === 'YT-CLI-001' ||
+        (c.clientName && c.clientName.toLowerCase().includes('mmr'))
+      ) {
+        return { ...this.DEFAULT_MMR_CLIENT };
+      }
+      return c;
+    }).filter((c): c is ClientRecord => Boolean(c));
+
+    const seenIds = new Set<string>();
+    const seenNames = new Set<string>();
+    const result: ClientRecord[] = [];
+
+    for (const c of normalized) {
+      if (!c || !c.clientId) continue;
+      const normName = (c.clientName || '').trim().toLowerCase();
+      if (seenIds.has(c.clientId) || (normName && seenNames.has(normName))) {
+        continue;
+      }
+      seenIds.add(c.clientId);
+      if (normName) seenNames.add(normName);
+      result.push(c);
+    }
+
+    if (!result.some(c => c.clientId === 'YT-CLI-001')) {
+      result.unshift({ ...this.DEFAULT_MMR_CLIENT });
+    }
+
+    return result.length > 0 ? result : [{ ...this.DEFAULT_MMR_CLIENT }];
   }
 
   private saveClientsLocal(clients: ClientRecord[]): void {
@@ -645,6 +692,65 @@ export class AdminInvoiceService {
     return payload;
   }
 
+  private deduplicateInvoices(list: InvoiceRecord[]): InvoiceRecord[] {
+    if (!Array.isArray(list) || list.length === 0) {
+      return [{ ...this.DEFAULT_MMR_INVOICE }];
+    }
+
+    // 1. Remove or rename legacy 'YOGTECK-2026-11-001'
+    const hasCanonical = list.some(i => i && i.invoiceNo === 'YOGTECK-2026-1');
+    const migrated = list
+      .map(inv => {
+        if (!inv) return null;
+        if (inv.invoiceNo === 'YOGTECK-2026-11-001') {
+          if (hasCanonical) return null; // Drop duplicate legacy copy completely
+          return { ...inv, invoiceNo: 'YOGTECK-2026-1' };
+        }
+        return inv;
+      })
+      .filter((inv): inv is InvoiceRecord => Boolean(inv));
+
+    // 2. Upgrade MMR invoice if needed to ensure correct values (250,000 / 90,000 / 160,000)
+    const upgraded = migrated.map(inv => {
+      if (inv.invoiceNo === 'YOGTECK-2026-1') {
+        if (
+          Number(inv.grandTotal) !== 250000 ||
+          Number(inv.totalPaid) !== 90000 ||
+          !inv.items ||
+          inv.items.length === 0 ||
+          !inv.items[0]?.refNo ||
+          inv.status !== 'Partially Paid'
+        ) {
+          return { ...this.DEFAULT_MMR_INVOICE };
+        }
+      }
+      return inv;
+    });
+
+    // 3. Ensure canonical YOGTECK-2026-1 invoice exists
+    if (!upgraded.some(i => i.invoiceNo === 'YOGTECK-2026-1')) {
+      upgraded.unshift({ ...this.DEFAULT_MMR_INVOICE });
+    }
+
+    // 4. Strict deduplication by invoiceNo and MMR duplicate protection
+    const seen = new Set<string>();
+    const result: InvoiceRecord[] = [];
+    for (const inv of upgraded) {
+      if (!inv || !inv.invoiceNo) continue;
+      const isMmrDuplicate =
+        inv.invoiceNo !== 'YOGTECK-2026-1' &&
+        (inv.clientId === 'YT-CLI-001' ||
+          (inv.client?.clientName && inv.client.clientName.toLowerCase().includes('mmr')));
+      if (seen.has(inv.invoiceNo) || isMmrDuplicate) {
+        continue;
+      }
+      seen.add(inv.invoiceNo);
+      result.push(inv);
+    }
+
+    return result.length > 0 ? result : [{ ...this.DEFAULT_MMR_INVOICE }];
+  }
+
   private getInvoicesLocal(): InvoiceRecord[] {
     if (typeof window === 'undefined') return [{ ...this.DEFAULT_MMR_INVOICE }];
     try {
@@ -652,23 +758,15 @@ export class AdminInvoiceService {
       if (raw) {
         const list = JSON.parse(raw);
         if (Array.isArray(list) && list.length > 0) {
-          // If invoice in storage has old dummy values, missing refNo, or outdated cost/paid, upgrade to the user's real MMR invoice
-          const upgraded = list.map(inv => {
-            if (inv.invoiceNo === 'YOGTECK-2026-1' || inv.invoiceNo === 'YOGTECK-2026-11-001') {
-              if (Number(inv.grandTotal) !== 250000 || Number(inv.totalPaid) !== 90000 || !inv.items || inv.items.length === 0 || !inv.items[0]?.refNo || inv.status !== 'Partially Paid') {
-                return { ...this.DEFAULT_MMR_INVOICE, invoiceNo: inv.invoiceNo };
-              }
-            }
-            return inv;
-          });
-          if (!upgraded.some(i => i.invoiceNo === 'YOGTECK-2026-1')) {
-            upgraded.unshift({ ...this.DEFAULT_MMR_INVOICE });
-          }
-          return upgraded;
+          const cleaned = this.deduplicateInvoices(list);
+          this.saveInvoicesLocal(cleaned);
+          return cleaned;
         }
       }
     } catch (e) {}
-    return [{ ...this.DEFAULT_MMR_INVOICE }];
+    const initial = [{ ...this.DEFAULT_MMR_INVOICE }];
+    this.saveInvoicesLocal(initial);
+    return initial;
   }
 
   private saveInvoicesLocal(invoices: InvoiceRecord[]): void {

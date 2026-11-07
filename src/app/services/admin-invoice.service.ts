@@ -121,6 +121,119 @@ export class AdminInvoiceService {
   private readonly INVOICES_CACHE_KEY = 'yt_invoices_cache';
   private readonly COMPANY_CACHE_KEY = 'yt_company_cache';
 
+  public readonly DEFAULT_MMR_CLIENT: ClientRecord = {
+    clientId: 'YT-CLI-001',
+    clientName: 'MMRCONSTRUCTION AND DEVELOPERS PRIVATE LIMITED',
+    contactPerson: 'Suraj Kumar Verma',
+    mobile: '7071951011',
+    email: 'contact@mmrconstructions.in',
+    address: 'SHESHPUR, Unnao- 209801',
+    state: 'Uttar Pradesh',
+    stateCode: '09',
+    gstin: '09AATCM6753A1Z5',
+    createdDate: '2026-11-06'
+  };
+
+  public readonly DEFAULT_MMR_INVOICE: InvoiceRecord = {
+    invoiceNo: 'YOGTECK-2026-1',
+    clientId: 'YT-CLI-001',
+    invoiceDate: '2026-11-06',
+    dueDate: '2026-09-13',
+    taxableTotal: 250000,
+    taxTotal: 0,
+    grandTotal: 250000,
+    status: 'Partially Paid',
+    publicToken: 'yt_tok_mmr_live_invoice_2026',
+    notes: 'No Cheque or Cash accepted. Only UPI or Net Banking allowed.',
+    challanNo: '33',
+    challanDate: '2026-11-06',
+    ewayBillNo: '78456378',
+    transport: 'Transporter',
+    transportId: 'ID',
+    planName: 'Annual Cloud & Maintenance Plan',
+    serviceStartDate: '2026-11-06',
+    serviceExpiryDate: '2027-02-07',
+    renewalDueDate: '2026-09-13',
+    totalPaid: 90000,
+    balanceDue: 160000,
+    client: {
+      clientId: 'YT-CLI-001',
+      clientName: 'MMRCONSTRUCTION AND DEVELOPERS PRIVATE LIMITED',
+      contactPerson: 'Suraj Kumar Verma',
+      mobile: '7071951011',
+      email: 'contact@mmrconstructions.in',
+      address: 'SHESHPUR, Unnao- 209801',
+      state: 'Uttar Pradesh',
+      stateCode: '09',
+      gstin: '09AATCM6753A1Z5',
+      createdDate: '2026-11-06'
+    },
+    items: [
+      {
+        srNo: 1,
+        description: 'Web Application & Cloud Software Development',
+        paymentDate: '2026-11-06',
+        qty: 1,
+        unit: 'NOS',
+        rate: 40000,
+        taxableValue: 40000,
+        taxPercent: 0,
+        taxAmount: 0,
+        lineTotal: 40000
+      },
+      {
+        srNo: 2,
+        description: 'Distributed Ledger Technology',
+        paymentDate: '2026-11-06',
+        qty: 1,
+        unit: 'NOS',
+        rate: 45000,
+        taxableValue: 45000,
+        taxPercent: 0,
+        taxAmount: 0,
+        lineTotal: 45000
+      },
+      {
+        srNo: 3,
+        description: 'Services Chagre',
+        paymentDate: '2026-11-06',
+        qty: 1,
+        unit: 'NOS',
+        rate: 5000,
+        taxableValue: 5000,
+        taxPercent: 0,
+        taxAmount: 0,
+        lineTotal: 5000
+      }
+    ],
+    payments: [
+      {
+        paymentId: 'YT-PAY-001',
+        invoiceNo: 'YOGTECK-2026-1',
+        amountPaid: 40000,
+        paymentDate: '2026-11-06',
+        mode: 'UPI',
+        note: 'Part 1: Web Application & Cloud Software Development'
+      },
+      {
+        paymentId: 'YT-PAY-002',
+        invoiceNo: 'YOGTECK-2026-1',
+        amountPaid: 45000,
+        paymentDate: '2026-11-06',
+        mode: 'UPI',
+        note: 'Part 2: Distributed Ledger Technology'
+      },
+      {
+        paymentId: 'YT-PAY-003',
+        invoiceNo: 'YOGTECK-2026-1',
+        amountPaid: 5000,
+        paymentDate: '2026-11-06',
+        mode: 'UPI',
+        note: 'Part 3: Services Chagre'
+      }
+    ]
+  };
+
   private readonly apiBaseUrl = this.getApiBaseUrl();
 
   constructor(private authService: AdminAuthService) {}
@@ -192,8 +305,14 @@ export class AdminInvoiceService {
       if (res.ok) {
         const data = await res.json();
         if (data.success && Array.isArray(data.clients)) {
-          this.saveClientsLocal(data.clients);
-          return data;
+          const localClients = this.getClientsLocal();
+          const merged = [...data.clients];
+          localClients.forEach(lc => {
+            const exists = merged.some(sc => sc.clientId === lc.clientId || sc.clientName.trim().toLowerCase() === lc.clientName.trim().toLowerCase());
+            if (!exists) merged.push(lc);
+          });
+          this.saveClientsLocal(merged);
+          return { success: true, clients: merged };
         }
       }
     } catch (e: any) {}
@@ -235,8 +354,21 @@ export class AdminInvoiceService {
       if (res.ok) {
         const data = await res.json();
         if (data.success && Array.isArray(data.invoices)) {
-          this.saveInvoicesLocal(data.invoices);
-          return data;
+          const localInvoices = this.getInvoicesLocal();
+          const merged = [...data.invoices];
+          localInvoices.forEach(li => {
+            const idx = merged.findIndex(si => si.invoiceNo === li.invoiceNo);
+            if (idx === -1) {
+              merged.push(li);
+            } else {
+              // Prefer local if it has greater/updated projectCost or items
+              if ((Number(li.grandTotal) || 0) >= (Number(merged[idx].grandTotal) || 0)) {
+                merged[idx] = { ...merged[idx], ...li };
+              }
+            }
+          });
+          this.saveInvoicesLocal(merged);
+          return { success: true, invoices: merged };
         }
       }
     } catch (e: any) {}
@@ -459,25 +591,22 @@ export class AdminInvoiceService {
   }
 
   private getClientsLocal(): ClientRecord[] {
-    if (typeof window === 'undefined') return [];
+    if (typeof window === 'undefined') return [this.DEFAULT_MMR_CLIENT];
     try {
       const raw = localStorage.getItem(this.CLIENTS_CACHE_KEY);
-      if (raw) return JSON.parse(raw);
-    } catch (e) {}
-    return [
-      {
-        clientId: 'YT-CLI-001',
-        clientName: 'MMR Constructions',
-        contactPerson: 'Rajesh Sharma',
-        mobile: '9878789878',
-        email: 'contact@mmrconstructions.in',
-        address: 'Sumel Business Park 7, Ring Road, Ahmedabad, Gujarat - 380023',
-        state: 'Gujarat',
-        stateCode: '24',
-        gstin: '24AABBA7890B1ZB',
-        createdDate: new Date().toISOString().slice(0, 10)
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          return parsed.map(c => {
+            if (c.clientId === 'YT-CLI-001' && (c.contactPerson === 'Rajesh Sharma' || !c.contactPerson || c.clientName === 'MMR Constructions')) {
+              return { ...this.DEFAULT_MMR_CLIENT };
+            }
+            return c;
+          });
+        }
       }
-    ];
+    } catch (e) {}
+    return [{ ...this.DEFAULT_MMR_CLIENT }];
   }
 
   private saveClientsLocal(clients: ClientRecord[]): void {
@@ -524,12 +653,29 @@ export class AdminInvoiceService {
   }
 
   private getInvoicesLocal(): InvoiceRecord[] {
-    if (typeof window === 'undefined') return [];
+    if (typeof window === 'undefined') return [{ ...this.DEFAULT_MMR_INVOICE }];
     try {
       const raw = localStorage.getItem(this.INVOICES_CACHE_KEY);
-      if (raw) return JSON.parse(raw);
+      if (raw) {
+        const list = JSON.parse(raw);
+        if (Array.isArray(list) && list.length > 0) {
+          // If invoice in storage has old dummy 4489.9 values or missing items, upgrade to the user's real MMR invoice
+          const upgraded = list.map(inv => {
+            if (inv.invoiceNo === 'YOGTECK-2026-1' || inv.invoiceNo === 'YOGTECK-2026-11-001') {
+              if (Number(inv.grandTotal) < 10000 || !inv.items || inv.items.length === 0 || inv.items[0]?.rate < 10000) {
+                return { ...this.DEFAULT_MMR_INVOICE, invoiceNo: inv.invoiceNo };
+              }
+            }
+            return inv;
+          });
+          if (!upgraded.some(i => i.invoiceNo === 'YOGTECK-2026-1')) {
+            upgraded.unshift({ ...this.DEFAULT_MMR_INVOICE });
+          }
+          return upgraded;
+        }
+      }
     } catch (e) {}
-    return [];
+    return [{ ...this.DEFAULT_MMR_INVOICE }];
   }
 
   private saveInvoicesLocal(invoices: InvoiceRecord[]): void {

@@ -147,12 +147,12 @@ export class AdminInvoiceService {
     publicToken: 'yt_tok_mmr_live_invoice_2026',
     notes: 'No Cheque or Cash accepted. Only UPI or Net Banking allowed.',
     challanNo: 'CLG-AXS-116745',
-    challanDate: '2026-11-06',
+    challanDate: '2026-05-27',
     ewayBillNo: '78456378',
     transport: 'Transporter',
     transportId: 'ID',
     planName: 'Annual Cloud & Maintenance Plan',
-    serviceStartDate: '2026-11-06',
+    serviceStartDate: '2026-05-27',
     serviceExpiryDate: '2027-02-07',
     renewalDueDate: '2026-09-13',
     totalPaid: 90000,
@@ -173,8 +173,8 @@ export class AdminInvoiceService {
       {
         srNo: 1,
         description: 'Web Application & Cloud Software Development',
-        paymentDate: '2026-11-06',
-        refNo: 'UPI Ref : 374580831454\nUPI ID : 7071951011@ybl',
+        paymentDate: '2026-05-27',
+        refNo: 'CLG-AXS-116745',
         qty: 1,
         unit: 'NOS',
         rate: 40000,
@@ -185,19 +185,32 @@ export class AdminInvoiceService {
       },
       {
         srNo: 2,
-        description: 'Distributed Ledger Technology',
-        paymentDate: '2026-11-06',
-        refNo: 'UPI Ref : 704938145541\nUPI ID : 7071951011@ybl',
+        description: 'Distributed Ledger Technology (Milestone 2A)',
+        paymentDate: '2026-07-29',
+        refNo: 'UPI Ref : 374580831454\nUPI ID : 7071951011@ybl',
         qty: 1,
         unit: 'NOS',
-        rate: 45000,
-        taxableValue: 45000,
+        rate: 43000,
+        taxableValue: 43000,
         taxPercent: 0,
         taxAmount: 0,
-        lineTotal: 45000
+        lineTotal: 43000
       },
       {
         srNo: 3,
+        description: 'Digital Infrastructure & Setup (Milestone 2B)',
+        paymentDate: '2026-07-29',
+        refNo: 'UPI Ref : 704938145541\nUPI ID : 7071951011@ybl',
+        qty: 1,
+        unit: 'NOS',
+        rate: 2000,
+        taxableValue: 2000,
+        taxPercent: 0,
+        taxAmount: 0,
+        lineTotal: 2000
+      },
+      {
+        srNo: 4,
         description: 'Services Charge',
         paymentDate: '2026-11-06',
         refNo: 'UPI Ref : 287289156857\nUPI ID : 7071951011-2@axl',
@@ -215,20 +228,28 @@ export class AdminInvoiceService {
         paymentId: 'YT-PAY-001',
         invoiceNo: 'YOGTECK-2026-1',
         amountPaid: 40000,
-        paymentDate: '2026-11-06',
-        mode: 'UPI',
-        note: 'Part 1: Web Application & Cloud Software Development [UPI Ref : 374580831454]'
+        paymentDate: '2026-05-27',
+        mode: 'Cheque',
+        note: 'Cheque Clearance [Ref: CLG-AXS-116745]'
       },
       {
         paymentId: 'YT-PAY-002',
         invoiceNo: 'YOGTECK-2026-1',
-        amountPaid: 45000,
-        paymentDate: '2026-11-06',
+        amountPaid: 43000,
+        paymentDate: '2026-07-29',
         mode: 'UPI',
-        note: 'Part 2: Distributed Ledger Technology [UPI Ref : 704938145541]'
+        note: 'Part 2A: UPI Ref : 374580831454 [UPI ID: 7071951011@ybl]'
       },
       {
         paymentId: 'YT-PAY-003',
+        invoiceNo: 'YOGTECK-2026-1',
+        amountPaid: 2000,
+        paymentDate: '2026-07-29',
+        mode: 'UPI',
+        note: 'Part 2B: UPI Ref : 704938145541 [UPI ID: 7071951011@ybl]'
+      },
+      {
+        paymentId: 'YT-PAY-004',
         invoiceNo: 'YOGTECK-2026-1',
         amountPaid: 5000,
         paymentDate: '2026-11-06',
@@ -710,16 +731,19 @@ export class AdminInvoiceService {
       })
       .filter((inv): inv is InvoiceRecord => Boolean(inv));
 
-    // 2. Upgrade MMR invoice if needed to ensure correct values (250,000 / 90,000 / 160,000 and authentic UPI proof references)
+    // 2. Upgrade MMR invoice if needed to ensure correct values (250,000 / 90,000 / 160,000 and 4 authentic payment parts)
     const upgraded = migrated.map(inv => {
       if (inv.invoiceNo === 'YOGTECK-2026-1') {
-        const hasCorrectRef = Boolean(inv.items && inv.items[0]?.refNo && inv.items[0].refNo.includes('374580831454'));
+        const has4Parts = Boolean(
+          inv.items &&
+          inv.items.length === 4 &&
+          inv.items.some(it => Number(it.rate) === 43000) &&
+          inv.items.some(it => Number(it.rate) === 2000)
+        );
         if (
+          !has4Parts ||
           Number(inv.grandTotal) !== 250000 ||
           Number(inv.totalPaid) !== 90000 ||
-          !inv.items ||
-          inv.items.length !== 3 ||
-          !hasCorrectRef ||
           inv.status !== 'Partially Paid'
         ) {
           return { ...this.DEFAULT_MMR_INVOICE };
@@ -832,7 +856,7 @@ export class AdminInvoiceService {
           invoiceNo: invoiceData.invoiceNo,
           amountPaid: Number(it.lineTotal) || 0,
           paymentDate: it.paymentDate || invoiceData.paymentDate || invoiceData.invoiceDate || new Date().toISOString().slice(0, 10),
-          mode: 'UPI',
+          mode: (it.refNo && it.refNo.includes('CLG')) || (it.description && it.description.toLowerCase().includes('cheque')) ? 'Cheque' : 'UPI',
           note: `Part ${idx + 1}: ${it.description || 'Installment'}${it.refNo ? ` [Ref: ${it.refNo}]` : ''}`
         }));
       } else {
@@ -943,7 +967,7 @@ export class AdminInvoiceService {
             invoiceNo,
             amountPaid: Number(it.lineTotal) || 0,
             paymentDate: it.paymentDate || invoiceData.paymentDate || invoiceData.invoiceDate || new Date().toISOString().slice(0, 10),
-            mode: 'UPI',
+            mode: (it.refNo && it.refNo.includes('CLG')) || (it.description && it.description.toLowerCase().includes('cheque')) ? 'Cheque' : 'UPI',
             note: `Part ${idx + 1}: ${it.description || 'Installment'}${it.refNo ? ` [Ref: ${it.refNo}]` : ''}`
           }));
         } else {

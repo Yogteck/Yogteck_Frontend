@@ -146,7 +146,7 @@ export class AdminInvoiceService {
     status: 'Partially Paid',
     publicToken: 'yt_tok_mmr_live_invoice_2026',
     notes: 'No Cheque or Cash accepted. Only UPI or Net Banking allowed.',
-    challanNo: '33',
+    challanNo: 'CLG-AXS-116745',
     challanDate: '2026-11-06',
     ewayBillNo: '78456378',
     transport: 'Transporter',
@@ -174,7 +174,7 @@ export class AdminInvoiceService {
         srNo: 1,
         description: 'Web Application & Cloud Software Development',
         paymentDate: '2026-11-06',
-        refNo: 'UPI/6311094012',
+        refNo: 'UPI Ref : 374580831454\nUPI ID : 7071951011@ybl',
         qty: 1,
         unit: 'NOS',
         rate: 40000,
@@ -187,7 +187,7 @@ export class AdminInvoiceService {
         srNo: 2,
         description: 'Distributed Ledger Technology',
         paymentDate: '2026-11-06',
-        refNo: 'UPI/6311459021',
+        refNo: 'UPI Ref : 704938145541\nUPI ID : 7071951011@ybl',
         qty: 1,
         unit: 'NOS',
         rate: 45000,
@@ -200,7 +200,7 @@ export class AdminInvoiceService {
         srNo: 3,
         description: 'Services Charge',
         paymentDate: '2026-11-06',
-        refNo: 'UPI/6311500334',
+        refNo: 'UPI Ref : 287289156857\nUPI ID : 7071951011-2@axl',
         qty: 1,
         unit: 'NOS',
         rate: 5000,
@@ -217,7 +217,7 @@ export class AdminInvoiceService {
         amountPaid: 40000,
         paymentDate: '2026-11-06',
         mode: 'UPI',
-        note: 'Part 1: Web Application & Cloud Software Development'
+        note: 'Part 1: Web Application & Cloud Software Development [UPI Ref : 374580831454]'
       },
       {
         paymentId: 'YT-PAY-002',
@@ -225,7 +225,7 @@ export class AdminInvoiceService {
         amountPaid: 45000,
         paymentDate: '2026-11-06',
         mode: 'UPI',
-        note: 'Part 2: Distributed Ledger Technology'
+        note: 'Part 2: Distributed Ledger Technology [UPI Ref : 704938145541]'
       },
       {
         paymentId: 'YT-PAY-003',
@@ -233,7 +233,7 @@ export class AdminInvoiceService {
         amountPaid: 5000,
         paymentDate: '2026-11-06',
         mode: 'UPI',
-        note: 'Part 3: Services Charge'
+        note: 'Part 3: Services Charge [UPI Ref : 287289156857]'
       }
     ]
   };
@@ -710,15 +710,16 @@ export class AdminInvoiceService {
       })
       .filter((inv): inv is InvoiceRecord => Boolean(inv));
 
-    // 2. Upgrade MMR invoice if needed to ensure correct values (250,000 / 90,000 / 160,000)
+    // 2. Upgrade MMR invoice if needed to ensure correct values (250,000 / 90,000 / 160,000 and authentic UPI proof references)
     const upgraded = migrated.map(inv => {
       if (inv.invoiceNo === 'YOGTECK-2026-1') {
+        const hasCorrectRef = Boolean(inv.items && inv.items[0]?.refNo && inv.items[0].refNo.includes('374580831454'));
         if (
           Number(inv.grandTotal) !== 250000 ||
           Number(inv.totalPaid) !== 90000 ||
           !inv.items ||
-          inv.items.length === 0 ||
-          !inv.items[0]?.refNo ||
+          inv.items.length !== 3 ||
+          !hasCorrectRef ||
           inv.status !== 'Partially Paid'
         ) {
           return { ...this.DEFAULT_MMR_INVOICE };

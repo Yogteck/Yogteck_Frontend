@@ -498,16 +498,15 @@
         </div>
       </div>
 
-      <!-- Items Table (Without HSN/Tax; With Payment Date) -->
+      <!-- Items Table (Without HSN/Tax; With Payment Date & Ref No / Payment Proof; No Qty/Unit) -->
       <table class="inv-items-table">
         <thead>
           <tr>
             <th style="width: 6%;">Sr. No.</th>
-            <th style="width: 44%;">Name of Product / Service</th>
+            <th style="width: 42%;">Name of Product / Service</th>
             <th style="width: 16%;">Payment Date</th>
-            <th style="width: 10%;">Qty</th>
-            <th style="width: 12%;">Rate</th>
-            <th style="width: 12%;">Total</th>
+            <th style="width: 20%;">Ref. No. / Payment Proof</th>
+            <th style="width: 16%;" class="t-right">Amount</th>
           </tr>
         </thead>
         <tbody>
@@ -515,13 +514,15 @@
             <td class="t-center">{{ i + 1 }}</td>
             <td class="t-left"><strong>{{ item.description }}</strong></td>
             <td class="t-center">{{ formatDisplayDate(item.paymentDate || inv.paymentDate || inv.invoiceDate) }}</td>
-            <td class="t-center">{{ item.qty }} {{ item.unit || 'NOS' }}</td>
-            <td class="t-right">{{ formatINR(item.rate) }}</td>
-            <td class="t-right"><strong>{{ formatINR(item.lineTotal || (item.qty * item.rate)) }}</strong></td>
+            <td class="t-center">
+              <span class="ref-badge" *ngIf="item.refNo; else noRef">{{ item.refNo }}</span>
+              <ng-template #noRef><span class="text-muted">-</span></ng-template>
+            </td>
+            <td class="t-right"><strong>{{ formatINR(item.lineTotal || item.rate) }}</strong></td>
           </tr>
           <tr class="inv-total-row">
             <td colspan="4" class="t-right"><strong>Total Amount</strong></td>
-            <td colspan="2" class="t-right"><strong>{{ formatINR(getItemRowsTotal(inv) || inv.grandTotal) }}</strong></td>
+            <td class="t-right"><strong>{{ formatINR(getItemRowsTotal(inv) || inv.grandTotal) }}</strong></td>
           </tr>
         </tbody>
       </table>
@@ -951,10 +952,8 @@
                   <th style="width: 32px;" class="text-center">#</th>
                   <th style="min-width: 250px;">Description of Product / Service <span class="required">*</span></th>
                   <th style="width: 140px;">Payment Date</th>
-                  <th style="width: 80px;">Qty</th>
-                  <th style="width: 80px;">Unit</th>
-                  <th style="width: 130px;">Rate (₹) <span class="required">*</span></th>
-                  <th style="width: 130px;" class="text-right">Total (₹)</th>
+                  <th style="width: 180px;">Ref No. / Payment Proof</th>
+                  <th style="width: 140px;" class="text-right">Amount (₹) <span class="required">*</span></th>
                   <th style="width: 40px;" class="text-center"></th>
                 </tr>
               </thead>
@@ -981,20 +980,11 @@
                   </td>
                   <td>
                     <input 
-                      type="number" 
-                      [(ngModel)]="item.qty" 
-                      [name]="'qty_' + idx" 
-                      min="1" 
-                      class="dash-input modern-input table-input text-center" 
-                    />
-                  </td>
-                  <td>
-                    <input 
                       type="text" 
-                      [(ngModel)]="item.unit" 
-                      [name]="'unit_' + idx" 
-                      placeholder="NOS" 
-                      class="dash-input modern-input table-input text-center" 
+                      [(ngModel)]="item.refNo" 
+                      [name]="'refNo_' + idx" 
+                      placeholder="e.g. UTR / UPI Ref / Txn ID" 
+                      class="dash-input modern-input table-input" 
                     />
                   </td>
                   <td>
@@ -1004,13 +994,11 @@
                       (input)="onItemRateChange()"
                       [name]="'rate_' + idx" 
                       min="0" 
-                      step="0.01" 
+                      step="1" 
                       class="dash-input modern-input table-input text-right font-medium" 
+                      placeholder="40000"
                       required 
                     />
-                  </td>
-                  <td class="text-right line-total-cell">
-                    {{ formatINR(getItemTotal(item)) }}
                   </td>
                   <td class="text-center">
                     <button 

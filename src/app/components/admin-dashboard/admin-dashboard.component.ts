@@ -88,6 +88,7 @@ export class AdminDashboardComponent implements OnInit {
       {
         description: 'Web Application & Cloud Software Development',
         paymentDate: new Date().toISOString().slice(0, 10),
+        refNo: '',
         qty: 1,
         unit: 'NOS',
         rate: 5000,
@@ -318,6 +319,7 @@ export class AdminDashboardComponent implements OnInit {
         {
           description: 'Web Application & Cloud Software Development',
           paymentDate: new Date().toISOString().slice(0, 10),
+          refNo: '',
           qty: 1,
           unit: 'NOS',
           rate: 5000,
@@ -363,12 +365,13 @@ export class AdminDashboardComponent implements OnInit {
       items: (inv.items && inv.items.length > 0) ? inv.items.map(item => ({
         description: item.description,
         paymentDate: item.paymentDate || inv.paymentDate || inv.invoiceDate,
+        refNo: item.refNo || item.hsnSac || '',
         qty: item.qty || 1,
         unit: item.unit || 'NOS',
         rate: item.rate || 0,
         taxPercent: 0
       })) : [
-        { description: '', paymentDate: new Date().toISOString().slice(0, 10), qty: 1, unit: 'NOS', rate: cost, taxPercent: 0 }
+        { description: '', paymentDate: new Date().toISOString().slice(0, 10), refNo: '', qty: 1, unit: 'NOS', rate: cost, taxPercent: 0 }
       ]
     };
 
@@ -386,6 +389,7 @@ export class AdminDashboardComponent implements OnInit {
     this.newInvoiceData.items.push({
       description: '',
       paymentDate: this.newInvoiceData.paymentDate || new Date().toISOString().slice(0, 10),
+      refNo: '',
       qty: 1,
       unit: 'NOS',
       rate: 0,
@@ -425,48 +429,21 @@ export class AdminDashboardComponent implements OnInit {
   }
 
   onAmountPaidChange(): void {
-    const cost = Number(this.newInvoiceData.projectCost) || 0;
-    const paid = Number(this.newInvoiceData.amountPaid) || 0;
-    if (paid >= cost && cost > 0) {
-      this.newInvoiceData.status = 'Paid';
-    } else if (paid <= 0) {
-      this.newInvoiceData.status = 'Unpaid';
-    } else {
-      this.newInvoiceData.status = 'Partially Paid';
-    }
+    // Live calculation getter (computedBalanceDue) handles the balance calculation automatically
   }
 
   onStatusChange(): void {
-    const cost = Number(this.newInvoiceData.projectCost) || 0;
-    if (this.newInvoiceData.status === 'Paid') {
-      this.newInvoiceData.amountPaid = cost;
-    } else if (this.newInvoiceData.status === 'Unpaid') {
-      this.newInvoiceData.amountPaid = 0;
-    } else if (this.newInvoiceData.status === 'Partially Paid') {
-      const itemsSum = this.computedTaxableTotal;
-      if (itemsSum > 0 && itemsSum < cost) {
-        this.newInvoiceData.amountPaid = itemsSum;
-      } else if (this.newInvoiceData.amountPaid >= cost || this.newInvoiceData.amountPaid <= 0) {
-        this.newInvoiceData.amountPaid = Math.round(cost / 2);
-      }
-    }
+    // User manually chose the payment status from the dropdown - preserve their manual choice
   }
 
   setAmountPaidFromItems(): void {
     const sum = this.computedTaxableTotal;
     this.newInvoiceData.amountPaid = sum;
-    this.onAmountPaidChange();
   }
 
   onItemRateChange(): void {
-    const total = this.computedTaxableTotal;
-    if (!this.newInvoiceData.projectCost || this.newInvoiceData.projectCost === 5000) {
-      this.newInvoiceData.projectCost = total;
-    }
-    if (this.newInvoiceData.status === 'Paid') {
-      this.newInvoiceData.amountPaid = this.newInvoiceData.projectCost;
-    } else {
-      this.onAmountPaidChange();
+    if (!this.newInvoiceData.projectCost) {
+      this.newInvoiceData.projectCost = this.computedTaxableTotal;
     }
   }
 

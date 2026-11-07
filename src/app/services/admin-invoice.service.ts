@@ -41,9 +41,10 @@ export interface ClientRecord {
 export interface InvoiceItem {
   srNo?: number;
   description: string;
-  hsnSac?: string;
   paymentDate?: string;
-  qty: number;
+  refNo?: string;
+  hsnSac?: string;
+  qty?: number;
   unit?: string;
   rate: number;
   taxableValue?: number;
@@ -173,6 +174,7 @@ export class AdminInvoiceService {
         srNo: 1,
         description: 'Web Application & Cloud Software Development',
         paymentDate: '2026-11-06',
+        refNo: 'UPI/6311094012',
         qty: 1,
         unit: 'NOS',
         rate: 40000,
@@ -185,6 +187,7 @@ export class AdminInvoiceService {
         srNo: 2,
         description: 'Distributed Ledger Technology',
         paymentDate: '2026-11-06',
+        refNo: 'UPI/6311459021',
         qty: 1,
         unit: 'NOS',
         rate: 45000,
@@ -195,8 +198,9 @@ export class AdminInvoiceService {
       },
       {
         srNo: 3,
-        description: 'Services Chagre',
+        description: 'Services Charge',
         paymentDate: '2026-11-06',
+        refNo: 'UPI/6311500334',
         qty: 1,
         unit: 'NOS',
         rate: 5000,
@@ -229,7 +233,7 @@ export class AdminInvoiceService {
         amountPaid: 5000,
         paymentDate: '2026-11-06',
         mode: 'UPI',
-        note: 'Part 3: Services Chagre'
+        note: 'Part 3: Services Charge'
       }
     ]
   };
@@ -354,24 +358,13 @@ export class AdminInvoiceService {
       if (res.ok) {
         const data = await res.json();
         if (data.success && Array.isArray(data.invoices)) {
-          const localInvoices = this.getInvoicesLocal();
-          const merged = [...data.invoices];
-          localInvoices.forEach(li => {
-            const idx = merged.findIndex(si => si.invoiceNo === li.invoiceNo);
-            if (idx === -1) {
-              merged.push(li);
-            } else {
-              // Prefer local if it has greater/updated projectCost or items
-              if ((Number(li.grandTotal) || 0) >= (Number(merged[idx].grandTotal) || 0)) {
-                merged[idx] = { ...merged[idx], ...li };
-              }
-            }
-          });
-          this.saveInvoicesLocal(merged);
-          return { success: true, invoices: merged };
+          this.saveInvoicesLocal(data.invoices);
+          return { success: true, invoices: data.invoices };
         }
       }
-    } catch (e: any) {}
+    } catch (e: any) {
+      console.warn('Backend getInvoices network error, using local fallback:', e.message);
+    }
 
     return { success: true, invoices: this.getInvoicesLocal() };
   }
@@ -659,10 +652,10 @@ export class AdminInvoiceService {
       if (raw) {
         const list = JSON.parse(raw);
         if (Array.isArray(list) && list.length > 0) {
-          // If invoice in storage has old dummy 4489.9 values or missing items, upgrade to the user's real MMR invoice
+          // If invoice in storage has old dummy values, missing refNo, or outdated cost/paid, upgrade to the user's real MMR invoice
           const upgraded = list.map(inv => {
             if (inv.invoiceNo === 'YOGTECK-2026-1' || inv.invoiceNo === 'YOGTECK-2026-11-001') {
-              if (Number(inv.grandTotal) < 10000 || !inv.items || inv.items.length === 0 || inv.items[0]?.rate < 10000) {
+              if (Number(inv.grandTotal) !== 250000 || Number(inv.totalPaid) !== 90000 || !inv.items || inv.items.length === 0 || !inv.items[0]?.refNo || inv.status !== 'Partially Paid') {
                 return { ...this.DEFAULT_MMR_INVOICE, invoiceNo: inv.invoiceNo };
               }
             }
@@ -704,7 +697,9 @@ export class AdminInvoiceService {
       return {
         srNo: idx + 1,
         description: it.description,
-        hsnSac: it.hsnSac || '998314',
+        paymentDate: it.paymentDate || invoiceData.paymentDate || invoiceData.invoiceDate,
+        refNo: it.refNo || it.hsnSac || '',
+        hsnSac: it.refNo || it.hsnSac || '',
         qty,
         unit: it.unit || 'NOS',
         rate,
@@ -739,7 +734,7 @@ export class AdminInvoiceService {
           amountPaid: Number(it.lineTotal) || 0,
           paymentDate: it.paymentDate || invoiceData.paymentDate || invoiceData.invoiceDate || new Date().toISOString().slice(0, 10),
           mode: 'UPI',
-          note: `Part ${idx + 1}: ${it.description || 'Installment'}`
+          note: `Part ${idx + 1}: ${it.description || 'Installment'}${it.refNo ? ` [Ref: ${it.refNo}]` : ''}`
         }));
       } else {
         payments = [{
@@ -809,15 +804,16 @@ export class AdminInvoiceService {
       return {
         srNo: idx + 1,
         description: it.description,
-        hsnSac: it.hsnSac || '998314',
+        paymentDate: it.paymentDate || invoiceData.paymentDate || invoiceData.invoiceDate,
+        refNo: it.refNo || it.hsnSac || '',
+        hsnSac: it.refNo || it.hsnSac || '',
         qty,
         unit: it.unit || 'NOS',
         rate,
         taxableValue: taxable,
         taxPercent,
         taxAmount,
-        lineTotal: Math.round((taxable + taxAmount) * 100) / 100,
-        paymentDate: it.paymentDate || invoiceData.paymentDate || invoiceData.invoiceDate
+        lineTotal: Math.round((taxable + taxAmount) * 100) / 100
       };
     });
 
@@ -849,7 +845,7 @@ export class AdminInvoiceService {
             amountPaid: Number(it.lineTotal) || 0,
             paymentDate: it.paymentDate || invoiceData.paymentDate || invoiceData.invoiceDate || new Date().toISOString().slice(0, 10),
             mode: 'UPI',
-            note: `Part ${idx + 1}: ${it.description || 'Installment'}`
+            note: `Part ${idx + 1}: ${it.description || 'Installment'}${it.refNo ? ` [Ref: ${it.refNo}]` : ''}`
           }));
         } else {
           existingPayments = [{

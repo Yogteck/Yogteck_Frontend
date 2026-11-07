@@ -479,6 +479,24 @@ export class AdminDashboardComponent implements OnInit {
     return `${dd}/${mm}/${yyyy}`;
   }
 
+  getRefLines(raw?: string | null): string[] {
+    if (!raw) return [];
+    let text = String(raw).trim();
+    if (!text) return [];
+    text = text.replace(/\s*:\s*/g, ': ');
+    if (/UPI\s*ID:/i.test(text) && /UPI\s*Ref:/i.test(text)) {
+      const parts = text.split(/(?=UPI\s*ID:)/i);
+      return parts.map(p => p.trim()).filter(Boolean);
+    }
+    if (text.includes('\n')) {
+      return text.split('\n').map(p => p.trim()).filter(Boolean);
+    }
+    if (text.includes(';') || text.includes('|')) {
+      return text.split(/[;|]/).map(p => p.trim()).filter(Boolean);
+    }
+    return [text];
+  }
+
   async submitCreateInvoice(): Promise<void> {
     if (!this.newInvoiceData.clientId) {
       alert('Please select or add a client.');

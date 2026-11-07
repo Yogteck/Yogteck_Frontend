@@ -502,11 +502,11 @@
       <table class="inv-items-table">
         <thead>
           <tr>
-            <th style="width: 6%;">Sr. No.</th>
-            <th style="width: 42%;">Name of Product / Service</th>
-            <th style="width: 16%;">Payment Date</th>
-            <th style="width: 20%;">Ref. No. / Payment Proof</th>
-            <th style="width: 16%;" class="t-right">Amount</th>
+            <th style="width: 5%;">Sr. No.</th>
+            <th style="width: 36%;">Name of Product / Service</th>
+            <th style="width: 14%;">Payment Date</th>
+            <th style="width: 27%;">Ref. No. / Payment Proof</th>
+            <th style="width: 18%;" class="t-right">Amount</th>
           </tr>
         </thead>
         <tbody>
@@ -515,7 +515,9 @@
             <td class="t-left"><strong>{{ item.description }}</strong></td>
             <td class="t-center">{{ formatDisplayDate(item.paymentDate || inv.paymentDate || inv.invoiceDate) }}</td>
             <td class="t-center">
-              <span class="ref-badge" *ngIf="item.refNo; else noRef">{{ item.refNo }}</span>
+              <div class="ref-badge" *ngIf="item.refNo; else noRef">
+                <span *ngFor="let line of getRefLines(item.refNo)" class="ref-line">{{ line }}</span>
+              </div>
               <ng-template #noRef><span class="text-muted">-</span></ng-template>
             </td>
             <td class="t-right"><strong>{{ formatINR(item.lineTotal || item.rate) }}</strong></td>

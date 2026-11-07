@@ -1360,14 +1360,26 @@
 .inv-co-addr { font-size: 10px; color: #334155; line-height: 1.35; }
 
 .inv-head-right { width: 38%; text-align: right; }
-.yt-square-logo {
-  display: inline-block;
-  border: 3px solid #000000;
-  font-size: 24px;
-  font-weight: 900;
-  padding: 6px 14px;
+.inv-logo-box {
+  display: flex;
+  justify-content: flex-end;
   margin-bottom: 6px;
-  letter-spacing: 2px;
+}
+.yt-square-logo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 58px;
+  height: 46px;
+  border: 2.5px solid #000000;
+  font-size: 22px;
+  font-weight: 900;
+  line-height: 44px;
+  letter-spacing: 1px;
+  color: #000000;
+  text-align: center;
+  box-sizing: border-box;
+  margin-left: auto;
 }
 
 .inv-co-contact { font-size: 10px; color: #334155; line-height: 1.35; }

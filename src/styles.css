@@ -4,31 +4,39 @@
    ========================================================================== */
 
 :root {
-  /* Centralized Yogteck Light Theme Tokens */
-  --accent: #f58220;
-  --accent-dark: #dc6d0e;
-  --primary-orange: #f58220;
-  --dark-orange: #dc6d0e;
-  --secondary-green: #1a9c55;
-  --brand-green: #1a9c55;
-  --ink: #111827;
-  --muted: #4b5563;
-  --line: #ececec;
-  --bg: #ffffff;
-  --soft: #ffffff;
-  --tint: #f6f6f6;
+  /* Centralized Yogteck Earthy Palette Tokens */
+  --accent: #B4654A;
+  --accent-dark: #9A5239;
+  --primary-orange: #B4654A;
+  --dark-orange: #9A5239;
+  --secondary-green: #96A896;
+  --brand-green: #96A896;
+  --ink: #1F2922;
+  --muted: #4A554E;
+  --line: #DCD7CD;
+  --bg: #F2EFE9;
+  --soft: #FAF8F5;
+  --tint: #E8E4DC;
   --hh: 76px;
 
-  --bg-page: #ffffff;
-  --bg-white: #ffffff;
-  --bg-light: #f8fafc;
-  --bg-card-white: #ffffff;
-  --border-line: #ececec;
-  --border-subtle: #e2e8f0;
+  --bg-page: #F2EFE9;
+  --bg-canvas: #F2EFE9;
+  --bg-white: #FAF8F5;
+  --bg-light: #F2EFE9;
+  --bg-section-alt: #96A896;
+  --bg-card: #FAF8F5;
+  --bg-card-white: #FAF8F5;
+  --border-line: #DCD7CD;
+  --border-subtle: #DCD7CD;
 
-  --text-dark-primary: #111827;
-  --text-dark-secondary: #374151;
-  --text-dark-muted: #6b7280;
+  --text-dark-primary: #1F2922;
+  --text-dark-secondary: #4A554E;
+  --text-dark-muted: #647068;
+
+  --banner-bg: #18221B;
+  --footer-bg: #18221B;
+  --footer-heading: #F2EFE9;
+  --footer-link: #A3B0A6;
 
   /* Strict Shape Rules: Square corners on menu, buttons, input (0px); cards at most 4px */
   --radius-square: 0px;
@@ -37,59 +45,59 @@
   --font-body: 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica Neue', Arial, sans-serif;
   --font-heading: 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica Neue', Arial, sans-serif;
 
-  /* Default Theme: Night / Dark Mode fallback variables redirected to clean light */
-  --bg-navy-900: #FFFFFF;
-  --bg-navy-800: #F8FAFC;
-  --bg-navy-700: #F1F5F9;
-  --bg-navy-600: #E2E8F0;
-  --bg-navy-card: #FFFFFF;
-  --bg-navy-glass: rgba(255, 255, 255, 0.95);
+  /* Palette fallback variables */
+  --bg-navy-900: #F2EFE9;
+  --bg-navy-800: #FAF8F5;
+  --bg-navy-700: #E8E4DC;
+  --bg-navy-600: #DCD7CD;
+  --bg-navy-card: #FAF8F5;
+  --bg-navy-glass: rgba(250, 248, 245, 0.95);
 
-  /* Accents & Brand Colors (Dark Theme) */
-  --accent-orange-start: #FF9A1F;
-  --accent-orange-end: #FFB84D;
-  --accent-orange-solid: #FF9A1F;
-  --accent-orange-hover: #F28C10;
-  --accent-orange-gradient: linear-gradient(135deg, #FF9A1F 0%, #FFB84D 100%);
-  --accent-orange-glow: rgba(255, 154, 31, 0.35);
-  --accent-orange-subtle: rgba(255, 154, 31, 0.12);
+  /* Accents & Brand Colors (Terracotta & Sage Earthy Palette) */
+  --accent-orange-start: #B4654A;
+  --accent-orange-end: #D98A72;
+  --accent-orange-solid: #B4654A;
+  --accent-orange-hover: #9A5239;
+  --accent-orange-gradient: linear-gradient(135deg, #B4654A 0%, #D98A72 100%);
+  --accent-orange-glow: rgba(180, 101, 74, 0.25);
+  --accent-orange-subtle: rgba(180, 101, 74, 0.12);
 
-  --accent-blue: #2F7BFF;
-  --accent-blue-glow: #3AA0FF;
-  --accent-blue-light: #EBF3FF;
-  --accent-blue-gradient: linear-gradient(135deg, #2F7BFF 0%, #3AA0FF 100%);
-  --accent-green: #10B981;
-  --accent-green-subtle: rgba(16, 185, 129, 0.12);
+  --accent-blue: #3E6B5C;
+  --accent-blue-glow: #96A896;
+  --accent-blue-light: #E8EFE8;
+  --accent-blue-gradient: linear-gradient(135deg, #3E6B5C 0%, #96A896 100%);
+  --accent-green: #96A896;
+  --accent-green-subtle: rgba(150, 168, 150, 0.15);
 
-  /* Text Colors (Dark Theme) */
-  --text-dark-primary: #F8FAFC;
-  --text-dark-secondary: #94A3B8;
-  --text-dark-muted: #64748B;
+  /* Deep Forest Charcoal & Muted Moss Typography */
+  --text-dark-primary: #1F2922;
+  --text-dark-secondary: #4A554E;
+  --text-dark-muted: #647068;
   
-  --text-light-primary: #0B1B3A;
-  --text-light-secondary: #5A6A85;
-  --text-light-muted: #8E9BAE;
+  --text-light-primary: #1F2922;
+  --text-light-secondary: #4A554E;
+  --text-light-muted: #647068;
 
-  /* Form Control Tokens (Dark Theme) */
-  --input-bg: rgba(15, 23, 42, 0.65);
-  --input-border: rgba(255, 255, 255, 0.12);
-  --input-text: #F8FAFC;
-  --input-placeholder: #64748B;
-  --input-focus-bg: rgba(15, 23, 42, 0.85);
+  /* Form Control Tokens */
+  --input-bg: #FFFFFF;
+  --input-border: #DCD7CD;
+  --input-text: #1F2922;
+  --input-placeholder: #7A857E;
+  --input-focus-bg: #FFFFFF;
 
   /* Borders & Dividers */
-  --border-dark-subtle: rgba(255, 255, 255, 0.08);
-  --border-dark-glow: rgba(255, 154, 31, 0.4);
-  --border-blue-glow: rgba(47, 123, 255, 0.3);
-  --border-light: #E2E8F0;
-  --border-light-subtle: #EDF2F7;
+  --border-dark-subtle: rgba(31, 41, 34, 0.08);
+  --border-dark-glow: rgba(180, 101, 74, 0.4);
+  --border-blue-glow: rgba(150, 168, 150, 0.25);
+  --border-light: #DCD7CD;
+  --border-light-subtle: #E8E4DC;
 
   /* Shadows */
-  --shadow-card-light: 0 8px 30px rgba(15, 35, 80, 0.08);
-  --shadow-card-light-hover: 0 16px 40px rgba(15, 35, 80, 0.14);
-  --shadow-dark-card: 0 12px 36px rgba(0, 0, 0, 0.45);
-  --shadow-orange-glow: 0 8px 24px rgba(255, 154, 31, 0.35);
-  --shadow-blue-glow: 0 8px 24px rgba(47, 123, 255, 0.3);
+  --shadow-card-light: 0 4px 16px rgba(31, 41, 34, 0.05);
+  --shadow-card-light-hover: 0 10px 28px rgba(31, 41, 34, 0.09);
+  --shadow-dark-card: 0 4px 16px rgba(31, 41, 34, 0.05);
+  --shadow-orange-glow: 0 4px 14px rgba(180, 101, 74, 0.25);
+  --shadow-blue-glow: 0 4px 14px rgba(150, 168, 150, 0.25);
 
   /* Geometry & Radius */
   --radius-xs: 6px;
@@ -121,55 +129,55 @@
    ========================================================================== */
 [data-theme="light"],
 body.theme-light {
-  /* Crisp Clean Backgrounds */
-  --bg-navy-900: #FFFFFF;
-  --bg-navy-800: #F8FAFC;
-  --bg-navy-700: #F1F5F9;
-  --bg-navy-600: #E2E8F0;
-  --bg-navy-card: #FFFFFF;
-  --bg-navy-glass: rgba(255, 255, 255, 0.96);
-  --bg-light: #F8FAFC;
-  --bg-card-white: #FFFFFF;
-  --bg-page: #FAFCFF;
+  /* Soothing Earthy Backgrounds */
+  --bg-navy-900: #F2EFE9;
+  --bg-navy-800: #FAF8F5;
+  --bg-navy-700: #E8E4DC;
+  --bg-navy-600: #DCD7CD;
+  --bg-navy-card: #FAF8F5;
+  --bg-navy-glass: rgba(250, 248, 245, 0.96);
+  --bg-light: #F2EFE9;
+  --bg-card-white: #FAF8F5;
+  --bg-page: #F2EFE9;
 
-  /* Refined, Harmonious Sunset Orange & Sapphire Accents */
-  --accent-orange-start: #FF6B00;
-  --accent-orange-end: #F59E0B;
-  --accent-orange-solid: #EA580C;
-  --accent-orange-hover: #C2410C;
-  --accent-orange-gradient: linear-gradient(135deg, #FF6B00 0%, #F59E0B 100%);
-  --accent-orange-glow: rgba(234, 88, 12, 0.22);
-  --accent-orange-subtle: rgba(234, 88, 12, 0.08);
+  /* Terracotta & Sage Accents */
+  --accent-orange-start: #B4654A;
+  --accent-orange-end: #D98A72;
+  --accent-orange-solid: #B4654A;
+  --accent-orange-hover: #9A5239;
+  --accent-orange-gradient: linear-gradient(135deg, #B4654A 0%, #D98A72 100%);
+  --accent-orange-glow: rgba(180, 101, 74, 0.22);
+  --accent-orange-subtle: rgba(180, 101, 74, 0.08);
 
-  --accent-blue: #2563EB;
-  --accent-blue-glow: #3B82F6;
-  --accent-blue-light: #EFF6FF;
-  --accent-blue-gradient: linear-gradient(135deg, #2563EB 0%, #3B82F6 100%);
-  --accent-green: #059669;
-  --accent-green-subtle: rgba(5, 150, 105, 0.08);
+  --accent-blue: #3E6B5C;
+  --accent-blue-glow: #96A896;
+  --accent-blue-light: #E8EFE8;
+  --accent-blue-gradient: linear-gradient(135deg, #3E6B5C 0%, #96A896 100%);
+  --accent-green: #96A896;
+  --accent-green-subtle: rgba(150, 168, 150, 0.15);
 
-  /* Deep High-Legibility Charcoal & Slate Text */
-  --text-dark-primary: #0F172A;
-  --text-dark-secondary: #475569;
-  --text-dark-muted: #64748B;
+  /* Deep Forest Charcoal & Muted Moss Typography */
+  --text-dark-primary: #1F2922;
+  --text-dark-secondary: #4A554E;
+  --text-dark-muted: #647068;
   
-  --text-light-primary: #0F172A;
-  --text-light-secondary: #475569;
-  --text-light-muted: #64748B;
+  --text-light-primary: #1F2922;
+  --text-light-secondary: #4A554E;
+  --text-light-muted: #647068;
 
   /* Clean Light Form Inputs */
-  --input-bg: #F8FAFC;
-  --input-border: #E2E8F0;
-  --input-text: #0F172A;
-  --input-placeholder: #94A3B8;
+  --input-bg: #FAF8F5;
+  --input-border: #DCD7CD;
+  --input-text: #1F2922;
+  --input-placeholder: #7A857E;
   --input-focus-bg: #FFFFFF;
 
   /* Crisp Subtle Borders */
-  --border-dark-subtle: rgba(15, 23, 42, 0.06);
-  --border-dark-glow: rgba(234, 88, 12, 0.4);
-  --border-blue-glow: rgba(37, 99, 235, 0.25);
-  --border-light: #E2E8F0;
-  --border-light-subtle: #F1F5F9;
+  --border-dark-subtle: rgba(31, 41, 34, 0.06);
+  --border-dark-glow: rgba(180, 101, 74, 0.4);
+  --border-blue-glow: rgba(150, 168, 150, 0.25);
+  --border-light: #DCD7CD;
+  --border-light-subtle: #E8E4DC;
 
   /* Natural Soft Shadows */
   --shadow-card-light: 0 4px 20px rgba(15, 23, 42, 0.05);

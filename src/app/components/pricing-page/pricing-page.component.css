@@ -1,8 +1,8 @@
 :host {
   display: block;
   width: 100%;
-  background-color: #ffffff;
-  color: #111827;
+  background-color: var(--bg-page, #F2EFE9);
+  color: var(--ink, #1F2922);
   font-family: var(--font-body, 'Segoe UI', system-ui, -apple-system, sans-serif);
 }
 
@@ -12,7 +12,7 @@
 .pricing-main {
   min-height: calc(100vh - 160px);
   padding: 64px 0 80px;
-  background-color: #ffffff;
+  background-color: var(--bg-page, #F2EFE9);
 }
 
 .pricing-container {
@@ -33,7 +33,7 @@
 .pricing-title {
   font-size: 40px;
   font-weight: 850;
-  color: #111827;
+  color: var(--ink, #1F2922);
   margin: 0 0 14px;
   letter-spacing: -0.5px;
 }
@@ -41,7 +41,7 @@
 .pricing-intro {
   font-size: 17px;
   line-height: 1.6;
-  color: #4b5563;
+  color: var(--muted, #4A554E);
   margin: 0;
 }
 
@@ -56,24 +56,24 @@
   margin-bottom: 56px;
 }
 
-/* Plan Card: Square corners (0), 5px orange top border, same height */
+/* Plan Card: Square corners (0), 5px terracotta top border, same height */
 .plan-card {
-  background: #ffffff;
-  border: 1px solid #e5e7eb;
-  border-top: 5px solid var(--accent, #f58220);
+  background: var(--bg-card, #FAF8F5);
+  border: 1px solid var(--border-card, #DCD7CD);
+  border-top: 5px solid var(--accent, #B4654A);
   border-radius: 0 !important;
   padding: 36px 30px;
   display: flex;
   flex-direction: column;
   height: 100%;
   box-sizing: border-box;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 4px 16px rgba(31, 41, 34, 0.05);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .plan-card:hover {
   transform: translateY(-3px);
-  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 10px 28px rgba(31, 41, 34, 0.1);
 }
 
 .plan-top {
@@ -84,7 +84,7 @@
 .plan-name {
   font-size: 22px;
   font-weight: 800;
-  color: #111827;
+  color: var(--ink, #1F2922);
   margin: 0 0 14px;
 }
 
@@ -100,20 +100,20 @@
 .plan-price {
   font-size: 32px;
   font-weight: 850;
-  color: var(--accent, #f58220);
+  color: var(--accent, #B4654A);
   letter-spacing: -0.5px;
 }
 
 .plan-billing {
   font-size: 14px;
-  color: #6b7280;
+  color: var(--muted, #4A554E);
   font-weight: 500;
 }
 
 .plan-desc {
   font-size: 14.5px;
   line-height: 1.55;
-  color: #4b5563;
+  color: var(--muted, #4A554E);
   margin: 0;
   min-height: 44px;
 }
@@ -123,7 +123,7 @@
   list-style: none;
   margin: 0 0 32px;
   padding: 24px 0 0;
-  border-top: 1px solid #f1f5f9;
+  border-top: 1px solid var(--border-card, #DCD7CD);
   display: flex;
   flex-direction: column;
   gap: 14px;
@@ -136,14 +136,14 @@
   gap: 10px;
   font-size: 14.5px;
   line-height: 1.5;
-  color: #1f2937;
+  color: var(--ink, #1F2922);
 }
 
 /* Green tick marks */
 .tick-icon {
   width: 18px;
   height: 18px;
-  color: var(--secondary-green, #1a9c55);
+  color: var(--secondary-green, #96A896);
   flex-shrink: 0;
   margin-top: 2px;
 }
@@ -157,7 +157,7 @@
   margin-top: auto;
 }
 
-/* Button: Square corners (0), orange border; on hover/focus turns orange with white text & 5px green bottom strip */
+/* Button: Square corners (0), terracotta border; on hover/focus turns terracotta with white text & 5px green bottom strip */
 .plan-btn {
   display: flex;
   align-items: center;
@@ -166,9 +166,9 @@
   padding: 13px 20px;
   font-size: 15px;
   font-weight: 750;
-  color: #111827;
+  color: var(--ink, #1F2922);
   background-color: transparent;
-  border: 2px solid var(--accent, #f58220);
+  border: 2px solid var(--accent, #B4654A);
   border-radius: 0 !important;
   text-decoration: none;
   cursor: pointer;
@@ -180,20 +180,20 @@
 .plan-btn:hover,
 .plan-btn:focus-visible {
   outline: none;
-  background-color: var(--accent, #f58220) !important;
+  background-color: var(--accent, #B4654A) !important;
   color: #ffffff !important;
-  border-color: var(--accent, #f58220) !important;
-  box-shadow: inset 0 -5px 0 var(--secondary-green, #1a9c55) !important;
+  border-color: var(--accent, #B4654A) !important;
+  box-shadow: inset 0 -5px 0 var(--secondary-green, #96A896) !important;
 }
 
 /* ==========================================================================
    TERMS BOX BELOW PLANS
-   Light grey background and 5px orange left border
+   Soft Ivory background and 5px terracotta left border
    ========================================================================== */
 .terms-box {
-  background-color: #f8fafc;
-  border: 1px solid #e2e8f0;
-  border-left: 5px solid var(--accent, #f58220);
+  background-color: var(--bg-card, #FAF8F5);
+  border: 1px solid var(--border-card, #DCD7CD);
+  border-left: 5px solid var(--accent, #B4654A);
   border-radius: 0 !important;
   padding: 24px 28px;
   max-width: 1240px;
@@ -203,14 +203,14 @@
 .terms-note {
   font-size: 14.5px;
   font-weight: 750;
-  color: #111827;
+  color: var(--ink, #1F2922);
   margin: 0 0 6px;
 }
 
 .terms-detail {
   font-size: 13.5px;
   line-height: 1.6;
-  color: #4b5563;
+  color: var(--muted, #4A554E);
   margin: 0;
 }
 

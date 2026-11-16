@@ -277,28 +277,140 @@ export const CLIENTS_CASE_STUDIES_DATA: Record<string, ClientCaseStudyData> = {
   'mmr-constructions': {
     id: 'mmr-constructions',
     clientId: 'mmr-constructions',
-    companyName: 'MMR Constructions and Developer Private Limited',
+    companyName: 'MMR Constructions & Developer Private Limited',
     shortName: 'MMR Constructions',
     metaTitle: 'MMR Constructions Case Study | YogTeck Business Solution',
-    metaDescription: 'Discover how YogTeck engineered an enterprise corporate portal and interactive project showcase for MMR Constructions, powering lead generation on secure cloud infrastructure.',
+    metaDescription: 'Discover how YogTeck engineered an enterprise corporate portal and interactive project showcase for MMR Constructions (mmrconstructions.in), powering lead generation on secure cloud infrastructure.',
     h1: 'MMR Constructions & Developer Case Study',
     industry: 'Real Estate & Infrastructure Development',
-    accentColor: '#FF9A1F',
-    summary: 'Enterprise corporate web portal & project portfolio showcasing premier commercial and residential developments across Uttar Pradesh.',
-    clientOverview: 'MMR Constructions and Developer Private Limited is an established real estate and infrastructure development enterprise developing residential plotting layouts, commercial hubs, and township developments in Uttar Pradesh. They partnered with YogTeck Business Solution to transform their digital presence and streamline property buyer inquiries.',
+    accentColor: '#B4654A',
+    summary: 'Enterprise corporate web portal & project portfolio showcasing premier commercial and residential developments across Uttar Pradesh (mmrconstructions.in).',
+    clientOverview: 'MMR Constructions & Developer Private Limited is an established real estate and infrastructure enterprise developing premier residential layouts, commercial developments & township infrastructure (mmrconstructions.in). They partnered with YogTeck to transform their digital presence.',
     challengeSolved: 'Prospective property investors and home buyers struggled to navigate static PDF brochures and disjointed site plans. The sales team lacked a central interactive platform to demonstrate 3D project walkthroughs, show real-time plot availability, and capture qualified site-visit requests without lead leakage.',
-    solutionDelivered: 'YogTeck architected and engineered a high-performance, mobile-first corporate portal. The platform features interactive project maps, instant floor plan and brochure downloads behind smart lead gates, automated routing of buyer inquiries to regional sales executives, and seamless WhatsApp inquiry buttons.',
+    solutionDelivered: 'YogTeck architected and engineered a high-performance, mobile-first corporate portal on mmrconstructions.in. The platform features interactive project maps, instant floor plan and brochure downloads behind smart lead gates, automated routing of buyer inquiries to regional sales executives, and seamless WhatsApp inquiry buttons.',
     verifiedMetrics: [
-      'High-Availability Secure Cloud Infrastructure',
+      'High-Availability Secure Cloud Infrastructure (mmrconstructions.in)',
       'Interactive Plot Inventory & Inbound Inquiries',
       'Fast Mobile-Optimized Page Load Speeds',
       'Unified Dashboard Routing Site-Visit Bookings'
     ],
     ownerPlaceholders: [],
-    tags: ['Real Estate Portal', 'Plotting Showcase', 'Lead Generation Engine', 'Interactive 3D Walkthroughs', 'NextGen Web'],
+    tags: ['Real Estate Portal', 'Plotting Showcase', 'Lead Generation Engine', 'mmrconstructions.in', 'NextGen Web'],
     faqs: [
-      { question: 'What technology stack was used for the MMR Constructions portal?', answer: 'The solution was built using high-performance modern web architecture with optimized image compression, lazy-loaded visual media, and cloud hosting for dependable continuous availability.' },
+      { question: 'What technology stack was used for the MMR Constructions portal?', answer: 'The solution was built using high-performance modern web architecture with optimized image compression, lazy-loaded visual media, and cloud hosting for dependable continuous availability on mmrconstructions.in.' },
       { question: 'Can YogTeck build similar real estate and plotting portals for other developers?', answer: 'Yes. YogTeck specializes in dedicated web portals and plot management software for real estate developers, colonizers, and infrastructure firms across North India.' }
+    ]
+  },
+
+  'akash-racks': {
+    id: 'akash-racks',
+    clientId: 'akash-racks',
+    companyName: 'Akash Racks',
+    shortName: 'Akash Racks',
+    metaTitle: 'Akash Racks Case Study | Store & Mall Display Racks | YogTeck',
+    metaDescription: 'Discover how YogTeck engineered the digital catalog and RFQ quotation portal for Akash Racks (racks.yogtech.com), powering commercial rack installation for malls, supermarkets, and stores.',
+    h1: 'Akash Racks Store & Mall Racks Installation Case Study',
+    industry: 'Mall & Store Racks Installation',
+    accentColor: '#1A9C55',
+    summary: 'Complete display and storage rack installation solutions for shopping malls, supermarkets, retail grocery stores & commercial warehouses (racks.yogtech.com).',
+    clientOverview: 'Akash Racks specializes in complete manufacturing and on-site installation of display racks and storage solutions for shopping malls, supermarkets, hypermarkets, department stores, and commercial warehouses (racks.yogtech.com). They partnered with YogTeck to build a digital presence and streamline B2B inquiries.',
+    challengeSolved: 'Retail store owners, supermarket franchisees, and mall project managers needed to explore various rack designs (center gondola racks, wall display units, corner shelving, heavy-duty pallet racks) and request customized quotes quickly based on store layout square footage.',
+    solutionDelivered: 'YogTeck built a high-speed digital catalog and quotation engine on racks.yogtech.com. The platform includes technical dimension specifications, load capacity ratings, photo galleries of completed mall installations, and instant RFQ quotation routing to field engineers.',
+    verifiedMetrics: [
+      'Complete Mall & Supermarket Display Rack Catalog (racks.yogtech.com)',
+      'Instant RFQ Quotation Generation for Retail Clients',
+      'Fast Mobile-Optimized Browsing for Store Managers',
+      'Direct Sales Routing via WhatsApp & Web Forms'
+    ],
+    ownerPlaceholders: [],
+    tags: ['Mall Racks', 'Supermarket Display', 'Retail Store Shelving', 'racks.yogtech.com', 'Commercial Installation'],
+    faqs: [
+      { question: 'What types of racks are featured on racks.yogtech.com?', answer: 'The portal features supermarket display racks, grocery store gondolas, shopping mall merchandise stands, pharmacy display racks, and industrial warehouse storage racks.' },
+      { question: 'Can clients request custom dimensions for retail spaces?', answer: 'Yes, the RFQ quotation engine on racks.yogtech.com allows buyers to input their floor plan dimensions and obtain tailored recommendations.' }
+    ]
+  },
+
+  'yogcart': {
+    id: 'yogcart',
+    clientId: 'yogcart',
+    companyName: 'Yogcart',
+    shortName: 'Yogcart',
+    metaTitle: 'Yogcart Case Study | Omnichannel E-Commerce & Mobile App | YogTeck',
+    metaDescription: 'See how YogTeck engineered the high-speed consumer & healthcare e-commerce storefront & mobile app for Yogcart (yogcart.com).',
+    h1: 'Yogcart Omnichannel E-Commerce & Mobile App Case Study',
+    industry: 'Consumer & Retail E-Commerce',
+    accentColor: '#B4654A',
+    summary: 'High-speed omnichannel e-commerce storefront & mobile app with multi-warehouse inventory, instant payment checkout, and live delivery tracking (yogcart.com).',
+    clientOverview: 'Yogcart is an omnichannel consumer & healthcare retail brand serving thousands of active shoppers with fast deliveries and verified quality products (yogcart.com). They partnered with YogTeck to engineer their web storefront and mobile shopping app.',
+    challengeSolved: 'Handling high concurrent shopper traffic during seasonal sales, synchronizing multi-warehouse inventory without double-selling, and delivering an instant 10-second checkout experience with UPI, credit cards, and COD.',
+    solutionDelivered: 'YogTeck architected a headless e-commerce ecosystem featuring a blazing-fast Angular storefront, native-feel mobile app, Razorpay payment gateway integration, automated GST tax invoice generation, and real-time WhatsApp order tracking updates.',
+    verifiedMetrics: [
+      'Sub-Second Product Search & Instant Cart Sync (yogcart.com)',
+      'Multi-Warehouse Real-Time Inventory Control',
+      'Seamless UPI, Card & COD Payment Processing',
+      'Automated Delivery Tracking via WhatsApp Webhooks'
+    ],
+    ownerPlaceholders: [],
+    tags: ['E-Commerce', 'yogcart.com', 'Mobile App', 'Payment Gateway', 'Inventory Sync'],
+    faqs: [
+      { question: 'How is payment handled on yogcart.com?', answer: 'The store supports instant UPI payments, all major debit/credit cards, netbanking, and Cash on Delivery with OTP verification.' },
+      { question: 'How are orders tracked?', answer: 'Customers receive instant SMS and WhatsApp notifications with live tracking links generated through logistics API integrations.' }
+    ]
+  },
+
+  'healthandyoga': {
+    id: 'healthandyoga',
+    clientId: 'healthandyoga',
+    companyName: 'HealthAndYoga',
+    shortName: 'HealthAndYoga',
+    metaTitle: 'HealthAndYoga Case Study | Global Healthcare & Wellness | YogTeck',
+    metaDescription: 'Discover how YogTeck engineered the worldwide holistic healthcare & ayurvedic wellness e-commerce portal for HealthAndYoga (healthandyoga.com).',
+    h1: 'HealthAndYoga Global Wellness Portal Case Study',
+    industry: 'Global Healthcare & Wellness',
+    accentColor: '#2F7BFF',
+    summary: 'International holistic healthcare, yoga wellness supplies & ayurvedic e-commerce portal serving global buyers across multiple currencies (healthandyoga.com).',
+    clientOverview: 'HealthAndYoga is a globally recognized holistic wellness brand delivering authentic yoga accessories, natural wellness supplies, and ayurvedic healthcare products to customers worldwide (healthandyoga.com).',
+    challengeSolved: 'Serving customers across the United States, Europe, Australia, and Asia required multi-currency pricing, international tax compliance, real-time cross-border shipping rate calculations, and dependable global payment processing.',
+    solutionDelivered: 'YogTeck engineered an international e-commerce architecture on healthandyoga.com featuring automated geo-location currency switching, international payment gateway integrations, real-time DHL/FedEx freight calculation, and automated export customs documentation.',
+    verifiedMetrics: [
+      'Worldwide Multi-Currency Checkout (healthandyoga.com)',
+      'Automated International Airway Bill (AWB) Generation',
+      'Multi-Country Customs Compliance Documentation',
+      '24/7 Cloud Uptime for Global Customers'
+    ],
+    ownerPlaceholders: [],
+    tags: ['Global E-Commerce', 'healthandyoga.com', 'Multi-Currency', 'Ayurveda & Wellness', 'Cross-Border Logistics'],
+    faqs: [
+      { question: 'Does healthandyoga.com support international payments?', answer: 'Yes, the portal processes transactions in USD, EUR, GBP, AUD, CAD, and INR with automated currency conversion.' },
+      { question: 'How are international shipments handled?', answer: 'The platform integrates directly with international courier APIs to provide automated shipping labels, customs documentation, and live door-to-door tracking.' }
+    ]
+  },
+
+  'soulgenie': {
+    id: 'soulgenie',
+    clientId: 'soulgenie',
+    companyName: 'SoulGenie',
+    shortName: 'SoulGenie',
+    metaTitle: 'SoulGenie Case Study | Medical & Wellness Export Commerce | YogTeck',
+    metaDescription: 'Learn how YogTeck engineered the worldwide physical wellness & medical equipment export portal for SoulGenie (soulgenie.com).',
+    h1: 'SoulGenie Medical & Wellness Export Store Case Study',
+    industry: 'International Medical & Wellness Export',
+    accentColor: '#8B5CF6',
+    summary: 'Worldwide health, body care & physical therapy equipment export commerce portal with tiered B2B wholesale pricing and international shipping (soulgenie.com).',
+    clientOverview: 'SoulGenie is a leading international exporter of health wellness equipment, physical therapy supplies, body care aids, and therapeutic products catering to both B2B distributors and individual consumers worldwide (soulgenie.com).',
+    challengeSolved: 'The business needed a dual-mode platform supporting both retail consumer purchases and large-scale B2B bulk wholesale orders with volume pricing tiers, freight forwarding estimates, and export regulatory compliance.',
+    solutionDelivered: 'YogTeck developed a scalable export commerce platform on soulgenie.com with volume-based tiered wholesale pricing tables, automated minimum order quantity (MOQ) logic, secure international escrow and card payments, and comprehensive commercial invoice generation.',
+    verifiedMetrics: [
+      'High-Volume B2B & D2C Export Architecture (soulgenie.com)',
+      'Automated Volume Tier Pricing & Wholesale MOQs',
+      'Integrated Cross-Border Customs & Commercial Invoicing',
+      'Reliable International Freight Partner Integrations'
+    ],
+    ownerPlaceholders: [],
+    tags: ['Export Portal', 'soulgenie.com', 'B2B Wholesale', 'Medical Supplies', 'International Commerce'],
+    faqs: [
+      { question: 'Can B2B buyers place wholesale orders on soulgenie.com?', answer: 'Yes, the portal includes dedicated wholesale tiers with automatic quantity-based discounts, custom freight quotes, and wire transfer payment support.' },
+      { question: 'What international shipping options are available?', answer: 'SoulGenie integrates with air cargo, international couriers, and ocean freight forwarding partners for bulk consignments.' }
     ]
   },
 

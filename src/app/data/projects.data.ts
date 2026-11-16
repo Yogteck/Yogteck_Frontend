@@ -4,6 +4,7 @@ export interface ProjectItem {
   category: 'web' | 'ecommerce' | 'erp' | 'marketing';
   categoryLabel: string;
   client: string;
+  website?: string;
   summary: string;
   metrics: string;
   tags: string[];
@@ -14,37 +15,79 @@ export interface ProjectItem {
 
 export const PROJECTS_DATA: ProjectItem[] = [
   {
-    id: 'proj-healthcare-ecom',
-    title: 'Yogkart Healthcare Pan-India Store',
+    id: 'proj-yogcart',
+    title: 'Yogcart Omnichannel E-Commerce & Mobile App',
     category: 'ecommerce',
     categoryLabel: 'E-Commerce Platform',
-    client: 'Yogkart Healthcare Pvt Ltd',
-    summary: 'Direct-to-consumer pharmacy & healthcare e-commerce with multi-warehouse inventory, prescription upload, and instant payment checkout.',
-    metrics: 'Multi-Warehouse Inventory & Secure Checkout',
-    tags: ['E-Commerce', 'Payment Gateway', 'Inventory Sync', 'Mobile App'],
-    gradient: 'linear-gradient(135deg, #064E3B 0%, #047857 100%)',
+    client: 'Yogcart (yogcart.com)',
+    website: 'https://yogcart.com',
+    summary: 'High-speed consumer e-commerce storefront & mobile app featuring multi-warehouse inventory, real-time cart sync, Razorpay/UPI checkout, automated tax invoicing, and live WhatsApp delivery alerts.',
+    metrics: 'Multi-Warehouse Inventory & Instant Checkout',
+    tags: ['yogcart.com', 'Mobile App', 'Payment Gateway', 'Live Tracking'],
+    gradient: 'linear-gradient(135deg, #18221B 0%, #35473B 100%)',
     icon: 'cart',
     image: '/assets/images/projects/yogkart-healthcare.png'
+  },
+  {
+    id: 'proj-healthandyoga',
+    title: 'HealthAndYoga Global Wellness Portal',
+    category: 'ecommerce',
+    categoryLabel: 'International E-Commerce',
+    client: 'HealthAndYoga (healthandyoga.com)',
+    website: 'https://healthandyoga.com',
+    summary: 'Worldwide holistic healthcare, yoga wellness supplies & ayurvedic e-commerce portal with multi-currency payment processing, automated international freight calculations, and auto AWB dispatch.',
+    metrics: 'Global Multi-Currency Checkout & Shipping',
+    tags: ['healthandyoga.com', 'Global Commerce', 'Multi-Currency', 'Automated Logistics'],
+    gradient: 'linear-gradient(135deg, #1E3A8A 0%, #2563EB 100%)',
+    icon: 'cart'
+  },
+  {
+    id: 'proj-soulgenie',
+    title: 'SoulGenie Medical & Wellness Export Store',
+    category: 'ecommerce',
+    categoryLabel: 'Export E-Commerce Portal',
+    client: 'SoulGenie (soulgenie.com)',
+    website: 'https://soulgenie.com',
+    summary: 'Worldwide physical wellness, medical equipment & health supplies export e-commerce architecture engineered for tiered B2B wholesale pricing, international compliance, and secure cross-border payments.',
+    metrics: 'Worldwide B2B & D2C Export Sales',
+    tags: ['soulgenie.com', 'Cross-Border Commerce', 'Tiered Wholesale', 'Customs Docs'],
+    gradient: 'linear-gradient(135deg, #4C1D95 0%, #7C3AED 100%)',
+    icon: 'cart'
   },
   {
     id: 'proj-mmr-portal',
     title: 'MMR Corporate & Infrastructure Portal',
     category: 'web',
-    categoryLabel: 'Corporate Web Portal',
-    client: 'MMR Constructions & Developer Pvt Ltd',
-    summary: 'High-performance interactive portal featuring project walkthroughs, floor plan downloads, and direct investor enquiry routing.',
-    metrics: 'Plot Management & Investor Showcase',
-    tags: ['Corporate Portal', 'Fast Load', 'Lead Generation', 'SEO'],
-    gradient: 'linear-gradient(135deg, #0F172A 0%, #1E293B 100%)',
+    categoryLabel: 'Real Estate & Infrastructure',
+    client: 'MMR Constructions & Developer Private Limited (mmrconstructions.in)',
+    website: 'https://mmrconstructions.in',
+    summary: 'Enterprise web portal showcasing premier residential townships, commercial complexes, plotting layouts, 3D project walkthroughs, and automated investor enquiry routing.',
+    metrics: 'Township Plot Showcase & Lead Generation',
+    tags: ['mmrconstructions.in', 'Real Estate', 'Plotting Maps', 'Lead Generation'],
+    gradient: 'linear-gradient(135deg, #18221B 0%, #2E3830 100%)',
     icon: 'globe',
     image: '/assets/images/projects/mmr-constructions.png'
+  },
+  {
+    id: 'proj-akash-racks',
+    title: 'Akash Racks Store Display & Storage Solutions',
+    category: 'web',
+    categoryLabel: 'Mall & Store Racks Installation',
+    client: 'Akash Racks (racks.yogtech.com)',
+    website: 'https://racks.yogtech.com',
+    summary: 'Complete digital catalog & quotation portal for shopping mall display racks, supermarket / grocery store racks, departmental store shelving, and heavy-duty commercial warehouse racking systems.',
+    metrics: 'Store & Mall Racking Quotation Portal',
+    tags: ['racks.yogtech.com', 'Supermarket Racks', 'Mall Displays', 'Heavy Storage'],
+    gradient: 'linear-gradient(135deg, #064E3B 0%, #047857 100%)',
+    icon: 'gear'
   },
   {
     id: 'proj-techno-racks',
     title: 'Techno Racks Industrial Web Catalog',
     category: 'web',
     categoryLabel: 'Industrial Web Portal',
-    client: 'Techno Racks',
+    client: 'Akash Racks / Techno Racks',
+    website: 'https://racks.yogtech.com',
     summary: 'Technical storage systems catalog with load capacity specs and direct RFQ inquiry submission for warehousing facilities across India.',
     metrics: 'Technical Catalog & RFQ Engine',
     tags: ['Industrial Catalog', 'RFQ Engine', 'Responsive Web', 'Technical SEO'],

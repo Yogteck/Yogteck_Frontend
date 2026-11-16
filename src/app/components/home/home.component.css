@@ -621,8 +621,19 @@
 
 .ecom-mockups-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 36px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+}
+
+.ecom-link {
+  color: var(--accent, #B4654A);
+  font-weight: 700;
+  text-decoration: underline;
+  transition: color 0.15s ease;
+}
+
+.ecom-link:hover {
+  color: var(--accent-dark, #9A5239);
 }
 
 .ecom-pair-card {

@@ -1400,8 +1400,12 @@ body.theme-light {
   .address-text,
   .hours-text,
   .support-text {
-    color: #1F2922;
+    color: #1F2922 !important;
     font-weight: 500;
+  }
+  .footer-address strong {
+    color: #111827 !important;
+    font-weight: 800 !important;
   }
   .footer-offer-box {
     background: #FAF8F5;

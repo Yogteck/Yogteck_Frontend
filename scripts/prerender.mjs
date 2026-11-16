@@ -76,7 +76,22 @@ const PAGES_DATA = [
     ]
   },
 
-  // ── 2. About ─────────────────────────────────────────────────────────────
+  // ── 2. Pricing & Plans ───────────────────────────────────────────────────
+  {
+    path: 'pricing',
+    title: 'Pricing & Plans - Yogteck',
+    description: 'Choose the plan that fits your business. Every Yogteck plan includes a free domain and free web hosting with clear, one-time pricing.',
+    h1: 'Pricing & Plans',
+    directAnswer: 'Yogteck provides clear, one-time pricing for web and software development plans. Every plan includes a free domain and free web hosting, ranging from Starter Website at Rs. 9,999 to Custom Website at Rs. 29,999 and Business Suite at Rs. 60,000.',
+    type: 'WebPage',
+    faqs: [
+      { q: 'What is included in the Starter Website plan?', a: 'The Starter Website plan includes a ready 5-page website, professional website designing, a free domain, and free web hosting for Rs. 9,999 (one-time price).' },
+      { q: 'What is included in the Custom Website plan?', a: 'The Custom Website plan includes a fully customized website, all built-in features, a free domain, free web hosting, and unlimited bandwidth for Rs. 29,999 (one-time price).' },
+      { q: 'What is included in the Business Suite plan?', a: 'The Business Suite plan includes website, software, app, and marketing with all services free for 1 year, custom ERP software, mobile app, and SEO for Rs. 60,000 (one-time price).' }
+    ]
+  },
+
+  // ── 3. About ─────────────────────────────────────────────────────────────
   {
     path: 'about',
     title: 'About Software Team & Firm | YogTeck Business Solution',

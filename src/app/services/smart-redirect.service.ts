@@ -15,6 +15,7 @@ export interface RedirectMapping {
 export class SmartRedirectService {
   private readonly validRoutePaths: string[] = [
     '/',
+    '/pricing',
     '/about',
     '/contact',
     '/blog',

@@ -17,6 +17,7 @@ import { SolutionPageComponent } from './components/solution-page/solution-page.
 import { AdminLoginComponent } from './components/admin-login/admin-login.component';
 import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
 import { PublicInvoiceViewComponent } from './components/public-invoice-view/public-invoice-view.component';
+import { PricingPageComponent } from './components/pricing-page/pricing-page.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { adminAuthGuard } from './guards/admin-auth.guard';
 import { localeValidationGuard } from './guards/locale.guard';
@@ -24,6 +25,7 @@ import { localeValidationGuard } from './guards/locale.guard';
 export const routes: Routes = [
   // 1. Primary Public Canonical Routes (Zero-redirect top-level paths)
   { path: '', component: HomeComponent, pathMatch: 'full' },
+  { path: 'pricing', component: PricingPageComponent },
   { path: 'about', component: AboutPageComponent },
   { path: 'contact', component: ContactPageComponent },
   { path: 'clients', component: ClientsPageComponent },
@@ -100,6 +102,7 @@ export const routes: Routes = [
     canActivate: [localeValidationGuard],
     children: [
       { path: '', component: HomeComponent, pathMatch: 'full' },
+      { path: 'pricing', component: PricingPageComponent },
       { path: 'about', component: AboutPageComponent },
       { path: 'contact', component: ContactPageComponent },
       { path: 'clients', component: ClientsPageComponent },

@@ -1,0 +1,64 @@
+<!-- Header / Sticky Navigation -->
+<app-navbar (openQuote)="openQuoteModal()"></app-navbar>
+
+<!-- Main Page Content -->
+<main class="pricing-main" id="main-content">
+  <div class="pricing-container">
+
+    <!-- Header Section -->
+    <header class="pricing-header">
+      <h1 class="pricing-title">{{ pricingData.title }}</h1>
+      <p class="pricing-intro">{{ pricingData.intro }}</p>
+    </header>
+
+    <!-- Plans Grid: 3 cards in a row on desktop, 1 per row on mobile -->
+    <div class="plans-grid">
+      <div *ngFor="let plan of pricingData.plans" class="plan-card">
+        
+        <div class="plan-top">
+          <h2 class="plan-name">{{ plan.name }}</h2>
+          <div class="plan-price-block">
+            <span class="plan-price">{{ plan.price }}</span>
+            <span class="plan-billing">{{ plan.billingType }}</span>
+          </div>
+          <p class="plan-desc">{{ plan.description }}</p>
+        </div>
+
+        <!-- Features list with green tick marks -->
+        <ul class="plan-features">
+          <li *ngFor="let feat of plan.features" class="feature-item">
+            <svg class="tick-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="4 10 8 14 16 6"></polyline>
+            </svg>
+            <span class="feature-text">{{ feat }}</span>
+          </li>
+        </ul>
+
+        <!-- Action Button (bottom aligned) -->
+        <div class="plan-action">
+          <a [href]="plan.buttonLink" target="_blank" rel="noopener noreferrer" class="plan-btn">
+            {{ plan.buttonText }}
+          </a>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Terms Box Below Plans -->
+    <div class="terms-box">
+      <p class="terms-note">{{ pricingData.termsNote }}</p>
+      <p class="terms-detail">{{ pricingData.termsDetail }}</p>
+    </div>
+
+  </div>
+</main>
+
+<!-- Footer -->
+<app-footer></app-footer>
+
+<!-- Instant Free Quote Modal Dialog -->
+<app-quote-modal
+  [isOpen]="isQuoteModalOpen"
+  [defaultServiceTitle]="selectedPlanName"
+  (closeModal)="closeQuoteModal()">
+</app-quote-modal>

@@ -377,6 +377,110 @@ nav {
   box-shadow: inset 0 -3px 0 var(--secondary-green);
 }
 
+/* ==========================================================================
+   LIVE CLIENT & PROJECT CARDS INSIDE MEGA MENUS
+   ========================================================================== */
+.menu-client-box {
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px dashed var(--line, #DCD7CD);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.menu-box-label {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: var(--accent, #B4654A);
+  text-transform: uppercase;
+  margin-bottom: 2px;
+}
+
+.menu-project-item {
+  display: block;
+  padding: 8px 10px;
+  background: #F4F1EA;
+  border: 1px solid var(--line, #DCD7CD);
+  border-left: 3px solid var(--accent, #B4654A);
+  border-radius: 0;
+  text-decoration: none;
+  transition: all 0.18s ease;
+}
+
+.menu-project-item:hover,
+.menu-project-item:focus-visible {
+  background: var(--accent, #B4654A) !important;
+  border-color: var(--accent, #B4654A) !important;
+  border-left-color: var(--secondary-green, #96A896) !important;
+  box-shadow: inset 0 -3px 0 var(--secondary-green, #96A896);
+  transform: translateX(3px);
+}
+
+.menu-project-item .proj-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+}
+
+.menu-project-item .proj-name {
+  font-size: 12.5px;
+  font-weight: 750;
+  color: #111827 !important;
+  line-height: 1.2;
+}
+
+.menu-project-item:hover .proj-name {
+  color: #ffffff !important;
+}
+
+.live-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 9.5px;
+  font-weight: 700;
+  color: #065F46;
+  background: #D1FAE5;
+  padding: 1px 6px;
+  border-radius: 2px;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+.live-tag::before {
+  content: "";
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: #10B981;
+}
+
+.menu-project-item:hover .live-tag {
+  background: rgba(255, 255, 255, 0.25);
+  color: #ffffff;
+}
+
+.menu-project-item:hover .live-tag::before {
+  background-color: #ffffff;
+}
+
+.menu-project-item .proj-desc {
+  font-size: 11px;
+  color: #4A554E !important;
+  margin-top: 3px;
+  line-height: 1.35;
+  display: block;
+}
+
+.menu-project-item:hover .proj-desc {
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+
 /* Action Button */
 .nav-action {
   display: flex;

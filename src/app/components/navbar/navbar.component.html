@@ -155,12 +155,126 @@
           </div>
         </li>
 
-        <!-- 3. E-commerce -->
-        <li class="item">
-          <a class="top" href="#" (click)="closeMobileMenu()">
+        <!-- 3. E-commerce (Mega Menu: 4 Columns with Real Projects) -->
+        <li class="item has-sub mega" [class.open]="isSubmenuOpen('m2')">
+          <button 
+            type="button" 
+            class="top" 
+            (click)="toggleSubmenu('m2', $event)" 
+            [attr.aria-expanded]="isSubmenuOpen('m2')" 
+            aria-controls="m2">
             <span class="ic" aria-hidden="true">🛒</span>
             <span>E-commerce</span>
-          </a>
+            <i class="caret" aria-hidden="true"></i>
+          </button>
+          <div class="panel" id="m2">
+            
+            <!-- Col 1: E-Commerce Software -->
+            <div class="col">
+              <h3><a href="#" (click)="closeMobileMenu()">E-Commerce Software</a></h3>
+              <ul>
+                <li><a href="#" (click)="closeMobileMenu()">Multi-Vendor &amp; D2C Storefronts</a></li>
+                <li><a href="#" (click)="closeMobileMenu()">Mobile Shopping App (Android &amp; iOS)</a></li>
+                <li><a href="#" (click)="closeMobileMenu()">B2B Wholesale &amp; Tiered Pricing</a></li>
+                <li><a href="#" (click)="closeMobileMenu()">Payment Gateway &amp; Cart Sync</a></li>
+              </ul>
+              <div class="menu-client-box">
+                <span class="menu-box-label">Live E-Commerce Projects</span>
+                <a href="https://yogcart.com" target="_blank" rel="noopener noreferrer" class="menu-project-item" (click)="closeMobileMenu()">
+                  <div class="proj-header">
+                    <span class="proj-name">Yogcart.com</span>
+                    <span class="live-tag">Live ↗</span>
+                  </div>
+                  <span class="proj-desc">Consumer &amp; Healthcare Store &amp; App</span>
+                </a>
+                <a href="https://healthandyoga.com" target="_blank" rel="noopener noreferrer" class="menu-project-item" (click)="closeMobileMenu()">
+                  <div class="proj-header">
+                    <span class="proj-name">HealthAndYoga.com</span>
+                    <span class="live-tag">Live ↗</span>
+                  </div>
+                  <span class="proj-desc">Global Holistic Wellness Store</span>
+                </a>
+                <a href="https://soulgenie.com" target="_blank" rel="noopener noreferrer" class="menu-project-item" (click)="closeMobileMenu()">
+                  <div class="proj-header">
+                    <span class="proj-name">SoulGenie.com</span>
+                    <span class="live-tag">Live ↗</span>
+                  </div>
+                  <span class="proj-desc">Medical &amp; Physical Therapy Export Store</span>
+                </a>
+              </div>
+            </div>
+
+            <!-- Col 2: ERP & POS Software -->
+            <div class="col">
+              <h3><a href="#" (click)="closeMobileMenu()">ERP &amp; POS Software</a></h3>
+              <ul>
+                <li><a href="#" (click)="closeMobileMenu()">Custom Enterprise Cloud ERP</a></li>
+                <li><a href="#" (click)="closeMobileMenu()">10-Second Retail POS Billing</a></li>
+                <li><a href="#" (click)="closeMobileMenu()">Multi-Warehouse Inventory Control</a></li>
+                <li><a href="#" (click)="closeMobileMenu()">GST E-Way Bill &amp; Accounting</a></li>
+              </ul>
+              <div class="menu-client-box">
+                <span class="menu-box-label">Live Commercial Projects</span>
+                <a href="https://racks.yogtech.com" target="_blank" rel="noopener noreferrer" class="menu-project-item" (click)="closeMobileMenu()">
+                  <div class="proj-header">
+                    <span class="proj-name">Akash Racks (racks.yogtech.com)</span>
+                    <span class="live-tag">Live ↗</span>
+                  </div>
+                  <span class="proj-desc">Mall &amp; Supermarket Storage Solutions</span>
+                </a>
+                <div class="menu-project-item" style="cursor: default;">
+                  <div class="proj-header">
+                    <span class="proj-name">Yogteck Retail ERP</span>
+                    <span class="live-tag">Active</span>
+                  </div>
+                  <span class="proj-desc">Multi-Branch Inventory &amp; GST POS</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Col 3: Real Estate Software -->
+            <div class="col">
+              <h3><a href="#" (click)="closeMobileMenu()">Real Estate Software</a></h3>
+              <ul>
+                <li><a href="#" (click)="closeMobileMenu()">Real Estate CRM &amp; Lead Routing</a></li>
+                <li><a href="#" (click)="closeMobileMenu()">Interactive Plot Layouts &amp; Maps</a></li>
+                <li><a href="#" (click)="closeMobileMenu()">Token Booking &amp; Installment EMI</a></li>
+                <li><a href="#" (click)="closeMobileMenu()">Associate Multilevel Commission</a></li>
+              </ul>
+              <div class="menu-client-box">
+                <span class="menu-box-label">Live Real Estate Project</span>
+                <a href="https://mmrconstructions.in" target="_blank" rel="noopener noreferrer" class="menu-project-item" (click)="closeMobileMenu()">
+                  <div class="proj-header">
+                    <span class="proj-name">MMR Constructions (mmrconstructions.in)</span>
+                    <span class="live-tag">Live ↗</span>
+                  </div>
+                  <span class="proj-desc">Residential Townships &amp; Commercial Developments</span>
+                </a>
+              </div>
+            </div>
+
+            <!-- Col 4: MLM & SaaS Platforms -->
+            <div class="col">
+              <h3><a href="#" (click)="closeMobileMenu()">MLM &amp; SaaS Software</a></h3>
+              <ul>
+                <li><a href="#" (click)="closeMobileMenu()">Multi-Level Marketing (MLM) Software</a></li>
+                <li><a href="#" (click)="closeMobileMenu()">Binary, Matrix &amp; Generation Plans</a></li>
+                <li><a href="#" (click)="closeMobileMenu()">Automated Commission Payouts &amp; Wallet</a></li>
+                <li><a href="#" (click)="closeMobileMenu()">Multi-Tenant SaaS Architecture</a></li>
+              </ul>
+              <div class="menu-client-box">
+                <span class="menu-box-label">Featured SaaS Platform</span>
+                <a href="https://yogteck.com" target="_blank" rel="noopener noreferrer" class="menu-project-item" (click)="closeMobileMenu()">
+                  <div class="proj-header">
+                    <span class="proj-name">Yogteck SaaS Platform (yogteck.com)</span>
+                    <span class="live-tag">Live ↗</span>
+                  </div>
+                  <span class="proj-desc">Cloud IT &amp; Business Solutions Engine</span>
+                </a>
+              </div>
+            </div>
+
+          </div>
         </li>
 
         <!-- 4. Courses -->

@@ -30,10 +30,29 @@
 <!-- 2. Sticky Header + Mega Menu -->
 <header class="header" [class.is-scrolled]="isScrolled">
   <div class="bar">
-    <!-- Brand Logo: Yogteck -->
-    <a class="logo" routerLink="/" (click)="closeMobileMenu()">
-      <span class="logo-mark">YT</span>
-      <span class="logo-text">Yog<b>teck</b></span>
+    <!-- Brand Logo: Yogteck (Original Brand Logo) -->
+    <a routerLink="/" class="brand-logo" (click)="closeMobileMenu()" aria-label="YOGTECK Home">
+      <div class="logo-mark">
+        <svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="44" height="44" rx="10" fill="#0A1330"/>
+          <rect x="2" y="2" width="40" height="40" rx="8" stroke="url(#navLogoGlow)" stroke-width="2"/>
+          <path d="M12 14H20M16 14V30M22 14H32M27 14V30" stroke="url(#navLogoTextGrad)" stroke-width="2.8" stroke-linecap="round"/>
+          <defs>
+            <linearGradient id="navLogoGlow" x1="0" y1="0" x2="44" y2="44" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#f58220"/>
+              <stop offset="1" stop-color="#FFB84D"/>
+            </linearGradient>
+            <linearGradient id="navLogoTextGrad" x1="12" y1="14" x2="32" y2="30" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#FFFFFF"/>
+              <stop offset="1" stop-color="#FFB84D"/>
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
+      <div class="brand-text">
+        <span class="brand-name">YOGTECK<span class="brand-dot">.</span></span>
+        <span class="brand-slogan">{{ contact.tagline }}</span>
+      </div>
     </a>
 
     <!-- Mobile Hamburger Toggle -->

@@ -4,11 +4,30 @@
     <!-- 4-Column Grid -->
     <div class="footer-grid">
       
-      <!-- Col 1: About Yogteck -->
+      <!-- Col 1: About Yogteck (Original Brand Logo) -->
       <div class="footer-col col-about">
-        <a routerLink="/" class="footer-logo">
-          <span class="footer-logo-mark">YT</span>
-          <span class="footer-logo-text">Yog<b>teck</b></span>
+        <a routerLink="/" class="footer-brand-logo" aria-label="YOGTECK Home">
+          <div class="footer-logo-mark">
+            <svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect width="44" height="44" rx="10" fill="#0A1330"/>
+              <rect x="2" y="2" width="40" height="40" rx="8" stroke="url(#ftLogoGlow)" stroke-width="2"/>
+              <path d="M12 14H20M16 14V30M22 14H32M27 14V30" stroke="url(#ftLogoTextGrad)" stroke-width="2.8" stroke-linecap="round"/>
+              <defs>
+                <linearGradient id="ftLogoGlow" x1="0" y1="0" x2="44" y2="44" gradientUnits="userSpaceOnUse">
+                  <stop stop-color="#f58220"/>
+                  <stop offset="1" stop-color="#FFB84D"/>
+                </linearGradient>
+                <linearGradient id="ftLogoTextGrad" x1="12" y1="14" x2="32" y2="30" gradientUnits="userSpaceOnUse">
+                  <stop stop-color="#FFFFFF"/>
+                  <stop offset="1" stop-color="#FFB84D"/>
+                </linearGradient>
+              </defs>
+            </svg>
+          </div>
+          <div class="footer-brand-text">
+            <span class="footer-brand-name">YOGTECK<span class="brand-dot">.</span></span>
+            <span class="footer-brand-slogan">{{ contact.tagline }}</span>
+          </div>
         </a>
         <p class="footer-desc">
           Yogteck is an IT, web, software, and digital services company based in Kanpur. We engineer robust static and dynamic websites, custom cloud software, scalable mobile applications, and growth-focused digital marketing solutions.

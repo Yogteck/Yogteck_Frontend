@@ -262,41 +262,6 @@
     </div>
   </section>
 
-  <!-- 8. PORTFOLIO (Grid of 8 cards with image placeholders) -->
-  <section class="section-portfolio" id="portfolio">
-    <div class="site-container">
-      <div class="section-header-center">
-        <span class="section-label">PROVEN WORK</span>
-        <h2 class="section-title">Featured Projects &amp; Digital Solutions</h2>
-        <p class="section-lead">
-          Recent web applications, corporate systems, and software platforms developed by the Yogteck engineering team.
-        </p>
-      </div>
-
-      <div class="portfolio-grid">
-        <div *ngFor="let p of portfolioItems" class="portfolio-card">
-          <div class="portfolio-media">
-            <!-- Accessible placeholder image with explicit dimensions and lazy loading -->
-            <div class="portfolio-placeholder-img">
-              <span class="placeholder-code">{{ p.placeholderCode }}</span>
-              <span class="placeholder-tag">[PORTFOLIO IMAGE]</span>
-            </div>
-            <span class="portfolio-category-badge">{{ p.category }}</span>
-          </div>
-          <div class="portfolio-info">
-            <h3 class="portfolio-title">{{ p.title }}</h3>
-            <div class="portfolio-tech-list">
-              <span *ngFor="let t of p.tech" class="tech-tag">{{ t }}</span>
-            </div>
-            <a href="#" class="portfolio-link yt-hover-effect">
-              View Case Study Details &rarr;
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <!-- 9. TECHNOLOGIES (3 Columns; Tabs on Mobile) -->
   <section class="section-tech" id="technologies">
     <div class="site-container">

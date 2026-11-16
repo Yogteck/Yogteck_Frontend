@@ -506,115 +506,6 @@
 }
 
 /* ==========================================================================
-   8. PORTFOLIO (8 CARDS)
-   ========================================================================== */
-.section-portfolio {
-  padding: 72px 0;
-  background-color: #f8fafc;
-  border-top: 1px solid #e5e7eb;
-  border-bottom: 1px solid #e5e7eb;
-}
-
-.portfolio-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 24px;
-}
-
-.portfolio-card {
-  background: #ffffff;
-  border: 1px solid #e5e7eb;
-  border-radius: 4px;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-}
-
-.portfolio-media {
-  position: relative;
-  height: 180px;
-  background: #e2e8f0;
-}
-
-.portfolio-placeholder-img {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(135deg, #e2e8f0 0%, #cbd5e1 100%);
-  color: #475569;
-  font-weight: 700;
-  gap: 4px;
-}
-
-.placeholder-code {
-  font-size: 20px;
-  letter-spacing: 1px;
-}
-
-.placeholder-tag {
-  font-size: 11px;
-  letter-spacing: 0.5px;
-  color: #64748b;
-}
-
-.portfolio-category-badge {
-  position: absolute;
-  top: 12px;
-  left: 12px;
-  background: rgba(17, 24, 39, 0.85);
-  color: #ffffff;
-  font-size: 11px;
-  font-weight: 700;
-  padding: 3px 8px;
-  border-radius: 0;
-  text-transform: uppercase;
-}
-
-.portfolio-info {
-  padding: 20px 18px;
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-}
-
-.portfolio-title {
-  font-size: 15px;
-  font-weight: 750;
-  color: #111827;
-  margin: 0 0 10px;
-}
-
-.portfolio-tech-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  margin-bottom: 16px;
-}
-
-.tech-tag {
-  font-size: 11.5px;
-  background: #f1f5f9;
-  color: #475569;
-  padding: 2px 7px;
-  border-radius: 0;
-  font-weight: 600;
-}
-
-.portfolio-link {
-  display: inline-block;
-  margin-top: auto;
-  font-size: 13px;
-  font-weight: 700;
-  color: var(--primary-orange, #f58220);
-  text-decoration: none;
-  padding: 6px 10px;
-  border-radius: 0;
-}
-
-/* ==========================================================================
    9. TECHNOLOGIES (3 COLUMNS / TABS ON MOBILE)
    ========================================================================== */
 .section-tech {
@@ -1257,8 +1148,7 @@
     font-size: 38px;
   }
   .services-grid,
-  .industries-grid,
-  .portfolio-grid {
+  .industries-grid {
     grid-template-columns: repeat(2, 1fr);
   }
   .locations-grid {
@@ -1304,7 +1194,6 @@
   }
   .services-grid,
   .industries-grid,
-  .portfolio-grid,
   .locations-grid,
   .trust-grid {
     grid-template-columns: 1fr;

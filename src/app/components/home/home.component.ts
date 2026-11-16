@@ -32,14 +32,6 @@ interface IndustryItem {
   description: string;
 }
 
-interface PortfolioItem {
-  id: string;
-  title: string;
-  category: string;
-  tech: string[];
-  placeholderCode: string;
-}
-
 @Component({
   selector: 'app-home',
   standalone: true,
@@ -171,18 +163,6 @@ export class HomeComponent implements OnInit {
     { name: 'Hotels & Restaurants', icon: '🍽️', description: 'Table reservations, digital QR menus & online food ordering systems.' },
     { name: 'Logistics & Transport', icon: '🚚', description: 'Consignment booking, live shipment tracking & fleet rate calculators.' },
     { name: 'CA, Legal & Professional', icon: '⚖️', description: 'Secure client document submission, taxation trackers & compliance portals.' }
-  ];
-
-  // Portfolio
-  portfolioItems: PortfolioItem[] = [
-    { id: 'p1', title: '[PORTFOLIO 1] Corporate Enterprise Portal', category: 'Web Development', tech: ['Angular', 'TypeScript', 'Node.js'], placeholderCode: 'PRJ-01' },
-    { id: 'p2', title: '[PORTFOLIO 2] Industrial Supply B2B Platform', category: 'Custom Software', tech: ['Cloud ERP', 'PostgreSQL', 'REST API'], placeholderCode: 'PRJ-02' },
-    { id: 'p3', title: '[PORTFOLIO 3] Multi-Vendor E-Commerce Store', category: 'E-Commerce & Mobile', tech: ['Next.js', 'Payment Gateway', 'Flutter'], placeholderCode: 'PRJ-03' },
-    { id: 'p4', title: '[PORTFOLIO 4] Coaching Institute LMS & Portal', category: 'Education Technology', tech: ['React', 'Video DRM', 'Payment API'], placeholderCode: 'PRJ-04' },
-    { id: 'p5', title: '[PORTFOLIO 5] Real Estate Lead & CRM System', category: 'Enterprise CRM', tech: ['Angular', 'Lead Pipeline', 'WhatsApp API'], placeholderCode: 'PRJ-05' },
-    { id: 'p6', title: '[PORTFOLIO 6] Diagnostic Lab Booking System', category: 'Healthcare Web App', tech: ['Web App', 'SMS Alerts', 'PDF Reports'], placeholderCode: 'PRJ-06' },
-    { id: 'p7', title: '[PORTFOLIO 7] Restaurant POS & Online Ordering', category: 'POS & Billing', tech: ['Node.js', 'Thermal Print', 'PWA'], placeholderCode: 'PRJ-07' },
-    { id: 'p8', title: '[PORTFOLIO 8] Retail Inventory & GST Software', category: 'Accounting Software', tech: ['Electron', 'GST E-Way', 'Cloud Sync'], placeholderCode: 'PRJ-08' }
   ];
 
   ngOnInit(): void {

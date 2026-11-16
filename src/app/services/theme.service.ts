@@ -1,6 +1,6 @@
 import { Injectable, signal } from '@angular/core';
 
-export type AppTheme = 'dark' | 'light';
+export type AppTheme = 'light';
 
 @Injectable({
   providedIn: 'root'
@@ -8,8 +8,8 @@ export type AppTheme = 'dark' | 'light';
 export class ThemeService {
   private readonly THEME_STORAGE_KEY = 'yogteck-theme-mode';
   
-  // Default to dark theme as base
-  currentTheme = signal<AppTheme>('dark');
+  // Strict light theme requirement: White background, black/dark text, no dark mode
+  currentTheme = signal<AppTheme>('light');
 
   constructor() {
     this.initializeTheme();
@@ -17,49 +17,34 @@ export class ThemeService {
 
   private initializeTheme(): void {
     if (typeof window === 'undefined') return;
-
-    const savedTheme = localStorage.getItem(this.THEME_STORAGE_KEY) as AppTheme | null;
-    if (savedTheme === 'light' || savedTheme === 'dark') {
-      this.setTheme(savedTheme);
-    } else {
-      // Check user system preference or default to dark
-      const prefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
-      this.setTheme(prefersLight ? 'light' : 'dark');
-    }
+    this.setTheme('light');
   }
 
-  setTheme(theme: AppTheme): void {
-    this.currentTheme.set(theme);
+  setTheme(theme: AppTheme = 'light'): void {
+    this.currentTheme.set('light');
     if (typeof document !== 'undefined') {
       const root = document.documentElement;
       const body = document.body;
 
-      root.setAttribute('data-theme', theme);
-      
-      if (theme === 'light') {
-        body.classList.add('theme-light');
-        body.classList.remove('theme-dark');
-      } else {
-        body.classList.add('theme-dark');
-        body.classList.remove('theme-light');
-      }
+      root.setAttribute('data-theme', 'light');
+      body.classList.add('theme-light');
+      body.classList.remove('theme-dark');
     }
 
     if (typeof localStorage !== 'undefined') {
-      localStorage.setItem(this.THEME_STORAGE_KEY, theme);
+      localStorage.setItem(this.THEME_STORAGE_KEY, 'light');
     }
   }
 
   toggleTheme(): void {
-    const nextTheme: AppTheme = this.currentTheme() === 'dark' ? 'light' : 'dark';
-    this.setTheme(nextTheme);
+    this.setTheme('light');
   }
 
   isLight(): boolean {
-    return this.currentTheme() === 'light';
+    return true;
   }
 
   isDark(): boolean {
-    return this.currentTheme() === 'dark';
+    return false;
   }
 }

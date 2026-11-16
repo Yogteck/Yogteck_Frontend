@@ -1,19 +1,49 @@
 /* ==========================================================================
    YOGTECK DESIGN SYSTEM TOKENS & GLOBAL STYLES
-   Includes Dual Theme Architecture: Night (Dark) & Day (Light) Mode
+   Light Theme Architecture (White background, black/dark text, no dark mode)
    ========================================================================== */
 
 :root {
-  /* Default Theme: Night / Dark Mode */
-  --bg-navy-900: #050B1A;
-  --bg-navy-800: #0A1330;
-  --bg-navy-700: #101C42;
-  --bg-navy-600: #182859;
-  --bg-navy-card: rgba(10, 19, 48, 0.78);
-  --bg-navy-glass: rgba(5, 11, 26, 0.82);
-  --bg-light: #F4F7FC;
-  --bg-card-white: #FFFFFF;
-  --bg-page: #050B1A;
+  /* Centralized Yogteck Light Theme Tokens */
+  --accent: #f58220;
+  --accent-dark: #dc6d0e;
+  --primary-orange: #f58220;
+  --dark-orange: #dc6d0e;
+  --secondary-green: #1a9c55;
+  --brand-green: #1a9c55;
+  --ink: #111827;
+  --muted: #4b5563;
+  --line: #ececec;
+  --bg: #ffffff;
+  --soft: #ffffff;
+  --tint: #f6f6f6;
+  --hh: 76px;
+
+  --bg-page: #ffffff;
+  --bg-white: #ffffff;
+  --bg-light: #f8fafc;
+  --bg-card-white: #ffffff;
+  --border-line: #ececec;
+  --border-subtle: #e2e8f0;
+
+  --text-dark-primary: #111827;
+  --text-dark-secondary: #374151;
+  --text-dark-muted: #6b7280;
+
+  /* Strict Shape Rules: Square corners on menu, buttons, input (0px); cards at most 4px */
+  --radius-square: 0px;
+  --radius-card: 4px;
+
+  --font-body: 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-heading: 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica Neue', Arial, sans-serif;
+
+  /* Default Theme: Night / Dark Mode fallback variables redirected to clean light */
+  --bg-navy-900: #FFFFFF;
+  --bg-navy-800: #F8FAFC;
+  --bg-navy-700: #F1F5F9;
+  --bg-navy-600: #E2E8F0;
+  --bg-navy-card: #FFFFFF;
+  --bg-navy-glass: rgba(255, 255, 255, 0.95);
 
   /* Accents & Brand Colors (Dark Theme) */
   --accent-orange-start: #FF9A1F;
@@ -1427,4 +1457,26 @@ body.theme-light {
     --navbar-height: 92px;
   }
 }
+
+/* ==========================================================================
+   YOGTECK SIGNATURE HOVER EFFECT
+   Turns orange (#f58220) with white text & 3px green (#1a9c55) bottom strip
+   ========================================================================== */
+.yt-hover-effect {
+  position: relative;
+  transition: background-color 0.18s ease, color 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+}
+.yt-hover-effect:hover,
+.yt-hover-effect.active,
+.yt-hover-effect:focus-visible {
+  background-color: var(--primary-orange) !important;
+  color: #ffffff !important;
+  box-shadow: inset 0 -3px 0 var(--secondary-green) !important;
+}
+.yt-hover-effect:hover *,
+.yt-hover-effect.active *,
+.yt-hover-effect:focus-visible * {
+  color: #ffffff !important;
+}
+
 

@@ -2,17 +2,12 @@ import { Component, EventEmitter, HostListener, Output, inject } from '@angular/
 import { CommonModule } from '@angular/common';
 import { RouterModule, Router } from '@angular/router';
 import { CONTACT_CONFIG } from '../../data/contact.config';
-import { SERVICES_DATA, ServiceItem } from '../../data/services.data';
-import { ThemeService } from '../../services/theme.service';
 import { LocaleService } from '../../services/locale.service';
-import { LanguageSwitcherComponent } from '../language-switcher/language-switcher.component';
-
-import { PRODUCTS_SEO_DATA } from '../../data/extended-seo.data';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [CommonModule, RouterModule, LanguageSwitcherComponent],
+  imports: [CommonModule, RouterModule],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css'
 })
@@ -21,35 +16,67 @@ export class NavbarComponent {
   @Output() toggleDrawer = new EventEmitter<void>();
 
   router = inject(Router);
-  themeService = inject(ThemeService);
   localeService = inject(LocaleService);
 
   contact = CONTACT_CONFIG;
-  services = SERVICES_DATA;
-  products = Object.values(PRODUCTS_SEO_DATA);
-  dict = this.localeService.currentDict;
 
   isScrolled = false;
-  isServicesDropdownOpen = false;
-  isProductsDropdownOpen = false;
-  activeSection = 'home';
+  isMobileMenuOpen = false;
+  openSubmenuId: string | null = null;
 
   @HostListener('window:scroll', [])
   onWindowScroll(): void {
-    this.isScrolled = window.scrollY > 20;
-    this.detectActiveSection();
+    if (typeof window !== 'undefined') {
+      this.isScrolled = window.scrollY > 20;
+    }
   }
 
-  toggleDropdown(event: Event): void {
-    event.stopPropagation();
-    this.isProductsDropdownOpen = false;
-    this.isServicesDropdownOpen = !this.isServicesDropdownOpen;
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: MouseEvent): void {
+    const target = event.target as HTMLElement;
+    if (!target.closest('.item.has-sub') && !target.closest('.menu-btn')) {
+      this.openSubmenuId = null;
+    }
   }
 
-  toggleProductsDropdown(event: Event): void {
-    event.stopPropagation();
-    this.isServicesDropdownOpen = false;
-    this.isProductsDropdownOpen = !this.isProductsDropdownOpen;
+  @HostListener('document:keydown.escape')
+  onEscape(): void {
+    this.openSubmenuId = null;
+    this.closeMobileMenu();
+  }
+
+  toggleMobileMenu(): void {
+    this.isMobileMenuOpen = !this.isMobileMenuOpen;
+    if (typeof document !== 'undefined') {
+      document.body.style.overflow = this.isMobileMenuOpen ? 'hidden' : '';
+    }
+    this.toggleDrawer.emit();
+  }
+
+  closeMobileMenu(): void {
+    this.isMobileMenuOpen = false;
+    this.openSubmenuId = null;
+    if (typeof document !== 'undefined') {
+      document.body.style.overflow = '';
+    }
+  }
+
+  toggleSubmenu(id: string, event?: Event): void {
+    if (event) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+    this.openSubmenuId = this.openSubmenuId === id ? null : id;
+  }
+
+  isSubmenuOpen(id: string): boolean {
+    return this.openSubmenuId === id;
+  }
+
+  onQuoteClick(event: Event): void {
+    event.preventDefault();
+    this.closeMobileMenu();
+    this.openQuote.emit();
   }
 
   trackPhoneClick(): void {
@@ -58,58 +85,6 @@ export class NavbarComponent {
         event_category: 'lead_channel',
         event_label: 'Navbar Phone'
       });
-    }
-  }
-
-  closeDropdown(): void {
-    this.isServicesDropdownOpen = false;
-    this.isProductsDropdownOpen = false;
-  }
-
-
-  @HostListener('document:click', [])
-  onDocumentClick(): void {
-    this.closeDropdown();
-  }
-
-  private detectActiveSection(): void {
-    const url = this.router.url;
-    // Check if we are on root or locale root
-    const isRootOrLocaleRoot = url === '/' || /^\/[a-z]{2}(-[a-z]{2})?\/?$/i.test(url);
-    if (!isRootOrLocaleRoot) {
-      return;
-    }
-    const sections = ['home', 'services', 'growth-journey', 'marketplaces', 'projects', 'clients', 'about', 'contact'];
-    const scrollPosition = window.scrollY + 150;
-
-    for (const sectionId of sections) {
-      const el = document.getElementById(sectionId);
-      if (el) {
-        const top = el.offsetTop;
-        const height = el.offsetHeight;
-        if (scrollPosition >= top && scrollPosition < top + height) {
-          this.activeSection = sectionId;
-          break;
-        }
-      }
-    }
-  }
-
-  scrollTo(targetId: string, event?: Event): void {
-    if (event) event.preventDefault();
-    this.closeDropdown();
-
-    const currentUrl = this.router.url;
-    const isRootOrLocale = currentUrl === '/' || /^\/[a-z]{2}(-[a-z]{2})?\/?$/i.test(currentUrl);
-
-    if (isRootOrLocale) {
-      const el = document.getElementById(targetId);
-      if (el) {
-        el.scrollIntoView({ behavior: 'smooth' });
-      }
-    } else {
-      const targetLocale = this.localeService.currentConfig().code;
-      this.router.navigate([`/${targetLocale}`], { fragment: targetId });
     }
   }
 }

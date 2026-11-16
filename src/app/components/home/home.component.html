@@ -1,126 +1,766 @@
-<!-- Main Navbar -->
-<app-navbar
-  (openQuote)="openQuoteModal()"
-  (toggleDrawer)="openDrawer()">
-</app-navbar>
+<!-- 1 & 2: Top Utility Bar + Sticky Header + Mega Menu -->
+<app-navbar (openQuote)="openQuoteModal()"></app-navbar>
 
-<!-- Mobile Slide-out Drawer -->
-<app-mobile-drawer
-  [isOpen]="isDrawerOpen"
-  (closeDrawer)="closeDrawer()"
-  (openQuote)="openQuoteModal()">
-</app-mobile-drawer>
+<main class="main-homepage" id="main-content">
 
-<!-- Main Content Area -->
-<main class="main-content" id="main-content">
-  
-  <!-- 1. Hero Section -->
-  <app-hero
-    (openQuote)="openQuoteModal()">
-  </app-hero>
-
-  <!-- 2. Feature Strip Directly Under Hero -->
-  <app-feature-strip></app-feature-strip>
-
-  <!-- 3. Business Growth Journey (Dark) -->
-  <app-growth-journey></app-growth-journey>
-
-  <!-- 4. Complete Digital Solutions / Services (Light Section) -->
-  <app-services-section
-    (openQuote)="openQuoteModal()"
-    (selectService)="onServiceSelected($event)">
-  </app-services-section>
-
-  <!-- 5. Marketplace: Local to Global Growth (Dark) -->
-  <app-marketplace-section></app-marketplace-section>
-
-  <!-- 6. About & Why YOGTECK (Dark) -->
-  <app-about-section></app-about-section>
-
-  <!-- 7. Real Client Badges / Trusted By (Dark) -->
-  <app-clients-strip></app-clients-strip>
-
-  <!-- 8. Selected Projects & Case Studies (Light Section) -->
-  <app-projects-section></app-projects-section>
-
-  <!-- 9. Regional Service Locations & Entity Overview (Dark Section - SEO & AEO/GEO) -->
-  <section class="section-dark home-entity-section" id="locations" [class.dir-rtl]="localeService.isRtl()">
-    <div class="container">
-      
-      <!-- Factual AI Entity Block -->
-      <div class="home-entity-card">
-        <div class="he-pill-row">
-          <span class="pill-badge pill-badge-outline-orange">COMPANY ENTITY PROFILE</span>
-          <span class="he-hq-tag">{{ dict().locations.hqTitle }}</span>
+  <!-- 3. HERO SECTION -->
+  <section class="section-hero" id="hero">
+    <div class="site-container hero-container">
+      <div class="hero-content">
+        <span class="badge-tag">KANPUR IT &amp; DIGITAL EXCELLENCE</span>
+        <h1 class="hero-title">
+          Scalable Web Design, Custom Software &amp; Mobile Apps Built in Kanpur
+        </h1>
+        <p class="hero-subtitle">
+          From fast, high-converting business websites and cloud applications to robust e-commerce solutions, Yogteck helps regional businesses build, grow, and digitize with clean engineering and direct engineer communication.
+        </p>
+        <div class="hero-actions">
+          <button type="button" class="btn btn-primary-orange" (click)="openQuoteModal('Custom Project')">
+            Get Free Quote
+          </button>
+          <a [href]="contact.phoneTel" class="btn btn-outline-dark">
+            Call Now: {{ contact.phone }}
+          </a>
         </div>
-        <h2 class="he-title">
-          YOGTECK — <span class="gradient-text">{{ dict().locations.heading }}</span>
-        </h2>
-        <p class="he-statement">
-          {{ dict().locations.hqDesc }}
-        </p>
+        
+        <!-- Trust mini-points -->
+        <div class="hero-highlights">
+          <span class="hero-hi-item">
+            <svg class="hi-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            No Sales Middlemen
+          </span>
+          <span class="hero-hi-item">
+            <svg class="hi-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            Milestone Invoicing
+          </span>
+          <span class="hero-hi-item">
+            <svg class="hi-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            100% Code Handover
+          </span>
+        </div>
       </div>
 
-      <!-- Regional Hubs Grid -->
-      <div class="section-center-header" style="margin-top: 48px;">
-        <span class="section-label">{{ dict().locations.badge }}</span>
-        <h2 class="section-heading">{{ dict().locations.heading }}</h2>
-        <p class="section-lead">
-          {{ dict().locations.lead }}
-        </p>
+      <!-- Hero Right: Quick Enquiry Form Card -->
+      <div class="hero-card-col">
+        <div class="quick-quote-card">
+          <div class="quote-card-header">
+            <h2 class="quote-card-title">Request a Fast Estimate</h2>
+            <p class="quote-card-subtitle">Get direct developer response within 2 business hours</p>
+          </div>
+          <form class="hero-form" (ngSubmit)="onHeroSubmit()">
+            <div class="form-group">
+              <label for="hero-name" class="form-label">Full Name</label>
+              <input 
+                type="text" 
+                id="hero-name" 
+                name="heroName" 
+                [(ngModel)]="heroForm.name" 
+                required 
+                placeholder="Your full name" 
+                class="form-control" />
+            </div>
+            <div class="form-group">
+              <label for="hero-phone" class="form-label">Phone / WhatsApp</label>
+              <input 
+                type="tel" 
+                id="hero-phone" 
+                name="heroPhone" 
+                [(ngModel)]="heroForm.phone" 
+                required 
+                placeholder="e.g. 9876543210" 
+                class="form-control" />
+            </div>
+            <div class="form-group">
+              <label for="hero-service" class="form-label">Service Needed</label>
+              <select 
+                id="hero-service" 
+                name="heroService" 
+                [(ngModel)]="heroForm.service" 
+                class="form-control form-select">
+                <option value="Website Designing & Development">Website Designing &amp; Development</option>
+                <option value="Custom Software Development">Custom Software Development</option>
+                <option value="Mobile App Development">Mobile App Development</option>
+                <option value="E-commerce Store & App">E-commerce Store &amp; App</option>
+                <option value="Local SEO & Digital Marketing">Local SEO &amp; Digital Marketing</option>
+                <option value="ERP / Billing Solution">ERP / Billing Solution</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="hero-message" class="form-label">Brief Requirement</label>
+              <textarea 
+                id="hero-message" 
+                name="heroMessage" 
+                [(ngModel)]="heroForm.message" 
+                rows="2" 
+                placeholder="Tell us what you want to build..." 
+                class="form-control"></textarea>
+            </div>
+            <button type="submit" class="btn btn-submit-quote">
+              Send Project Enquiry
+            </button>
+            <p class="privacy-note">🔒 We respect your privacy. No spam guaranteed.</p>
+          </form>
+        </div>
       </div>
-
-      <div class="home-locations-grid">
-        <!-- Kanpur Card -->
-        <a [routerLink]="'/' + localeService.currentConfig().code + '/it-software-company-kanpur'" class="home-loc-card loc-kanpur">
-          <span class="hl-badge">Headquarters &amp; Primary Hub</span>
-          <h3 class="hl-title">{{ dict().locations.hubKanpurTitle }}</h3>
-          <p class="hl-desc">{{ dict().locations.hubKanpurDesc }}</p>
-          <span class="hl-cta">{{ dict().locations.hubKanpurCta }}</span>
-        </a>
-
-        <!-- Lucknow Card -->
-        <a [routerLink]="'/' + localeService.currentConfig().code + '/it-software-company-lucknow'" class="home-loc-card loc-lucknow">
-          <span class="hl-badge">State Capital</span>
-          <h3 class="hl-title">{{ dict().locations.hubLucknowTitle }}</h3>
-          <p class="hl-desc">{{ dict().locations.hubLucknowDesc }}</p>
-          <span class="hl-cta">{{ dict().locations.hubLucknowCta }}</span>
-        </a>
-
-        <!-- Raebareli Card -->
-        <a [routerLink]="'/' + localeService.currentConfig().code + '/it-software-company-raebareli'" class="home-loc-card loc-raebareli">
-          <span class="hl-badge">Industrial Hub</span>
-          <h3 class="hl-title">{{ dict().locations.hubRaebareliTitle }}</h3>
-          <p class="hl-desc">{{ dict().locations.hubRaebareliDesc }}</p>
-          <span class="hl-cta">{{ dict().locations.hubRaebareliCta }}</span>
-        </a>
-      </div>
-
     </div>
   </section>
 
-  <!-- 10. Frequently Asked Questions (AEO/GEO Section) -->
-  <app-faq-section
-    [title]="dict().faq.heading"
-    [subtitle]="dict().faq.lead"
-    [faqs]="homepageFaqs">
-  </app-faq-section>
+  <!-- 4. TRUST STRIP: 4 to 5 REAL STRENGTHS -->
+  <section class="section-trust-strip" aria-label="Key Strengths">
+    <div class="site-container">
+      <div class="trust-grid">
+        <div class="trust-item">
+          <div class="trust-icon-box">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+              <circle cx="9" cy="7" r="4"></circle>
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+              <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+            </svg>
+          </div>
+          <div class="trust-text">
+            <h3 class="trust-title">Direct Developer Access</h3>
+            <p class="trust-desc">Speak directly with engineers, zero sales middlemen or delays.</p>
+          </div>
+        </div>
 
-  <!-- 11. CTA & Inquiry Form (Dark Glass) -->
-  <app-inquiry-section></app-inquiry-section>
+        <div class="trust-item">
+          <div class="trust-icon-box">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="2" y="4" width="20" height="16" rx="0"></rect>
+              <line x1="2" y1="10" x2="22" y2="10"></line>
+            </svg>
+          </div>
+          <div class="trust-text">
+            <h3 class="trust-title">Milestone-Based Billing</h3>
+            <p class="trust-desc">Pay strictly in clear project phases as each delivery is verified.</p>
+          </div>
+        </div>
+
+        <div class="trust-item">
+          <div class="trust-icon-box">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="16 18 22 12 16 6"></polyline>
+              <polyline points="8 6 2 12 8 18"></polyline>
+            </svg>
+          </div>
+          <div class="trust-text">
+            <h3 class="trust-title">100% Code Ownership</h3>
+            <p class="trust-desc">Complete source code, git repository, and root server credentials handed over.</p>
+          </div>
+        </div>
+
+        <div class="trust-item">
+          <div class="trust-icon-box">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+              <circle cx="12" cy="10" r="3"></circle>
+            </svg>
+          </div>
+          <div class="trust-text">
+            <h3 class="trust-title">Local Kanpur Support</h3>
+            <p class="trust-desc">On-ground team in Kanpur for fast regional assistance &amp; in-person consultations.</p>
+          </div>
+        </div>
+
+        <div class="trust-item">
+          <div class="trust-icon-box">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+              <path d="M2 17l10 5 10-5"></path>
+              <path d="M2 12l10 5 10-5"></path>
+            </svg>
+          </div>
+          <div class="trust-text">
+            <h3 class="trust-title">Scalable Tech Stack</h3>
+            <p class="trust-desc">Engineered on Angular, Node.js, and Cloud VPS with zero vendor lock-in.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. SHORT COMPANY INTRODUCTION -->
+  <section class="section-intro" id="about-intro">
+    <div class="site-container">
+      <div class="intro-card">
+        <div class="intro-header">
+          <span class="section-label">ABOUT YOGTECK KANPUR</span>
+          <h2 class="section-title">
+            Your Local IT, Web &amp; Software Engineering Partner in Kanpur
+          </h2>
+        </div>
+        <div class="intro-body">
+          <p class="intro-lead">
+            Yogteck is an established IT and web development firm headquartered in Kanpur Nagar, Uttar Pradesh. We engineer custom digital systems that help local enterprises, manufacturing businesses, coaching institutes, and growing merchants thrive online.
+          </p>
+          <p class="intro-detail">
+            Whether you need a lightning-fast responsive website, custom business management software (ERP/CRM), an omnichannel e-commerce store with integrated mobile applications, or local SEO rankings across Kanpur and Uttar Pradesh, Yogteck provides end-to-end delivery with direct engineer accessibility, clear milestone pricing, and complete code ownership.
+          </p>
+          <div class="intro-footer">
+            <a href="#" class="intro-link yt-hover-effect">
+              View More About Our Journey &amp; Infrastructure &rarr;
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. OUR SERVICES (4 Cards with Signature Hover Effect) -->
+  <section class="section-services" id="services">
+    <div class="site-container">
+      <div class="section-header-center">
+        <span class="section-label">SERVICES &amp; CAPABILITIES</span>
+        <h2 class="section-title">End-to-End Digital Solutions Tailored for Your Growth</h2>
+        <p class="section-lead">
+          From initial system architecture to ongoing cloud maintenance, we provide comprehensive technology services for Indian enterprises.
+        </p>
+      </div>
+
+      <div class="services-grid">
+        <div *ngFor="let s of services" class="service-card yt-hover-effect">
+          <div class="service-icon-box">
+            <span class="service-emoji">{{ s.icon }}</span>
+          </div>
+          <h3 class="service-title">{{ s.title }}</h3>
+          <p class="service-desc">{{ s.description }}</p>
+          <ul class="service-deliverables">
+            <li *ngFor="let d of s.deliverables">
+              <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <span>{{ d }}</span>
+            </li>
+          </ul>
+          <div class="service-footer">
+            <a href="#" class="service-action-link" (click)="openQuoteModal(s.title); $event.preventDefault();">
+              Get Quotation &rarr;
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. INDUSTRIES WE SERVE -->
+  <section class="section-industries" id="industries">
+    <div class="site-container">
+      <div class="section-header-center">
+        <span class="section-label">DOMAIN EXPERTISE</span>
+        <h2 class="section-title">Industries We Serve Across Kanpur &amp; Uttar Pradesh</h2>
+        <p class="section-lead">
+          Tailored workflows, automated accounting compliance, and optimized user journeys crafted for specific commercial verticals.
+        </p>
+      </div>
+
+      <div class="industries-grid">
+        <div *ngFor="let ind of industries" class="industry-card yt-hover-effect">
+          <div class="ind-icon-box">{{ ind.icon }}</div>
+          <h3 class="ind-title">{{ ind.name }}</h3>
+          <p class="ind-desc">{{ ind.description }}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. PORTFOLIO (Grid of 8 cards with image placeholders) -->
+  <section class="section-portfolio" id="portfolio">
+    <div class="site-container">
+      <div class="section-header-center">
+        <span class="section-label">PROVEN WORK</span>
+        <h2 class="section-title">Featured Projects &amp; Digital Solutions</h2>
+        <p class="section-lead">
+          Recent web applications, corporate systems, and software platforms developed by the Yogteck engineering team.
+        </p>
+      </div>
+
+      <div class="portfolio-grid">
+        <div *ngFor="let p of portfolioItems" class="portfolio-card">
+          <div class="portfolio-media">
+            <!-- Accessible placeholder image with explicit dimensions and lazy loading -->
+            <div class="portfolio-placeholder-img">
+              <span class="placeholder-code">{{ p.placeholderCode }}</span>
+              <span class="placeholder-tag">[PORTFOLIO IMAGE]</span>
+            </div>
+            <span class="portfolio-category-badge">{{ p.category }}</span>
+          </div>
+          <div class="portfolio-info">
+            <h3 class="portfolio-title">{{ p.title }}</h3>
+            <div class="portfolio-tech-list">
+              <span *ngFor="let t of p.tech" class="tech-tag">{{ t }}</span>
+            </div>
+            <a href="#" class="portfolio-link yt-hover-effect">
+              View Case Study Details &rarr;
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9. TECHNOLOGIES (3 Columns; Tabs on Mobile) -->
+  <section class="section-tech" id="technologies">
+    <div class="site-container">
+      <div class="section-header-center">
+        <span class="section-label">DEVELOPMENT STACK</span>
+        <h2 class="section-title">Modern Frameworks &amp; Technologies We Use</h2>
+        <p class="section-lead">
+          We leverage proven, high-performance technology stacks for rock-solid stability and future-proof scalability.
+        </p>
+      </div>
+
+      <!-- Mobile Tab Switchers -->
+      <div class="tech-mobile-tabs">
+        <button 
+          type="button" 
+          class="tech-tab-btn yt-hover-effect" 
+          [class.active]="activeTechTab === 'web'"
+          (click)="setTechTab('web')">
+          Web Development
+        </button>
+        <button 
+          type="button" 
+          class="tech-tab-btn yt-hover-effect" 
+          [class.active]="activeTechTab === 'app'"
+          (click)="setTechTab('app')">
+          App Development
+        </button>
+        <button 
+          type="button" 
+          class="tech-tab-btn yt-hover-effect" 
+          [class.active]="activeTechTab === 'design'"
+          (click)="setTechTab('design')">
+          UI/UX &amp; Graphic Design
+        </button>
+      </div>
+
+      <!-- 3 Columns (Desktop grid, Mobile tab-filtered) -->
+      <div class="tech-grid">
+        
+        <!-- Col 1: Web Development -->
+        <div class="tech-col" [class.tech-active]="activeTechTab === 'web'">
+          <div class="tech-col-header">
+            <span class="tech-col-icon">🌐</span>
+            <h3 class="tech-col-title">Web Development</h3>
+          </div>
+          <p class="tech-col-desc">Responsive, server-rendered and single-page applications optimized for Core Web Vitals.</p>
+          <div class="tech-badges-list">
+            <span class="tech-badge yt-hover-effect">Angular</span>
+            <span class="tech-badge yt-hover-effect">React.js</span>
+            <span class="tech-badge yt-hover-effect">Node.js</span>
+            <span class="tech-badge yt-hover-effect">TypeScript</span>
+            <span class="tech-badge yt-hover-effect">PHP / Laravel</span>
+            <span class="tech-badge yt-hover-effect">WordPress CMS</span>
+            <span class="tech-badge yt-hover-effect">HTML5 &amp; CSS3</span>
+            <span class="tech-badge yt-hover-effect">RESTful APIs</span>
+            <span class="tech-badge yt-hover-effect">PostgreSQL / MySQL</span>
+          </div>
+        </div>
+
+        <!-- Col 2: App Development -->
+        <div class="tech-col" [class.tech-active]="activeTechTab === 'app'">
+          <div class="tech-col-header">
+            <span class="tech-col-icon">📱</span>
+            <h3 class="tech-col-title">App Development</h3>
+          </div>
+          <p class="tech-col-desc">High-performance cross-platform and native mobile apps with seamless offline capabilities.</p>
+          <div class="tech-badges-list">
+            <span class="tech-badge yt-hover-effect">Flutter</span>
+            <span class="tech-badge yt-hover-effect">React Native</span>
+            <span class="tech-badge yt-hover-effect">Android SDK / Kotlin</span>
+            <span class="tech-badge yt-hover-effect">iOS / Swift</span>
+            <span class="tech-badge yt-hover-effect">Firebase Cloud</span>
+            <span class="tech-badge yt-hover-effect">SQLite Local DB</span>
+            <span class="tech-badge yt-hover-effect">Push Notifications</span>
+            <span class="tech-badge yt-hover-effect">Payment SDKs (UPI)</span>
+          </div>
+        </div>
+
+        <!-- Col 3: UI/UX & Graphic Design -->
+        <div class="tech-col" [class.tech-active]="activeTechTab === 'design'">
+          <div class="tech-col-header">
+            <span class="tech-col-icon">🎨</span>
+            <h3 class="tech-col-title">UI/UX &amp; Graphic Design</h3>
+          </div>
+          <p class="tech-col-desc">Pixel-perfect prototypes, intuitive interfaces, and comprehensive corporate brand assets.</p>
+          <div class="tech-badges-list">
+            <span class="tech-badge yt-hover-effect">Figma Wireframing</span>
+            <span class="tech-badge yt-hover-effect">Adobe Photoshop</span>
+            <span class="tech-badge yt-hover-effect">Adobe Illustrator</span>
+            <span class="tech-badge yt-hover-effect">Design Tokens</span>
+            <span class="tech-badge yt-hover-effect">Mobile-First UI</span>
+            <span class="tech-badge yt-hover-effect">Brand Guidelines</span>
+            <span class="tech-badge yt-hover-effect">Vector Icons (SVG)</span>
+            <span class="tech-badge yt-hover-effect">Interactive Prototypes</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- 10. E-COMMERCE PORTFOLIO (Website + App Mockup Pairs) -->
+  <section class="section-ecommerce" id="ecommerce">
+    <div class="site-container">
+      <div class="section-header-center">
+        <span class="section-label">OMNICHANNEL COMMERCE</span>
+        <h2 class="section-title">E-Commerce Ecosystem: Synchronized Web &amp; Mobile Apps</h2>
+        <p class="section-lead">
+          Launch your brand with a unified digital catalog, automated payment reconciliations, and instant order tracking.
+        </p>
+      </div>
+
+      <div class="ecom-mockups-grid">
+        
+        <!-- Pair 1 -->
+        <div class="ecom-pair-card">
+          <div class="ecom-visual-container">
+            <div class="ecom-mockup-web">
+              <div class="mockup-header-bar">
+                <span class="dot red"></span>
+                <span class="dot yellow"></span>
+                <span class="dot green"></span>
+                <span class="mockup-url">store.yourbrand.in</span>
+              </div>
+              <div class="mockup-canvas">
+                <span class="mockup-placeholder">[ECOMMERCE WEB STOREFRONT 1]</span>
+              </div>
+            </div>
+            <div class="ecom-mockup-app">
+              <div class="phone-speaker"></div>
+              <div class="phone-screen">
+                <span class="mockup-placeholder">[MOBILE APP 1]</span>
+              </div>
+            </div>
+          </div>
+          <div class="ecom-info">
+            <h3 class="ecom-title">D2C Retail &amp; Apparel Storefront</h3>
+            <p class="ecom-desc">
+              Integrated real-time cart synchronization, Razorpay/Cashfree payment gateway, automated invoice generation, and courier tracking integration.
+            </p>
+            <ul class="ecom-features">
+              <li>Instant UPI &amp; Netbanking Checkout</li>
+              <li>SMS &amp; WhatsApp Order Status Alerts</li>
+              <li>Multi-device Cart Sync</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Pair 2 -->
+        <div class="ecom-pair-card">
+          <div class="ecom-visual-container">
+            <div class="ecom-mockup-web">
+              <div class="mockup-header-bar">
+                <span class="dot red"></span>
+                <span class="dot yellow"></span>
+                <span class="dot green"></span>
+                <span class="mockup-url">b2b.wholesalepartner.in</span>
+              </div>
+              <div class="mockup-canvas">
+                <span class="mockup-placeholder">[ECOMMERCE B2B PORTAL 2]</span>
+              </div>
+            </div>
+            <div class="ecom-mockup-app">
+              <div class="phone-speaker"></div>
+              <div class="phone-screen">
+                <span class="mockup-placeholder">[FIELD AGENT APP 2]</span>
+              </div>
+            </div>
+          </div>
+          <div class="ecom-info">
+            <h3 class="ecom-title">B2B Industrial &amp; Wholesale Marketplace</h3>
+            <p class="ecom-desc">
+              Volume-based tiered pricing, GST-compliant credit terms, automated tax invoice calculations, and field sales ordering app.
+            </p>
+            <ul class="ecom-features">
+              <li>Tiered Tier-Wise Wholesale Discounts</li>
+              <li>GST E-Way Bill Readiness</li>
+              <li>Offline-First Agent Order Capture</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- 11. TESTIMONIALS SLIDER (Placeholder Reviews, NO Fake Data) -->
+  <section class="section-testimonials" id="testimonials">
+    <div class="site-container">
+      <div class="section-header-center">
+        <span class="section-label">CLIENT SATISFACTION</span>
+        <h2 class="section-title">Client Feedback &amp; Project Experience</h2>
+        <p class="section-lead">
+          Verified experiences from businesses working with Yogteck on web design, custom software, and digital systems.
+        </p>
+      </div>
+
+      <div class="testimonial-slider-card">
+        <div class="testimonial-stars" aria-label="5 out of 5 stars">
+          <span *ngFor="let s of [1,2,3,4,5]">★</span>
+        </div>
+        <blockquote class="testimonial-quote">
+          "{{ testimonials[currentTestimonialIndex].quote }}"
+        </blockquote>
+        <div class="testimonial-author-meta">
+          <cite class="author-name">{{ testimonials[currentTestimonialIndex].author }}</cite>
+          <span class="author-role">{{ testimonials[currentTestimonialIndex].designation }}</span>
+          <span class="author-loc">({{ testimonials[currentTestimonialIndex].location }})</span>
+        </div>
+
+        <div class="slider-controls">
+          <button type="button" class="slider-btn yt-hover-effect" (click)="prevTestimonial()" aria-label="Previous review">
+            &larr; Prev
+          </button>
+          <div class="slider-dots">
+            <span 
+              *ngFor="let t of testimonials; let i = index" 
+              class="dot-indicator" 
+              [class.active]="i === currentTestimonialIndex"
+              (click)="currentTestimonialIndex = i"></span>
+          </div>
+          <button type="button" class="slider-btn yt-hover-effect" (click)="nextTestimonial()" aria-label="Next review">
+            Next &rarr;
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 12. CLIENT LOGO STRIPS (Two Rows Auto-scrolling Marquee) -->
+  <section class="section-client-logos" aria-label="Client Recognition">
+    <div class="site-container">
+      <div class="section-header-center">
+        <span class="section-label">REGIONAL PARTNERSHIPS</span>
+        <h2 class="section-title">Trusted by Businesses Across Kanpur &amp; Uttar Pradesh</h2>
+      </div>
+    </div>
+
+    <!-- Row 1 Marquee -->
+    <div class="logo-marquee-wrapper">
+      <div class="logo-marquee-track track-left">
+        <div class="logo-chip yt-hover-effect"><span>[CLIENT LOGO 1]</span></div>
+        <div class="logo-chip yt-hover-effect"><span>[CLIENT LOGO 2]</span></div>
+        <div class="logo-chip yt-hover-effect"><span>[CLIENT LOGO 3]</span></div>
+        <div class="logo-chip yt-hover-effect"><span>[CLIENT LOGO 4]</span></div>
+        <div class="logo-chip yt-hover-effect"><span>[CLIENT LOGO 5]</span></div>
+        <div class="logo-chip yt-hover-effect"><span>[CLIENT LOGO 6]</span></div>
+        <!-- Clones for infinite loop -->
+        <div class="logo-chip yt-hover-effect"><span>[CLIENT LOGO 1]</span></div>
+        <div class="logo-chip yt-hover-effect"><span>[CLIENT LOGO 2]</span></div>
+        <div class="logo-chip yt-hover-effect"><span>[CLIENT LOGO 3]</span></div>
+        <div class="logo-chip yt-hover-effect"><span>[CLIENT LOGO 4]</span></div>
+        <div class="logo-chip yt-hover-effect"><span>[CLIENT LOGO 5]</span></div>
+        <div class="logo-chip yt-hover-effect"><span>[CLIENT LOGO 6]</span></div>
+      </div>
+    </div>
+
+    <!-- Row 2 Marquee (Reverse direction) -->
+    <div class="logo-marquee-wrapper" style="margin-top: 14px;">
+      <div class="logo-marquee-track track-right">
+        <div class="logo-chip yt-hover-effect"><span>[CLIENT LOGO 7]</span></div>
+        <div class="logo-chip yt-hover-effect"><span>[CLIENT LOGO 8]</span></div>
+        <div class="logo-chip yt-hover-effect"><span>[CLIENT LOGO 9]</span></div>
+        <div class="logo-chip yt-hover-effect"><span>[CLIENT LOGO 10]</span></div>
+        <div class="logo-chip yt-hover-effect"><span>[CLIENT LOGO 11]</span></div>
+        <div class="logo-chip yt-hover-effect"><span>[CLIENT LOGO 12]</span></div>
+        <!-- Clones for infinite loop -->
+        <div class="logo-chip yt-hover-effect"><span>[CLIENT LOGO 7]</span></div>
+        <div class="logo-chip yt-hover-effect"><span>[CLIENT LOGO 8]</span></div>
+        <div class="logo-chip yt-hover-effect"><span>[CLIENT LOGO 9]</span></div>
+        <div class="logo-chip yt-hover-effect"><span>[CLIENT LOGO 10]</span></div>
+        <div class="logo-chip yt-hover-effect"><span>[CLIENT LOGO 11]</span></div>
+        <div class="logo-chip yt-hover-effect"><span>[CLIENT LOGO 12]</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 13. WHERE WE WORK (Kanpur & Regional Cities) -->
+  <section class="section-locations" id="locations">
+    <div class="site-container">
+      <div class="section-header-center">
+        <span class="section-label">REGIONAL COVERAGE</span>
+        <h2 class="section-title">Where We Work: Kanpur &amp; Neighboring Corridors</h2>
+        <p class="section-lead">
+          Providing on-ground consultation, face-to-face architectural reviews, and dedicated local support.
+        </p>
+      </div>
+
+      <div class="locations-grid">
+        
+        <!-- Kanpur (HQ) -->
+        <div class="location-card yt-hover-effect loc-highlight">
+          <div class="loc-badge">Headquarters</div>
+          <h3 class="loc-city">Kanpur Nagar</h3>
+          <p class="loc-address">302/2, Mangla Vihar 2, New PAC Line, Kanpur - 208015</p>
+          <p class="loc-desc">Primary development center, full engineering lab, and on-site client meeting hub.</p>
+          <a [href]="contact.phoneTel" class="loc-cta">Contact Kanpur Team &rarr;</a>
+        </div>
+
+        <!-- Lucknow -->
+        <div class="location-card yt-hover-effect">
+          <div class="loc-badge">State Capital Hub</div>
+          <h3 class="loc-city">Lucknow</h3>
+          <p class="loc-address">Corporate &amp; Government Client Engagements</p>
+          <p class="loc-desc">Enterprise software consulting, institutional portals, and high-volume digital marketing.</p>
+          <a [href]="contact.phoneTel" class="loc-cta">Connect With Us &rarr;</a>
+        </div>
+
+        <!-- Raebareli -->
+        <div class="location-card yt-hover-effect">
+          <div class="loc-badge">Industrial Corridor</div>
+          <h3 class="loc-city">Raebareli</h3>
+          <p class="loc-address">Industrial Zone &amp; Commercial Enterprises</p>
+          <p class="loc-desc">ERP implementation, factory dispatch management software, and B2B vendor portals.</p>
+          <a [href]="contact.phoneTel" class="loc-cta">Connect With Us &rarr;</a>
+        </div>
+
+        <!-- Unnao -->
+        <div class="location-card yt-hover-effect">
+          <div class="loc-badge">Manufacturing Hub</div>
+          <h3 class="loc-city">Unnao</h3>
+          <p class="loc-address">Leather, Agro &amp; Trade Commercial Zone</p>
+          <p class="loc-desc">B2B supply chain digitalization, export product catalogs, and local search dominance.</p>
+          <a [href]="contact.phoneTel" class="loc-cta">Connect With Us &rarr;</a>
+        </div>
+
+        <!-- Fatehpur & Prayagraj -->
+        <div class="location-card yt-hover-effect">
+          <div class="loc-badge">Regional Business</div>
+          <h3 class="loc-city">Fatehpur &amp; Prayagraj</h3>
+          <p class="loc-address">Commercial &amp; Educational Centers</p>
+          <p class="loc-desc">Coaching institute LMS, retail billing software, and custom business websites.</p>
+          <a [href]="contact.phoneTel" class="loc-cta">Connect With Us &rarr;</a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- 14. LEAD-CAPTURE BANNER WITH SHORT FORM + WHATSAPP BUTTON -->
+  <section class="section-lead-banner" id="lead-banner">
+    <div class="site-container">
+      <div class="lead-banner-box">
+        <div class="lead-banner-text">
+          <span class="lead-badge">START YOUR PROJECT</span>
+          <h2 class="lead-heading">Ready to Build Your Website or Custom Software?</h2>
+          <p class="lead-subheading">
+            Speak directly with an engineer in Kanpur. Get a transparent quote, project roadmap, and timeline within 24 hours.
+          </p>
+          <div class="lead-direct-wa">
+            <a [href]="contact.whatsappLink" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp-direct">
+              <svg class="wa-icon" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.669-.699c.969.586 1.841.879 2.791.879 3.182 0 5.767-2.587 5.767-5.766.001-3.187-2.575-5.765-5.767-5.765zm3.385 8.163c-.145.411-.749.771-1.042.82-.293.048-.679.083-2.222-.559-1.977-.822-3.238-2.833-3.336-2.964-.099-.131-.798-1.062-.798-2.025 0-.963.504-1.437.683-1.632.179-.195.391-.244.521-.244.13 0 .26.002.373.007.12.006.28-.045.438.334.163.391.554 1.35.603 1.448.049.098.081.213.016.342-.065.129-.098.21-.195.325-.098.115-.205.257-.293.345-.101.101-.206.21-.088.414.118.204.525.866 1.127 1.402.775.688 1.428.902 1.632 1.004.204.102.324.086.444-.052.12-.138.514-.6.65-.815.136-.215.272-.18.457-.111.185.069 1.173.553 1.374.653.201.1.336.148.385.233.049.085.049.492-.096.903z"></path>
+              </svg>
+              Chat on WhatsApp Now
+            </a>
+            <span class="or-text">OR send quick form &darr;</span>
+          </div>
+        </div>
+
+        <!-- Inline Quick Form -->
+        <div class="lead-banner-form-card">
+          <form class="banner-form" (ngSubmit)="onLeadSubmit()">
+            <div class="banner-field">
+              <label for="lead-name">Your Name</label>
+              <input 
+                type="text" 
+                id="lead-name" 
+                name="leadName" 
+                [(ngModel)]="leadForm.name" 
+                required 
+                placeholder="Full Name" 
+                class="banner-input" />
+            </div>
+            <div class="banner-field">
+              <label for="lead-phone">Mobile / WhatsApp Number</label>
+              <input 
+                type="tel" 
+                id="lead-phone" 
+                name="leadPhone" 
+                [(ngModel)]="leadForm.phone" 
+                required 
+                placeholder="10-digit mobile number" 
+                class="banner-input" />
+            </div>
+            <div class="banner-field">
+              <label for="lead-service">Interested Service</label>
+              <select 
+                id="lead-service" 
+                name="leadService" 
+                [(ngModel)]="leadForm.service" 
+                class="banner-input banner-select">
+                <option value="Website Designing & Development">Website Designing &amp; Development</option>
+                <option value="Custom Software Development">Custom Software Development</option>
+                <option value="Mobile App Development">Mobile App Development</option>
+                <option value="Local SEO & Lead Generation">Local SEO &amp; Lead Generation</option>
+                <option value="E-Commerce Website + App">E-Commerce Website + App</option>
+                <option value="Billing & Accounting ERP">Billing &amp; Accounting ERP</option>
+              </select>
+            </div>
+            <div class="banner-field">
+              <label for="lead-message">Project Summary</label>
+              <textarea 
+                id="lead-message" 
+                name="leadMessage" 
+                [(ngModel)]="leadForm.message" 
+                rows="2" 
+                placeholder="Tell us what you need..." 
+                class="banner-input"></textarea>
+            </div>
+            <button type="submit" class="btn btn-banner-submit">
+              Submit Request for Callback
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
 
 </main>
 
-<!-- Site Footer -->
+<!-- 15. FOOTER (4 Columns + Copyright Bar) -->
 <app-footer></app-footer>
 
-<!-- Sticky Mobile Action Bar (Call | WhatsApp | Email) -->
-<app-mobile-action-bar></app-mobile-action-bar>
+<!-- 16. FLOATING BUTTONS (WhatsApp, Call, Back to Top) -->
+<div class="floating-actions-bar" aria-label="Quick Actions">
+  
+  <!-- Back to Top -->
+  <button 
+    type="button" 
+    class="float-btn float-top" 
+    (click)="scrollToTop($event)" 
+    aria-label="Back to top">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+      <polyline points="18 15 12 9 6 15"></polyline>
+    </svg>
+  </button>
 
-<!-- Floating WhatsApp Support Button (Desktop) -->
-<app-floating-whatsapp></app-floating-whatsapp>
+  <!-- Direct Call -->
+  <a 
+    [href]="contact.phoneTel" 
+    class="float-btn float-call" 
+    aria-label="Call Yogteck support">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+    </svg>
+  </a>
 
-<!-- Instant Free Quote Modal Dialog -->
+  <!-- WhatsApp Chat -->
+  <a 
+    [href]="contact.whatsappLink" 
+    target="_blank" 
+    rel="noopener noreferrer" 
+    class="float-btn float-wa" 
+    aria-label="Chat on WhatsApp">
+    <svg viewBox="0 0 24 24" fill="currentColor">
+      <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.669-.699c.969.586 1.841.879 2.791.879 3.182 0 5.767-2.587 5.767-5.766.001-3.187-2.575-5.765-5.767-5.765zm3.385 8.163c-.145.411-.749.771-1.042.82-.293.048-.679.083-2.222-.559-1.977-.822-3.238-2.833-3.336-2.964-.099-.131-.798-1.062-.798-2.025 0-.963.504-1.437.683-1.632.179-.195.391-.244.521-.244.13 0 .26.002.373.007.12.006.28-.045.438.334.163.391.554 1.35.603 1.448.049.098.081.213.016.342-.065.129-.098.21-.195.325-.098.115-.205.257-.293.345-.101.101-.206.21-.088.414.118.204.525.866 1.127 1.402.775.688 1.428.902 1.632 1.004.204.102.324.086.444-.052.12-.138.514-.6.65-.815.136-.215.272-.18.457-.111.185.069 1.173.553 1.374.653.201.1.336.148.385.233.049.085.049.492-.096.903z"></path>
+    </svg>
+    <span class="float-wa-label">WhatsApp</span>
+  </a>
+
+</div>
+
+<!-- Modal Dialog -->
 <app-quote-modal
   [isOpen]="isQuoteModalOpen"
   [defaultServiceTitle]="selectedServiceTitle"

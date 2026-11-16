@@ -1,254 +1,319 @@
-<header class="navbar-header" [class.is-scrolled]="isScrolled" [class.dir-rtl]="localeService.isRtl()">
-
-  <!-- 1. Top Mini Utility Bar (Half height: ~34px with Language, Email & Theme) -->
-  <div class="navbar-top-utility-bar">
-    <div class="container topbar-container">
-      
-      <!-- Left: Contact Details (Email & Phone) -->
-      <div class="topbar-left">
-        <a [href]="'mailto:' + contact.emailPrimary" class="topbar-contact-item" title="Email Yogteck Support">
-          <svg class="topbar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-            <polyline points="22,6 12,13 2,6"></polyline>
-          </svg>
-          <span class="topbar-text email-text">{{ contact.emailPrimary }}</span>
-        </a>
-
-        <span class="topbar-divider d-none-mobile"></span>
-
-        <a [href]="contact.phoneTel" (click)="trackPhoneClick()" class="topbar-contact-item topbar-phone d-none-mobile" title="Call Yogteck Business Support">
-          <svg class="topbar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
-          </svg>
-          <span class="topbar-text">{{ contact.phone }}</span>
-        </a>
-      </div>
-
-      <!-- Right: Language Switcher & Theme Mode Toggle -->
-      <div class="topbar-right">
-        <!-- Visible Country & Language Switcher -->
-        <app-language-switcher [variant]="'navbar'"></app-language-switcher>
-
-        <!-- Segmented Dual Theme Switcher (Day & Night Mode) -->
-        <div class="theme-segmented-toggle" role="radiogroup" aria-label="Theme Selection">
-          <!-- Day Option -->
-          <button
-            type="button"
-            (click)="themeService.setTheme('light')"
-            class="theme-segment-btn"
-            [class.is-active]="themeService.isLight()"
-            title="Switch to Day Mode (Light)"
-            aria-label="Day Mode">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="seg-icon sun-icon">
-              <circle cx="12" cy="12" r="5"></circle>
-              <line x1="12" y1="12" x2="12" y2="3"></line>
-              <line x1="12" y1="21" x2="12" y2="23"></line>
-              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-              <line x1="1" y1="12" x2="3" y2="12"></line>
-              <line x1="21" y1="12" x2="23" y2="12"></line>
-              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-            </svg>
-            <span class="seg-text">Day</span>
-          </button>
-
-          <!-- Night Option -->
-          <button
-            type="button"
-            (click)="themeService.setTheme('dark')"
-            class="theme-segment-btn"
-            [class.is-active]="themeService.isDark()"
-            title="Switch to Night Mode (Dark)"
-            aria-label="Night Mode">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="seg-icon moon-icon">
-              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-            </svg>
-            <span class="seg-text">Night</span>
-          </button>
-        </div>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- 2. Main Menu Bar -->
-  <div class="container navbar-container">
-    
-    <!-- Brand Logo -->
-    <a routerLink="/" class="brand-logo" aria-label="YOGTECK Home">
-      <div class="logo-mark">
-        <svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect width="44" height="44" rx="10" fill="#0A1330"/>
-          <rect x="2" y="2" width="40" height="40" rx="8" stroke="url(#logoGlow)" stroke-width="2"/>
-          <path d="M12 14H20M16 14V30M22 14H32M27 14V30" stroke="url(#logoTextGrad)" stroke-width="2.8" stroke-linecap="round"/>
-          <defs>
-            <linearGradient id="logoGlow" x1="0" y1="0" x2="44" y2="44" gradientUnits="userSpaceOnUse">
-              <stop stop-color="#FF9A1F"/>
-              <stop offset="1" stop-color="#FFB84D"/>
-            </linearGradient>
-            <linearGradient id="logoTextGrad" x1="12" y1="14" x2="32" y2="30" gradientUnits="userSpaceOnUse">
-              <stop stop-color="#FFFFFF"/>
-              <stop offset="1" stop-color="#FFB84D"/>
-            </linearGradient>
-          </defs>
+<!-- 1. Top Utility Bar -->
+<div class="utility">
+  <div class="in">
+    <div class="utility-contact">
+      <a [href]="contact.phoneTel" (click)="trackPhoneClick()" class="util-link">
+        <svg class="util-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
         </svg>
-      </div>
-      <div class="brand-text">
-        <span class="brand-name">YOGTECK<span class="brand-dot">.</span></span>
-        <span class="brand-slogan">{{ contact.tagline }}</span>
-      </div>
+        <span>{{ contact.phone }}</span>
+      </a>
+      <span class="util-sep">|</span>
+      <a [href]="'mailto:' + contact.emailPrimary" class="util-link">
+        <svg class="util-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+          <polyline points="22,6 12,13 2,6"></polyline>
+        </svg>
+        <span>{{ contact.emailPrimary }}</span>
+      </a>
+    </div>
+    <ul class="utility-links">
+      <li><a href="#" class="util-nav-link">Home</a></li>
+      <li><a href="#" class="util-nav-link">About Us</a></li>
+      <li><a href="#" class="util-nav-link">Blog</a></li>
+      <li><a href="#" class="util-nav-link">Career</a></li>
+      <li><a href="#" class="util-nav-link">Contact Us</a></li>
+    </ul>
+  </div>
+</div>
+
+<!-- 2. Sticky Header + Mega Menu -->
+<header class="header" [class.is-scrolled]="isScrolled">
+  <div class="bar">
+    <!-- Brand Logo: Yogteck -->
+    <a class="logo" routerLink="/" (click)="closeMobileMenu()">
+      <span class="logo-mark">YT</span>
+      <span class="logo-text">Yog<b>teck</b></span>
     </a>
 
-    <!-- Desktop Nav Links -->
-    <nav class="desktop-nav" aria-label="Main Navigation">
+    <!-- Mobile Hamburger Toggle -->
+    <button 
+      class="menu-btn" 
+      id="mb" 
+      (click)="toggleMobileMenu()" 
+      [attr.aria-expanded]="isMobileMenuOpen" 
+      aria-label="Toggle navigation menu"
+      aria-controls="nav">
+      <span *ngIf="!isMobileMenuOpen">&#9776;</span>
+      <span *ngIf="isMobileMenuOpen">&#10005;</span>
+    </button>
+
+    <!-- Navigation Bar & Mega Menus -->
+    <nav id="nav" [class.show]="isMobileMenuOpen" aria-label="Main Navigation">
       <ul class="nav-list">
-        
-        <li class="nav-item">
-          <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="nav-link">
-            {{ dict().nav.home }}
-            <span class="active-indicator"></span>
-          </a>
-        </li>
 
-        <!-- Services Dropdown -->
-        <li class="nav-item dropdown-parent" [class.dropdown-open]="isServicesDropdownOpen">
-          <button type="button" (click)="toggleDropdown($event)" class="nav-link dropdown-trigger" aria-haspopup="true" [attr.aria-expanded]="isServicesDropdownOpen">
-            <span>{{ dict().nav.services }}</span>
-            <svg class="chevron-icon" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-              <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
-            </svg>
-            <span class="active-indicator"></span>
+        <!-- 1. Web Services (Mega Menu: 8 Columns) -->
+        <li class="item has-sub mega" [class.open]="isSubmenuOpen('m0')">
+          <button 
+            type="button" 
+            class="top" 
+            (click)="toggleSubmenu('m0', $event)" 
+            [attr.aria-expanded]="isSubmenuOpen('m0')" 
+            aria-controls="m0">
+            <span class="ic" aria-hidden="true">🌐</span>
+            <span>Web Services</span>
+            <i class="caret" aria-hidden="true"></i>
           </button>
-
-          <!-- Dropdown Mega Menu (8 Services) -->
-          <div class="services-dropdown" (click)="$event.stopPropagation()">
-            <div class="dropdown-header">
-              <span class="dropdown-title">{{ dict().services.heading }}</span>
-              <span class="dropdown-badge">8 Core Solutions</span>
+          <div class="panel" id="m0">
+            <div class="col">
+              <h3><a href="#" (click)="closeMobileMenu()">Website Designing</a></h3>
+              <ul>
+                <li><a href="#" (click)="closeMobileMenu()">Static Website Designing</a></li>
+                <li><a href="#" (click)="closeMobileMenu()">Dynamic Website Designing</a></li>
+                <li><a href="#" (click)="closeMobileMenu()">Website Redesigning Services</a></li>
+                <li><a href="#" (click)="closeMobileMenu()">Website Maintenance Services</a></li>
+              </ul>
             </div>
-            <div class="dropdown-grid">
-              @for (srv of services; track srv.id) {
-                <a [routerLink]="['/services', srv.slug]" (click)="closeDropdown()" class="service-dropdown-item">
-                  <div class="item-icon-wrap">
-                    @switch (srv.icon) {
-                      @case ('globe') {
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
-                      }
-                      @case ('cart') {
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
-                      }
-                      @case ('gear') {
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
-                      }
-                      @case ('target') {
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
-                      }
-                      @case ('code') {
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-                      }
-                      @default {
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
-                      }
-                    }
-                  </div>
-                  <div class="item-text">
-                    <span class="item-title">{{ srv.title }}</span>
-                    <span class="item-desc">{{ srv.shortDesc }}</span>
-                  </div>
-                </a>
-              }
+            <div class="col">
+              <h3><a href="#" (click)="closeMobileMenu()">Web Development</a></h3>
+              <ul>
+                <li><a href="#" (click)="closeMobileMenu()">PHP Development</a></li>
+                <li><a href="#" (click)="closeMobileMenu()">WordPress Web Development</a></li>
+                <li><a href="#" (click)="closeMobileMenu()">React Web Development</a></li>
+                <li><a href="#" (click)="closeMobileMenu()">Custom Website Development</a></li>
+              </ul>
+            </div>
+            <div class="col">
+              <h3><a href="#" (click)="closeMobileMenu()">Domain / Hosting</a></h3>
+              <ul>
+                <li><a href="#" (click)="closeMobileMenu()">Domain Name Registration</a></li>
+                <li><a href="#" (click)="closeMobileMenu()">Cloud Hosting</a></li>
+                <li><a href="#" (click)="closeMobileMenu()">Windows Hosting</a></li>
+                <li><a href="#" (click)="closeMobileMenu()">VPS Hosting</a></li>
+              </ul>
+            </div>
+            <div class="col">
+              <h3><a href="#" (click)="closeMobileMenu()">E-commerce</a></h3>
+              <ul>
+                <li><a href="#" (click)="closeMobileMenu()">E-commerce Website With App</a></li>
+                <li><a href="#" (click)="closeMobileMenu()">Shopify Store Setup</a></li>
+                <li><a href="#" (click)="closeMobileMenu()">Payment Gateway Integration</a></li>
+              </ul>
+            </div>
+            <div class="col">
+              <h3><a href="#" (click)="closeMobileMenu()">Graphics / Web Converting</a></h3>
+              <ul>
+                <li><a href="#" (click)="closeMobileMenu()">Multimedia Graphics</a></li>
+                <li><a href="#" (click)="closeMobileMenu()">PSD to HTML</a></li>
+                <li><a href="#" (click)="closeMobileMenu()">PSD to WordPress</a></li>
+                <li><a href="#" (click)="closeMobileMenu()">PSD to Shopify</a></li>
+              </ul>
+            </div>
+            <div class="col">
+              <h3><a href="#" (click)="closeMobileMenu()">Custom Web Development</a></h3>
+              <ul>
+                <li><a href="#" (click)="closeMobileMenu()">Software Development</a></li>
+                <li><a href="#" (click)="closeMobileMenu()">ASP.NET Development</a></li>
+                <li><a href="#" (click)="closeMobileMenu()">Game Development</a></li>
+                <li><a href="#" (click)="closeMobileMenu()">Web Application Development</a></li>
+              </ul>
+            </div>
+            <div class="col">
+              <h3><a href="#" (click)="closeMobileMenu()">Shipping Providers</a></h3>
+              <ul>
+                <li><a href="#" (click)="closeMobileMenu()">Logistics API Integration</a></li>
+                <li><a href="#" (click)="closeMobileMenu()">Courier Tracking Setup</a></li>
+              </ul>
+            </div>
+            <div class="col">
+              <h3><a href="#" (click)="closeMobileMenu()">ERP / POS / Accounting</a></h3>
+              <ul>
+                <li><a href="#" (click)="closeMobileMenu()">Custom ERP Solutions</a></li>
+                <li><a href="#" (click)="closeMobileMenu()">POS Retail Billing</a></li>
+                <li><a href="#" (click)="closeMobileMenu()">Accounting Software</a></li>
+              </ul>
             </div>
           </div>
         </li>
 
-        <!-- Products Dropdown -->
-        <li class="nav-item dropdown-parent" [class.dropdown-open]="isProductsDropdownOpen">
-          <button type="button" (click)="toggleProductsDropdown($event)" class="nav-link dropdown-trigger" aria-haspopup="true" [attr.aria-expanded]="isProductsDropdownOpen">
-            <span>Products</span>
-            <svg class="chevron-icon" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-              <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
-            </svg>
-            <span class="active-indicator"></span>
-          </button>
+        <!-- 2. App -->
+        <li class="item">
+          <a class="top" href="#" (click)="closeMobileMenu()">
+            <span class="ic" aria-hidden="true">📱</span>
+            <span>App</span>
+          </a>
+        </li>
 
-          <div class="services-dropdown products-dropdown" (click)="$event.stopPropagation()">
-            <div class="dropdown-header">
-              <span class="dropdown-title">SaaS & Enterprise Platforms</span>
-              <span class="dropdown-badge">3 Ready Products</span>
+        <!-- 3. E-commerce -->
+        <li class="item">
+          <a class="top" href="#" (click)="closeMobileMenu()">
+            <span class="ic" aria-hidden="true">🛒</span>
+            <span>E-commerce</span>
+          </a>
+        </li>
+
+        <!-- 4. Courses -->
+        <li class="item">
+          <a class="top" href="#" (click)="closeMobileMenu()">
+            <span class="ic" aria-hidden="true">🎓</span>
+            <span>Courses</span>
+          </a>
+        </li>
+
+        <!-- 5. Digital Marketing (Mega Menu: 4 Columns) -->
+        <li class="item has-sub mega" [class.open]="isSubmenuOpen('m4')">
+          <button 
+            type="button" 
+            class="top" 
+            (click)="toggleSubmenu('m4', $event)" 
+            [attr.aria-expanded]="isSubmenuOpen('m4')" 
+            aria-controls="m4">
+            <span class="ic" aria-hidden="true">📈</span>
+            <span>Digital Marketing</span>
+            <i class="caret" aria-hidden="true"></i>
+          </button>
+          <div class="panel digital-panel" id="m4">
+            <div class="col">
+              <h3><a href="#" (click)="closeMobileMenu()">SEO</a></h3>
+              <ul>
+                <li><a href="#" (click)="closeMobileMenu()">Local SEO Services</a></li>
+                <li><a href="#" (click)="closeMobileMenu()">Google My Business SEO</a></li>
+                <li><a href="#" (click)="closeMobileMenu()">E-commerce SEO Services</a></li>
+                <li><a href="#" (click)="closeMobileMenu()">YouTube SEO</a></li>
+              </ul>
             </div>
-            <div class="dropdown-grid">
-              @for (prod of products; track prod.id) {
-                <a [routerLink]="['/products', prod.slug]" (click)="closeDropdown()" class="service-dropdown-item">
-                  <div class="item-icon-wrap">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-                  </div>
-                  <div class="item-text">
-                    <span class="item-title">{{ prod.title }}</span>
-                    <span class="item-desc">{{ prod.tagline }}</span>
-                  </div>
-                </a>
-              }
+            <div class="col">
+              <h3><a href="#" (click)="closeMobileMenu()">SEO Packages By Region</a></h3>
+              <ul>
+                <li><a href="#" (click)="closeMobileMenu()">Kanpur Local SEO</a></li>
+                <li><a href="#" (click)="closeMobileMenu()">Lucknow Regional SEO</a></li>
+                <li><a href="#" (click)="closeMobileMenu()">Pan-India National SEO</a></li>
+              </ul>
+            </div>
+            <div class="col">
+              <h3><a href="#" (click)="closeMobileMenu()">Marketplace SEO Packages</a></h3>
+              <ul>
+                <li><a href="#" (click)="closeMobileMenu()">Amazon Product SEO</a></li>
+                <li><a href="#" (click)="closeMobileMenu()">Flipkart SEO</a></li>
+                <li><a href="#" (click)="closeMobileMenu()">Nykaa SEO</a></li>
+              </ul>
+            </div>
+            <div class="col">
+              <h3><a href="#" (click)="closeMobileMenu()">PPC Ads</a></h3>
+              <ul>
+                <li><a href="#" (click)="closeMobileMenu()">PPC Services</a></li>
+                <li><a href="#" (click)="closeMobileMenu()">Google Ads</a></li>
+                <li><a href="#" (click)="closeMobileMenu()">Bing Ads</a></li>
+                <li><a href="#" (click)="closeMobileMenu()">Facebook Ads</a></li>
+                <li><a href="#" (click)="closeMobileMenu()">Instagram Ads</a></li>
+                <li><a href="#" (click)="closeMobileMenu()">LinkedIn Ads</a></li>
+              </ul>
             </div>
           </div>
         </li>
 
-        <!-- Tools -->
-        <li class="nav-item">
-          <a routerLink="/tools" routerLinkActive="active" class="nav-link">
-            Tools
-            <span class="active-indicator"></span>
+        <!-- 6. Photo & Video (Submenu) -->
+        <li class="item has-sub" [class.open]="isSubmenuOpen('m5')">
+          <button 
+            type="button" 
+            class="top" 
+            (click)="toggleSubmenu('m5', $event)" 
+            [attr.aria-expanded]="isSubmenuOpen('m5')" 
+            aria-controls="m5">
+            <span class="ic" aria-hidden="true">🎬</span>
+            <span>Photo &amp; Video</span>
+            <i class="caret" aria-hidden="true"></i>
+          </button>
+          <div class="panel" id="m5">
+            <div class="col">
+              <ul>
+                <li><a href="#" (click)="closeMobileMenu()">Product Photography</a></li>
+                <li><a href="#" (click)="closeMobileMenu()">Corporate Video Shoots</a></li>
+                <li><a href="#" (click)="closeMobileMenu()">Reels &amp; Ad Creatives</a></li>
+              </ul>
+            </div>
+          </div>
+        </li>
+
+        <!-- 7. Marketing Tools (Mega Menu: 3 Columns) -->
+        <li class="item has-sub mega" [class.open]="isSubmenuOpen('m6')">
+          <button 
+            type="button" 
+            class="top" 
+            (click)="toggleSubmenu('m6', $event)" 
+            [attr.aria-expanded]="isSubmenuOpen('m6')" 
+            aria-controls="m6">
+            <span class="ic" aria-hidden="true">🛠️</span>
+            <span>Marketing Tools</span>
+            <i class="caret" aria-hidden="true"></i>
+          </button>
+          <div class="panel tools-panel" id="m6">
+            <div class="col">
+              <h3><a href="#" (click)="closeMobileMenu()">Digital Services</a></h3>
+              <ul>
+                <li><a href="#" (click)="closeMobileMenu()">Bulk SMS</a></li>
+                <li><a href="#" (click)="closeMobileMenu()">Voice Call</a></li>
+                <li><a href="#" (click)="closeMobileMenu()">Bulk Email</a></li>
+                <li><a href="#" (click)="closeMobileMenu()">Missed Call Number</a></li>
+              </ul>
+            </div>
+            <div class="col">
+              <h3><a href="#" (click)="closeMobileMenu()">Marketing Automation</a></h3>
+              <ul>
+                <li><a href="#" (click)="closeMobileMenu()">Toll-free Number</a></li>
+                <li><a href="#" (click)="closeMobileMenu()">IVR Solutions</a></li>
+                <li><a href="#" (click)="closeMobileMenu()">Call Center Setup</a></li>
+                <li><a href="#" (click)="closeMobileMenu()">Bulk WhatsApp</a></li>
+              </ul>
+            </div>
+            <div class="col">
+              <h3><a href="#" (click)="closeMobileMenu()">Legal &amp; Registration</a></h3>
+              <ul>
+                <li><a href="#" (click)="closeMobileMenu()">Company Registration</a></li>
+                <li><a href="#" (click)="closeMobileMenu()">GST Registration</a></li>
+                <li><a href="#" (click)="closeMobileMenu()">NGO Registration</a></li>
+                <li><a href="#" (click)="closeMobileMenu()">GST Filing</a></li>
+                <li><a href="#" (click)="closeMobileMenu()">FSSAI Registration</a></li>
+                <li><a href="#" (click)="closeMobileMenu()">Trademark Registration</a></li>
+                <li><a href="#" (click)="closeMobileMenu()">Income Tax Return</a></li>
+                <li><a href="#" (click)="closeMobileMenu()">CA Services</a></li>
+              </ul>
+            </div>
+          </div>
+        </li>
+
+        <!-- 8. Pricing & Plan -->
+        <li class="item">
+          <a class="top" href="#" (click)="closeMobileMenu()">
+            <span class="ic" aria-hidden="true">💰</span>
+            <span>Pricing &amp; Plan</span>
           </a>
         </li>
 
-        <!-- Our Clients -->
-        <li class="nav-item">
-          <a routerLink="/clients" routerLinkActive="active" class="nav-link">
-            {{ dict().nav.clients }}
-            <span class="active-indicator"></span>
+        <!-- 9. Clients -->
+        <li class="item">
+          <a class="top" href="#" (click)="closeMobileMenu()">
+            <span class="ic" aria-hidden="true">🤝</span>
+            <span>Clients</span>
           </a>
         </li>
 
-        <!-- About -->
-        <li class="nav-item">
-          <a routerLink="/about" routerLinkActive="active" class="nav-link">
-            {{ dict().nav.about }}
-            <span class="active-indicator"></span>
-          </a>
-        </li>
-
-        <!-- Contact -->
-        <li class="nav-item">
-          <a routerLink="/contact" routerLinkActive="active" class="nav-link">
-            {{ dict().nav.contact }}
-            <span class="active-indicator"></span>
+        <!-- 10. Portfolio -->
+        <li class="item">
+          <a class="top" href="#" (click)="closeMobileMenu()">
+            <span class="ic" aria-hidden="true">🖼️</span>
+            <span>Portfolio</span>
           </a>
         </li>
 
       </ul>
+
+      <!-- Navbar Action Button: Get Free Quote -->
+      <div class="nav-action">
+        <button type="button" class="btn-quote" (click)="onQuoteClick($event)">
+          Get Free Quote
+        </button>
+      </div>
     </nav>
-
-    <!-- Right Side Actions (Inquiry & Mobile Menu) -->
-    <div class="navbar-actions">
-      <!-- Inquiry / Quote Button -->
-      <button type="button" (click)="openQuote.emit()" class="btn btn-outline-orange quote-btn" aria-label="Open Inquiry Form">
-        <svg class="btn-quote-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-        </svg>
-        <span class="quote-text-desktop">{{ dict().nav.getQuoteBtn }}</span>
-        <span class="quote-text-mobile">Inquiry</span>
-        <svg viewBox="0 0 20 20" fill="currentColor" class="btn-arrow" aria-hidden="true">
-          <path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"/>
-        </svg>
-      </button>
-
-      <!-- Mobile Hamburger Button -->
-      <button type="button" (click)="toggleDrawer.emit()" class="hamburger-btn" aria-label="Open Navigation Menu">
-        <span class="ham-line"></span>
-        <span class="ham-line"></span>
-        <span class="ham-line"></span>
-      </button>
-    </div>
-
   </div>
 </header>

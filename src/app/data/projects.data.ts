@@ -55,6 +55,19 @@ export const PROJECTS_DATA: ProjectItem[] = [
     icon: 'cart'
   },
   {
+    id: 'proj-techashvik',
+    title: 'techAshvik WhatsApp Marketing & OTP Automation Tool',
+    category: 'marketing',
+    categoryLabel: 'WhatsApp Marketing & OTP Platform',
+    client: 'techAshvik (techashvik.com)',
+    website: 'https://techashvik.com',
+    summary: 'Cloud-based WhatsApp marketing tool engineered for high-throughput bulk campaigns, verified transactional WhatsApp OTP delivery APIs, automated customer engagement flows, and real-time delivery reporting.',
+    metrics: 'High-Speed WhatsApp Marketing & OTP API',
+    tags: ['techashvik.com', 'WhatsApp Marketing', 'WhatsApp OTP', 'API Gateway', 'Marketing Automation'],
+    gradient: 'linear-gradient(135deg, #064E3B 0%, #059669 100%)',
+    icon: 'chat'
+  },
+  {
     id: 'proj-mmr-portal',
     title: 'MMR Corporate & Infrastructure Portal',
     category: 'web',

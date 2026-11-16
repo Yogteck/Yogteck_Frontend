@@ -414,6 +414,34 @@ export const CLIENTS_CASE_STUDIES_DATA: Record<string, ClientCaseStudyData> = {
     ]
   },
 
+  'techashvik': {
+    id: 'techashvik',
+    clientId: 'techashvik',
+    companyName: 'techAshvik',
+    shortName: 'techAshvik',
+    metaTitle: 'techAshvik Case Study | WhatsApp Marketing & OTP Platform | YogTeck',
+    metaDescription: 'Discover how YogTeck engineered the high-speed WhatsApp marketing automation and transactional WhatsApp OTP delivery tool for techAshvik (techashvik.com).',
+    h1: 'techAshvik WhatsApp Marketing & OTP Automation Tool Case Study',
+    industry: 'Digital Marketing & WhatsApp Automation',
+    accentColor: '#10B981',
+    summary: 'Cloud-based digital marketing tool powered by WhatsApp automation, bulk messaging campaigns, and high-speed transactional WhatsApp OTP APIs (techashvik.com).',
+    clientOverview: 'techAshvik is a dedicated digital marketing and customer engagement technology platform specializing in WhatsApp automation, bulk messaging broadcasts, and enterprise transactional WhatsApp OTP verification (techashvik.com). They partnered with YogTeck to build a robust, scalable digital marketing platform.',
+    challengeSolved: 'Modern enterprises and e-commerce stores needed an alternative to expensive, delayed SMS OTPs. They required a fast, cost-effective WhatsApp OTP delivery API with sub-3-second delivery, 99.9% uptime, automated contact synchronization, and full template approval compliance.',
+    solutionDelivered: 'YogTeck architected the techAshvik cloud software with a high-throughput WhatsApp API gateway, instant WhatsApp OTP dispatch engine, bulk broadcast scheduler, webhook delivery callbacks, and an intuitive client dashboard.',
+    verifiedMetrics: [
+      'Sub-3-Second Transactional WhatsApp OTP Delivery (techashvik.com)',
+      'High-Throughput Bulk WhatsApp Broadcast Engine',
+      'Automated Webhook Callbacks & Delivery Reports',
+      'Unified Developer API for E-Commerce & Apps'
+    ],
+    ownerPlaceholders: [],
+    tags: ['WhatsApp Marketing', 'techashvik.com', 'WhatsApp OTP', 'Marketing Tool', 'Automation Engine'],
+    faqs: [
+      { question: 'What is techAshvik used for?', answer: 'techAshvik (techashvik.com) is used for digital marketing automation on WhatsApp, including promotional bulk broadcasts and secure transactional WhatsApp OTP delivery for logins and payments.' },
+      { question: 'How can developers integrate WhatsApp OTP from techAshvik?', answer: 'techAshvik provides simple REST APIs that can be integrated into any website, app, or CRM within minutes with webhook delivery status.' }
+    ]
+  },
+
   'yogkart-healthcare': {
     id: 'yogkart-healthcare',
     clientId: 'yogkart-healthcare',

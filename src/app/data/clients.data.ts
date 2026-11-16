@@ -61,6 +61,16 @@ export const CLIENTS_DATA: ClientItem[] = [
     description: 'Worldwide health, body care & physical therapy equipment export commerce portal with tiered B2B wholesale pricing and international shipping (soulgenie.com).'
   },
   {
+    id: 'techashvik',
+    name: 'techAshvik',
+    shortName: 'techAshvik',
+    category: 'Digital Marketing & WhatsApp OTP Tool',
+    initials: 'TA',
+    accentColor: '#10B981',
+    website: 'https://techashvik.com',
+    description: 'Cloud-based WhatsApp digital marketing tool, bulk WhatsApp broadcast campaigns, and high-speed transactional WhatsApp OTP verification API (techashvik.com).'
+  },
+  {
     id: 'yogkart-healthcare',
     name: 'Yogkart Healthcare Private Limited',
     shortName: 'Yogkart Healthcare',

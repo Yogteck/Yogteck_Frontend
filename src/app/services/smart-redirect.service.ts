@@ -16,6 +16,8 @@ export class SmartRedirectService {
   private readonly validRoutePaths: string[] = [
     '/',
     '/pricing',
+    '/courses',
+    '/internship-training',
     '/about',
     '/contact',
     '/blog',

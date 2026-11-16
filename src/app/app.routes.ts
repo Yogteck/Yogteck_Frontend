@@ -18,6 +18,7 @@ import { AdminLoginComponent } from './components/admin-login/admin-login.compon
 import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
 import { PublicInvoiceViewComponent } from './components/public-invoice-view/public-invoice-view.component';
 import { PricingPageComponent } from './components/pricing-page/pricing-page.component';
+import { CoursesPageComponent } from './components/courses-page/courses-page.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { adminAuthGuard } from './guards/admin-auth.guard';
 import { localeValidationGuard } from './guards/locale.guard';
@@ -26,6 +27,8 @@ export const routes: Routes = [
   // 1. Primary Public Canonical Routes (Zero-redirect top-level paths)
   { path: '', component: HomeComponent, pathMatch: 'full' },
   { path: 'pricing', component: PricingPageComponent },
+  { path: 'courses', component: CoursesPageComponent },
+  { path: 'internship-training', redirectTo: 'courses', pathMatch: 'full' },
   { path: 'about', component: AboutPageComponent },
   { path: 'contact', component: ContactPageComponent },
   { path: 'clients', component: ClientsPageComponent },
@@ -103,6 +106,8 @@ export const routes: Routes = [
     children: [
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'pricing', component: PricingPageComponent },
+      { path: 'courses', component: CoursesPageComponent },
+      { path: 'internship-training', redirectTo: 'courses', pathMatch: 'full' },
       { path: 'about', component: AboutPageComponent },
       { path: 'contact', component: ContactPageComponent },
       { path: 'clients', component: ClientsPageComponent },

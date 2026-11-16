@@ -1,0 +1,402 @@
+<!-- 1. Navigation Bar -->
+<app-navbar (openQuote)="openQuoteModal()"></app-navbar>
+
+<!-- 2. Technology Stack Slider (Immediately Below Navigation Bar) -->
+<section class="tech-slider-section" aria-label="Supported Technology Stack">
+  <div class="tech-slider-container">
+    <div class="tech-track">
+      <!-- First set of technology cards -->
+      <div class="tech-group">
+        <div *ngFor="let tech of techItems" class="tech-pill">
+          <div class="tech-icon" [innerHTML]="tech.safeSvg" [attr.aria-label]="tech.name"></div>
+          <div class="tech-info">
+            <span class="tech-name">{{ tech.name }}</span>
+            <span class="tech-cat">{{ tech.category }}</span>
+          </div>
+        </div>
+      </div>
+      <!-- Duplicate set for seamless, jump-free infinite loop -->
+      <div class="tech-group" aria-hidden="true">
+        <div *ngFor="let tech of techItems" class="tech-pill">
+          <div class="tech-icon" [innerHTML]="tech.safeSvg"></div>
+          <div class="tech-info">
+            <span class="tech-name">{{ tech.name }}</span>
+            <span class="tech-cat">{{ tech.category }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Main Page Content -->
+<main class="courses-page-main" id="main-content">
+
+  <!-- 3. Hero Section – Learn, Build & Grow with YogTech -->
+  <section class="hero-section">
+    <div class="hero-container">
+      <div class="hero-content">
+        <div class="hero-badge">
+          <span class="badge-dot"></span>
+          <span>Professional IT Career & Learning Hub</span>
+        </div>
+        <h1 class="hero-title">
+          Turn Your Coding Skills Into <span class="text-highlight">Real-World Experience</span>
+        </h1>
+        <p class="hero-lead">
+          Learn industry-relevant technologies, work on live projects, gain practical experience and build the skills required to succeed in the IT industry.
+        </p>
+
+        <!-- Two Primary CTAs -->
+        <div class="hero-actions">
+          <button type="button" class="btn btn-primary" (click)="scrollToSection('internships')">
+            <span>Explore Internship Programs</span>
+            <svg class="btn-arrow" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+              <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+            </svg>
+          </button>
+          <button type="button" class="btn btn-secondary" (click)="scrollToSection('training')">
+            <span>Explore Training Programs</span>
+            <svg class="btn-arrow" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+              <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+            </svg>
+          </button>
+        </div>
+
+        <!-- Trust Signals / Highlights -->
+        <div class="hero-metrics">
+          <div class="metric-item">
+            <span class="metric-icon">🚀</span>
+            <div class="metric-text">
+              <strong>Production Exposure</strong>
+              <span>Real IT company workflow</span>
+            </div>
+          </div>
+          <div class="metric-item">
+            <span class="metric-icon">💻</span>
+            <div class="metric-text">
+              <strong>Live Software Projects</strong>
+              <span>Hands-on codebase build</span>
+            </div>
+          </div>
+          <div class="metric-item">
+            <span class="metric-icon">👨‍💻</span>
+            <div class="metric-text">
+              <strong>Developer Mentorship</strong>
+              <span>Guided by working engineers</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. Section – Our Internship Programs -->
+  <section class="section internship-section" id="internships">
+    <div class="section-container">
+      <div class="section-header text-center">
+        <div class="section-badge">Practical Experience Track</div>
+        <h2 class="section-title">Our Internship Programs</h2>
+        <p class="section-description">
+          At YogTech, we provide practical internship opportunities where students get exposure to real-world software development environments. Interns learn by working on live projects under professional guidance.
+        </p>
+      </div>
+
+      <div class="internship-grid">
+        <div *ngFor="let prog of internshipPrograms" class="internship-card" [id]="prog.id">
+          <div class="card-top-tag">{{ prog.badge }}</div>
+          <div class="card-header">
+            <div class="duration-badge">
+              <svg class="clock-icon" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"/>
+              </svg>
+              <span>Duration: {{ prog.duration }}</span>
+            </div>
+            <h3 class="program-title">{{ prog.title }}</h3>
+            <p class="program-summary">{{ prog.description }}</p>
+          </div>
+
+          <div class="card-body">
+            <h4 class="curriculum-heading">Key Program Focus & Deliverables:</h4>
+            <ul class="highlights-list">
+              <li *ngFor="let item of prog.highlights">
+                <svg class="check-icon" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                </svg>
+                <span>{{ item }}</span>
+              </li>
+            </ul>
+
+            <div class="audience-box">
+              <span class="audience-label">Best suited for:</span>
+              <p class="audience-text">{{ prog.recommendedFor }}</p>
+            </div>
+          </div>
+
+          <div class="card-footer">
+            <button type="button" class="btn btn-primary btn-block" (click)="openQuoteModal('Internship Application - ' + prog.title)">
+              <span>Apply for Internship</span>
+              <svg class="btn-arrow" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+              </svg>
+            </button>
+            <a [href]="getWhatsAppLink('Internship Application - ' + prog.title)" target="_blank" rel="noopener noreferrer" class="whatsapp-text-link">
+              <span>Chat directly on WhatsApp</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Compliance / Transparency Notice -->
+      <div class="info-notice-box">
+        <div class="notice-icon">ℹ️</div>
+        <div class="notice-text">
+          <strong>Authentic Project Exposure Notice:</strong>
+          <span>
+            YogTech internship opportunities focus on practical software engineering exposure, hands-on module building, and professional development practices. We do not make unsupported claims regarding guaranteed placements, stipends, or government affiliations.
+          </span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. Section – Our Training Programs (Paid Programs) -->
+  <section class="section training-section" id="training">
+    <div class="section-container">
+      <div class="section-header text-center">
+        <div class="section-badge section-badge-paid">Paid Technical Training Service</div>
+        <h2 class="section-title">Our Professional Training Programs</h2>
+        <p class="section-description">
+          Upgrade your technical skills with industry-oriented training programs at YogTech. Learn modern programming languages, frameworks, databases and cloud technologies through practical sessions and project-based learning.
+        </p>
+
+        <!-- Mandatory Paid Enrollment Notice Banner -->
+        <div class="paid-enrollment-banner">
+          <div class="banner-badge">Notice</div>
+          <div class="banner-content">
+            <strong class="banner-title">Professional Training Programs – Paid Enrollment</strong>
+            <p class="banner-desc">These programs are paid technical training courses. Students must enroll in the selected paid training program. Transparent fee structure shared upon enquiry.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Category Filter Tabs -->
+      <div class="category-tabs" role="tablist" aria-label="Course Categories">
+        <button 
+          type="button" 
+          class="cat-tab-btn" 
+          [class.active]="activeCategoryId === 'all'" 
+          (click)="setCategory('all')">
+          <span>All Technologies</span>
+        </button>
+        <button 
+          *ngFor="let cat of trainingCategories" 
+          type="button" 
+          class="cat-tab-btn" 
+          [class.active]="activeCategoryId === cat.id" 
+          (click)="setCategory(cat.id)">
+          <span class="tab-icon">{{ cat.icon }}</span>
+          <span>{{ cat.name }}</span>
+        </button>
+      </div>
+
+      <!-- Categories & Courses Display -->
+      <div class="category-groups">
+        <div *ngFor="let cat of filteredCategories" class="category-block">
+          <div class="category-header">
+            <div class="cat-title-wrap">
+              <span class="cat-main-icon">{{ cat.icon }}</span>
+              <div>
+                <h3 class="category-name">{{ cat.name }}</h3>
+                <p class="category-tagline">{{ cat.tagline }}</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="courses-grid">
+            <div *ngFor="let course of cat.courses" class="course-card">
+              <div class="course-card-top">
+                <span class="course-badge">Paid Course</span>
+                <h4 class="course-title">{{ course.title }}</h4>
+                <p class="course-description">{{ course.description }}</p>
+              </div>
+
+              <div class="course-card-middle">
+                <span class="topics-label">Core Syllabus Modules:</span>
+                <div class="topic-pills">
+                  <span *ngFor="let topic of course.topics" class="topic-pill">{{ topic }}</span>
+                </div>
+              </div>
+
+              <div class="course-card-bottom">
+                <button type="button" class="btn btn-outline-primary btn-sm" (click)="openQuoteModal('Training Enquiry - ' + course.title)">
+                  <span>Enquire for Fees & Syllabus</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. Section – Training Duration Plans -->
+  <section class="section duration-section" id="duration-plans">
+    <div class="section-container">
+      <div class="section-header text-center">
+        <div class="section-badge">Flexible Timeframes</div>
+        <h2 class="section-title">Training Duration Plans</h2>
+        <p class="section-description">
+          Choose a structured training timeframe designed around your learning velocity. All durations follow hands-on live code practice and software engineering methodologies.
+        </p>
+        <div class="plan-sub-badge">
+          <span>All options are Paid Technical Training Programs • Enquire for transparent pricing</span>
+        </div>
+      </div>
+
+      <div class="duration-plans-grid">
+        <div *ngFor="let plan of trainingPlans" class="plan-card" [class.popular-card]="plan.isPopular">
+          <div *ngIf="plan.isPopular" class="popular-ribbon">Most Popular</div>
+          
+          <div class="plan-card-header">
+            <span class="plan-badge">{{ plan.badge }}</span>
+            <h3 class="plan-title">{{ plan.title }}</h3>
+            <div class="plan-fee-tag">
+              <span class="fee-label">Pricing:</span>
+              <span class="fee-text">Enquire for Fees</span>
+            </div>
+            <p class="plan-focus">{{ plan.focus }}</p>
+          </div>
+
+          <div class="plan-card-body">
+            <h4 class="plan-section-title">Included Curriculum Deliverables:</h4>
+            <ul class="plan-deliverables">
+              <li *ngFor="let deliv of plan.deliverables">
+                <svg class="check-icon" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                </svg>
+                <span>{{ deliv }}</span>
+              </li>
+            </ul>
+
+            <h4 class="plan-section-title mt-4">Program Features:</h4>
+            <ul class="plan-features">
+              <li *ngFor="let feat of plan.features">
+                <span class="bullet-dot">•</span>
+                <span>{{ feat }}</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="plan-card-action">
+            <button type="button" class="btn" [ngClass]="plan.isPopular ? 'btn-primary' : 'btn-outline-primary'" (click)="openQuoteModal('Fee Enquiry - ' + plan.title)">
+              <span>Enquire for Fees</span>
+              <svg class="btn-arrow" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+              </svg>
+            </button>
+            <a [href]="getWhatsAppLink('Fee Enquiry - ' + plan.title)" target="_blank" rel="noopener noreferrer" class="whatsapp-text-link">
+              <span>Ask fees on WhatsApp</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. Section – Learn Through Live Projects -->
+  <section class="section workflow-section" id="live-projects">
+    <div class="section-container">
+      <div class="section-header text-center">
+        <div class="section-badge">Practical Learning Model</div>
+        <h2 class="section-title">Learn Through Live Projects</h2>
+        <p class="section-description">
+          We bridge the gap between classroom theory and real software engineering. See how every participant learns through a complete end-to-end development cycle.
+        </p>
+      </div>
+
+      <!-- Visual Step-by-Step Development Workflow Timeline -->
+      <div class="workflow-timeline">
+        <div *ngFor="let step of workflowSteps; let i = index" class="workflow-step-card">
+          <div class="step-num-badge">{{ step.step }}</div>
+          <div class="step-card-content">
+            <div class="step-header">
+              <span class="step-icon">{{ step.icon }}</span>
+              <h3 class="step-title">{{ step.title }}</h3>
+            </div>
+            <p class="step-desc">{{ step.description }}</p>
+            <div class="step-skills">
+              <span *ngFor="let sk of step.skills" class="step-skill-pill">{{ sk }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. Section – Why Choose YogTech? -->
+  <section class="section why-choose-section" id="why-choose">
+    <div class="section-container">
+      <div class="section-header text-center">
+        <div class="section-badge">Company Advantage</div>
+        <h2 class="section-title">Why Choose YogTech?</h2>
+        <p class="section-description">
+          Learn directly in an active IT company environment with transparent guidance, practical tooling, and authentic developer mentorship.
+        </p>
+      </div>
+
+      <div class="why-grid">
+        <div *ngFor="let item of whyChooseItems" class="why-card">
+          <div class="why-icon-box">{{ item.icon }}</div>
+          <h3 class="why-card-title">{{ item.title }}</h3>
+          <p class="why-card-desc">{{ item.description }}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9. Final CTA Section -->
+  <section class="cta-banner-section">
+    <div class="section-container">
+      <div class="cta-banner-card">
+        <div class="cta-banner-content text-center">
+          <div class="cta-badge">Ready to Level Up?</div>
+          <h2 class="cta-headline">Start Your Journey in Technology with YogTech</h2>
+          <p class="cta-subtext">
+            Whether you want practical internship experience or professional technical training, YogTech helps you take the next step in your software development journey.
+          </p>
+
+          <div class="cta-actions">
+            <button type="button" class="btn btn-cta-primary" (click)="openQuoteModal('Internship Application - General')">
+              <span>Apply for Internship</span>
+              <svg class="btn-arrow" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+              </svg>
+            </button>
+            <button type="button" class="btn btn-cta-secondary" (click)="openQuoteModal('Training Enquiry - General')">
+              <span>Enquire About Training</span>
+              <svg class="btn-arrow" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+              </svg>
+            </button>
+          </div>
+
+          <div class="cta-footer-note">
+            <span>Direct Developer Response • Office: Kanpur, Uttar Pradesh • Call: {{ contact.phone }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- Footer -->
+<app-footer></app-footer>
+
+<!-- Instant Inquiry / Application Modal Dialog -->
+<app-quote-modal 
+  [isOpen]="isQuoteModalOpen" 
+  [defaultServiceTitle]="selectedProgram" 
+  (closeModal)="closeQuoteModal()">
+</app-quote-modal>

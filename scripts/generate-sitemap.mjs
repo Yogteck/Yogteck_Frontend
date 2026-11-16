@@ -19,6 +19,7 @@ export const CANONICAL_ROUTES = [
 
   // Company Information & Legal
   { path: 'pricing', sourceFile: 'src/app/components/pricing-page/pricing-page.component.ts', priority: '0.9', changefreq: 'monthly' },
+  { path: 'courses', sourceFile: 'src/app/components/courses-page/courses-page.component.ts', priority: '0.9', changefreq: 'monthly' },
   { path: 'about', sourceFile: 'src/app/components/about-page/about-page.component.ts', priority: '0.8', changefreq: 'monthly' },
   { path: 'contact', sourceFile: 'src/app/components/contact-page/contact-page.component.ts', priority: '0.8', changefreq: 'monthly' },
   { path: 'blog', sourceFile: 'src/app/components/blog-page/blog-page.component.ts', priority: '0.7', changefreq: 'weekly' },

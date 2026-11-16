@@ -91,6 +91,21 @@ const PAGES_DATA = [
     ]
   },
 
+  // ── 2b. Courses - Professional Internship & Training Programs ─────────────
+  {
+    path: 'courses',
+    title: 'Professional Internship & Technical Training Programs - Yogteck',
+    description: 'Turn your coding skills into real-world experience with YogTech. Practical 6-month & 12-month software internships and paid technical training programs in ASP.NET Core, Angular, Python, Cloud, and Databases.',
+    h1: 'Turn Your Coding Skills Into Real-World Experience',
+    directAnswer: 'YogTech provides professional 6-month and 12-month software internship tracks with live project exposure under developer guidance, alongside structured paid technical training programs across backend, frontend, database, and cloud technologies.',
+    type: 'Course',
+    faqs: [
+      { q: 'What internship programs does YogTech offer?', a: 'YogTech offers 6-month and 12-month practical software development internships focusing on real-world development workflows, live project exposure, and API & database integration.' },
+      { q: 'Are YogTech technical training programs free or paid?', a: 'All YogTech technical training programs are paid enrollment programs with transparent fee structures shared upon enquiry.' },
+      { q: 'What technologies are covered in YogTech training programs?', a: 'Training spans ASP.NET Core, C#, Angular, Node.js, Python, Java, PostgreSQL, AWS, Linux VPS, Flutter, and AI & Data Analytics basics.' }
+    ]
+  },
+
   // ── 3. About ─────────────────────────────────────────────────────────────
   {
     path: 'about',

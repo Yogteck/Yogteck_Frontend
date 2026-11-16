@@ -34,9 +34,9 @@
   --text-dark-muted: #647068;
 
   --banner-bg: #18221B;
-  --footer-bg: #18221B;
-  --footer-heading: #F2EFE9;
-  --footer-link: #A3B0A6;
+  --footer-bg: #FAF8F5;
+  --footer-heading: #111827;
+  --footer-link: #1F2922;
 
   /* Strict Shape Rules: Square corners on menu, buttons, input (0px); cards at most 4px */
   --radius-square: 0px;
@@ -1346,35 +1346,44 @@ body.theme-light {
   }
   /* Footer Light Mode Overrides */
   .site-footer {
-    background-color: #FFFFFF;
-    border-top: 1px solid #E2E8F0;
-    color: #334155;
+    background-color: var(--bg-card, #FAF8F5);
+    border-top: 1px solid var(--border-line, #DCD7CD);
+    color: #1F2922;
   }
   .footer-top-band {
-    border-bottom: 1px solid #E2E8F0;
+    border-bottom: 1px solid var(--border-line, #DCD7CD);
   }
   .footer-divider-vert {
-    background: #E2E8F0;
+    background: var(--border-line, #DCD7CD);
   }
   .footer-brand-name {
-    color: #0F172A;
+    color: #111827;
   }
   .footer-brand-slogan {
-    color: #EA580C;
+    color: #B4654A;
   }
-  .footer-bio {
-    color: #475569;
-  }
-  .block-title {
-    color: #0F172A;
-    font-weight: 700;
-  }
-  .footer-contact-item {
-    color: #1E293B;
+  .footer-bio,
+  .footer-desc {
+    color: #1F2922;
     font-weight: 500;
   }
-  .footer-contact-item:hover {
-    color: #EA580C;
+  .footer-heading,
+  .block-title {
+    color: #111827;
+    font-weight: 800;
+  }
+  .footer-link {
+    color: #1F2922;
+    font-weight: 600;
+  }
+  .footer-contact-item,
+  .footer-contact-link {
+    color: #111827;
+    font-weight: 700;
+  }
+  .footer-contact-item:hover,
+  .footer-contact-link:hover {
+    color: #B4654A;
   }
   .icon-wa {
     background: #ECFDF5;
@@ -1388,42 +1397,51 @@ body.theme-light {
     background: #FFF1F2;
     color: #E11D48;
   }
-  .address-text {
-    color: #1E293B;
+  .address-text,
+  .hours-text,
+  .support-text {
+    color: #1F2922;
     font-weight: 500;
   }
   .footer-offer-box {
-    background: #FFF7ED;
-    border: 1px dashed #F97316;
-    box-shadow: 0 4px 16px rgba(234, 88, 12, 0.08);
+    background: #FAF8F5;
+    border: 1px dashed var(--accent, #B4654A);
+    box-shadow: 0 4px 16px rgba(180, 101, 74, 0.08);
   }
   .offer-icon {
-    background: #FFEDD5;
-    color: #EA580C;
+    background: #E8E4DC;
+    color: #B4654A;
   }
   .offer-badge {
-    color: #059669;
+    color: #10B981;
   }
   .offer-title {
-    color: #0F172A;
+    color: #111827;
   }
   .offer-sub {
-    color: #64748B;
+    color: #4A554E;
   }
-  .footer-bottom-band {
-    color: #475569;
+  .footer-bottom-band,
+  .footer-bottom {
+    color: #1F2922;
   }
-  .footer-copyright {
-    color: #475569;
+  .footer-copyright,
+  .copyright-text {
+    color: #1F2922;
+    font-weight: 500;
   }
-  .footer-nav-links a {
-    color: #475569;
+  .footer-nav-links a,
+  .footer-bottom-links a {
+    color: #1F2922;
+    font-weight: 600;
   }
-  .footer-nav-links a:hover {
-    color: #EA580C;
+  .footer-nav-links a:hover,
+  .footer-bottom-links a:hover {
+    color: #B4654A;
   }
-  .f-sep {
-    color: #CBD5E1;
+  .f-sep,
+  .bot-sep {
+    color: rgba(31, 41, 34, 0.4);
   }
   .footer-quick-wa {
     background: #ECFDF5;

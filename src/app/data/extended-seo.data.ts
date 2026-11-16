@@ -308,25 +308,25 @@ export const CLIENTS_CASE_STUDIES_DATA: Record<string, ClientCaseStudyData> = {
     companyName: 'Akash Racks',
     shortName: 'Akash Racks',
     metaTitle: 'Akash Racks Case Study | Store & Mall Display Racks | YogTeck',
-    metaDescription: 'Discover how YogTeck engineered the digital catalog and RFQ quotation portal for Akash Racks (racks.yogtech.com), powering commercial rack installation for malls, supermarkets, and stores.',
+    metaDescription: 'Discover how YogTeck engineered the digital catalog and RFQ quotation portal for Akash Racks (racks.yogteck.com), powering commercial rack installation for malls, supermarkets, and stores.',
     h1: 'Akash Racks Store & Mall Racks Installation Case Study',
     industry: 'Mall & Store Racks Installation',
     accentColor: '#1A9C55',
-    summary: 'Complete display and storage rack installation solutions for shopping malls, supermarkets, retail grocery stores & commercial warehouses (racks.yogtech.com).',
-    clientOverview: 'Akash Racks specializes in complete manufacturing and on-site installation of display racks and storage solutions for shopping malls, supermarkets, hypermarkets, department stores, and commercial warehouses (racks.yogtech.com). They partnered with YogTeck to build a digital presence and streamline B2B inquiries.',
+    summary: 'Complete display and storage rack installation solutions for shopping malls, supermarkets, retail grocery stores & commercial warehouses (racks.yogteck.com).',
+    clientOverview: 'Akash Racks specializes in complete manufacturing and on-site installation of display racks and storage solutions for shopping malls, supermarkets, hypermarkets, department stores, and commercial warehouses (racks.yogteck.com). They partnered with YogTeck to build a digital presence and streamline B2B inquiries.',
     challengeSolved: 'Retail store owners, supermarket franchisees, and mall project managers needed to explore various rack designs (center gondola racks, wall display units, corner shelving, heavy-duty pallet racks) and request customized quotes quickly based on store layout square footage.',
-    solutionDelivered: 'YogTeck built a high-speed digital catalog and quotation engine on racks.yogtech.com. The platform includes technical dimension specifications, load capacity ratings, photo galleries of completed mall installations, and instant RFQ quotation routing to field engineers.',
+    solutionDelivered: 'YogTeck built a high-speed digital catalog and quotation engine on racks.yogteck.com. The platform includes technical dimension specifications, load capacity ratings, photo galleries of completed mall installations, and instant RFQ quotation routing to field engineers.',
     verifiedMetrics: [
-      'Complete Mall & Supermarket Display Rack Catalog (racks.yogtech.com)',
+      'Complete Mall & Supermarket Display Rack Catalog (racks.yogteck.com)',
       'Instant RFQ Quotation Generation for Retail Clients',
       'Fast Mobile-Optimized Browsing for Store Managers',
       'Direct Sales Routing via WhatsApp & Web Forms'
     ],
     ownerPlaceholders: [],
-    tags: ['Mall Racks', 'Supermarket Display', 'Retail Store Shelving', 'racks.yogtech.com', 'Commercial Installation'],
+    tags: ['Mall Racks', 'Supermarket Display', 'Retail Store Shelving', 'racks.yogteck.com', 'Commercial Installation'],
     faqs: [
-      { question: 'What types of racks are featured on racks.yogtech.com?', answer: 'The portal features supermarket display racks, grocery store gondolas, shopping mall merchandise stands, pharmacy display racks, and industrial warehouse storage racks.' },
-      { question: 'Can clients request custom dimensions for retail spaces?', answer: 'Yes, the RFQ quotation engine on racks.yogtech.com allows buyers to input their floor plan dimensions and obtain tailored recommendations.' }
+      { question: 'What types of racks are featured on racks.yogteck.com?', answer: 'The portal features supermarket display racks, grocery store gondolas, shopping mall merchandise stands, pharmacy display racks, and industrial warehouse storage racks.' },
+      { question: 'Can clients request custom dimensions for retail spaces?', answer: 'Yes, the RFQ quotation engine on racks.yogteck.com allows buyers to input their floor plan dimensions and obtain tailored recommendations.' }
     ]
   },
 

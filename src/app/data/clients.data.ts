@@ -27,8 +27,8 @@ export const CLIENTS_DATA: ClientItem[] = [
     category: 'Mall & Store Racks Installation',
     initials: 'AR',
     accentColor: '#1A9C55',
-    website: 'https://racks.yogtech.com',
-    description: 'Complete display and storage rack installation solutions for shopping malls, supermarkets, retail grocery stores & commercial warehouses (racks.yogtech.com).'
+    website: 'https://racks.yogteck.com/',
+    description: 'Complete display and storage rack installation solutions for shopping malls, supermarkets, retail grocery stores & commercial warehouses (racks.yogteck.com).'
   },
   {
     id: 'yogcart',
@@ -87,7 +87,7 @@ export const CLIENTS_DATA: ClientItem[] = [
     category: 'Industrial Storage & Mezzanines',
     initials: 'TR',
     accentColor: '#1A9C55',
-    website: 'https://racks.yogtech.com',
-    description: 'B2B digital catalog and industrial racking quotation portal engineered for national commercial buyers (racks.yogtech.com).'
+    website: 'https://racks.yogteck.com/',
+    description: 'B2B digital catalog and industrial racking quotation portal engineered for national commercial buyers (racks.yogteck.com).'
   }
 ];

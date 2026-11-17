@@ -1,6 +1,7 @@
-import { Component, EventEmitter, HostListener, Output, inject } from '@angular/core';
+import { Component, EventEmitter, HostListener, Output, inject, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule, Router } from '@angular/router';
+import { RouterModule, Router, NavigationEnd } from '@angular/router';
+import { filter, Subscription } from 'rxjs';
 import { CONTACT_CONFIG } from '../../data/contact.config';
 import { LocaleService } from '../../services/locale.service';
 
@@ -11,7 +12,7 @@ import { LocaleService } from '../../services/locale.service';
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css'
 })
-export class NavbarComponent {
+export class NavbarComponent implements OnDestroy {
   @Output() openQuote = new EventEmitter<void>();
   @Output() toggleDrawer = new EventEmitter<void>();
 
@@ -23,6 +24,24 @@ export class NavbarComponent {
   isScrolled = false;
   isMobileMenuOpen = false;
   openSubmenuId: string | null = null;
+  private routerSub: Subscription;
+
+  constructor() {
+    this.routerSub = this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd)
+    ).subscribe(() => {
+      this.closeMobileMenu();
+    });
+  }
+
+  ngOnDestroy(): void {
+    if (this.routerSub) {
+      this.routerSub.unsubscribe();
+    }
+    if (typeof document !== 'undefined') {
+      document.body.style.overflow = '';
+    }
+  }
 
   @HostListener('window:scroll', [])
   onWindowScroll(): void {
@@ -34,8 +53,11 @@ export class NavbarComponent {
   @HostListener('document:click', ['$event'])
   onDocumentClick(event: MouseEvent): void {
     const target = event.target as HTMLElement;
-    if (!target.closest('.item.has-sub') && !target.closest('.menu-btn')) {
+    if (!target.closest('.item.has-sub') && !target.closest('.menu-btn') && !target.closest('.mobile-drawer-header')) {
       this.openSubmenuId = null;
+    }
+    if (this.isMobileMenuOpen && !target.closest('#nav') && !target.closest('.menu-btn')) {
+      this.closeMobileMenu();
     }
   }
 
